@@ -2,6 +2,7 @@
 Virtual Intelligence
 ----------------------
 Framework of Artificial Intelligence 
+----------------------
 	Virtual Neurons
 	GA
 	Artificial Networks
