@@ -1,6 +1,5 @@
-# VI
-Virtual Intelligence
-----------------------
+# VI - Virtual Intelligence
+----------------------------
 Framework of Artificial Intelligence 
 ----------------------
 	Virtual Neurons
