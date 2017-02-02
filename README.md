@@ -2,8 +2,8 @@
 Virtual Intelligence
 ----------------------
 Framework of Artificial Intelligence 
--- Virtual Neurons
--- GA
--- Artificial Networks
--- Learning Methods
--- Math Custom Tools
+\n-- Virtual Neurons
+\n-- GA
+\n-- Artificial Networks
+\n-- Learning Methods
+\n-- Math Custom Tools
