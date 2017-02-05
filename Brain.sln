@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Genetic", "Genetic\Genetic.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesktopPresentation", "DesktopPresentation\DesktopPresentation.csproj", "{D5561C7F-5EFC-4998-810F-1600689514F1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Automata", "Automata\Automata.csproj", "{56C6F284-9031-4F99-9807-802C07879497}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{D5561C7F-5EFC-4998-810F-1600689514F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D5561C7F-5EFC-4998-810F-1600689514F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D5561C7F-5EFC-4998-810F-1600689514F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56C6F284-9031-4F99-9807-802C07879497}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56C6F284-9031-4F99-9807-802C07879497}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56C6F284-9031-4F99-9807-802C07879497}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56C6F284-9031-4F99-9807-802C07879497}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
