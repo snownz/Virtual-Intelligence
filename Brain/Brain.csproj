@@ -58,10 +58,12 @@
     <Compile Include="Learning\Interface\ISupervisedLearning.cs" />
     <Compile Include="Learning\ResilientBackpropagationLearning.cs" />
     <Compile Include="Learning\SOMLearning.cs" />
+    <Compile Include="Node\CoopNode.cs" />
     <Compile Include="Node\Interface\IActivationNode.cs" />
     <Compile Include="Node\Interface\IDistanceNode.cs" />
     <Compile Include="Node\NodeCreator.cs" />
     <Compile Include="Node\Synapse.cs" />
+    <Compile Include="Node\SynapseBack.cs" />
     <Compile Include="Signal\ActivationSignal.cs" />
     <Compile Include="Signal\DisntanceSignal.cs" />
     <Compile Include="Signal\ISignalFunction.cs" />

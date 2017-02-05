@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Brain.Node;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -50,6 +51,6 @@ namespace Brain.Activation.Interface
         /// so they can save the amount of calculations using this method to calculate derivative.</note></para>
         /// </remarks>
         /// 
-        double Derivative2(double y);
+        double Derivative2(BaseNode node, double y);
     }
 }

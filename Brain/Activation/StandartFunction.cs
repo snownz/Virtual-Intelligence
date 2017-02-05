@@ -1,4 +1,5 @@
 ﻿using Brain.Activation.Interface;
+using Brain.Node;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +26,7 @@ namespace Brain.Activation
             return x;
         }
                
-        public double Derivative2(double y)
+        public double Derivative2(BaseNode node, double y)
         {
             return y;
         }

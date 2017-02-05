@@ -35,7 +35,7 @@ namespace Brain.Learning
                 {
                     sum += nextErrors[k];
                 }
-                var error = sum * neuron.activation.Derivative2(output);
+                var error = sum * neuron.activation.Derivative2(neuron, output);
                 return error;
             }
             else
@@ -43,7 +43,7 @@ namespace Brain.Learning
                 var d = desiredOutput.FirstOrDefault(x => x.Neuron == neuron.GetHashCode().ToString());
                 var output = neuron.Value ?? 0;
                 var e = d.Value - output;
-                var error = e * neuron.activation.Derivative2(output);
+                var error = e * neuron.activation.Derivative2(neuron, output);
                 return error;
             }
         }

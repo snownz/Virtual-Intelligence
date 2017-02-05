@@ -21,6 +21,7 @@ namespace Brain.Node
     {
         private ThreadSafeRandom rand = new ThreadSafeRandom();
         private Range randRange = new Range(0.0f, 1.0f);    
+
         private string name;
         private int layer;
         private double learningRate;
@@ -34,9 +35,7 @@ namespace Brain.Node
         private ELearning learning;
         private ISupervisedLearning Supervised;
         private IUnsupervisedLearning Unsupervised;
-
-        public IActivationFunction activation;
-        public ISignalFunction signal;       
+        
         public string Name
         {
             get { return name; }
@@ -114,19 +113,21 @@ namespace Brain.Node
                 switch (value)
                 {
                     case ELearning.Supervised:
-                        UpdateConnections = (desired, rate) => { Supervised.UpdateWeights(this, desired); LearningRate = LearningRate - DegradationValue; };
+                        UpdateConnections = (desired) => { Supervised.UpdateWeights(this, desired); LearningRate = LearningRate - DegradationValue; };
                         break;
                     case ELearning.UnSupervised:
-                        UpdateConnections = (desired, rate) => { Unsupervised.UpdateWeights(this, rate.Value); LearningRate = LearningRate - DegradationValue; };
+                        UpdateConnections = (desired) => { Unsupervised.UpdateWeights(this); LearningRate = LearningRate - DegradationValue; };
                         break;
                     default:
-                        UpdateConnections = (desired, rate) => { };
+                        UpdateConnections = (desired) => { };
                         break;
                 }
                 learning = value;
             }
         }
-        
+        public IActivationFunction activation { get; protected set; }
+        public ISignalFunction signal { get; protected set; }
+
         private void _contructor()
         {
             Threshold = 1.0;
@@ -185,7 +186,7 @@ namespace Brain.Node
             _contructor();
         }
 
-        protected virtual double? Input()
+        public virtual double? Input()
         {
             var values = ConnectionsTo.Select(x => x.ConnectedNode.Output() ?? 0.0).ToArray();
             var weights = ConnectionsTo.Select(x => x.Weight).ToArray();
@@ -196,8 +197,8 @@ namespace Brain.Node
             value = activation.Function(Input() ?? 00);
             return value;
         }
-        public delegate void UpdateDelegate(Desired[] desired = null, double? rate = null);
-        public UpdateDelegate UpdateConnections = (desired, rate) => { };
+        public delegate void UpdateDelegate(Desired[] desired = null);
+        public UpdateDelegate UpdateConnections = (desired) => { };
 
         public void InitWeigth()
         {
@@ -220,11 +221,5 @@ namespace Brain.Node
         {
             return new BaseNode();
         }
-    }
-
-    public class SynapseBack
-    {
-        public BaseNode Node { get; set; }
-        public Synapse Link { get; set; }
     }
 }

@@ -24,7 +24,7 @@ namespace Brain.Node
             signal = new LinearSignal(IntervalNormalization, IntervalNormalizationOutput);
         }
 
-        protected override double? Input()
+        public override double? Input()
         {
             return signal.Compute(this, new[] { Value ?? 0 }, null);   
         }
