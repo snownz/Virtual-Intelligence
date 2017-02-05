@@ -10,7 +10,7 @@ namespace Brain.Node
 {
     public class BiasNeuron : BaseNode
     {
-        protected override double? Input()
+        public override double? Input()
         {
             return Value;
         }

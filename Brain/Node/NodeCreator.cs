@@ -20,7 +20,6 @@ namespace Brain.Node
             }
             return array;
         }
-
         public static BaseNode SigmoidSupervisedBP(string name, double learning, double momentum)
         {
             return new BaseNode(new SigmoidFunction(), new ActivationSignal(), new BackPropagationLearning())
@@ -30,7 +29,26 @@ namespace Brain.Node
                 Name = name
             };
         }
-        
+
+        public static BaseNode[] ThresholdSupervisedBPArray(int size, string layerName, double learning, double momentum)
+        {
+            var array = new BaseNode[size];
+            for (int i = 0; i < size; i++)
+            {
+                array[i] = ThresholdSupervisedBP($"{layerName}{i}", learning, momentum);
+            }
+            return array;
+        }
+        public static BaseNode ThresholdSupervisedBP(string name, double learning, double momentum)
+        {
+            return new BaseNode(new ThresholdFunction(), new ActivationSignal(), new BackPropagationLearning())
+            {
+                LearningRate = learning,
+                Momentum = momentum,
+                Name = name
+            };
+        }
+
         public static void ConnectNodes(BaseNode[] from, BaseNode[] to)
         {
             for (int i = 0; i < from.Length; i++)

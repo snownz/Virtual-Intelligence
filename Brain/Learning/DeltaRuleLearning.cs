@@ -20,7 +20,7 @@ namespace Brain.Learning
             if(d != null)
             {
                 var e = d.Value - (neuron.Value ?? 0.0);
-                var functionDerivative = neuron.activation.Derivative2(neuron.Value ?? 0.0);
+                var functionDerivative = neuron.activation.Derivative2(neuron, neuron.Value ?? 0.0);
 
                 neuron.ConnectionsTo.ForEach(Cnode =>
                 {
