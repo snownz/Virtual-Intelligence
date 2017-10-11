@@ -32,7 +32,7 @@ namespace VI.Labs
 
             var e = double.MaxValue;
 
-            while (e > values[1])
+            while (true)
             {
                 var watch = System.Diagnostics.Stopwatch.StartNew();
                 e = 0;
@@ -64,9 +64,9 @@ namespace VI.Labs
                 cont++;
                 watch.Stop();
                 var time = watch.ElapsedMilliseconds;
-                Console.WriteLine($"Interactions: {cont}\nError: {e}\nTime: {time}");
+                Console.WriteLine($"Interactions: {cont}\nError: {e}\nTime: { time }");
+                Console.Title = $"FPS: {Math.Ceiling(1000d / time)}";
             }
-            Console.ReadKey();
         }
 
         public static InputOutputTrainning[] EvenOrOddData(string even, string odd)
