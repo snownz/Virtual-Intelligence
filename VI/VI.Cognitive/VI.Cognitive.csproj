@@ -74,7 +74,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ANNOperations\ANNOperationsInterface.cs" />
+    <Compile Include="Factory\CpuLayerFactory.cs" />
     <Compile Include="Factory\CudaLayerFactory.cs" />
+    <Compile Include="Factory\ILayerFactory.cs" />
     <Compile Include="Layer\ActivationLayer.cs" />
     <Compile Include="Node\HiddenNeuron.cs" />
     <Compile Include="Node\INeuron.cs" />

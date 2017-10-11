@@ -50,6 +50,7 @@ namespace VI.Cognitive.ANNOperations
                          , forWard.OutputVector.View
                          , forWard.SumVector.View);
         }
+
         public void BackWardOutputGradient(ActivationLayer target, MemoryBuffer<float> desired)
         {
             using (var de_dOut = _operations.Executor.CreateBuffer<float>(target.Size))

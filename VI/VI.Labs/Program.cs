@@ -15,6 +15,8 @@ namespace VI.Labs
 
             string header = $"Learning Rate: {values[0]}\nMin Error:{values[1]}\nMomentum: {values[3]}\n";
 
+            LayerCreator.ChangeDevice = Device.CPU;
+
             var hiddens = LayerCreator.LeakReluSupervisedHiddenBPArray(2, 4, values[0], values[3]);
             var hiddens2 = LayerCreator.LeakReluSupervisedHiddenBPArray(2, 2, values[0], values[3]);
             var hiddens3 = LayerCreator.LeakReluSupervisedHiddenBPArray(2, 2, values[0], values[3]);

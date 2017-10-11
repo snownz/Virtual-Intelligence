@@ -10,9 +10,30 @@ using VI.ParallelComputing.ANN;
 
 namespace VI.Cognitive.Node
 {
+    public enum Device
+    {
+        CUDA,
+        CPU
+    }
     public class LayerCreator
     {
-        static CudaLayerFactory _factory = new CudaLayerFactory();
+        static ILayerFactory _factory;
+        
+        public static Device ChangeDevice
+        {
+            set
+            {
+                switch (value)
+                {
+                    case Device.CPU:
+                        _factory = new CudaLayerFactory();
+                        break;
+                    case Device.CUDA:
+                        _factory = new CpuLayerFactory();
+                        break;
+                }
+            }
+        }
 
         public static OutputNeuron SigmoidSupervisedOutputBPArray(int size, int connections, float learning, float momentum)
         {
