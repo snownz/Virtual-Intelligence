@@ -20,6 +20,7 @@ namespace VI.Cognitive.ANNOperations
             _operations = operations;
         }
 
+        //TODO Create a mothod to remove a loop in GPU (Reduction Parallel Sum)
         public void FeedForward(MemoryBuffer<float> feed, ActivationLayer forWard)
         {
             _operations
@@ -102,6 +103,7 @@ namespace VI.Cognitive.ANNOperations
             //backpropagate error
         }
 
+        //TODO Create a mothod to remove a loop in GPU (Reduction Parallel Sum)
         public void ComputeErrorLayer(ActivationLayer target)
         {
             _operations
