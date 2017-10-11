@@ -31,17 +31,21 @@ namespace VI.Maths.ANNArray
             int y = t.Y;
             newM[x, y] = wight[x, y] + (error[x] * inputs[y] * lr) + (momentum * wight[x, y]);
         }
-        public static void _sum_weights_(Index2 t, ArrayView<float> newV, ArrayView<float> inputs, ArrayView2D<float> wight)
+        public static void _sum_weights_(Index t, ArrayView<float> newV, ArrayView<float> inputs, ArrayView2D<float> wight, int h)
         {
             int x = t.X;
-            int y = t.Y;
-            newV[x] += inputs[y] * wight[x, y];
+            for (int y = 0; y < h; y++)
+            {
+                newV[x] += inputs[y] * wight[x, y];
+            }
         }
-        public static void _process_error_to_back_propagate(Index2 t, ArrayView<float> newV, ArrayView<float> error, ArrayView2D<float> wight)
+        public static void _process_error_to_back_propagate(Index t, ArrayView<float> newV, ArrayView<float> error, ArrayView2D<float> wight, int h)
         {
             int x = t.X;
-            int y = t.Y;
-            newV[y] += wight[x, y] * error[x];
+            for (int y = 0; y < h; y++)
+            {
+                newV[y] += wight[x, y] * error[x];
+            }
         }
         public static void _update_bias_(Index t, ArrayView<float> newV, ArrayView<float> bias, ArrayView<float> error, float lr, float momentum)
         {

@@ -49,11 +49,25 @@ namespace VI.ParallelComputing
             return buffer;
         }
 
-        public void Execute<T>(string kernelName, Index size, ArrayView<T> result)
+        public void Execute<T>(string kernelName, 
+                               Index size, 
+                               ArrayView<T> result)
             where T : struct
         {
             var kernel = _kernels[kernelName];
             kernel.Launch(size, result);
+            _accelerator.Synchronize();
+        }
+        public void Execute<T>(string kernelName,
+                               Index size,
+                               ArrayView<T> result,
+                               ArrayView<T> v,
+                               ArrayView2D<T> m,
+                               int c)
+            where T : struct
+        {
+            var kernel = _kernels[kernelName];
+            kernel.Launch(size, result, v, m, c);
             _accelerator.Synchronize();
         }
         public void Execute<T>(string kernelName, 
@@ -70,6 +84,7 @@ namespace VI.ParallelComputing
         public void Execute<T>(string kernelName,
                               Index2 size,
                               ArrayView2D<T> result,
+                              ArrayView2D<T> m1,
                               ArrayView<T> v1,
                               ArrayView<T> v2,
                               float c1,
@@ -77,19 +92,20 @@ namespace VI.ParallelComputing
            where T : struct
         {
             var kernel = _kernels[kernelName];
-            kernel.Launch(size, result, v1, v2, c1, c2);
+            kernel.Launch(size, result, m1, v1, v2, c1, c2);
             _accelerator.Synchronize();
         }
         public void Execute<T>(string kernelName,
                              Index size,
                              ArrayView<T> result,
                              ArrayView<T> v1,
+                             ArrayView<T> v2,
                              float c1,
                              float c2)
           where T : struct
         {
             var kernel = _kernels[kernelName];
-            kernel.Launch(size, result, v1, c1, c2);
+            kernel.Launch(size, result, v1, v2, c1, c2);
             _accelerator.Synchronize();
         }
         public void Execute<T>(string kernelName,

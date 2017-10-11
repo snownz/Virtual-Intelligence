@@ -30,10 +30,11 @@ namespace VI.Cognitive.ANNOperations
             _operations
                 .Executor
                 .Execute("_sum_weights_"
-                         , forWard.MSize
+                         , forWard.Size
                          , forWard.SumVector.View
                          , feed.View
-                         , forWard.KnowlodgeMatrix.View);
+                         , forWard.KnowlodgeMatrix.View
+                         , forWard.ConectionsSize);
             _operations
                 .Executor
                 .Execute("_sum_1D_"
@@ -105,11 +106,17 @@ namespace VI.Cognitive.ANNOperations
         {
             _operations
                 .Executor
+                .Execute("_zeros_"
+                         , target.ConectionsSize
+                         , target.ErrorWeightVector.View);
+            _operations
+                .Executor
                 .Execute("_process_error_to_back_propagate"
-                         , target.MSize
+                         , target.Size
                          , target.ErrorWeightVector.View
                          , target.ErrorVector.View
-                         , target.KnowlodgeMatrix.View);
+                         , target.KnowlodgeMatrix.View
+                         , target.ConectionsSize);
         }
 
         public void ComputeCachedVariables(ActivationLayer target)
@@ -125,6 +132,7 @@ namespace VI.Cognitive.ANNOperations
                 .Execute("_update_weights_"
                          , target.MSize
                          , target.KnowlodgeMatrix.View
+                         , target.KnowlodgeMatrix.View
                          , target.ErrorVector.View
                          , inputs.View
                          , target.CachedLearningRate
@@ -138,6 +146,7 @@ namespace VI.Cognitive.ANNOperations
                 .Executor
                 .Execute("_update_bias_"
                          , target.Size
+                         , target.BiasVector.View
                          , target.BiasVector.View
                          , target.ErrorVector.View
                          , target.CachedLearningRate

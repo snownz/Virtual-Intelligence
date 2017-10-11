@@ -73,6 +73,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ANN\CpuAnnInterface .cs" />
     <Compile Include="ANN\CudaAnnInterface.cs" />
     <Compile Include="ANN\IAnnParallelInterface.cs" />
     <Compile Include="ParalleExecutorlInterface.cs" />

@@ -9,17 +9,17 @@ namespace VI.Cognitive.Factory
     {
         public ANNOperationsInterface Sigmoid()
         {
-            return new ANNOperationsInterface(new CudaAnnInterface<SigmoidFunction>());
+            return new ANNOperationsInterface(new CpuAnnInterface<SigmoidFunction>());
         }
 
         public ANNOperationsInterface LeakRelu()
         {
-            return new ANNOperationsInterface(new CudaAnnInterface<LeakyRELUFunction>());
+            return new ANNOperationsInterface(new CpuAnnInterface<LeakyRELUFunction>());
         }
 
         public ANNOperationsInterface TANH()
         {
-            return new ANNOperationsInterface(new CudaAnnInterface<TANHFuncion>());
+            return new ANNOperationsInterface(new CpuAnnInterface<TANHFuncion>());
         }
 
         public HiddenNeuron HiddenNeuron(int size, int connections, float learning, float momentum, ANNOperationsInterface operations)

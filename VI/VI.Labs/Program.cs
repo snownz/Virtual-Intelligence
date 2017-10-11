@@ -14,11 +14,11 @@ namespace VI.Labs
             var values = new[] { .9f, .01f, 0f, 0f };
 
             string header = $"Learning Rate: {values[0]}\nMin Error:{values[1]}\nMomentum: {values[3]}\n";
-            // ParallelLayerCreator
-            // LayerCreator
-            var hiddens = LayerCreator.SigmoidSupervisedHiddenBPArray(100, 4, values[0], values[3]);
-            var hiddens2 = LayerCreator.SigmoidSupervisedHiddenBPArray(100, 100, values[0], values[3]);
-            var outputs = LayerCreator.SigmoidSupervisedOutputBPArray(2, 100, values[0], values[3]);
+
+            var hiddens = LayerCreator.LeakReluSupervisedHiddenBPArray(2, 4, values[0], values[3]);
+            var hiddens2 = LayerCreator.LeakReluSupervisedHiddenBPArray(2, 2, values[0], values[3]);
+            var hiddens3 = LayerCreator.LeakReluSupervisedHiddenBPArray(2, 2, values[0], values[3]);
+            var outputs = LayerCreator.SigmoidSupervisedOutputBPArray(2, 2, values[0], values[3]);
 
             LayerCreator.SynapseFull(hiddens);
             LayerCreator.SynapseFull(hiddens2);
@@ -43,11 +43,13 @@ namespace VI.Labs
                     // Feed Forward
                     var _h = hiddens.Output(inputs);
                     var _h2 = hiddens2.Output(_h);
-                    var _o = outputs.Output(_h2);
+                    var _h3 = hiddens3.Output(_h2);
+                    var _o = outputs.Output(_h3);
 
                     // Backward
-                    var _oe = outputs.Learn(_h2, desireds);
-                    var _he2 = hiddens2.Learn(_h, _oe);
+                    var _oe  = outputs.Learn (_h3, desireds);
+                    var _he3 = hiddens3.Learn(_h2, _oe);
+                    var _he2 = hiddens2.Learn(_h, _he3);
                     hiddens.Learn(inputs, _he2);
 
                     // Error
