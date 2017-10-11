@@ -78,6 +78,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Desired.cs" />
+    <Compile Include="Models\InputOutputTrainning.cs" />
+    <Compile Include="Models\InputTrainning.cs" />
+    <Compile Include="Models\TrainningValues.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

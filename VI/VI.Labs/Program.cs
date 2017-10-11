@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using VI.Cognitive.Node;
+using VI.Labs.Models;
 
 namespace VI.Labs
 {
@@ -198,29 +199,6 @@ namespace VI.Labs
                     }
                 },
             };
-        }
-
-        public class InputOutputTrainning
-        {
-            public List<TrainningValues> Values = new List<TrainningValues>();
-            public List<Desired> DesiredValues = new List<Desired>();
-        }
-
-        public class InputTrainning
-        {
-            public List<TrainningValues> Values = new List<TrainningValues>();
-        }
-
-        public class TrainningValues
-        {
-            public float Value { get; set; }
-            public string InputName { get; set; }
-        }
-
-        public class Desired
-        {
-            public string Neuron { get; set; }
-            public float Value { get; set; }
-        }
+        }             
     }
 }
