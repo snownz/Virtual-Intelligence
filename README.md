@@ -1,6 +1,6 @@
 # VI - Virtual Intelligence
 ----------------------------
-Framework of Artificial Intelligence 
+Framework for Artificial Intelligence 
 ----------------------
 	Virtual Neurons
 	GA
@@ -8,6 +8,3 @@ Framework of Artificial Intelligence
 	Learning Methods
 	Math Custom Tools
 -------------------------
-Interface
-
-![alt tag](https://github.com/snownz/VI/blob/master/Desktop.png)
