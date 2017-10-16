@@ -4,7 +4,7 @@ Framework for Artificial Intelligence
 ----------------------
 	Virtual Neurons
 	GA
-	Artificial Networks
+	Artificial Neural Networks
 	Learning Methods
 	Math Custom Tools
 -------------------------
@@ -29,7 +29,7 @@ Framework for Artificial Intelligence
 	Cooperative Neurons 	-> ??/??/2018
 ```
 
-#### Parallel Processing
+#### Parallel Processing Artificial Neural Networks
 ```ini
 	https:\\ilgpu.bet/Home/Roadmap
 ```
@@ -42,7 +42,7 @@ Framework for Artificial Intelligence
 	SoftMax	-> 10/12/2017
 ```
 
-#### Artificial Networks
+#### Artificial Neural Networks
 ```ini
 	MLP 		-> 16/10/2017
 	Conv 		-> ??/??/2018
