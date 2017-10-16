@@ -31,7 +31,7 @@ Framework for Artificial Intelligence
 
 #### Parallel Processing Artificial Neural Networks
 
-	ILGPU -> http://ilgpu.bet/Home/Roadmap	
+	ILGPU -> (http://ilgpu.net/Home/Roadmap)
 
 #### Activations Support
 ```ini
