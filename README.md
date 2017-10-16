@@ -31,6 +31,7 @@ Framework for Artificial Intelligence
 
 #### Parallel Processing Artificial Neural Networks
 ```ini
+	[GitHub](http://github.com)
 	[ILGPU](http://ilgpu.bet/Home/Roadmap)	
 ```
 
