@@ -116,16 +116,15 @@ namespace VI.Cognitive.Node
         public int Nodes => _layer.Size;
         public int Connections => _layer.ConectionsSize;
 
-        public OutputNeuron2(int nodeSize, int connectionSize, float learningRate, float momentum,
-            ANNBasicOperations operations)
+        public OutputNeuron2(int nodeSize, int connectionSize, float learningRate, ANNBasicOperations operations)
         {
             _layer = new ActivationLayer2(nodeSize, connectionSize);
             _ann = operations;
 
             _layer.KnowlodgeMatrix = new Array2D<float>(nodeSize, connectionSize);
-         
+
             _layer.LearningRate = learningRate;
-            _layer.Momentum = momentum;
+            _layer.CachedLearningRate = learningRate;
 
             _layer.OutputVector = new Array<float>(nodeSize);
 
