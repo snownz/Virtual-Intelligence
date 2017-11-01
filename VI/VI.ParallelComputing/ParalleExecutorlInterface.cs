@@ -30,6 +30,12 @@ namespace VI.ParallelComputing
             var buffer = _accelerator.Allocate<T>(w, h);
             return buffer;
         }
+        public MemoryBuffer2D<T> CreateBuffer<T>(Index2 index)
+          where T : struct
+        {
+            var buffer = _accelerator.Allocate<T>(index.X, index.Y);
+            return buffer;
+        }
 
         public MemoryBuffer<T> SetBuffer<T>(T[] obj)
             where T : struct

@@ -4,7 +4,7 @@ using System;
 
 namespace VI.Maths.LogisticFunctions
 {
-    public class LeakyRELUFunction : IActivationFunction
+    public class LeakyRELUFunction
     {
         public static void Derivative(Index t, ArrayView<float> v, ArrayView<float> x)
         {

@@ -4,13 +4,11 @@ using ILGPU.Runtime.Cuda;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using VI.Maths.ANNArray;
-using VI.Maths.LogisticFunctions;
+using VI.Maths.Array;
 
 namespace VI.ParallelComputing.ANN
 {
     public class CudaAnnInterface<T> : IAnnParallelInterface
-        where T : IActivationFunction
     {
         private Context _context;
         private Accelerator _accelerator;
@@ -50,13 +48,13 @@ namespace VI.ParallelComputing.ANN
         {
             var result = new Dictionary<string, Kernel>();
 
-            var methods = typeof(ANNArrayOperations)
+            var methods = typeof(ANNParallelArrayOperations)
                 .GetMethods(BindingFlags.Static | BindingFlags.Public)
                 .Select(x => x.Name)
                 .ToList();
 
             var compileds = translator
-                .TranslateMethod(typeof(ANNArrayOperations), methods)
+                .TranslateMethod(typeof(ANNParallelArrayOperations), methods)
                 .ToList();
 
             for (int i = 0; i < methods.Count(); i++)

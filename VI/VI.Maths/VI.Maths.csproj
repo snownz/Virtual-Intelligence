@@ -73,8 +73,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ANNArray\ANNArrayOperations.cs" />
-    <Compile Include="LogisticFunctions\IActivationFunction.cs" />
+    <Compile Include="Array\ANNArrayOperations.cs" />
+    <Compile Include="Array\ArrayOperations.cs" />
     <Compile Include="LogisticFunctions\LeakyRELUFunction.cs" />
     <Compile Include="LogisticFunctions\RELUFunction.cs" />
     <Compile Include="LogisticFunctions\SigmoidFunction.cs" />

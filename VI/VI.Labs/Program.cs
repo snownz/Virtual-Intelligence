@@ -18,15 +18,24 @@ namespace VI.Labs
 
             LayerCreator.ChangeDevice = Device.CPU;
 
+            var watch = System.Diagnostics.Stopwatch.StartNew();
+
             var hiddens = LayerCreator.LeakReluSupervisedHiddenBPArray(2, 4, values[0], values[3]);
             var hiddens2 = LayerCreator.LeakReluSupervisedHiddenBPArray(2, 2, values[0], values[3]);
-            var hiddens3 = LayerCreator.LeakReluSupervisedHiddenBPArray(2, 2, values[0], values[3]);
             var outputs = LayerCreator.SigmoidSupervisedOutputBPArray(2, 2, values[0], values[3]);
+
+            watch.Stop();
+            Console.WriteLine($"Setup Time: {watch.ElapsedMilliseconds}ms");
+
+            watch = System.Diagnostics.Stopwatch.StartNew();
 
             LayerCreator.SynapseFull(hiddens);
             LayerCreator.SynapseFull(hiddens2);
             LayerCreator.SynapseFull(outputs);
 
+            watch.Stop();
+            Console.WriteLine($"Sinapse Time: {watch.ElapsedMilliseconds}ms");
+            
             int cont = 0;
 
             var t = EvenOrOddData("even", "odd");
@@ -35,7 +44,7 @@ namespace VI.Labs
 
             while (true)
             {
-                var watch = System.Diagnostics.Stopwatch.StartNew();
+                watch = System.Diagnostics.Stopwatch.StartNew();
                 e = 0;
                 foreach (var item in t)
                 {
@@ -46,13 +55,11 @@ namespace VI.Labs
                     // Feed Forward
                     var _h = hiddens.Output(inputs);
                     var _h2 = hiddens2.Output(_h);
-                    var _h3 = hiddens3.Output(_h2);
-                    var _o = outputs.Output(_h3);
+                    var _o = outputs.Output(_h2);
 
                     // Backward
-                    var _oe  = outputs.Learn (_h3, desireds);
-                    var _he3 = hiddens3.Learn(_h2, _oe);
-                    var _he2 = hiddens2.Learn(_h, _he3);
+                    var _oe  = outputs.Learn (_h2, desireds);
+                    var _he2 = hiddens2.Learn(_h, _oe);
                     hiddens.Learn(inputs, _he2);
 
                     // Error
@@ -66,8 +73,11 @@ namespace VI.Labs
                 watch.Stop();
                 var time = watch.ElapsedMilliseconds;
                 Console.WriteLine($"Interactions: {cont}\nError: {e}\nTime: { time }");
-                Console.Title = $"FPS: {Math.Ceiling(1000d / time)}";
-            }
+                Console.Title = $"FPS (Each Training Sample): {Math.Ceiling(1000d / ((double)time / (double)t.Length))} ---- "+
+                    $"FPS (Epoch): {Math.Ceiling(1000d / time )}";
+            }      
+
+            Console.ReadKey();
         }
 
         public static InputOutputTrainning[] EvenOrOddData(string even, string odd)

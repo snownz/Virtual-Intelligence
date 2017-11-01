@@ -4,7 +4,7 @@ using System;
 
 namespace VI.Maths.LogisticFunctions
 {
-    public class TANHFuncion : IActivationFunction
+    public class TANHFuncion
     {
         public static void Derivative(Index t, ArrayView<float> v, float x)
         {

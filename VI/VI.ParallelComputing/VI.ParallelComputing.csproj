@@ -78,6 +78,7 @@
     <Compile Include="ANN\IAnnParallelInterface.cs" />
     <Compile Include="ParalleExecutorlInterface.cs" />
     <Compile Include="ParallelTranslator.cs" />
+    <Compile Include="ProcessingDevice.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

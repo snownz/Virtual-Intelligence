@@ -3,7 +3,7 @@ using System;
 
 namespace VI.Maths.LogisticFunctions
 {
-    public class SigmoidFunction : IActivationFunction
+    public class SigmoidFunction
     {
         public static void Function(Index t, ArrayView<float> v, ArrayView<float> x)
         {

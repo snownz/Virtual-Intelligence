@@ -1,17 +1,14 @@
 ﻿using ILGPU;
 using ILGPU.Runtime;
 using ILGPU.Runtime.CPU;
-using ILGPU.Runtime.Cuda;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using VI.Maths.ANNArray;
-using VI.Maths.LogisticFunctions;
+using VI.Maths.Array;
 
 namespace VI.ParallelComputing.ANN
 {
     public class CpuAnnInterface<T> : IAnnParallelInterface
-        where T : IActivationFunction
     {
         private Context _context;
         private Accelerator _accelerator;
@@ -51,13 +48,62 @@ namespace VI.ParallelComputing.ANN
         {
             var result = new Dictionary<string, Kernel>();
 
-            var methods = typeof(ANNArrayOperations)
+            var methods = typeof(ANNParallelArrayOperations)
                 .GetMethods(BindingFlags.Static | BindingFlags.Public)
                 .Select(x => x.Name)
                 .ToList();
 
             var compileds = translator
-                .TranslateMethod(typeof(ANNArrayOperations), methods)
+                .TranslateMethod(typeof(ANNParallelArrayOperations), methods)
+                .ToList();
+
+            for (int i = 0; i < methods.Count(); i++)
+            {
+                var kernel = _accelerator.LoadAutoGroupedKernel(compileds[i]);
+                result.Add(methods[i], kernel);
+            }
+
+            return result;
+        }
+    }
+
+    public class CpuAnnInterface2<T> : IAnnParallelInterface
+    {
+        private Context _context;
+        private Accelerator _accelerator;
+        private ParalleExecutorlInterface _interface;
+
+        public ParalleExecutorlInterface Executor
+        {
+            get
+            {
+                return _interface;
+            }
+        }
+
+        public CpuAnnInterface2()
+        {
+            _context = new Context();
+            _accelerator = new CPUAccelerator(_context);
+
+            using (var translator = new ParallelTranslator(_accelerator))
+            {
+                var kernels = ComputeKernels(translator);
+                _interface = new ParalleExecutorlInterface(_accelerator, kernels);
+            }
+        }
+
+        private Dictionary<string, Kernel> ComputeKernels(ParallelTranslator translator)
+        {
+            var result = new Dictionary<string, Kernel>();
+
+            var methods = typeof(T)
+                .GetMethods(BindingFlags.Static | BindingFlags.Public)
+                .Select(x => x.Name)
+                .ToList();
+
+            var compileds = translator
+                .TranslateMethod(typeof(T), methods)
                 .ToList();
 
             for (int i = 0; i < methods.Count(); i++)

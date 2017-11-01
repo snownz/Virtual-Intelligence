@@ -23,6 +23,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -49,6 +51,7 @@
     <PlatformTarget>x64</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ILGPU, Version=0.1.4.0, Culture=neutral, processorArchitecture=MSIL">
@@ -73,21 +76,39 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ANNOperations\ANNBasicOperations.cs" />
+    <Compile Include="ANNOperations\ANNDropOutOperations.cs" />
+    <Compile Include="ANNOperations\ANNMomentumOperations.cs" />
     <Compile Include="ANNOperations\ANNOperationsInterface.cs" />
+    <Compile Include="ANNOperations\IANNBasicOperations.cs" />
+    <Compile Include="ANNOperations\IANNMomentumOperations.cs" />
+    <Compile Include="ANNOperations\RNNBasicOperations.cs" />
     <Compile Include="Factory\CpuLayerFactory.cs" />
     <Compile Include="Factory\CudaLayerFactory.cs" />
     <Compile Include="Factory\ILayerFactory.cs" />
     <Compile Include="Layer\ActivationLayer.cs" />
+    <Compile Include="Network\INetwork.cs" />
     <Compile Include="Node\HiddenNeuron.cs" />
     <Compile Include="Node\INeuron.cs" />
     <Compile Include="Node\LayerCreator.cs" />
     <Compile Include="Node\OutputNeuron.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Provider\ActivationFunctionProvider.cs" />
+    <Compile Include="Provider\AnnArrayProvider.cs" />
+    <Compile Include="Provider\IActivationFunctionProvider.cs" />
+    <Compile Include="Provider\IAnnArrayProvider.cs" />
+    <Compile Include="Provider\ILossFunctionProvider.cs" />
+    <Compile Include="Provider\LossFunctionProvider.cs" />
+    <Compile Include="Training\ITraining.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\VI.Maths\VI.Maths.csproj">
       <Project>{7d7bb264-69f9-4e6a-815c-851a09044e26}</Project>
       <Name>VI.Maths</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VI.NumSharp\VI.NumSharp.csproj">
+      <Project>{99e96f1d-087f-4e7b-a378-470dc80ddfcc}</Project>
+      <Name>VI.NumSharp</Name>
     </ProjectReference>
     <ProjectReference Include="..\VI.ParallelComputing\VI.ParallelComputing.csproj">
       <Project>{cb466cf0-8994-42a4-ba72-661fd250cf0d}</Project>
