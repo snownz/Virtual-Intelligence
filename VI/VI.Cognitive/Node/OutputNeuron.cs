@@ -126,7 +126,9 @@ namespace VI.Cognitive.Node
          
             _layer.LearningRate = learningRate;
             _layer.Momentum = momentum;
-            
+
+            _layer.OutputVector = new Array<float>(nodeSize);
+
             _layer.BiasVector = new Array<float>(nodeSize);
             for (var i = 0; i < nodeSize; i++)
             {

@@ -140,6 +140,8 @@ namespace VI.Cognitive.Node
             _layer.LearningRate = learningRate;
             _layer.Momentum = momentum;
             
+            _layer.OutputVector = new Array<float>(nodeSize);
+
             _layer.BiasVector = new Array<float>(nodeSize);
             for (var i = 0; i < nodeSize; i++)
             {
@@ -152,7 +154,15 @@ namespace VI.Cognitive.Node
             _ann.FeedForward(_layer, inputs);
             return _layer.OutputVector;
         }
-        
+        public Array<float> Output(float[] inputs)
+        {
+            using (var i = new Array<float>(inputs))
+            {
+                _ann.FeedForward(_layer, i);
+                return _layer.OutputVector;
+            }                
+        }
+
         public Array<float> Learn(float[] inputs, Array<float> error)
         {
             using (var i = new Array<float>(inputs))

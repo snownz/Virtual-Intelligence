@@ -44,6 +44,7 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>true</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <OutputPath>bin\x64\Release\</OutputPath>
@@ -97,6 +98,10 @@
     <ProjectReference Include="..\VI.Maths\VI.Maths.csproj">
       <Project>{7d7bb264-69f9-4e6a-815c-851a09044e26}</Project>
       <Name>VI.Maths</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VI.NumSharp\VI.NumSharp.csproj">
+      <Project>{99e96f1d-087f-4e7b-a378-470dc80ddfcc}</Project>
+      <Name>VI.NumSharp</Name>
     </ProjectReference>
     <ProjectReference Include="..\VI.ParallelComputing\VI.ParallelComputing.csproj">
       <Project>{cb466cf0-8994-42a4-ba72-661fd250cf0d}</Project>

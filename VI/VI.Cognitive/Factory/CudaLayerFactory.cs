@@ -1,4 +1,5 @@
-﻿using VI.Cognitive.ANNOperations;
+﻿using System;
+using VI.Cognitive.ANNOperations;
 using VI.Cognitive.Node;
 using VI.Maths.LogisticFunctions;
 using VI.ParallelComputing.ANN;
@@ -7,29 +8,29 @@ namespace VI.Cognitive.Factory
 {
     public class CudaLayerFactory : ILayerFactory
     {
-        public ANNOperationsInterface Sigmoid()
+        public HiddenNeuron2 HiddenNeuron(int size, int connections, float learning, float momentum, ANNBasicOperations operations)
         {
-            return new ANNOperationsInterface(new CpuAnnInterface<SigmoidFunction>());
+            throw new NotImplementedException();
         }
 
-        public ANNOperationsInterface LeakRelu()
+        public ANNBasicOperations LeakRelu()
         {
-            return new ANNOperationsInterface(new CpuAnnInterface<LeakyRELUFunction>());
+            throw new NotImplementedException();
         }
 
-        public ANNOperationsInterface TANH()
+        public OutputNeuron2 OutputNeuron(int size, int connections, float learning, float momentum, ANNBasicOperations operations)
         {
-            return new ANNOperationsInterface(new CpuAnnInterface<TANHFuncion>());
+            throw new NotImplementedException();
         }
 
-        public HiddenNeuron HiddenNeuron(int size, int connections, float learning, float momentum, ANNOperationsInterface operations)
+        public ANNBasicOperations Sigmoid()
         {
-            return new HiddenNeuron(size, connections, learning, momentum, operations);
+            throw new NotImplementedException();
         }
 
-        public OutputNeuron OutputNeuron(int size, int connections, float learning, float momentum, ANNOperationsInterface operations)
+        public ANNBasicOperations TANH()
         {
-            return new OutputNeuron(size, connections, learning, momentum, operations);
+            throw new NotImplementedException();
         }
     }
 }

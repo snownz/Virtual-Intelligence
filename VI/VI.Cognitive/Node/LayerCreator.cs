@@ -9,53 +9,32 @@ using VI.Maths.LogisticFunctions;
 using VI.ParallelComputing.ANN;
 
 namespace VI.Cognitive.Node
-{
-    public enum Device
-    {
-        CUDA,
-        CPU
-    }
+{ 
     public class LayerCreator
     {
-        static ILayerFactory _factory;
+        static ILayerFactory _factory = new LayerFactory();
         
-        public static Device ChangeDevice
-        {
-            set
-            {
-                switch (value)
-                {
-                    case Device.CPU:
-                        _factory = new CudaLayerFactory();
-                        break;
-                    case Device.CUDA:
-                        _factory = new CpuLayerFactory();
-                        break;
-                }
-            }
-        }
-
-        public static OutputNeuron SigmoidSupervisedOutputBPArray(int size, int connections, float learning, float momentum)
+        public static OutputNeuron2 SigmoidSupervisedOutputBPArray(int size, int connections, float learning, float momentum)
         {
             return _factory.OutputNeuron(size, connections, learning, momentum, _factory.Sigmoid());
         }
 
-        public static OutputNeuron TANHSupervisedOutputBPArray(int size, int connections, float learning, float momentum)
+        public static OutputNeuron2 TANHSupervisedOutputBPArray(int size, int connections, float learning, float momentum)
         {
             return _factory.OutputNeuron(size, connections, learning, momentum, _factory.TANH());
         }
 
-        public static HiddenNeuron SigmoidSupervisedHiddenBPArray(int size, int connections, float learning, float momentum)
+        public static HiddenNeuron2 SigmoidSupervisedHiddenBPArray(int size, int connections, float learning, float momentum)
         {
             return _factory.HiddenNeuron(size, connections, learning, momentum, _factory.Sigmoid());
         }
 
-        public static HiddenNeuron LeakReluSupervisedHiddenBPArray(int size, int connections, float learning, float momentum)
+        public static HiddenNeuron2 LeakReluSupervisedHiddenBPArray(int size, int connections, float learning, float momentum)
         {
             return _factory.HiddenNeuron(size, connections, learning, momentum, _factory.LeakRelu());
         }
 
-        public static HiddenNeuron TANHSupervisedHiddenBPArray(int size, int connections, float learning, float momentum)
+        public static HiddenNeuron2 TANHSupervisedHiddenBPArray(int size, int connections, float learning, float momentum)
         {
             return _factory.HiddenNeuron(size, connections, learning, momentum, _factory.TANH());
         }

@@ -1,13 +1,17 @@
 ﻿using ILGPU.Runtime;
 using VI.NumSharp.Array;
+using VI.ParallelComputing.ANN;
 
 namespace VI.Cognitive.Provider
 {
     public class LossFunctionProvider : ILossFunctionProvider
     {
-        public LossFunctionProvider()
-        { 
+        private IAnnParallelInterface _function;
+        public LossFunctionProvider(IAnnParallelInterface function)
+        {
+            _function = function;
         }
+
 
         public Array<float> Error(Array<float> v0, Array<float> v1)
         {

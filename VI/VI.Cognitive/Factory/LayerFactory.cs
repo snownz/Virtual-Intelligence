@@ -7,7 +7,7 @@ using VI.ParallelComputing.ANN;
 
 namespace VI.Cognitive.Factory
 {
-    public class CpuLayerFactory : ILayerFactory
+    public class LayerFactory : ILayerFactory
     {
         public ANNBasicOperations Sigmoid()
         {

@@ -11,7 +11,7 @@ namespace VI.NumSharp.Array
         where T : struct
     {
         private MemoryBuffer<T> _memoryBuffer;
-        protected ArrayW(MemoryBuffer<T> memoryBuffer)
+        public ArrayW(MemoryBuffer<T> memoryBuffer)
         {
             _memoryBuffer = memoryBuffer;
         }

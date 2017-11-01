@@ -21,21 +21,25 @@ namespace VI.NumSharp.Array
         public ArrayW<T> W => _w;
         public ArrayH<T> H => _h;
 
-        public Array(Index size)
+        public Array(Index size) 
         {
             _memoryBuffer = ProcessingDevice.ArrayDevice.Executor.CreateBuffer<T>(size);
-        }
-        public Array()
-        {
-
-        }
-        public Array(T[] data)
+            _construct();
+        }       
+        public Array(T[] data) 
         {
             _memoryBuffer = ProcessingDevice.ArrayDevice.Executor.SetBuffer(data);
+            _construct();
         }
         public Array(MemoryBuffer<T> memoryBuffer)
         {
             _memoryBuffer = memoryBuffer;
+            _construct();
+        }
+        private void _construct()
+        {
+            _w = new ArrayW<T>(_memoryBuffer);
+            _h = new ArrayH<T>(_memoryBuffer);
         }
 
         public T this[int x]
@@ -53,7 +57,7 @@ namespace VI.NumSharp.Array
         {
             var size = v0._memoryBuffer.Length;
             var output = ProcessingDevice.ArrayDevice.Executor.CreateBuffer<T>(v0._memoryBuffer.Length);
-            ProcessingDevice.ArrayDevice.Executor["_V_X_V"].Launch(size, output, v0._memoryBuffer.View, v1.View.View);
+            ProcessingDevice.ArrayDevice.Executor["_V_X_V"].Launch(size, output.View, v0._memoryBuffer.View, v1.View.View);
             ProcessingDevice.ArrayDevice.Executor.Wait();
             return new Array<T>(output);
         }
@@ -63,7 +67,10 @@ namespace VI.NumSharp.Array
         }
         public static Array<T> operator +(Array<T> v0, Array<T> v1)
         {
-            throw new NotImplementedException();
+            var size = v0._memoryBuffer.Length;
+            ProcessingDevice.ArrayDevice.Executor["_V_sum_V"].Launch(size, v0._memoryBuffer.View, v1.View.View);
+            ProcessingDevice.ArrayDevice.Executor.Wait();
+            return v0;
         }
         public static Array<T> operator -(Array<T> v0, Array<T> v1)
         {

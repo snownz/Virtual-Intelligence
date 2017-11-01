@@ -16,26 +16,29 @@ namespace VI.NumSharp.Array
         private Array2DW<T> _w;
         private Array2DH<T> _h;
 
+        public MemoryBuffer2D<T> View => _memoryBuffer;
         public Array2DW<T> W => _w;
         public Array2DH<T> H => _h;
 
-        public Array2D(int w, int h)
+        public Array2D(int w, int h) 
         {
             _memoryBuffer = ProcessingDevice.ArrayDevice.Executor.CreateBuffer<T>(w, h);
+            _construct();
+        }       
+        public Array2D(T[,] data) 
+        {
+            _memoryBuffer = ProcessingDevice.ArrayDevice.Executor.SetBuffer(data);
+            _construct();
         }
         public Array2D(MemoryBuffer2D<T> memoryBuffer)
         {
             _memoryBuffer = memoryBuffer;
         }
-        public Array2D(T[,] data)
+        private void _construct()
         {
-            _memoryBuffer = ProcessingDevice.ArrayDevice.Executor.SetBuffer(data);
-        }
-        public Array2D()
-        {
-
-        }
-        
+            _w = new Array2DW<T>(_memoryBuffer);
+            _h = new Array2DH<T>(_memoryBuffer);
+        }        
         public T this[int x, int y]
         {
             get { return _memoryBuffer[new Index2(x, y)]; }
@@ -49,13 +52,40 @@ namespace VI.NumSharp.Array
 
         public Array<T> SumColumn()
         {
-            throw new NotImplementedException();
+            var s = _memoryBuffer.Height / 2;
+            var r = _memoryBuffer.Height % 2;
+
+            while (s > 1)
+            {
+                var _size = new Index2(_memoryBuffer.Width, s);
+
+                _sumLines(_size, r, _memoryBuffer);
+
+                r = s % 2;
+                s /= 2;
+            }
+
+            return new Array<T>(_joinLines(_memoryBuffer.Width, _memoryBuffer));
         }
         public Array<T> SumLine()
         {
             throw new NotImplementedException();
         }
         
+        private void _sumLines(Index2 size, int r, MemoryBuffer2D<T> m)
+        {
+            ProcessingDevice.ArrayDevice.Executor["_M_sum_lines"].Launch(size, r, m.View, size.X);
+            ProcessingDevice.ArrayDevice.Executor.Wait();
+        }
+
+        private MemoryBuffer<T> _joinLines(Index size, MemoryBuffer2D<T> m)
+        {
+            var output = ProcessingDevice.ArrayDevice.Executor.CreateBuffer<T>(size);
+            ProcessingDevice.ArrayDevice.Executor["_M_2_lines_V"].Launch(size, output.View, m.View);
+            ProcessingDevice.ArrayDevice.Executor.Wait();
+            return output;
+        }
+
         public static Array2D<T> operator *(Array2D<T> m0, Array2D<T> m1)
         {
             throw new NotImplementedException();
