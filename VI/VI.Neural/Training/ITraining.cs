@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VI.Cognitive.Training
+namespace VI.Neural.Training
 {
     public interface ITraining
     {

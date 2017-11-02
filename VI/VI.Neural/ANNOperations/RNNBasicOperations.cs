@@ -1,5 +1,5 @@
 ﻿
-namespace VI.Cognitive.ANNOperations
+namespace VI.Neural.ANNOperations
 {
     public sealed class RNNBasicOperations
     {

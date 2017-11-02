@@ -9,7 +9,7 @@ namespace VI.NumSharp.Provider
         public ActivationFunctionProvider(IAnnParallelInterface function)
         {
             _function = function;
-        }       
+        }
 
         public void Activation(Array<float> vSource, Array<float> vTarget)
         {
@@ -24,7 +24,7 @@ namespace VI.NumSharp.Provider
             var vTarget = _function.Executor.CreateBuffer<float>(size);
             _function.Executor["Derivative"].Launch(size, vTarget.View, vSource.View.View);
             _function.Executor.Wait();
-            return  new Array<float>(vTarget);
+            return new Array<float>(vTarget);
         }
     }
 }

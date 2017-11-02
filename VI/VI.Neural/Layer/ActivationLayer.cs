@@ -1,6 +1,6 @@
 ﻿using VI.NumSharp.Array;
 
-namespace VI.Cognitive.Layer
+namespace VI.Neural.Layer
 {
     public class ActivationLayer2
     {

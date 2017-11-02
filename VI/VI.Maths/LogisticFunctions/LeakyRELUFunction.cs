@@ -11,7 +11,7 @@ namespace VI.Maths.LogisticFunctions
             var y = Math.Max(0.01 * x[p], x[p]);
             v[p] = y >= 0 ? 1 : 0.01f;
         }
-                       
+
         public static void Function(Index t, ArrayView<float> v, ArrayView<float> x)
         {
             var p = t.X;

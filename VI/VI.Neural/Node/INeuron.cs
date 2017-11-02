@@ -1,4 +1,4 @@
-﻿namespace VI.Cognitive.Node
+﻿namespace VI.Neural.Node
 {
     public interface INeuron
     {

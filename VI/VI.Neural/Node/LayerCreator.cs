@@ -1,7 +1,7 @@
 ﻿using System;
-using VI.Cognitive.Factory;
+using VI.Neural.Factory;
 
-namespace VI.Cognitive.Node
+namespace VI.Neural.Node
 { 
     public class LayerCreator
     {

@@ -1,16 +1,15 @@
-﻿using VI.Cognitive.Layer;
+﻿using VI.Neural.Layer;
 using VI.NumSharp.Array;
 using VI.NumSharp.Provider;
 
-namespace VI.Cognitive.ANNOperations
+namespace VI.Neural.ANNOperations
 {
     public sealed class ANNBasicOperations
     {
         private readonly IActivationFunctionProvider _activationProvider;
         private readonly ILossFunctionProvider _lossProvider;
 
-        public ANNBasicOperations(IActivationFunctionProvider activation
-                                  , ILossFunctionProvider loss)
+        public ANNBasicOperations(IActivationFunctionProvider activation, ILossFunctionProvider loss)
         {
             _activationProvider = activation;
             _lossProvider = loss;

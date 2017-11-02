@@ -12,7 +12,7 @@ namespace VI.Maths.Array
                 v[x] += m[x, y];
             }
         }
-        
+
         public static void _M_sum_lines(Index2 size, int r, ArrayView2D<float> m, int boxSize)
         {
             int x = size.X;

@@ -5,8 +5,8 @@ using VI.ParallelComputing;
 
 namespace VI.NumSharp.Array
 {
-    public class Array2D<T> 
-        where T: struct
+    public class Array2D<T>
+        where T : struct
     {
         private MemoryBuffer2D<T> _memoryBuffer;
         private Array2DW<T> _w;
@@ -16,12 +16,12 @@ namespace VI.NumSharp.Array
         public Array2DW<T> W => _w;
         public Array2DH<T> H => _h;
 
-        public Array2D(int w, int h) 
+        public Array2D(int w, int h)
         {
             _memoryBuffer = ProcessingDevice.ArrayDevice.Executor.CreateBuffer<T>(w, h);
             _construct();
-        }       
-        public Array2D(T[,] data) 
+        }
+        public Array2D(T[,] data)
         {
             _memoryBuffer = ProcessingDevice.ArrayDevice.Executor.SetBuffer(data);
             _construct();
@@ -34,7 +34,7 @@ namespace VI.NumSharp.Array
         {
             _w = new Array2DW<T>(_memoryBuffer);
             _h = new Array2DH<T>(_memoryBuffer);
-        }        
+        }
         public T this[int x, int y]
         {
             get { return _memoryBuffer[new Index2(x, y)]; }
@@ -71,7 +71,7 @@ namespace VI.NumSharp.Array
 
         public Array<T> SumColumn()
         {
-            if(ProcessingDevice.Device == Device.CPU)
+            if (ProcessingDevice.Device == Device.CPU)
             {
                 return SumColumnLoop();
             }
@@ -95,7 +95,7 @@ namespace VI.NumSharp.Array
             }
             return new Array<T>(_joinColumns(_memoryBuffer.Height, _memoryBuffer));
         }
-        
+
         private void _sumLines(Index2 size, int r, MemoryBuffer2D<T> m)
         {
             ProcessingDevice.ArrayDevice.Executor["_M_sum_lines"].Launch(size, r, m.View, size.Y);
@@ -106,7 +106,7 @@ namespace VI.NumSharp.Array
             ProcessingDevice.ArrayDevice.Executor["_M_sum_columns"].Launch(size, r, m.View, size.X);
             ProcessingDevice.ArrayDevice.Executor.Wait();
         }
-        
+
         private MemoryBuffer<T> _joinLines(Index size, MemoryBuffer2D<T> m)
         {
             var output = ProcessingDevice.ArrayDevice.Executor.CreateBuffer<T>(size);

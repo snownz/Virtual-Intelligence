@@ -16,12 +16,12 @@ namespace VI.NumSharp.Array
         public ArrayW<T> W => _w;
         public ArrayH<T> H => _h;
 
-        public Array(int size) 
+        public Array(int size)
         {
             _memoryBuffer = ProcessingDevice.ArrayDevice.Executor.CreateBuffer<T>(size);
             _construct();
-        }       
-        public Array(T[] data) 
+        }
+        public Array(T[] data)
         {
             _memoryBuffer = ProcessingDevice.ArrayDevice.Executor.SetBuffer(data);
             _construct();
@@ -42,7 +42,7 @@ namespace VI.NumSharp.Array
             get { return _memoryBuffer[x]; }
             set { _memoryBuffer[x] = value; }
         }
-        
+
         public void Dispose()
         {
             _memoryBuffer.Dispose();
@@ -109,7 +109,7 @@ namespace VI.NumSharp.Array
         {
             throw new NotImplementedException();
         }
-        
+
         public static Array2D<T> operator *(Array<T> v0, Array2DH<T> v1)
         {
             throw new NotImplementedException();
@@ -126,7 +126,7 @@ namespace VI.NumSharp.Array
         {
             throw new NotImplementedException();
         }
-        
+
         public static Array2D<T> operator *(Array<T> v0, Array2DW<T> v1)
         {
             throw new NotImplementedException();

@@ -1,4 +1,4 @@
-﻿namespace VI.Cognitive.Network
+﻿namespace VI.Neural.Network
 {
     public interface INetwork
     {

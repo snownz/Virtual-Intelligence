@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using VI.Cognitive.Node;
+using VI.Neural.Node;
 using VI.Labs.Models;
 using VI.NumSharp;
 
@@ -21,18 +21,18 @@ namespace VI.Labs
 
             watch.Stop();
             Console.WriteLine($"Device Time: {watch.ElapsedMilliseconds}ms");
-            
+
             var hiddens = LayerCreator.LeakReluSupervisedHiddenBPArray(2, 4, values[0], values[3]);
             var hiddens2 = LayerCreator.LeakReluSupervisedHiddenBPArray(2, 2, values[0], values[3]);
             var outputs = LayerCreator.SigmoidSupervisedOutputBPArray(2, 2, values[0], values[3]);
-            
+
             watch = System.Diagnostics.Stopwatch.StartNew();
             LayerCreator.SynapseFull(hiddens, 0.3f);
             LayerCreator.SynapseFull(hiddens2, 0.3f);
             LayerCreator.SynapseFull(outputs, 0.3f);
             watch.Stop();
             Console.WriteLine($"Sinapse Time: {watch.ElapsedMilliseconds}ms");
-            
+
             int cont = 0;
 
             var t = EvenOrOddData("even", "odd");
@@ -55,7 +55,7 @@ namespace VI.Labs
                     var _o = outputs.Output(_h2);
 
                     // Backward
-                    var _oe  = outputs.Learn (_h2, desireds);
+                    var _oe = outputs.Learn(_h2, desireds);
                     var _he2 = hiddens2.Learn(_h, _oe);
                     hiddens.Learn(inputs, _he2);
 
@@ -71,14 +71,14 @@ namespace VI.Labs
                 var time = watch.ElapsedMilliseconds;
                 Console.WriteLine($"Interactions: {cont}\nError: {e}\nTime: { time }");
                 Console.Title = $"TSPS (Training Sample per Second): {Math.Ceiling(1000d / ((double)time / (double)t.Length))}";
-            }      
+            }
             Console.ReadKey();
         }
 
         public static InputOutputTrainning[] EvenOrOddData(string even, string odd)
         {
             return new InputOutputTrainning[]
-            {               
+            {
                 new InputOutputTrainning
                 {
                     Values = new List<TrainningValues>
@@ -203,6 +203,6 @@ namespace VI.Labs
                     }
                 },
             };
-        }             
+        }
     }
 }

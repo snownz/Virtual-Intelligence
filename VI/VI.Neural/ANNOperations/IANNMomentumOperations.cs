@@ -1,7 +1,7 @@
-﻿using VI.Cognitive.Layer;
+﻿using VI.Neural.Layer;
 using VI.NumSharp.Array;
 
-namespace VI.Cognitive.ANNOperations
+namespace VI.Neural.ANNOperations
 {
     public interface IANNMomentumOperations
     {

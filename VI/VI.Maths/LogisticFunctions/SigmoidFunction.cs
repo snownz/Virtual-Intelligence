@@ -10,7 +10,7 @@ namespace VI.Maths.LogisticFunctions
             var p = t.X;
             v[p] = (float)(1 / (1 + Math.Exp(-2 * x[p])));
         }
-        
+
         public static void Derivative(Index t, ArrayView<float> v, ArrayView<float> x)
         {
             var p = t.X;

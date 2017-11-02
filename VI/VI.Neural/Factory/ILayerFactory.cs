@@ -1,7 +1,7 @@
-﻿using VI.Cognitive.ANNOperations;
-using VI.Cognitive.Node;
+﻿using VI.Neural.ANNOperations;
+using VI.Neural.Node;
 
-namespace VI.Cognitive.Factory
+namespace VI.Neural.Factory
 {
     public interface ILayerFactory
     {

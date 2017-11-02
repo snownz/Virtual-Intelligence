@@ -1,8 +1,8 @@
-﻿using VI.Cognitive.ANNOperations;
-using VI.Cognitive.Node;
+﻿using VI.Neural.ANNOperations;
+using VI.Neural.Node;
 using VI.NumSharp;
 
-namespace VI.Cognitive.Factory
+namespace VI.Neural.Factory
 {
     public class LayerFactory : ILayerFactory
     {
