@@ -56,8 +56,8 @@ namespace VI.Cognitive.Node
             using (var i = new Array<float>(inputs))
             {
                 _ann.BackWard(_layer, error);
-                _ann.BackWardError(_layer, _layer.ErrorVector);
-                _ann.ErrorGradient(_layer, _layer.ErrorVector, i);
+                _ann.BackWardError(_layer);
+                _ann.ErrorGradient(_layer, i);
                 _ann.UpdateWeight(_layer);
                 _ann.UpdateBias(_layer);
                 return _layer.ErrorWeightVector;
@@ -68,8 +68,8 @@ namespace VI.Cognitive.Node
             using (var e = new Array<float>(error))
             {
                 _ann.BackWard(_layer, e);
-                _ann.BackWardError(_layer, _layer.ErrorVector);
-                _ann.ErrorGradient(_layer, _layer.ErrorVector, inputs);
+                _ann.BackWardError(_layer);
+                _ann.ErrorGradient(_layer, inputs);
                 _ann.UpdateWeight(_layer);
                 _ann.UpdateBias(_layer);
                 return _layer.ErrorWeightVector;
@@ -78,8 +78,8 @@ namespace VI.Cognitive.Node
         public Array<float> Learn(Array<float>  inputs, Array<float> error)
         {
             _ann.BackWard(_layer, error);
-            _ann.BackWardError(_layer, _layer.ErrorVector);
-            _ann.ErrorGradient(_layer, _layer.ErrorVector, inputs);
+            _ann.BackWardError(_layer);
+            _ann.ErrorGradient(_layer, inputs);
             _ann.UpdateWeight(_layer);
             _ann.UpdateBias(_layer);
             return _layer.ErrorWeightVector;

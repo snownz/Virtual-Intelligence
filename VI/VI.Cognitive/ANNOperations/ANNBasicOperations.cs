@@ -35,15 +35,14 @@ namespace VI.Cognitive.ANNOperations
             target.ErrorVector = de_dOut * dOut_dSum;
         }
 
-        public void BackWardError(ActivationLayer2 target, Array<float> error)
+        public void BackWardError(ActivationLayer2 target)
         {
-            var cachedError = error.W * target.KnowlodgeMatrix;
-            target.ErrorWeightVector = cachedError.SumLine();
+            target.ErrorWeightVector = (target.ErrorVector.W * target.KnowlodgeMatrix).SumLine();
         }
 
-        public void ErrorGradient(ActivationLayer2 target, Array<float> error, Array<float> inputs)
+        public void ErrorGradient(ActivationLayer2 target, Array<float> inputs)
         {
-            target.GradientMatrix = (inputs.H * error) * target.LearningRate;
+            target.GradientMatrix = (inputs.H * target.ErrorVector) * target.LearningRate;
         }
 
         public void UpdateWeight(ActivationLayer2 target)
