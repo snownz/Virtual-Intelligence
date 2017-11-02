@@ -7,14 +7,18 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Optimize>true</Optimize>
     <PlatformTarget>x64</PlatformTarget>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <Optimize>true</Optimize>
+    <Optimize>false</Optimize>
     <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="ILGPU" Version="0.2.0" />
     <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="4.4.0" />
   </ItemGroup>
+  <PropertyGroup>
+     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup> 
 </Project>

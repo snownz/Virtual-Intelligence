@@ -8,10 +8,11 @@
     <PlatformTarget>x64</PlatformTarget>
     <Optimize>true</Optimize>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <PlatformTarget>x64</PlatformTarget>
-    <Optimize>true</Optimize>
+    <Optimize>false</Optimize>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
@@ -24,4 +25,7 @@
     <ProjectReference Include="..\VI.NumSharp\VI.NumSharp.csproj" />
     <ProjectReference Include="..\VI.ParallelComputing\VI.ParallelComputing.csproj" />
   </ItemGroup>
+  <PropertyGroup>
+     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup> 
 </Project>

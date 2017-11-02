@@ -10,7 +10,6 @@ namespace VI.ParallelComputing.Drivers
 {
     public class CudaAnnInterface<T> : IAnnParallelInterface
     {
-        private Context _context;
         private Accelerator _accelerator;
         private ParalleExecutorlInterface _interface;
 
@@ -24,11 +23,9 @@ namespace VI.ParallelComputing.Drivers
 
         public CudaAnnInterface()
         {
-            _context = new Context();
-
             try
             {
-                _accelerator = new CudaAccelerator(_context);
+                _accelerator = Device.CUDA;
             }
             catch (Exception)
             {
