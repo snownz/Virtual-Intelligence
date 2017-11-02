@@ -1,4 +1,4 @@
-﻿namespace VI.ParallelComputing.ANN
+﻿namespace VI.ParallelComputing.Drivers
 {
     public interface IAnnParallelInterface
     {

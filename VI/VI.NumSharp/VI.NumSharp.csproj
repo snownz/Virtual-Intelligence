@@ -54,9 +54,18 @@
     <Compile Include="Array\Array2DW.cs" />
     <Compile Include="Array\ArrayH.cs" />
     <Compile Include="Array\ArrayW.cs" />
+    <Compile Include="ProcessingDevice.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Provider\ActivationFunctionProvider.cs" />
+    <Compile Include="Provider\IActivationFunctionProvider.cs" />
+    <Compile Include="Provider\ILossFunctionProvider.cs" />
+    <Compile Include="Provider\LossFunctionProvider.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\VI.Maths\VI.Maths.csproj">
+      <Project>{7d7bb264-69f9-4e6a-815c-851a09044e26}</Project>
+      <Name>VI.Maths</Name>
+    </ProjectReference>
     <ProjectReference Include="..\VI.ParallelComputing\VI.ParallelComputing.csproj">
       <Project>{cb466cf0-8994-42a4-ba72-661fd250cf0d}</Project>
       <Name>VI.ParallelComputing</Name>

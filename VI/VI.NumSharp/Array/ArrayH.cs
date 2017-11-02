@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ILGPU.Runtime;
 using ILGPU;
 using VI.ParallelComputing;
@@ -23,7 +19,14 @@ namespace VI.NumSharp.Array
 
         public static Array2D<T> operator *(ArrayH<T> v0, Array<T> v1)
         {
-            throw new NotImplementedException();
+            var size = new Index2(v1.View.Length, v0.View.Length);
+            var output = Array2D<T>.Allocate(size);
+            ProcessingDevice
+                .ArrayDevice
+                .Executor["_V_X_V_M"]
+                .Launch(size, output.View.View, v1.View.View, v0.View.View);
+            ProcessingDevice.ArrayDevice.Executor.Wait();
+            return output;
         }
         public static Array2D<T> operator /(ArrayH<T> v0, Array<T> v1)
         {
@@ -41,13 +44,13 @@ namespace VI.NumSharp.Array
         public static Array2D<T> operator *(ArrayH<T> v0, Array2D<T> m0)
         {
             var size = new Index2(m0.View.Width, m0.View.Height);
-            var output = ProcessingDevice.ArrayDevice.Executor.CreateBuffer<T>(size);
+            var output = Array2D<T>.Allocate(size);
             ProcessingDevice
                 .ArrayDevice
                 .Executor["_V_X_M_column_M"]
-                .Launch(size, output.View, m0.View.View, v0.View.View);
+                .Launch(size, output.View.View, m0.View.View, v0.View.View);
             ProcessingDevice.ArrayDevice.Executor.Wait();
-            return new Array2D<T>(output);
+            return output;
         }
         public static Array2D<T> operator /(ArrayH<T> v0, Array2D<T> m0)
         {

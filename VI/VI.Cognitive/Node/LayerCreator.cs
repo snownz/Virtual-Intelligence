@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using VI.Cognitive.ANNOperations;
-using VI.Cognitive.Factory;
-using VI.Maths.LogisticFunctions;
-using VI.ParallelComputing.ANN;
+﻿using VI.Cognitive.Factory;
 
 namespace VI.Cognitive.Node
 { 

@@ -1,12 +1,12 @@
 ﻿using ILGPU;
 using ILGPU.Runtime;
 using ILGPU.Runtime.Cuda;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using VI.Maths.Array;
 
-namespace VI.ParallelComputing.ANN
+namespace VI.ParallelComputing.Drivers
 {
     public class CudaAnnInterface<T> : IAnnParallelInterface
     {
@@ -25,21 +25,20 @@ namespace VI.ParallelComputing.ANN
         public CudaAnnInterface()
         {
             _context = new Context();
-            _accelerator = new CudaAccelerator(_context);
+
+            try
+            {
+                _accelerator = new CudaAccelerator(_context);
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("\n-----------\nCUDA is not supported\n-----------\n");
+                return;
+            }
 
             using (var translator = new ParallelTranslator(_accelerator))
             {
                 var kernels = ComputeKernels(translator);
-
-                var activation = translator
-                    .TranslateMethod(typeof(T), "Function");
-
-                var derivate = translator
-                    .TranslateMethod(typeof(T), "Derivative");
-
-                kernels.Add("_activation_", _accelerator.LoadAutoGroupedKernel(activation));
-                kernels.Add("_derivative_", _accelerator.LoadAutoGroupedKernel(derivate));
-
                 _interface = new ParalleExecutorlInterface(_accelerator, kernels);
             }
         }
@@ -48,13 +47,13 @@ namespace VI.ParallelComputing.ANN
         {
             var result = new Dictionary<string, Kernel>();
 
-            var methods = typeof(ANNParallelArrayOperations)
+            var methods = typeof(T)
                 .GetMethods(BindingFlags.Static | BindingFlags.Public)
                 .Select(x => x.Name)
                 .ToList();
 
             var compileds = translator
-                .TranslateMethod(typeof(ANNParallelArrayOperations), methods)
+                .TranslateMethod(typeof(T), methods)
                 .ToList();
 
             for (int i = 0; i < methods.Count(); i++)

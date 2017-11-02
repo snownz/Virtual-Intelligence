@@ -53,13 +53,8 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ILGPU, Version=0.1.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ILGPU.0.1.4\lib\net46\Release\ILGPU.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="LLVMSharp, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ILGPU.0.1.4\lib\net46\LLVMSharp.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="ILGPU, Version=0.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ILGPU.0.2.0\lib\net46\Release\ILGPU.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -75,31 +70,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ANN\CpuAnnInterface .cs" />
-    <Compile Include="ANN\CudaAnnInterface.cs" />
-    <Compile Include="ANN\IAnnParallelInterface.cs" />
+    <Compile Include="Drivers\CpuAnnInterface .cs" />
+    <Compile Include="Drivers\CudaAnnInterface.cs" />
+    <Compile Include="Drivers\IAnnParallelInterface.cs" />
     <Compile Include="ParalleExecutorlInterface.cs" />
     <Compile Include="ParallelTranslator.cs" />
-    <Compile Include="ProcessingDevice.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\VI.Maths\VI.Maths.csproj">
-      <Project>{7d7bb264-69f9-4e6a-815c-851a09044e26}</Project>
-      <Name>VI.Maths</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\packages\ILGPU.0.1.4\build\ILGPU.targets" Condition="Exists('..\packages\ILGPU.0.1.4\build\ILGPU.targets')" />
+  <Import Project="..\packages\ILGPU.0.2.0\build\ILGPU.targets" Condition="Exists('..\packages\ILGPU.0.2.0\build\ILGPU.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+      <ErrorText>Este projeto faz referência a pacotes do NuGet que não estão presentes neste computador. Use a Restauração de Pacotes do NuGet para baixá-los.  Para obter mais informações, consulte http://go.microsoft.com/fwlink/?LinkID=322105. O arquivo ausente é {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\ILGPU.0.1.4\build\ILGPU.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\ILGPU.0.1.4\build\ILGPU.targets'))" />
+    <Error Condition="!Exists('..\packages\ILGPU.0.2.0\build\ILGPU.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\ILGPU.0.2.0\build\ILGPU.targets'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

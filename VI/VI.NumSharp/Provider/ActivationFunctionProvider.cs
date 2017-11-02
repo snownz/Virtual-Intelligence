@@ -1,14 +1,7 @@
-﻿using ILGPU.Runtime;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using VI.NumSharp.Array;
-using VI.ParallelComputing;
-using VI.ParallelComputing.ANN;
+﻿using VI.NumSharp.Array;
+using VI.ParallelComputing.Drivers;
 
-namespace VI.Cognitive.Provider
+namespace VI.NumSharp.Provider
 {
     public class ActivationFunctionProvider : IActivationFunctionProvider
     {
@@ -16,17 +9,7 @@ namespace VI.Cognitive.Provider
         public ActivationFunctionProvider(IAnnParallelInterface function)
         {
             _function = function;
-        }
-
-        public void Activation(MemoryBuffer<float> vSource, MemoryBuffer<float> vTarget)
-        {
-
-        }
-
-        public MemoryBuffer<float> Derivated(MemoryBuffer<float> vSource)
-        {
-            return null;
-        }
+        }       
 
         public void Activation(Array<float> vSource, Array<float> vTarget)
         {
@@ -37,7 +20,11 @@ namespace VI.Cognitive.Provider
 
         public Array<float> Derivated(Array<float> vSource)
         {
-            throw new NotImplementedException();
+            var size = vSource.View.Length;
+            var vTarget = _function.Executor.CreateBuffer<float>(size);
+            _function.Executor["Derivative"].Launch(size, vTarget.View, vSource.View.View);
+            _function.Executor.Wait();
+            return  new Array<float>(vTarget);
         }
     }
 }

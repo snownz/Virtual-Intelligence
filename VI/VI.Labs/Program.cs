@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using VI.Cognitive.Node;
 using VI.Labs.Models;
-using VI.ParallelComputing;
+using VI.NumSharp;
 
 namespace VI.Labs
 {
@@ -17,14 +17,14 @@ namespace VI.Labs
 
             var watch = System.Diagnostics.Stopwatch.StartNew();
 
-            ProcessingDevice.Device = Device.CUDA;
+            ProcessingDevice.Device = Device.CPU;
 
             watch.Stop();
             Console.WriteLine($"Device Time: {watch.ElapsedMilliseconds}ms");
             
-            var hiddens = LayerCreator.LeakReluSupervisedHiddenBPArray(2, 4, values[0], values[3]);
-            var hiddens2 = LayerCreator.LeakReluSupervisedHiddenBPArray(2, 2, values[0], values[3]);
-            var outputs = LayerCreator.SigmoidSupervisedOutputBPArray(2, 2, values[0], values[3]);
+            var hiddens = LayerCreator.LeakReluSupervisedHiddenBPArray(4000, 4, values[0], values[3]);
+            var hiddens2 = LayerCreator.LeakReluSupervisedHiddenBPArray(2000, 4000, values[0], values[3]);
+            var outputs = LayerCreator.SigmoidSupervisedOutputBPArray(2, 2000, values[0], values[3]);
             
             watch = System.Diagnostics.Stopwatch.StartNew();
             LayerCreator.SynapseFull(hiddens);
@@ -55,9 +55,9 @@ namespace VI.Labs
                     var _o = outputs.Output(_h);
 
                     // Backward
-                    //var _oe  = outputs.Learn (_h2, desireds);
-                    //var _he2 = hiddens2.Learn(_h, _oe);
-                    //hiddens.Learn(inputs, _he2);
+                    var _oe  = outputs.Learn (_h2, desireds);
+                    var _he2 = hiddens2.Learn(_h, _oe);
+                    hiddens.Learn(inputs, _he2);
 
                     // Error
                     var e0 = Math.Abs(_o[0] - desireds[0]);
@@ -70,10 +70,8 @@ namespace VI.Labs
                 watch.Stop();
                 var time = watch.ElapsedMilliseconds;
                 Console.WriteLine($"Interactions: {cont}\nError: {e}\nTime: { time }");
-                Console.Title = $"FPS (Each Training Sample): {Math.Ceiling(1000d / ((double)time / (double)t.Length))} ---- "+
-                    $"FPS (Epoch): {Math.Ceiling(1000d / time )}";
+                Console.Title = $"TSPS (Training Sample per Second): {Math.Ceiling(1000d / ((double)time / (double)t.Length))}";
             }      
-
             Console.ReadKey();
         }
 

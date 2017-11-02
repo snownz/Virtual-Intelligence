@@ -1,12 +1,7 @@
 ﻿using ILGPU;
 using ILGPU.Runtime;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using VI.ParallelComputing;
-using VI.ParallelComputing.ANN;
 
 namespace VI.NumSharp.Array
 {
@@ -21,7 +16,7 @@ namespace VI.NumSharp.Array
         public ArrayW<T> W => _w;
         public ArrayH<T> H => _h;
 
-        public Array(Index size) 
+        public Array(int size) 
         {
             _memoryBuffer = ProcessingDevice.ArrayDevice.Executor.CreateBuffer<T>(size);
             _construct();
@@ -56,10 +51,10 @@ namespace VI.NumSharp.Array
         public static Array<T> operator *(Array<T> v0, Array<T> v1)
         {
             var size = v0._memoryBuffer.Length;
-            var output = ProcessingDevice.ArrayDevice.Executor.CreateBuffer<T>(v0._memoryBuffer.Length);
-            ProcessingDevice.ArrayDevice.Executor["_V_X_V"].Launch(size, output.View, v0._memoryBuffer.View, v1.View.View);
+            var output = Allocate(size);
+            ProcessingDevice.ArrayDevice.Executor["_V_X_V"].Launch(size, output.View.View, v0._memoryBuffer.View, v1.View.View);
             ProcessingDevice.ArrayDevice.Executor.Wait();
-            return new Array<T>(output);
+            return output;
         }
         public static Array<T> operator /(Array<T> v0, Array<T> v1)
         {
@@ -79,7 +74,11 @@ namespace VI.NumSharp.Array
 
         public static Array<T> operator *(Array<T> v0, T c)
         {
-            throw new NotImplementedException();
+            var size = v0._memoryBuffer.Length;
+            var output = Allocate(size);
+            ProcessingDevice.ArrayDevice.Executor["_C_X_V"].Launch(size, c, output.View.View, v0.View.View);
+            ProcessingDevice.ArrayDevice.Executor.Wait();
+            return output;
         }
         public static Array<T> operator /(Array<T> v0, T c)
         {
@@ -143,6 +142,15 @@ namespace VI.NumSharp.Array
         public static Array2D<T> operator -(Array<T> v0, Array2DW<T> v1)
         {
             throw new NotImplementedException();
+        }
+
+        public static Array<T> Allocate(Index size)
+        {
+            //var watch = System.Diagnostics.Stopwatch.StartNew();
+            var mem = ProcessingDevice.ArrayDevice.Executor.CreateBuffer<T>(size);
+            //watch.Stop();
+            //Console.WriteLine($"\n-----\nAllocation Time: {watch.ElapsedMilliseconds}ms\nSize {size.X}\n-----");
+            return new Array<T>(mem);
         }
     }
 }

@@ -55,19 +55,13 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ILGPU, Version=0.1.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ILGPU.0.1.4\lib\net46\Release\ILGPU.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="LLVMSharp, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ILGPU.0.1.4\lib\net46\LLVMSharp.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="ILGPU, Version=0.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ILGPU.0.2.0\lib\net46\Release\ILGPU.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.4.0\lib\netstandard1.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -80,13 +74,9 @@
     <Compile Include="ANNOperations\ANNBasicOperations.cs" />
     <Compile Include="ANNOperations\ANNDropOutOperations.cs" />
     <Compile Include="ANNOperations\ANNMomentumOperations.cs" />
-    <Compile Include="ANNOperations\ANNOperationsInterface.cs" />
-    <Compile Include="ANNOperations\IANNBasicOperations.cs" />
     <Compile Include="ANNOperations\IANNMomentumOperations.cs" />
     <Compile Include="ANNOperations\RNNBasicOperations.cs" />
     <Compile Include="Factory\LayerFactory.cs" />
-    <Compile Include="Factory\CpuLayerFactory.cs" />
-    <Compile Include="Factory\CudaLayerFactory.cs" />
     <Compile Include="Factory\ILayerFactory.cs" />
     <Compile Include="Layer\ActivationLayer.cs" />
     <Compile Include="Network\INetwork.cs" />
@@ -95,13 +85,11 @@
     <Compile Include="Node\LayerCreator.cs" />
     <Compile Include="Node\OutputNeuron.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Provider\ActivationFunctionProvider.cs" />
-    <Compile Include="Provider\AnnArrayProvider.cs" />
-    <Compile Include="Provider\IActivationFunctionProvider.cs" />
-    <Compile Include="Provider\IAnnArrayProvider.cs" />
-    <Compile Include="Provider\ILossFunctionProvider.cs" />
-    <Compile Include="Provider\LossFunctionProvider.cs" />
     <Compile Include="Training\ITraining.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\VI.Maths\VI.Maths.csproj">
@@ -117,17 +105,13 @@
       <Name>VI.ParallelComputing</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
-    <None Include="packages.config" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\packages\ILGPU.0.1.4\build\ILGPU.targets" Condition="Exists('..\packages\ILGPU.0.1.4\build\ILGPU.targets')" />
+  <Import Project="..\packages\ILGPU.0.2.0\build\ILGPU.targets" Condition="Exists('..\packages\ILGPU.0.2.0\build\ILGPU.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+      <ErrorText>Este projeto faz referência a pacotes do NuGet que não estão presentes neste computador. Use a Restauração de Pacotes do NuGet para baixá-los.  Para obter mais informações, consulte http://go.microsoft.com/fwlink/?LinkID=322105. O arquivo ausente é {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\ILGPU.0.1.4\build\ILGPU.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\ILGPU.0.1.4\build\ILGPU.targets'))" />
+    <Error Condition="!Exists('..\packages\ILGPU.0.2.0\build\ILGPU.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\ILGPU.0.2.0\build\ILGPU.targets'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

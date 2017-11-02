@@ -1,27 +1,20 @@
-﻿using ILGPU.Runtime;
-using VI.Cognitive.Layer;
-using VI.Cognitive.Provider;
+﻿using VI.Cognitive.Layer;
+using VI.NumSharp.Array;
 
 namespace VI.Cognitive.ANNOperations
 {
     public sealed class ANNMomentumOperations : IANNMomentumOperations
     {
-        private readonly IAnnArrayProvider _operationsProvider;
-
-        public void Momentum(ActivationLayer target, float momentum)
+        public Array<float> ComputeBiasMomentum()
         {
-            target.Momentum = momentum;
-            target.CachedMomentum = target.LearningRate * target.Momentum;
-            target.CachedLearningRate = target.LearningRate * (1 - target.Momentum);
+            throw new System.NotImplementedException();
         }
 
-        public MemoryBuffer2D<float> ComputeWeightMomentum()
+        public Array2D<float> ComputeWeightMomentum(ActivationLayer2 target, float momentum)
         {
-            return null;
-        }
-
-        public MemoryBuffer<float> ComputeBiasMomentum()
-        {
+//            target.Momentum = momentum;
+//            target.CachedMomentum = target.LearningRate * target.Momentum;
+//            target.CachedLearningRate = target.LearningRate * (1 - target.Momentum);
             return null;
         }
     }
