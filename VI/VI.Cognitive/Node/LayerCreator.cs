@@ -6,27 +6,27 @@ namespace VI.Cognitive.Node
     {
         static ILayerFactory _factory = new LayerFactory();
         
-        public static OutputNeuron2 SigmoidSupervisedOutputBPArray(int size, int connections, float learning, float momentum)
+        public static OutputNeuron SigmoidSupervisedOutputBPArray(int size, int connections, float learning, float momentum)
         {
             return _factory.OutputNeuron(size, connections, learning, momentum, _factory.Sigmoid());
         }
 
-        public static OutputNeuron2 TANHSupervisedOutputBPArray(int size, int connections, float learning, float momentum)
+        public static OutputNeuron TANHSupervisedOutputBPArray(int size, int connections, float learning, float momentum)
         {
             return _factory.OutputNeuron(size, connections, learning, momentum, _factory.TANH());
         }
 
-        public static HiddenNeuron2 SigmoidSupervisedHiddenBPArray(int size, int connections, float learning, float momentum)
+        public static HiddenNeuron SigmoidSupervisedHiddenBPArray(int size, int connections, float learning, float momentum)
         {
             return _factory.HiddenNeuron(size, connections, learning, momentum, _factory.Sigmoid());
         }
 
-        public static HiddenNeuron2 LeakReluSupervisedHiddenBPArray(int size, int connections, float learning, float momentum)
+        public static HiddenNeuron LeakReluSupervisedHiddenBPArray(int size, int connections, float learning, float momentum)
         {
             return _factory.HiddenNeuron(size, connections, learning, momentum, _factory.LeakRelu());
         }
 
-        public static HiddenNeuron2 TANHSupervisedHiddenBPArray(int size, int connections, float learning, float momentum)
+        public static HiddenNeuron TANHSupervisedHiddenBPArray(int size, int connections, float learning, float momentum)
         {
             return _factory.HiddenNeuron(size, connections, learning, momentum, _factory.TANH());
         }

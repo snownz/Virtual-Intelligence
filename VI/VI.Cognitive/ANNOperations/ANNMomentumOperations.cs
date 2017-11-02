@@ -12,9 +12,6 @@ namespace VI.Cognitive.ANNOperations
 
         public Array2D<float> ComputeWeightMomentum(ActivationLayer2 target, float momentum)
         {
-//            target.Momentum = momentum;
-//            target.CachedMomentum = target.LearningRate * target.Momentum;
-//            target.CachedLearningRate = target.LearningRate * (1 - target.Momentum);
             return null;
         }
     }

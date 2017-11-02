@@ -5,7 +5,7 @@ using VI.NumSharp.Array;
 
 namespace VI.Cognitive.Node
 {
-    public class HiddenNeuron2 : INeuron
+    public class HiddenNeuron : INeuron
     {
         private ActivationLayer2 _layer;
         private static ThreadSafeRandom _tr = new ThreadSafeRandom();
@@ -14,7 +14,7 @@ namespace VI.Cognitive.Node
         public int Nodes => _layer.Size;
         public int Connections => _layer.ConectionsSize;
 
-        public HiddenNeuron2(int nodeSize, int connectionSize, float learningRate, ANNBasicOperations operations)
+        public HiddenNeuron(int nodeSize, int connectionSize, float learningRate, ANNBasicOperations operations)
         {
             _layer = new ActivationLayer2(nodeSize, connectionSize);
             _ann = operations;
@@ -24,7 +24,10 @@ namespace VI.Cognitive.Node
             _layer.LearningRate = learningRate;
             _layer.CachedLearningRate = learningRate;
 
-            
+            //target.Momentum = momentum;
+            //target.CachedMomentum = target.LearningRate * target.Momentum;
+            //target.CachedLearningRate = target.LearningRate * (1 - target.Momentum);
+
             _layer.OutputVector = new Array<float>(nodeSize);
 
             _layer.BiasVector = new Array<float>(nodeSize);

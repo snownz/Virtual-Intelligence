@@ -24,16 +24,16 @@ namespace VI.Cognitive.Factory
                 new ANNBasicOperations(ProcessingDevice.Sigmoid, ProcessingDevice.SquaredLoss);
         }
 
-        public HiddenNeuron2 HiddenNeuron(int size, int connections, float learning, float momentum, ANNBasicOperations operations)
+        public HiddenNeuron HiddenNeuron(int size, int connections, float learning, float momentum, ANNBasicOperations operations)
         {
             return 
-                new HiddenNeuron2(size, connections, learning, operations);
+                new HiddenNeuron(size, connections, learning, operations);
         }
 
-        public OutputNeuron2 OutputNeuron(int size, int connections, float learning, float momentum, ANNBasicOperations operations)
+        public OutputNeuron OutputNeuron(int size, int connections, float learning, float momentum, ANNBasicOperations operations)
         {
             return
-                new OutputNeuron2(size, connections, learning, operations);
+                new OutputNeuron(size, connections, learning, operations);
         }
     }
 }

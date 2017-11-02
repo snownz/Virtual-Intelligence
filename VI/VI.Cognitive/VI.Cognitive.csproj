@@ -100,10 +100,6 @@
       <Project>{99e96f1d-087f-4e7b-a378-470dc80ddfcc}</Project>
       <Name>VI.NumSharp</Name>
     </ProjectReference>
-    <ProjectReference Include="..\VI.ParallelComputing\VI.ParallelComputing.csproj">
-      <Project>{cb466cf0-8994-42a4-ba72-661fd250cf0d}</Project>
-      <Name>VI.ParallelComputing</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\ILGPU.0.2.0\build\ILGPU.targets" Condition="Exists('..\packages\ILGPU.0.2.0\build\ILGPU.targets')" />
