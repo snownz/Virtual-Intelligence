@@ -1,0 +1,68 @@
+﻿using ILGPU;
+using ILGPU.Runtime;
+using ILGPU.Runtime.Cuda;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+
+namespace VI.ParallelComputing.Drivers
+{
+    public class CudaAnnInterface<T> : IAnnParallelInterface
+    {
+        private Context _context;
+        private Accelerator _accelerator;
+        private ParalleExecutorlInterface _interface;
+
+        public ParalleExecutorlInterface Executor
+        {
+            get
+            {
+                return _interface;
+            }
+        }
+
+        public CudaAnnInterface()
+        {
+            _context = new Context();
+
+            try
+            {
+                _accelerator = new CudaAccelerator(_context);
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("\n-----------\nCUDA is not supported\n-----------\n");
+                return;
+            }
+
+            using (var translator = new ParallelTranslator(_accelerator))
+            {
+                var kernels = ComputeKernels(translator);
+                _interface = new ParalleExecutorlInterface(_accelerator, kernels);
+            }
+        }
+
+        private Dictionary<string, Kernel> ComputeKernels(ParallelTranslator translator)
+        {
+            var result = new Dictionary<string, Kernel>();
+
+            var methods = typeof(T)
+                .GetMethods(BindingFlags.Static | BindingFlags.Public)
+                .Select(x => x.Name)
+                .ToList();
+
+            var compileds = translator
+                .TranslateMethod(typeof(T), methods)
+                .ToList();
+
+            for (int i = 0; i < methods.Count(); i++)
+            {
+                var kernel = _accelerator.LoadAutoGroupedKernel(compileds[i]);
+                result.Add(methods[i], kernel);
+            }
+
+            return result;
+        }
+    }
+}
