@@ -17,14 +17,14 @@ namespace VI.Labs
 
             var watch = System.Diagnostics.Stopwatch.StartNew();
 
-            ProcessingDevice.Device = Device.CPU;
+            ProcessingDevice.Device = Device.CUDA;
 
             watch.Stop();
             Console.WriteLine($"Device Time: {watch.ElapsedMilliseconds}ms");
 
-            var hiddens = LayerCreator.LeakReluSupervisedHiddenBPArray(2, 4, values[0], values[3]);
-            var hiddens2 = LayerCreator.LeakReluSupervisedHiddenBPArray(2, 2, values[0], values[3]);
-            var outputs = LayerCreator.SigmoidSupervisedOutputBPArray(2, 2, values[0], values[3]);
+            var hiddens = LayerCreator.LeakReluSupervisedHiddenBPArray(200, 4, values[0], values[3]);
+            var hiddens2 = LayerCreator.LeakReluSupervisedHiddenBPArray(20, 200, values[0], values[3]);
+            var outputs = LayerCreator.SigmoidSupervisedOutputBPArray(2, 20, values[0], values[3]);
 
             watch = System.Diagnostics.Stopwatch.StartNew();
             LayerCreator.SynapseFull(hiddens, 0.3f);

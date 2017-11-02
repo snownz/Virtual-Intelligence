@@ -7,10 +7,11 @@
     <Optimize>true</Optimize>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <PlatformTarget>x64</PlatformTarget>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <Optimize>true</Optimize>
-    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <Optimize>false</Optimize>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
@@ -21,4 +22,7 @@
     <ProjectReference Include="..\VI.Maths\VI.Maths.csproj" />
     <ProjectReference Include="..\VI.ParallelComputing\VI.ParallelComputing.csproj" />
   </ItemGroup>
+  <PropertyGroup>
+     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup> 
 </Project>

@@ -7,11 +7,12 @@
     <PlatformTarget>x64</PlatformTarget>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Optimize>true</Optimize>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <PlatformTarget>x64</PlatformTarget>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <Optimize>true</Optimize>
+    <Optimize>false</Optimize>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="ILGPU" Version="0.2.0" />
@@ -21,4 +22,7 @@
     <ProjectReference Include="..\VI.Maths\VI.Maths.csproj" />
     <ProjectReference Include="..\VI.NumSharp\VI.NumSharp.csproj" />
   </ItemGroup>
+  <PropertyGroup>
+     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup> 
 </Project>
