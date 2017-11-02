@@ -49,19 +49,14 @@ namespace VI.NumSharp.Array
         private Array<T> SumColumnLoop()
         {
             var arr = Array<T>.Allocate(View.Width);
-            //var watch = System.Diagnostics.Stopwatch.StartNew();
             ProcessingDevice.ArrayDevice.Executor["_M_sum_loop"].Launch(View.Width, arr.View.View, View.View, View.Height);
             ProcessingDevice.ArrayDevice.Executor.Wait();
-            //watch.Stop();
-            //Console.WriteLine($"Array Sum Time: {watch.ElapsedMilliseconds}ms Size {_memoryBuffer.Width} x {_memoryBuffer.Height}");
             return arr;
         }
         private Array<T> SumColumnPrallel()
         {
             var s = _memoryBuffer.Height / 2;
             var r = _memoryBuffer.Height % 2;
-            //var watch = System.Diagnostics.Stopwatch.StartNew();
-
             while (s > 1)
             {
                 var _size = new Index2(_memoryBuffer.Width, s);
@@ -71,8 +66,6 @@ namespace VI.NumSharp.Array
                 r = s % 2;
                 s /= 2;
             }
-            //watch.Stop();
-            //Console.WriteLine($"Array Sum Time: {watch.ElapsedMilliseconds}ms Size {_memoryBuffer.Width} x {_memoryBuffer.Height}");
             return new Array<T>(_joinLines(_memoryBuffer.Width, _memoryBuffer));
         }
 
@@ -177,10 +170,10 @@ namespace VI.NumSharp.Array
 
         public static Array2D<T> Allocate(Index2 size)
         {
-            //var watch = System.Diagnostics.Stopwatch.StartNew();
+            var watch = System.Diagnostics.Stopwatch.StartNew();
             var mem = ProcessingDevice.ArrayDevice.Executor.CreateBuffer<T>(size);
-            //watch.Stop();
-            //Console.WriteLine($"\n-----\nAllocation Time: {watch.ElapsedMilliseconds}ms\nSize {size.X} x {size.Y}\n-----");
+            watch.Stop();
+            Console.WriteLine($"\n-----\nAllocation Time: {watch.ElapsedMilliseconds}ms\nSize {size.X} x {size.Y}\n-----");
             return new Array2D<T>(mem);
         }
     }

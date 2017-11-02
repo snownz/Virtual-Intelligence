@@ -146,10 +146,10 @@ namespace VI.NumSharp.Array
 
         public static Array<T> Allocate(Index size)
         {
-            //var watch = System.Diagnostics.Stopwatch.StartNew();
+            var watch = System.Diagnostics.Stopwatch.StartNew();
             var mem = ProcessingDevice.ArrayDevice.Executor.CreateBuffer<T>(size);
-            //watch.Stop();
-            //Console.WriteLine($"\n-----\nAllocation Time: {watch.ElapsedMilliseconds}ms\nSize {size.X}\n-----");
+            watch.Stop();
+            Console.WriteLine($"\n-----\nAllocation Time: {watch.ElapsedMilliseconds}ms\nSize {size.X}\n-----");
             return new Array<T>(mem);
         }
     }
