@@ -15,13 +15,13 @@ namespace VI.Cognitive.Factory
         public ANNBasicOperations LeakRelu()
         {
             return 
-                new ANNBasicOperations(ProcessingDevice.Sigmoid, ProcessingDevice.SquaredLoss);
+                new ANNBasicOperations(ProcessingDevice.LeakRelu, ProcessingDevice.SquaredLoss);
         }
 
         public ANNBasicOperations TANH()
         {
             return 
-                new ANNBasicOperations(ProcessingDevice.Sigmoid, ProcessingDevice.SquaredLoss);
+                new ANNBasicOperations(ProcessingDevice.TANH, ProcessingDevice.SquaredLoss);
         }
 
         public HiddenNeuron HiddenNeuron(int size, int connections, float learning, float momentum, ANNBasicOperations operations)

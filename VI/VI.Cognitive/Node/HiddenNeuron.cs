@@ -89,5 +89,9 @@ namespace VI.Cognitive.Node
         {
             _layer.KnowlodgeMatrix[node, connection] = (float)_tr.NextDouble();
         }
+        public void Synapsis(int node, int connection, float w)
+        {
+            _layer.KnowlodgeMatrix[node, connection] = w;
+        }
     }
 }

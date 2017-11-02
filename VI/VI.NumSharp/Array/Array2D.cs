@@ -170,10 +170,10 @@ namespace VI.NumSharp.Array
 
         public static Array2D<T> Allocate(Index2 size)
         {
-            var watch = System.Diagnostics.Stopwatch.StartNew();
+            //var watch = System.Diagnostics.Stopwatch.StartNew();
             var mem = ProcessingDevice.ArrayDevice.Executor.CreateBuffer<T>(size);
-            watch.Stop();
-            Console.WriteLine($"\n-----\nAllocation Time: {watch.ElapsedMilliseconds}ms\nSize {size.X} x {size.Y}\n-----");
+            //watch.Stop();
+            //Console.WriteLine($"\n-----\nAllocation Time: {watch.ElapsedMilliseconds}ms\nSize {size.X} x {size.Y}\n-----");
             return new Array2D<T>(mem);
         }
     }

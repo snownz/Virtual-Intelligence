@@ -22,14 +22,14 @@ namespace VI.Labs
             watch.Stop();
             Console.WriteLine($"Device Time: {watch.ElapsedMilliseconds}ms");
             
-            var hiddens = LayerCreator.LeakReluSupervisedHiddenBPArray(4000, 4, values[0], values[3]);
-            var hiddens2 = LayerCreator.LeakReluSupervisedHiddenBPArray(2000, 4000, values[0], values[3]);
-            var outputs = LayerCreator.SigmoidSupervisedOutputBPArray(2, 2000, values[0], values[3]);
+            var hiddens = LayerCreator.LeakReluSupervisedHiddenBPArray(2, 4, values[0], values[3]);
+            var hiddens2 = LayerCreator.LeakReluSupervisedHiddenBPArray(2, 2, values[0], values[3]);
+            var outputs = LayerCreator.SigmoidSupervisedOutputBPArray(2, 2, values[0], values[3]);
             
             watch = System.Diagnostics.Stopwatch.StartNew();
-            LayerCreator.SynapseFull(hiddens);
-            LayerCreator.SynapseFull(hiddens2);
-            LayerCreator.SynapseFull(outputs);
+            LayerCreator.SynapseFull(hiddens, 0.3f);
+            LayerCreator.SynapseFull(hiddens2, 0.3f);
+            LayerCreator.SynapseFull(outputs, 0.3f);
             watch.Stop();
             Console.WriteLine($"Sinapse Time: {watch.ElapsedMilliseconds}ms");
             
@@ -52,7 +52,7 @@ namespace VI.Labs
                     // Feed Forward
                     var _h = hiddens.Output(inputs);
                     var _h2 = hiddens2.Output(_h);
-                    var _o = outputs.Output(_h);
+                    var _o = outputs.Output(_h2);
 
                     // Backward
                     var _oe  = outputs.Learn (_h2, desireds);

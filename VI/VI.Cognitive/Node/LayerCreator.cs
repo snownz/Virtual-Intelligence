@@ -1,4 +1,5 @@
-﻿using VI.Cognitive.Factory;
+﻿using System;
+using VI.Cognitive.Factory;
 
 namespace VI.Cognitive.Node
 { 
@@ -25,11 +26,12 @@ namespace VI.Cognitive.Node
         {
             return _factory.HiddenNeuron(size, connections, learning, momentum, _factory.LeakRelu());
         }
-
+        
         public static HiddenNeuron TANHSupervisedHiddenBPArray(int size, int connections, float learning, float momentum)
         {
             return _factory.HiddenNeuron(size, connections, learning, momentum, _factory.TANH());
         }
+        
 
         public static void SynapseFull(INeuron n)
         {
@@ -45,5 +47,22 @@ namespace VI.Cognitive.Node
         {
             n.Synapsis(node, connection);
         }
+
+        public static void SynapseFull(INeuron n, float w)
+        {
+            for (var i = 0; i < n.Nodes; i++)
+            {
+                for (var j = 0; j < n.Connections; j++)
+                {
+                    Synapse(n, i, j, w);
+                }
+            }
+        }
+
+        public static void Synapse(INeuron n, int node, int connection, float w)
+        {
+            n.Synapsis(node, connection, w);
+        }
+        
     }
 }

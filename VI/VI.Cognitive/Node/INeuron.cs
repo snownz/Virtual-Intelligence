@@ -5,5 +5,6 @@
         int Nodes { get; }
         int Connections { get; }
         void Synapsis(int node, int connection);
+        void Synapsis(int node, int connection, float w);
     }
 }
