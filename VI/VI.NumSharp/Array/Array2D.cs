@@ -124,11 +124,11 @@ namespace VI.NumSharp.Array
 
         public static Array2D<T> operator *(Array2D<T> m0, Array2D<T> m1)
         {
-            throw new NotImplementedException();
+              throw new NotImplementedException("Talk to the owner of the repository to implement this method (Issue)");
         }
         public static Array2D<T> operator /(Array2D<T> m0, Array2D<T> m1)
         {
-            throw new NotImplementedException();
+              throw new NotImplementedException("Talk to the owner of the repository to implement this method (Issue)");
         }
         public static Array2D<T> operator +(Array2D<T> m0, Array2D<T> m1)
         {
@@ -142,7 +142,7 @@ namespace VI.NumSharp.Array
         }
         public static Array2D<T> operator -(Array2D<T> m0, Array2D<T> m1)
         {
-            throw new NotImplementedException();
+              throw new NotImplementedException("Talk to the owner of the repository to implement this method (Issue)");
         }
 
         public static Array2D<T> operator *(Array2D<T> m0, T c)
@@ -157,15 +157,15 @@ namespace VI.NumSharp.Array
         }
         public static Array2D<T> operator /(Array2D<T> m0, T c)
         {
-            throw new NotImplementedException();
+              throw new NotImplementedException("Talk to the owner of the repository to implement this method (Issue)");
         }
         public static Array2D<T> operator +(Array2D<T> m0, T c)
         {
-            throw new NotImplementedException();
+              throw new NotImplementedException("Talk to the owner of the repository to implement this method (Issue)");
         }
         public static Array2D<T> operator -(Array2D<T> m0, T c)
         {
-            throw new NotImplementedException();
+              throw new NotImplementedException("Talk to the owner of the repository to implement this method (Issue)");
         }
 
         public static Array2D<T> Allocate(Index2 size)

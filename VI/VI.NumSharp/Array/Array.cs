@@ -58,7 +58,7 @@ namespace VI.NumSharp.Array
         }
         public static Array<T> operator /(Array<T> v0, Array<T> v1)
         {
-            throw new NotImplementedException();
+              throw new NotImplementedException("Talk to the owner of the repository to implement this method (Issue)");
         }
         public static Array<T> operator +(Array<T> v0, Array<T> v1)
         {
@@ -69,7 +69,7 @@ namespace VI.NumSharp.Array
         }
         public static Array<T> operator -(Array<T> v0, Array<T> v1)
         {
-            throw new NotImplementedException();
+              throw new NotImplementedException("Talk to the owner of the repository to implement this method (Issue)");
         }
 
         public static Array<T> operator *(Array<T> v0, T c)
@@ -82,66 +82,66 @@ namespace VI.NumSharp.Array
         }
         public static Array<T> operator /(Array<T> v0, T c)
         {
-            throw new NotImplementedException();
+              throw new NotImplementedException("Talk to the owner of the repository to implement this method (Issue)");
         }
         public static Array<T> operator +(Array<T> v0, T c)
         {
-            throw new NotImplementedException();
+              throw new NotImplementedException("Talk to the owner of the repository to implement this method (Issue)");
         }
         public static Array<T> operator -(Array<T> v0, T c)
         {
-            throw new NotImplementedException();
+              throw new NotImplementedException("Talk to the owner of the repository to implement this method (Issue)");
         }
 
         public static Array2D<T> operator *(Array<T> v0, Array2D<T> v1)
         {
-            throw new NotImplementedException();
+              throw new NotImplementedException("Talk to the owner of the repository to implement this method (Issue)");
         }
         public static Array2D<T> operator /(Array<T> v0, Array2D<T> v1)
         {
-            throw new NotImplementedException();
+              throw new NotImplementedException("Talk to the owner of the repository to implement this method (Issue)");
         }
         public static Array2D<T> operator +(Array<T> v0, Array2D<T> v1)
         {
-            throw new NotImplementedException();
+              throw new NotImplementedException("Talk to the owner of the repository to implement this method (Issue)");
         }
         public static Array2D<T> operator -(Array<T> v0, Array2D<T> v1)
         {
-            throw new NotImplementedException();
+              throw new NotImplementedException("Talk to the owner of the repository to implement this method (Issue)");
         }
 
         public static Array2D<T> operator *(Array<T> v0, Array2DH<T> v1)
         {
-            throw new NotImplementedException();
+              throw new NotImplementedException("Talk to the owner of the repository to implement this method (Issue)");
         }
         public static Array2D<T> operator /(Array<T> v0, Array2DH<T> v1)
         {
-            throw new NotImplementedException();
+              throw new NotImplementedException("Talk to the owner of the repository to implement this method (Issue)");
         }
         public static Array2D<T> operator +(Array<T> v0, Array2DH<T> v1)
         {
-            throw new NotImplementedException();
+              throw new NotImplementedException("Talk to the owner of the repository to implement this method (Issue)");
         }
         public static Array2D<T> operator -(Array<T> v0, Array2DH<T> v1)
         {
-            throw new NotImplementedException();
+              throw new NotImplementedException("Talk to the owner of the repository to implement this method (Issue)");
         }
 
         public static Array2D<T> operator *(Array<T> v0, Array2DW<T> v1)
         {
-            throw new NotImplementedException();
+              throw new NotImplementedException("Talk to the owner of the repository to implement this method (Issue)");
         }
         public static Array2D<T> operator /(Array<T> v0, Array2DW<T> v1)
         {
-            throw new NotImplementedException();
+              throw new NotImplementedException("Talk to the owner of the repository to implement this method (Issue)");
         }
         public static Array2D<T> operator +(Array<T> v0, Array2DW<T> v1)
         {
-            throw new NotImplementedException();
+              throw new NotImplementedException("Talk to the owner of the repository to implement this method (Issue)");
         }
         public static Array2D<T> operator -(Array<T> v0, Array2DW<T> v1)
         {
-            throw new NotImplementedException();
+              throw new NotImplementedException("Talk to the owner of the repository to implement this method (Issue)");
         }
 
         public static Array<T> Allocate(Index size)
