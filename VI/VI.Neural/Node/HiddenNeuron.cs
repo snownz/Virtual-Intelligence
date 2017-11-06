@@ -2,21 +2,24 @@
 using VI.Neural.Layer;
 using VI.Maths.Random;
 using VI.NumSharp.Array;
+using System;
 
 namespace VI.Neural.Node
 {
+    [Obsolete("Use 'SupervisedNeuron' or 'UnsupervisedNeuron' class with the correct learning mode")]
     public class HiddenNeuron : INeuron
     {
-        private ActivationLayer2 _layer;
+        private ActivationLayer _layer;
         private static ThreadSafeRandom _tr = new ThreadSafeRandom();
-        private readonly ANNBasicOperations _ann;
+        private readonly AnnBasicOperations _ann;
 
-        public int Nodes => _layer.Size;
+        public int NodesSize => _layer.Size;
+        public ILayer Nodes => _layer;
         public int Connections => _layer.ConectionsSize;
 
-        public HiddenNeuron(int nodeSize, int connectionSize, float learningRate, ANNBasicOperations operations)
+        public HiddenNeuron(int nodeSize, int connectionSize, float learningRate, AnnBasicOperations operations)
         {
-            _layer = new ActivationLayer2(nodeSize, connectionSize);
+            _layer = new ActivationLayer(nodeSize, connectionSize);
             _ann = operations;
 
             _layer.KnowlodgeMatrix = new Array2D<float>(nodeSize, connectionSize);

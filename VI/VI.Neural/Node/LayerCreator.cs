@@ -35,7 +35,7 @@ namespace VI.Neural.Node
 
         public static void SynapseFull(INeuron n)
         {
-            for (var i = 0; i < n.Nodes; i++)
+            for (var i = 0; i < n.NodesSize; i++)
             {
                 for (var j = 0; j < n.Connections; j++)
                 {
@@ -50,7 +50,7 @@ namespace VI.Neural.Node
 
         public static void SynapseFull(INeuron n, float w)
         {
-            for (var i = 0; i < n.Nodes; i++)
+            for (var i = 0; i < n.NodesSize; i++)
             {
                 for (var j = 0; j < n.Connections; j++)
                 {

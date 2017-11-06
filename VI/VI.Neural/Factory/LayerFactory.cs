@@ -1,4 +1,5 @@
 ﻿using VI.Neural.ANNOperations;
+using VI.Neural.LearningMethods;
 using VI.Neural.Node;
 using VI.NumSharp;
 
@@ -6,34 +7,45 @@ namespace VI.Neural.Factory
 {
     public class LayerFactory : ILayerFactory
     {
-        public ANNBasicOperations Sigmoid()
+        public AnnBasicOperations Sigmoid()
         {
             return 
-                new ANNBasicOperations(ProcessingDevice.Sigmoid, ProcessingDevice.SquaredLoss);
+                new AnnBasicOperations(ProcessingDevice.Sigmoid, ProcessingDevice.SquaredLoss);
         }
 
-        public ANNBasicOperations LeakRelu()
+        public AnnBasicOperations LeakRelu()
         {
             return 
-                new ANNBasicOperations(ProcessingDevice.LeakRelu, ProcessingDevice.SquaredLoss);
+                new AnnBasicOperations(ProcessingDevice.LeakRelu, ProcessingDevice.SquaredLoss);
         }
 
-        public ANNBasicOperations TANH()
+        public AnnBasicOperations TANH()
         {
             return 
-                new ANNBasicOperations(ProcessingDevice.TANH, ProcessingDevice.SquaredLoss);
+                new AnnBasicOperations(ProcessingDevice.TANH, ProcessingDevice.SquaredLoss);
         }
 
-        public HiddenNeuron HiddenNeuron(int size, int connections, float learning, float momentum, ANNBasicOperations operations)
+        public IAnnSupervisedLearningMethod SgdHiddenLearning(AnnBasicOperations operations)
+        {
+            return new AnnSgdHiddenOperations(operations);
+        }
+
+
+        public HiddenNeuron HiddenNeuron(int size, int connections, float learning, float momentum, AnnBasicOperations operations)
         {
             return 
                 new HiddenNeuron(size, connections, learning, operations);
         }
 
-        public OutputNeuron OutputNeuron(int size, int connections, float learning, float momentum, ANNBasicOperations operations)
+        public OutputNeuron OutputNeuron(int size, int connections, float learning, float momentum, AnnBasicOperations operations)
         {
             return
                 new OutputNeuron(size, connections, learning, operations);
+        }
+
+        public SupervisedNeuron Supervised(int size, int connections, float learning, float momentum, AnnBasicOperations operations)
+        {
+            return null;
         }
     }
 }

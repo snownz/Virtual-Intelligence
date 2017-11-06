@@ -22,9 +22,9 @@ namespace VI.Labs
             watch.Stop();
             Console.WriteLine($"Device Time: {watch.ElapsedMilliseconds}ms");
 
-            var hiddens = LayerCreator.LeakReluSupervisedHiddenBPArray(200, 4, values[0], values[3]);
-            var hiddens2 = LayerCreator.LeakReluSupervisedHiddenBPArray(20, 200, values[0], values[3]);
-            var outputs = LayerCreator.SigmoidSupervisedOutputBPArray(2, 20, values[0], values[3]);
+            var hiddens = LayerCreator.TANHSupervisedHiddenBPArray(2000, 4, values[0], values[3]);
+            var hiddens2 = LayerCreator.TANHSupervisedHiddenBPArray(2000, 2000, values[0], values[3]);
+            var outputs = LayerCreator.SigmoidSupervisedOutputBPArray(2, 2000, values[0], values[3]);
 
             watch = System.Diagnostics.Stopwatch.StartNew();
             LayerCreator.SynapseFull(hiddens, 0.3f);
@@ -69,7 +69,7 @@ namespace VI.Labs
                 cont++;
                 watch.Stop();
                 var time = watch.ElapsedMilliseconds;
-                Console.WriteLine($"Interactions: {cont}\nError: {e}\nTime: { time }");
+                Console.WriteLine($"Interactions: {cont}\nError: {e}\nTime: { time / (double)t.Length }ms");
                 Console.Title = $"TSPS (Training Sample per Second): {Math.Ceiling(1000d / ((double)time / (double)t.Length))}";
             }
             Console.ReadKey();

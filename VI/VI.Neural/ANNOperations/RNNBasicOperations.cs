@@ -1,7 +1,7 @@
 ﻿
 namespace VI.Neural.ANNOperations
 {
-    public sealed class RNNBasicOperations
+    public sealed class RnnBasicOperations
     {
         
     }
