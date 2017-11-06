@@ -1,14 +1,13 @@
 ﻿using ILGPU;
 using ILGPU.Runtime;
 using System;
-using VI.ParallelComputing;
 
 namespace VI.NumSharp.Array
 {
     public class Array<T> : IDisposable
         where T : struct
     {
-        private MemoryBuffer<T> _memoryBuffer;
+        private readonly MemoryBuffer<T> _memoryBuffer;
         private ArrayW<T> _w;
         private ArrayH<T> _h;
 
@@ -39,10 +38,19 @@ namespace VI.NumSharp.Array
 
         public T this[int x]
         {
-            get { return _memoryBuffer[x]; }
-            set { _memoryBuffer[x] = value; }
+            get => _memoryBuffer[x];
+            set => _memoryBuffer[x] = value;
         }
 
+        public (T, Index) FindMin()
+        {
+            throw new NotImplementedException("Talk to the owner of the repository to implement this method (Issue)");
+        }
+        public (T, Index) FindMax()
+        {
+            throw new NotImplementedException("Talk to the owner of the repository to implement this method (Issue)");
+        }
+        
         public void Dispose()
         {
             _memoryBuffer.Dispose();

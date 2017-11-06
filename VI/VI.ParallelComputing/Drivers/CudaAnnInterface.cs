@@ -10,16 +10,10 @@ namespace VI.ParallelComputing.Drivers
 {
     public class CudaAnnInterface<T> : IAnnParallelInterface
     {
-        private Accelerator _accelerator;
-        private ParalleExecutorlInterface _interface;
+        private readonly Accelerator _accelerator;
+        private readonly ParalleExecutorlInterface _interface;
 
-        public ParalleExecutorlInterface Executor
-        {
-            get
-            {
-                return _interface;
-            }
-        }
+        public ParalleExecutorlInterface Executor => _interface;
 
         public CudaAnnInterface()
         {

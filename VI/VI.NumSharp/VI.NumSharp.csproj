@@ -23,6 +23,6 @@
     <ProjectReference Include="..\VI.ParallelComputing\VI.ParallelComputing.csproj" />
   </ItemGroup>
   <PropertyGroup>
-     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-  </PropertyGroup> 
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
 </Project>

@@ -1,25 +1,19 @@
 ﻿using ILGPU;
 using ILGPU.Runtime.Cuda;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using ILGPU.Runtime;
+using ILGPU.Runtime.CPU;
 
 namespace VI.ParallelComputing
 {
     public static class Device
     {
+        private static Context _context;
         private static CudaAccelerator _cuda;
-        public static CudaAccelerator CUDA
-        {
-            get
-            {
-                if(_cuda == null)
-                {
-                    var context = new Context();
-                    _cuda = new CudaAccelerator(context);
-                }
-                return _cuda;
-            }
-        }
+        private static CPUAccelerator _cpu;
+
+        private static Context Context => _context ?? (_context = new Context());
+
+        public static Accelerator CUDA => _cuda ?? (_cuda = new CudaAccelerator(Context));
+        public static Accelerator CPU => _cpu ?? (_cpu = new CPUAccelerator(Context));
     }
 }

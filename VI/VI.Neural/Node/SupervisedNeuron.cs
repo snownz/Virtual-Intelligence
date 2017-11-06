@@ -9,7 +9,7 @@ namespace VI.Neural.Node
 {
     public class SupervisedNeuron : INeuron
     {
-        private static ThreadSafeRandom _tr = new ThreadSafeRandom();
+        private static readonly ThreadSafeRandom _tr = new ThreadSafeRandom();
 
         private readonly ILayer _layer;
         private readonly IAnnSupervisedLearningMethod _learningMethod;
@@ -23,19 +23,23 @@ namespace VI.Neural.Node
         public SupervisedNeuron(int nodeSize, 
                     int connectionSize,
                     float learningRate, 
-                    IAnnSupervisedLearningMethod learningMethod)
+                    IAnnSupervisedLearningMethod learningMethod,
+                    IAnnOutput outputMethod
+            )
         {
-            _layer = new ActivationLayer(nodeSize, connectionSize);
-
+            _layer = new ActivationLayer(nodeSize, connectionSize)
+            {
+                LearningRate = learningRate,
+                CachedLearningRate = learningRate
+            };
+            _learningMethod = learningMethod;
+            _outputMethod = outputMethod;
+            InitializeArrays(nodeSize, connectionSize);
+        }
+      
+        private void InitializeArrays(int nodeSize, int connectionSize)
+        {
             _layer.KnowlodgeMatrix = new Array2D<float>(nodeSize, connectionSize);
-
-            _layer.LearningRate = learningRate;
-            _layer.CachedLearningRate = learningRate;
-
-            //target.Momentum = momentum;
-            //target.CachedMomentum = target.LearningRate * target.Momentum;
-            //target.CachedLearningRate = target.LearningRate * (1 - target.Momentum);
-
             _layer.OutputVector = new Array<float>(nodeSize);
 
             _layer.BiasVector = new Array<float>(nodeSize);

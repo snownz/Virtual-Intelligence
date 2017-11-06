@@ -8,7 +8,7 @@ namespace VI.NumSharp.Array
     public class Array2D<T>
         where T : struct
     {
-        private MemoryBuffer2D<T> _memoryBuffer;
+        private readonly MemoryBuffer2D<T> _memoryBuffer;
         private Array2DW<T> _w;
         private Array2DH<T> _h;
 
@@ -30,15 +30,11 @@ namespace VI.NumSharp.Array
         {
             _memoryBuffer = memoryBuffer;
         }
-        private void _construct()
-        {
-            _w = new Array2DW<T>(_memoryBuffer);
-            _h = new Array2DH<T>(_memoryBuffer);
-        }
+        
         public T this[int x, int y]
         {
-            get { return _memoryBuffer[new Index2(x, y)]; }
-            set { _memoryBuffer[new Index2(x, y)] = value; }
+            get => _memoryBuffer[new Index2(x, y)];
+            set => _memoryBuffer[new Index2(x, y)] = value;
         }
 
         public void Dispose()
@@ -46,14 +42,15 @@ namespace VI.NumSharp.Array
             _memoryBuffer.Dispose();
         }
 
-        private Array<T> SumColumnLoop()
+        public (T, Index2) FindMin()
         {
-            var arr = Array<T>.Allocate(View.Width);
-            ProcessingDevice.ArrayDevice.Executor["_M_sum_loop"].Launch(View.Width, arr.View.View, View.View, View.Height);
-            ProcessingDevice.ArrayDevice.Executor.Wait();
-            return arr;
+            throw new NotImplementedException("Talk to the owner of the repository to implement this method (Issue)");
         }
-        private Array<T> SumColumnPrallel()
+        public (T, Index2) FindMax()
+        {
+            throw new NotImplementedException("Talk to the owner of the repository to implement this method (Issue)");
+        }
+        public Array<T> SumColumn()
         {
             var s = _memoryBuffer.Height / 2;
             var r = _memoryBuffer.Height % 2;
@@ -67,18 +64,6 @@ namespace VI.NumSharp.Array
                 s /= 2;
             }
             return new Array<T>(_joinLines(_memoryBuffer.Width, _memoryBuffer));
-        }
-
-        public Array<T> SumColumn()
-        {
-            if (ProcessingDevice.Device == Device.CPU)
-            {
-                return SumColumnLoop();
-            }
-            else
-            {
-                return SumColumnPrallel();
-            }
         }
         public Array<T> SumLine()
         {
@@ -95,33 +80,18 @@ namespace VI.NumSharp.Array
             }
             return new Array<T>(_joinColumns(_memoryBuffer.Height, _memoryBuffer));
         }
-
-        private void _sumLines(Index2 size, int r, MemoryBuffer2D<T> m)
+        public Array2D<T> Sqrt()
         {
-            ProcessingDevice.ArrayDevice.Executor["_M_sum_lines"].Launch(size, r, m.View, size.Y);
+            var size = new Index2(View.Width, View.Height);
+            var mem = Allocate(size);
+            ProcessingDevice
+                .ArrayDevice
+                .Executor["_M_Sqrt"]
+                .Launch(size, mem.View.View, View.View);
             ProcessingDevice.ArrayDevice.Executor.Wait();
+            return mem;
         }
-        private void _sumColumns(Index2 size, int r, MemoryBuffer2D<T> m)
-        {
-            ProcessingDevice.ArrayDevice.Executor["_M_sum_columns"].Launch(size, r, m.View, size.X);
-            ProcessingDevice.ArrayDevice.Executor.Wait();
-        }
-
-        private MemoryBuffer<T> _joinLines(Index size, MemoryBuffer2D<T> m)
-        {
-            var output = ProcessingDevice.ArrayDevice.Executor.CreateBuffer<T>(size);
-            ProcessingDevice.ArrayDevice.Executor["_M_2_lines_V"].Launch(size, output.View, m.View);
-            ProcessingDevice.ArrayDevice.Executor.Wait();
-            return output;
-        }
-        private MemoryBuffer<T> _joinColumns(Index size, MemoryBuffer2D<T> m)
-        {
-            var output = ProcessingDevice.ArrayDevice.Executor.CreateBuffer<T>(size);
-            ProcessingDevice.ArrayDevice.Executor["_M_2_columns_V"].Launch(size, output.View, m.View);
-            ProcessingDevice.ArrayDevice.Executor.Wait();
-            return output;
-        }
-
+        
         public static Array2D<T> operator *(Array2D<T> m0, Array2D<T> m1)
         {
               throw new NotImplementedException("Talk to the owner of the repository to implement this method (Issue)");
@@ -155,6 +125,11 @@ namespace VI.NumSharp.Array
             ProcessingDevice.ArrayDevice.Executor.Wait();
             return m0;
         }
+        public static Array2D<T> operator *(T c, Array2D<T> m0)
+        {
+            return m0 * c;
+        }
+        
         public static Array2D<T> operator /(Array2D<T> m0, T c)
         {
               throw new NotImplementedException("Talk to the owner of the repository to implement this method (Issue)");
@@ -175,6 +150,38 @@ namespace VI.NumSharp.Array
             //watch.Stop();
             //Console.WriteLine($"\n-----\nAllocation Time: {watch.ElapsedMilliseconds}ms\nSize {size.X} x {size.Y}\n-----");
             return new Array2D<T>(mem);
+        }
+        
+        private static void _sumLines(Index2 size, int r, MemoryBuffer2D<T> m)
+        {
+            ProcessingDevice.ArrayDevice.Executor["_M_sum_lines"].Launch(size, r, m.View, size.Y);
+            ProcessingDevice.ArrayDevice.Executor.Wait();
+        }
+        private static void _sumColumns(Index2 size, int r, MemoryBuffer2D<T> m)
+        {
+            ProcessingDevice.ArrayDevice.Executor["_M_sum_columns"].Launch(size, r, m.View, size.X);
+            ProcessingDevice.ArrayDevice.Executor.Wait();
+        }
+
+        private static MemoryBuffer<T> _joinLines(Index size, MemoryBuffer2D<T> m)
+        {
+            var output = ProcessingDevice.ArrayDevice.Executor.CreateBuffer<T>(size);
+            ProcessingDevice.ArrayDevice.Executor["_M_2_lines_V"].Launch(size, output.View, m.View);
+            ProcessingDevice.ArrayDevice.Executor.Wait();
+            return output;
+        }
+        private static MemoryBuffer<T> _joinColumns(Index size, MemoryBuffer2D<T> m)
+        {
+            var output = ProcessingDevice.ArrayDevice.Executor.CreateBuffer<T>(size);
+            ProcessingDevice.ArrayDevice.Executor["_M_2_columns_V"].Launch(size, output.View, m.View);
+            ProcessingDevice.ArrayDevice.Executor.Wait();
+            return output;
+        }
+
+        private void _construct()
+        {
+            _w = new Array2DW<T>(_memoryBuffer);
+            _h = new Array2DH<T>(_memoryBuffer);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using ILGPU;
+﻿using System;
+using ILGPU;
 using ILGPU.Runtime;
 using ILGPU.Runtime.CPU;
 using System.Collections.Generic;
@@ -9,23 +10,23 @@ namespace VI.ParallelComputing.Drivers
 {
     public class CpuAnnInterface<T> : IAnnParallelInterface
     {
-        private Context _context;
-        private Accelerator _accelerator;
-        private ParalleExecutorlInterface _interface;
+        private readonly Accelerator _accelerator;
+        private readonly ParalleExecutorlInterface _interface;
 
-        public ParalleExecutorlInterface Executor
-        {
-            get
-            {
-                return _interface;
-            }
-        }
+        public ParalleExecutorlInterface Executor => _interface;
 
         public CpuAnnInterface()
         {
-            _context = new Context();
-            _accelerator = new CPUAccelerator(_context);
-
+            try
+            {
+                _accelerator = Device.CPU;
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("\n-----------\nCPU is not supported\n-----------\n");
+                return;
+            }
+            
             using (var translator = new ParallelTranslator(_accelerator))
             {
                 var kernels = ComputeKernels(translator);

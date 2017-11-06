@@ -1,18 +1,10 @@
-﻿using ILGPU;
+﻿using System;
+using ILGPU;
 
 namespace VI.Maths.Array
 {
     public class ArrayOperations
     {
-        public static void _M_sum_loop(Index size, ArrayView<float> v, ArrayView2D<float> m, int boxSize)
-        {
-            int x = size.X;
-            for (int y = 0; y < boxSize; y++)
-            {
-                v[x] += m[x, y];
-            }
-        }
-
         public static void _M_sum_lines(Index2 size, int r, ArrayView2D<float> m, int boxSize)
         {
             int x = size.X;

@@ -43,7 +43,7 @@ namespace VI.Neural.ANNOperations
         {
             target.GradientMatrix = (inputs.H * target.ErrorVector) * target.LearningRate;
         }
-
+        
         public void UpdateWeight(ILayer target)
         {
             target.KnowlodgeMatrix += target.GradientMatrix;
