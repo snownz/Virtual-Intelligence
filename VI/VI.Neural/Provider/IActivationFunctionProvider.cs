@@ -1,6 +1,6 @@
-﻿using VI.NumSharp.Array;
+﻿using VI.NumSharp.Arrays;
 
-namespace VI.NumSharp.Provider
+namespace VI.Neural.Provider
 {
     public interface IActivationFunctionProvider
     {

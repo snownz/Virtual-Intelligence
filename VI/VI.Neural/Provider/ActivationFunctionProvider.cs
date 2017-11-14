@@ -1,7 +1,7 @@
-﻿using VI.NumSharp.Array;
+﻿using VI.NumSharp.Arrays;
 using VI.ParallelComputing.Drivers;
 
-namespace VI.NumSharp.Provider
+namespace VI.Neural.Provider
 {
     public class ActivationFunctionProvider : IActivationFunctionProvider
     {

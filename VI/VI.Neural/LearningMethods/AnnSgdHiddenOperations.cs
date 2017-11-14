@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using VI.Neural.ANNOperations;
 using VI.Neural.Node;
-using VI.NumSharp.Array;
+using VI.NumSharp.Arrays;
 
 namespace VI.Neural.LearningMethods
 {

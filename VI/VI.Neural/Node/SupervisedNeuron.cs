@@ -3,7 +3,7 @@ using VI.Neural.ANNOperations;
 using VI.Neural.ANNOutputMethods;
 using VI.Neural.Layer;
 using VI.Neural.LearningMethods;
-using VI.NumSharp.Array;
+using VI.NumSharp.Arrays;
 
 namespace VI.Neural.Node
 {

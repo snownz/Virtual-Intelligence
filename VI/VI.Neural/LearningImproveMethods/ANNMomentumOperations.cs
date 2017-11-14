@@ -1,5 +1,5 @@
 ﻿using VI.Neural.Layer;
-using VI.NumSharp.Array;
+using VI.NumSharp.Arrays;
 
 namespace VI.Neural.LearningImproveMethods
 {

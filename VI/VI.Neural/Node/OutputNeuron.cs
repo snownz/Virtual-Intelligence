@@ -1,8 +1,8 @@
 ﻿using VI.Neural.ANNOperations;
 using VI.Neural.Layer;
 using VI.Maths.Random;
-using VI.NumSharp.Array;
 using System;
+using VI.NumSharp.Arrays;
 
 namespace VI.Neural.Node
 {

@@ -1,9 +1,8 @@
 ﻿using System;
-using ILGPU.Runtime;
 using ILGPU;
-using VI.ParallelComputing;
+using ILGPU.Runtime;
 
-namespace VI.NumSharp.Array
+namespace VI.NumSharp.Arrays
 {
     public class ArrayW<T>
         where T : struct

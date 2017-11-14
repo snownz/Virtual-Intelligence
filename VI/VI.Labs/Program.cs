@@ -24,8 +24,8 @@ namespace VI.Labs
             var sequenceLenght = 25;
             var learning_rate = 1e-1f;
 
-            
-            
+          
+
         }
     }
 }
