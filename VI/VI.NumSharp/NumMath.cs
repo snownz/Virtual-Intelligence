@@ -126,6 +126,26 @@ namespace VI.NumSharp
             return new Array<T>(_joinColumns(arr.View.Height, arr.View));
         }
         
+        public static Array<T> Allocate<T>(Index size)
+            where T: struct 
+        {
+            //var watch = System.Diagnostics.Stopwatch.StartNew();
+            var mem = ProcessingDevice.ArrayDevice.Executor.CreateBuffer<T>(size);
+            //watch.Stop();
+            //Console.WriteLine($"\n-----\nAllocation Time: {watch.ElapsedMilliseconds}ms\nSize {size.X}\n-----");
+            return new Array<T>(mem);
+        }
+        public static Array2D<T> Allocate<T>(Index2 size)
+            where T: struct 
+        {
+            //var watch = System.Diagnostics.Stopwatch.StartNew();
+            var mem = ProcessingDevice.ArrayDevice.Executor.CreateBuffer<T>(size);
+            //watch.Stop();
+            //Console.WriteLine($"\n-----\nAllocation Time: {watch.ElapsedMilliseconds}ms\nSize {size.X} x {size.Y}\n-----");
+            return new Array2D<T>(mem);
+        }
+        
+        
         private static void _sumLines<T>(Index2 size, int r, MemoryBuffer2D<T> m)
             where T: struct
         {
@@ -154,25 +174,6 @@ namespace VI.NumSharp
             ProcessingDevice.ArrayDevice.Executor["_M_2_columns_V"].Launch(size, output.View, m.View);
             ProcessingDevice.ArrayDevice.Executor.Wait();
             return output;
-        }
-        
-        private static Array<T> Allocate<T>(Index size)
-            where T: struct 
-        {
-            //var watch = System.Diagnostics.Stopwatch.StartNew();
-            var mem = ProcessingDevice.ArrayDevice.Executor.CreateBuffer<T>(size);
-            //watch.Stop();
-            //Console.WriteLine($"\n-----\nAllocation Time: {watch.ElapsedMilliseconds}ms\nSize {size.X}\n-----");
-            return new Array<T>(mem);
-        }
-        private static Array2D<T> Allocate<T>(Index2 size)
-            where T: struct 
-        {
-            //var watch = System.Diagnostics.Stopwatch.StartNew();
-            var mem = ProcessingDevice.ArrayDevice.Executor.CreateBuffer<T>(size);
-            //watch.Stop();
-            //Console.WriteLine($"\n-----\nAllocation Time: {watch.ElapsedMilliseconds}ms\nSize {size.X} x {size.Y}\n-----");
-            return new Array2D<T>(mem);
         }
     }
 }

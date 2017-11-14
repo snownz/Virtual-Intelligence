@@ -50,7 +50,7 @@ namespace VI.NumSharp.Arrays
         public static Array<T> operator *(Array<T> v0, Array<T> v1)
         {
             var size = v0._memoryBuffer.Length;
-            var output = Allocate(size);
+            var output = NumMath.Allocate<T>(size);
             ProcessingDevice.ArrayDevice.Executor["_V_X_V"].Launch(size, output.View.View, v0._memoryBuffer.View, v1.View.View);
             ProcessingDevice.ArrayDevice.Executor.Wait();
             return output;
@@ -74,7 +74,7 @@ namespace VI.NumSharp.Arrays
         public static Array<T> operator *(Array<T> v0, T c)
         {
             var size = v0._memoryBuffer.Length;
-            var output = Allocate(size);
+            var output = NumMath.Allocate<T>(size);
             ProcessingDevice.ArrayDevice.Executor["_C_X_V"].Launch(size, c, output.View.View, v0.View.View);
             ProcessingDevice.ArrayDevice.Executor.Wait();
             return output;

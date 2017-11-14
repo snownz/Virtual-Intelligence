@@ -1,7 +1,6 @@
 ﻿using VI.Maths.Array;
 using VI.Maths.LogisticFunctions;
 using VI.Maths.LossFunctions;
-using VI.NumSharp.Provider;
 using VI.ParallelComputing.Drivers;
 
 namespace VI.NumSharp
@@ -98,24 +97,5 @@ namespace VI.NumSharp
         private static IAnnParallelInterface CUDASquaredLossDevice
             => _cudaSquaredLossDevice ?? (_cudaSquaredLossDevice = new CudaAnnInterface<SquaredErrorFunction>());
         private static IAnnParallelInterface SquaredLossDevice { get; set; }
-    }
-
-    public static partial class ProcessingDevice
-    {
-        private static IActivationFunctionProvider _sigmoid;
-        private static IActivationFunctionProvider _tanh;
-        private static IActivationFunctionProvider _leakRelu;
-
-        public static IActivationFunctionProvider Sigmoid
-            => _sigmoid ?? (_sigmoid = new ActivationFunctionProvider(SigmoidDevice));
-        public static IActivationFunctionProvider TANH
-            => _tanh ?? (_tanh = new ActivationFunctionProvider(TANHDevice));
-        public static IActivationFunctionProvider LeakRelu
-            => _leakRelu ?? (_leakRelu = new ActivationFunctionProvider(LeakReluDevice));
-
-        private static ILossFunctionProvider _squaredLoss;
-
-        public static ILossFunctionProvider SquaredLoss
-           => _squaredLoss ?? (_squaredLoss = new LossFunctionProvider(SquaredLossDevice));
     }
 }

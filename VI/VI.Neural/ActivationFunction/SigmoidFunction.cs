@@ -1,4 +1,5 @@
 ﻿using System;
+using VI.NumSharp;
 using VI.NumSharp.Arrays;
 
 namespace VI.Neural.ActivationFunction
@@ -7,7 +8,7 @@ namespace VI.Neural.ActivationFunction
     {
         public Array<float> Activate(Array<float> v)
         {
-            return (1f / (1f + (-2f * v).Exp()));
+            return NumMath.Exp(1f / (1f + (-2f * v)));
         }
 
         public Array<float> Derivate(Array<float> v)

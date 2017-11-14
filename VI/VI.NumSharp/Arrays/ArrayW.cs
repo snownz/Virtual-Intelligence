@@ -33,7 +33,7 @@ namespace VI.NumSharp.Arrays
         public static Array2D<T> operator *(ArrayW<T> v0, Array2D<T> m0)
         {
             var size = new Index2(m0.View.Width, m0.View.Height);
-            var output = Array2D<T>.Allocate(size);
+            var output = NumMath.Allocate<T>(size);
             ProcessingDevice
                 .ArrayDevice
                 .Executor["_V_X_M_line_M"]
