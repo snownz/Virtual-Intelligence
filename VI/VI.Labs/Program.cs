@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using VI.Data;
 using VI.Neural.Node;
 using VI.Labs.Models;
 using VI.NumSharp;
+using System.Threading;
 
 namespace VI.Labs
 {
@@ -11,25 +13,45 @@ namespace VI.Labs
     {
         static void Main(string[] args)
         {
-            var values = new[] { .9f, .01f, 0f, 0f };
+            var values = new[] { .1f, .00f, 0f, 0f };
 
             string header = $"Learning Rate: {values[0]}\nMin Error:{values[1]}\nMomentum: {values[3]}\n";
 
             var watch = System.Diagnostics.Stopwatch.StartNew();
 
-            ProcessingDevice.Device = Device.CUDA;
+            ProcessingDevice.Device = Device.CPU;
 
             watch.Stop();
             Console.WriteLine($"Device Time: {watch.ElapsedMilliseconds}ms");
 
-            var hiddens = LayerCreator.TANHSupervisedHiddenBPArray(2, 4, values[0], values[3]);
-            var hiddens2 = LayerCreator.TANHSupervisedHiddenBPArray(2, 2, values[0], values[3]);
-            var outputs = LayerCreator.SigmoidSupervisedOutputBPArray(2, 2, values[0], values[3]);
+            var hiddens = new LayerBuilder(2, 4, values[0])
+                .Supervised()
+                .WithLeakRelu()
+                .Hidden()
+                .WithSGD()
+                .WithMomentum(values[1])
+                .FullSynapse()
+                .Build();
+            
+            var hiddens2 = new LayerBuilder(2, 2, values[0])
+                .Supervised()
+                .WithLeakRelu()
+                .Hidden()
+                .WithSGD()
+                .WithMomentum(values[1])
+                .FullSynapse()
+                .Build();
+            
+            var outputs = new LayerBuilder(2, 2, values[0])
+                .Supervised()
+                .WithSigmoid()
+                .Output()
+                .WithSGD()
+                .WithMomentum(values[1])
+                .FullSynapse()
+                .Build();
 
             watch = System.Diagnostics.Stopwatch.StartNew();
-            LayerCreator.SynapseFull(hiddens, 0.3f);
-            LayerCreator.SynapseFull(hiddens2, 0.3f);
-            LayerCreator.SynapseFull(outputs, 0.3f);
             watch.Stop();
             Console.WriteLine($"Sinapse Time: {watch.ElapsedMilliseconds}ms");
 
@@ -49,15 +71,22 @@ namespace VI.Labs
 
                     var desireds = item.DesiredValues.Select(x => x.Value).ToArray();
 
+                    //watch = System.Diagnostics.Stopwatch.StartNew();
                     // Feed Forward
                     var _h = hiddens.Output(inputs);
                     var _h2 = hiddens2.Output(_h);
                     var _o = outputs.Output(_h2);
+                    //watch.Stop();
+                    //Console.WriteLine($"\nForward Time: { watch.ElapsedMilliseconds}ms");
+                    //Thread.Sleep(100);
 
+                    //watch = System.Diagnostics.Stopwatch.StartNew();
                     // Backward
-                    var _oe = outputs.Learn(_h2, desireds);
-                    var _he2 = hiddens2.Learn(_h, _oe);
-                    hiddens.Learn(inputs, _he2);
+                    var _oe = ((ISupervisedLearning)outputs).Learn(_h2, desireds);
+                    var _he2 = ((ISupervisedLearning)hiddens2).Learn(_h, _oe);
+                    ((ISupervisedLearning) hiddens).Learn(inputs, _he2);
+                    //watch.Stop();
+                    //Console.WriteLine($"\nBackward Time: { watch.ElapsedMilliseconds}ms");
 
                     // Error
                     var e0 = Math.Abs(_o[0] - desireds[0]);

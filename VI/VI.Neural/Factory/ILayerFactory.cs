@@ -5,10 +5,9 @@ namespace VI.Neural.Factory
 {
     public interface ILayerFactory
     {
-        HiddenNeuron HiddenNeuron(int size, int connections, float learning, float momentum, AnnBasicOperations operations);
-        AnnBasicOperations LeakRelu();
-        OutputNeuron OutputNeuron(int size, int connections, float learning, float momentum, AnnBasicOperations operations);
-        AnnBasicOperations Sigmoid();
-        AnnBasicOperations TANH();
+        ISupervisedOperations SupervisedOperations(EActivationFunction act, EErrorFunction err, 
+            EOptimizerFunction opt);
+        SupervisedNeuron Supervised(int size, int connections, float learning, float momentum,
+            ISupervisedOperations operations);
     }
 }

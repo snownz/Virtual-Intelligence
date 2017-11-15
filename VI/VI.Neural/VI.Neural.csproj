@@ -23,6 +23,6 @@
     <ProjectReference Include="..\VI.NumSharp\VI.NumSharp.csproj" />
   </ItemGroup>
   <PropertyGroup>
-     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-  </PropertyGroup> 
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
 </Project>

@@ -1,4 +1,4 @@
-﻿using VI.NumSharp.Array;
+﻿using VI.NumSharp.Arrays;
 
 namespace VI.Neural.Layer
 {

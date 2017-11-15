@@ -20,12 +20,13 @@
     <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="4.4.0" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\VI.Data\VI.Data.csproj" />
     <ProjectReference Include="..\VI.Maths\VI.Maths.csproj" />
     <ProjectReference Include="..\VI.Neural\VI.Neural.csproj" />
     <ProjectReference Include="..\VI.NumSharp\VI.NumSharp.csproj" />
     <ProjectReference Include="..\VI.ParallelComputing\VI.ParallelComputing.csproj" />
   </ItemGroup>
   <PropertyGroup>
-     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-  </PropertyGroup> 
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
 </Project>

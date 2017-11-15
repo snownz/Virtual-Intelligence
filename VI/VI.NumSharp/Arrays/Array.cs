@@ -1,14 +1,13 @@
-﻿using ILGPU;
+﻿using System;
+using ILGPU;
 using ILGPU.Runtime;
-using System;
-using VI.ParallelComputing;
 
-namespace VI.NumSharp.Array
+namespace VI.NumSharp.Arrays
 {
     public class Array<T> : IDisposable
         where T : struct
     {
-        private MemoryBuffer<T> _memoryBuffer;
+        private readonly MemoryBuffer<T> _memoryBuffer;
         private ArrayW<T> _w;
         private ArrayH<T> _h;
 
@@ -39,10 +38,10 @@ namespace VI.NumSharp.Array
 
         public T this[int x]
         {
-            get { return _memoryBuffer[x]; }
-            set { _memoryBuffer[x] = value; }
+            get => _memoryBuffer[x];
+            set => _memoryBuffer[x] = value;
         }
-
+        
         public void Dispose()
         {
             _memoryBuffer.Dispose();
@@ -51,7 +50,7 @@ namespace VI.NumSharp.Array
         public static Array<T> operator *(Array<T> v0, Array<T> v1)
         {
             var size = v0._memoryBuffer.Length;
-            var output = Allocate(size);
+            var output = NumMath.Allocate<T>(size);
             ProcessingDevice.ArrayDevice.Executor["_V_X_V"].Launch(size, output.View.View, v0._memoryBuffer.View, v1.View.View);
             ProcessingDevice.ArrayDevice.Executor.Wait();
             return output;
@@ -63,34 +62,67 @@ namespace VI.NumSharp.Array
         public static Array<T> operator +(Array<T> v0, Array<T> v1)
         {
             var size = v0._memoryBuffer.Length;
-            ProcessingDevice.ArrayDevice.Executor["_V_sum_V"].Launch(size, v0._memoryBuffer.View, v1.View.View);
+            var output = NumMath.Allocate<T>(size);
+            ProcessingDevice.ArrayDevice.Executor["_V_sum_V"].Launch(size, output.View.View, v0.View.View, v1.View.View);
             ProcessingDevice.ArrayDevice.Executor.Wait();
-            return v0;
+            return output;
         }
         public static Array<T> operator -(Array<T> v0, Array<T> v1)
         {
-              throw new NotImplementedException("Talk to the owner of the repository to implement this method (Issue)");
+            var size = v0._memoryBuffer.Length;
+            var output = NumMath.Allocate<T>(size);
+            ProcessingDevice.ArrayDevice.Executor["_V_sub_V"].Launch(size, output.View.View, v0.View.View, v1.View.View);
+            ProcessingDevice.ArrayDevice.Executor.Wait();
+            return output;
         }
 
         public static Array<T> operator *(Array<T> v0, T c)
         {
             var size = v0._memoryBuffer.Length;
-            var output = Allocate(size);
+            var output = NumMath.Allocate<T>(size);
             ProcessingDevice.ArrayDevice.Executor["_C_X_V"].Launch(size, c, output.View.View, v0.View.View);
             ProcessingDevice.ArrayDevice.Executor.Wait();
             return output;
         }
         public static Array<T> operator /(Array<T> v0, T c)
         {
-              throw new NotImplementedException("Talk to the owner of the repository to implement this method (Issue)");
+            var size = v0._memoryBuffer.Length;
+            var output = NumMath.Allocate<T>(size);
+            ProcessingDevice.ArrayDevice.Executor["_C_div_V"].Launch(size, c, output.View.View, v0.View.View);
+            ProcessingDevice.ArrayDevice.Executor.Wait();
+            return output;
         }
         public static Array<T> operator +(Array<T> v0, T c)
         {
-              throw new NotImplementedException("Talk to the owner of the repository to implement this method (Issue)");
+            var size = v0._memoryBuffer.Length;
+            var output = NumMath.Allocate<T>(size);
+            ProcessingDevice.ArrayDevice.Executor["_C_sum_V"].Launch(size, c, output.View.View, v0.View.View);
+            ProcessingDevice.ArrayDevice.Executor.Wait();
+            return output;
         }
         public static Array<T> operator -(Array<T> v0, T c)
         {
-              throw new NotImplementedException("Talk to the owner of the repository to implement this method (Issue)");
+            var size = v0._memoryBuffer.Length;
+            var output = NumMath.Allocate<T>(size);
+            ProcessingDevice.ArrayDevice.Executor["_C_sub_V"].Launch(size, c, output.View.View, v0.View.View);
+            ProcessingDevice.ArrayDevice.Executor.Wait();
+            return output;
+        }
+        public static Array<T> operator /(T c, Array<T> v0)
+        {
+            return v0 / c;
+        }
+        public static Array<T> operator +(T c, Array<T> v0)
+        {
+            return v0 + c;
+        }
+        public static Array<T> operator -(T c, Array<T> v0)
+        {
+            return v0 - c;
+        }
+        public static Array<T> operator *(T c, Array<T> v0)
+        {
+            return v0 * c;
         }
 
         public static Array2D<T> operator *(Array<T> v0, Array2D<T> v1)
@@ -144,13 +176,46 @@ namespace VI.NumSharp.Array
               throw new NotImplementedException("Talk to the owner of the repository to implement this method (Issue)");
         }
 
-        public static Array<T> Allocate(Index size)
+        public static Array<T> operator ==(Array<T> v0, T c)
         {
-            //var watch = System.Diagnostics.Stopwatch.StartNew();
-            var mem = ProcessingDevice.ArrayDevice.Executor.CreateBuffer<T>(size);
-            //watch.Stop();
-            //Console.WriteLine($"\n-----\nAllocation Time: {watch.ElapsedMilliseconds}ms\nSize {size.X}\n-----");
-            return new Array<T>(mem);
+            throw new NotImplementedException("Talk to the owner of the repository to implement this method (Issue)");
+        }
+        public static Array<T> operator !=(Array<T> v0, T c)
+        {
+            throw new NotImplementedException("Talk to the owner of the repository to implement this method (Issue)");
+        }
+
+        public static Array<T> operator >(Array<T> v0, T c)
+        {
+            throw new NotImplementedException("Talk to the owner of the repository to implement this method (Issue)");
+        }
+        public static Array<T> operator <(Array<T> v0, T c)
+        {
+            throw new NotImplementedException("Talk to the owner of the repository to implement this method (Issue)");
+        }
+        
+        public static Array<T> operator >=(Array<T> v0, T c)
+        {
+            var size = v0._memoryBuffer.Length;
+            var output = NumMath.Allocate<T>(size);
+            ProcessingDevice.ArrayDevice.Executor["_V_C_More_Equal"].Launch(size, output.View.View, c, v0.View.View);
+            ProcessingDevice.ArrayDevice.Executor.Wait();
+            return output;
+        }
+        public static Array<T> operator <=(Array<T> v0, T c)
+        {
+            throw new NotImplementedException("Talk to the owner of the repository to implement this method (Issue)");
+        }
+
+        public override string ToString()
+        {
+            var str = "[";
+            for (int i = 0; i < _memoryBuffer.Length; i++)
+            {
+                str += $"{_memoryBuffer[i].ToString().Replace(",",".")}, ";
+            }
+            str += "]";
+            return str;
         }
     }
 }
