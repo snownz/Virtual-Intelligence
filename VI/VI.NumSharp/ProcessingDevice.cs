@@ -1,6 +1,4 @@
 ﻿using VI.Maths.Array;
-using VI.Maths.LogisticFunctions;
-using VI.Maths.LossFunctions;
 using VI.ParallelComputing.Drivers;
 
 namespace VI.NumSharp
@@ -10,10 +8,12 @@ namespace VI.NumSharp
         CUDA,
         CPU
     }
-
+    
     public static partial class ProcessingDevice
     {
         private static Device _device;
+        private static IAnnParallelInterface _cpuArrayDevice;
+        private static IAnnParallelInterface _cudaArrayDevice;
 
         public static Device Device
         {
@@ -32,12 +32,6 @@ namespace VI.NumSharp
                 _device = value;
             }
         }
-    }
-
-    public static partial class ProcessingDevice
-    {
-        private static IAnnParallelInterface _cpuArrayDevice;
-        private static IAnnParallelInterface _cudaArrayDevice;
 
         private static IAnnParallelInterface CPUArrayDevice
             => _cpuArrayDevice ?? (_cpuArrayDevice = new CpuAnnInterface<ArrayOperations>());

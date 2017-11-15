@@ -1,8 +1,6 @@
-﻿using System;
-using VI.Neural.ActivationFunction;
+﻿using VI.Neural.ActivationFunction;
 using VI.Neural.ANNOperations;
 using VI.Neural.Error;
-using VI.Neural.LossFunction;
 using VI.Neural.Node;
 using VI.Neural.OptimizerFunction;
 

@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using VI.Data;
 using VI.Neural.Node;
 using VI.Labs.Models;
 using VI.NumSharp;
-using System.Threading;
 
 namespace VI.Labs
 {

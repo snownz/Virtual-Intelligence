@@ -1,5 +1,4 @@
-﻿
-using VI.Neural.Layer;
+﻿using VI.Neural.Layer;
 using VI.NumSharp.Arrays;
 
 namespace VI.Neural.ANNOperations

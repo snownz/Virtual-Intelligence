@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Tracing;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using VI.Neural.ANNOperations;
 using VI.Neural.Factory;
 
 namespace VI.Neural.Node
