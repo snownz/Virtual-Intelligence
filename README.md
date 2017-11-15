@@ -1,4 +1,4 @@
-# VI - Virtual Intelligence
+# VI - Virtual Intelligence (Smart Minds)
 ----------------------------
 Framework for Artificial Intelligence 
 ----------------------
