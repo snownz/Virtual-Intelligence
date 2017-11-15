@@ -44,11 +44,11 @@ namespace VI.Maths.Array
             output[x, y] = v0[x] * v1[y];
         }
 
-        public static void _C_X_M(Index2 size, ArrayView2D<float> m, float c)
+        public static void _C_X_M(Index2 size, ArrayView2D<float> output, ArrayView2D<float> m, float c)
         {
             int x = size.X;
             int y = size.Y;
-            m[x, y] = m[x, y] * c;
+            output[x, y] = m[x, y] * c;
         }
 
         public static void _M_sum_M(Index2 size, ArrayView2D<float> m0, ArrayView2D<float> m1)
@@ -58,10 +58,16 @@ namespace VI.Maths.Array
             m0[x, y] = m0[x, y] + m1[x, y];
         }
 
-        public static void _V_sum_V(Index size, ArrayView<float> v0, ArrayView<float> v1)
+        public static void _V_sum_V(Index size, ArrayView<float> output, ArrayView<float> v0, ArrayView<float> v1)
         {
             int x = size.X;
-            v0[x] = v0[x] + v1[x];
+            output[x] = v0[x] + v1[x];
+        }
+
+        public static void _V_sub_V(Index size, ArrayView<float> output, ArrayView<float> v0, ArrayView<float> v1)
+        {
+            int x = size.X;
+            output[x] = v0[x] - v1[x];
         }
 
         public static void _V_X_M_column_M(Index2 size, ArrayView2D<float> output, ArrayView2D<float> m, ArrayView<float> v)
@@ -81,7 +87,43 @@ namespace VI.Maths.Array
         public static void _C_X_V(Index size, float c, ArrayView<float> output, ArrayView<float> v)
         {
             int x = size.X;
-            output[x] = v[x] * c;
+            output[x] = c * v[x];
+        }
+
+        public static void _C_sum_V(Index size, float c, ArrayView<float> output, ArrayView<float> v)
+        {
+            int x = size.X;
+            output[x] = c + v[x];
+        }
+
+        public static void _C_sub_V(Index size, float c, ArrayView<float> output, ArrayView<float> v)
+        {
+            int x = size.X;
+            output[x] = c - v[x];
+        }
+
+        public static void _C_div_V(Index size, float c, ArrayView<float> output, ArrayView<float> v)
+        {
+            int x = size.X;
+            output[x] = c / v[x];
+        }
+
+        public static void _V_Exp(Index size, ArrayView<float> output, ArrayView<float> v)
+        {
+            int x = size.X;
+            output[x] = GPUMath.Exp(v[x]);
+        }
+
+        public static void _V_C_More_Equal(Index size, ArrayView<float> output, float c, ArrayView<float> v)
+        {
+            int x = size.X;
+            output[x] = v[x] >= c ? 1 : 0;
+        }
+
+        public static void _V_Max(Index size, ArrayView<float> output, ArrayView<float> v, ArrayView<float> v1)
+        {
+            int x = size.X;
+            output[x] = GPUMath.Max(v[x], v1[x]);
         }
     }
 }

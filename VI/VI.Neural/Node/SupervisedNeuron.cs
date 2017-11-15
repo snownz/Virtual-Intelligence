@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Runtime;
 using VI.Maths.Random;
 using VI.Neural.ANNOperations;
 using VI.Neural.Layer;
@@ -6,7 +7,7 @@ using VI.NumSharp.Arrays;
 
 namespace VI.Neural.Node
 {
-    public class SupervisedNeuron : INeuron
+    public class SupervisedNeuron : INeuron, ISupervisedLearning
     {
         private static readonly ThreadSafeRandom _tr = new ThreadSafeRandom();
 
@@ -17,21 +18,23 @@ namespace VI.Neural.Node
         public int Connections => _layer.ConectionsSize;
         
         public ILayer Nodes => _layer;
-        
-        public SupervisedNeuron(int nodeSize, 
-                    int connectionSize,
-                    float learningRate, 
+
+        public SupervisedNeuron(int nodeSize,
+            int connectionSize,
+            float learningRate,
+            float momentum,
             ISupervisedOperations operations)
         {
             _operations = operations;
             _layer = new ActivationLayer(nodeSize, connectionSize)
             {
                 LearningRate = learningRate,
-                CachedLearningRate = learningRate
+                Momentum = momentum
             };
             InitializeArrays(nodeSize, connectionSize);
+            _operations.SetLayer(_layer);
         }
-      
+
         private void InitializeArrays(int nodeSize, int connectionSize)
         {
             _layer.KnowlodgeMatrix = new Array2D<float>(nodeSize, connectionSize);
@@ -63,8 +66,41 @@ namespace VI.Neural.Node
             _layer.KnowlodgeMatrix[node, connection] = (float)_tr.NextDouble();
         }
         public void Synapsis(int node, int connection, float w)
-        {
+    {
             _layer.KnowlodgeMatrix[node, connection] = w;
+        }
+
+        public Array<float> Learn(float[] inputs, Array<float> error)
+        {
+            using (var i = new Array<float>(inputs))
+            {
+                _operations.BackWard(error);
+                _operations.ErrorGradient(i);
+                _operations.UpdateWeight();
+                _operations.UpdateBias();
+                return _layer.ErrorWeightVector;
+            }
+        }
+
+        public Array<float> Learn(Array<float> inputs, float[] error)
+        {
+            using (var e = new Array<float>(error))
+            {
+                _operations.BackWard(e);
+                _operations.ErrorGradient(inputs);
+                _operations.UpdateWeight();
+                _operations.UpdateBias();
+                return _layer.ErrorWeightVector;
+            }
+        }
+
+        public Array<float> Learn(Array<float> inputs, Array<float> error)
+        {
+            _operations.BackWard(error);
+            _operations.ErrorGradient(inputs);
+            _operations.UpdateWeight();
+            _operations.UpdateBias();
+            return _layer.ErrorWeightVector;
         }
     }
 }

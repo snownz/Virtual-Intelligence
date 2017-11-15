@@ -11,19 +11,16 @@ namespace VI.Neural.ANNOperations
     public sealed class AnnBasicOperations : ISupervisedOperations
     {
         private readonly IActivationFunction _activationFunction;
-        private readonly ILossFunction _lossFunction;
         private readonly IErrorFunction _errorFunction;
         private readonly IOptimizerFunction _optimizerFunction;
-        private readonly ILayer _target;
+        private ILayer _target;
 
-        public AnnBasicOperations(IActivationFunction activationFunction, ILossFunction lossFunction,
+        public AnnBasicOperations(IActivationFunction activationFunction,
             IErrorFunction errorFunction, IOptimizerFunction optimizerFunction)
         {
             _activationFunction = activationFunction;
-            _lossFunction = lossFunction;
             _errorFunction = errorFunction;
-            _optimizerFunction = optimizerFunction;
-            _optimizerFunction.CalculateParams();
+            _optimizerFunction = optimizerFunction;            
         }
 
         public void FeedForward(Array<float> feed)
@@ -45,11 +42,6 @@ namespace VI.Neural.ANNOperations
             _target.GradientMatrix = (inputs.H * _target.ErrorVector);
         }
 
-        public float Loss(Array<float> desired)
-        {
-            return _lossFunction.Loss(desired);
-        }
-
         public void UpdateWeight()
         {
             _optimizerFunction.UpdateWeight(_target);
@@ -58,6 +50,12 @@ namespace VI.Neural.ANNOperations
         public void UpdateBias()
         {
             _optimizerFunction.UpdateBias(_target);
+        }
+
+        public void SetLayer(ILayer layer)
+        {
+            _target = layer;
+            _optimizerFunction.CalculateParams(_target);
         }
     }
 }

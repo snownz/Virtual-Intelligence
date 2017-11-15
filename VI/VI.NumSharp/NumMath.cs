@@ -10,7 +10,14 @@ namespace VI.NumSharp
         public static Array<T> Exp<T>(Array<T> arr)
             where T: struct 
         {
-            throw new NotImplementedException("Talk to the owner of the repository to implement this method (Issue)");
+            var size = new Index(arr.View.Length);
+            var mem = Allocate<T>(size);
+            ProcessingDevice
+                .ArrayDevice
+                .Executor["_V_Exp"]
+                .Launch(size, mem.View.View, arr.View.View);
+            ProcessingDevice.ArrayDevice.Executor.Wait();
+            return mem;
         }
         
         public static Array<T> Sqrt<T>(Array<T> arr)
@@ -34,7 +41,14 @@ namespace VI.NumSharp
         public static Array<T> Max<T>(Array<T> arr0, Array<T> arr1)
             where T: struct 
         {
-            throw new NotImplementedException("Talk to the owner of the repository to implement this method (Issue)");
+            var size = new Index(arr0.View.Length);
+            var mem = Allocate<T>(size);
+            ProcessingDevice
+                .ArrayDevice
+                .Executor["_V_Max"]
+                .Launch(size, mem.View.View, arr0.View.View, arr1.View.View);
+            ProcessingDevice.ArrayDevice.Executor.Wait();
+            return mem;
         }
         
         public static Array<T> Min<T>(Array<T> arr0, Array<T> arr1)

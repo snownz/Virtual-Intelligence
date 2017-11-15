@@ -35,5 +35,10 @@ namespace VI.Neural.ANNOperations
         {
             throw new System.NotImplementedException();
         }
+
+        public void SetLayer(ILayer layer)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

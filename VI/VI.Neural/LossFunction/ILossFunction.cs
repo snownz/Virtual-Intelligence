@@ -4,6 +4,6 @@ namespace VI.Neural.LossFunction
 {
     public interface ILossFunction
     {
-        float Loss(Array<float> desired);
+        float Loss(Array2D<float> targets, Array2D<float> prediction);
     }
 }

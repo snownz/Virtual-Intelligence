@@ -67,12 +67,13 @@ namespace VI.NumSharp.Arrays
         public static Array2D<T> operator *(Array2D<T> m0, T c)
         {
             var size = new Index2(m0.View.Width, m0.View.Height);
+            var output = ProcessingDevice.ArrayDevice.Executor.CreateBuffer<T>(size);
             ProcessingDevice
                 .ArrayDevice
                 .Executor["_C_X_M"]
-                .Launch(size, m0.View.View, c);
+                .Launch(size, output.View, m0.View.View, c);
             ProcessingDevice.ArrayDevice.Executor.Wait();
-            return m0;
+            return new Array2D<T>(output);
         }
         public static Array2D<T> operator *(T c, Array2D<T> m0)
         {
@@ -96,6 +97,22 @@ namespace VI.NumSharp.Arrays
         {
             _w = new Array2DW<T>(_memoryBuffer);
             _h = new Array2DH<T>(_memoryBuffer);
+        }
+
+        public override string ToString()
+        {
+            var str = "[";
+            for (int i = 0; i < _memoryBuffer.Width; i++)
+            {
+                str += "[";
+                for (int j = 0; j < _memoryBuffer.Height; j++)
+                {
+                    str += $"{_memoryBuffer[new Index2(i, j)].ToString().Replace(",", ".")}, ";
+                }
+                str += "]";
+            }
+            str += "]";
+            return str;
         }
     }
 }

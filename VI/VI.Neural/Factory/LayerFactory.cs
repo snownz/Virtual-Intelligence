@@ -1,31 +1,62 @@
-﻿using VI.Neural.ANNOperations;
+﻿using System;
+using VI.Neural.ActivationFunction;
+using VI.Neural.ANNOperations;
+using VI.Neural.Error;
+using VI.Neural.LossFunction;
 using VI.Neural.Node;
+using VI.Neural.OptimizerFunction;
 
 namespace VI.Neural.Factory
 {
     public class LayerFactory : ILayerFactory
     {
-        public AnnBasicOperations Sigmoid()
+        public ISupervisedOperations SupervisedOperations(EActivationFunction act,
+            EErrorFunction err,
+            EOptimizerFunction opt)
         {
-            return 
-                null;
+            IActivationFunction activationFunction = null;
+            IErrorFunction errorFunction= null;
+            IOptimizerFunction optimizerFunction= null;
+
+            switch (act)
+            {
+                case EActivationFunction.Sigmoid:
+                    activationFunction = new SigmoidFunction();
+                    break;
+                case EActivationFunction.LeakRelu:
+                    activationFunction =new LeakReluFunction();
+                    break;
+            }
+
+            switch (err)
+            {
+                case EErrorFunction.Dense:
+                    errorFunction = new DenseErrorFunction();
+                    break;
+                case EErrorFunction.Desired:
+                    errorFunction = new DesiredErrorFunction();
+                    break;
+            }
+
+            switch (opt)
+            {
+                case EOptimizerFunction.SGD:
+                    optimizerFunction = new SGDOptimizerFunction();
+                    break;
+            }
+
+            return new AnnBasicOperations(activationFunction,
+                errorFunction,
+                optimizerFunction);
         }
 
-        public AnnBasicOperations LeakRelu()
+        public SupervisedNeuron Supervised(int size,
+            int connections,
+            float learning,
+            float momentum,
+            ISupervisedOperations operations)
         {
-            return 
-                null;
-        }
-
-        public AnnBasicOperations TANH()
-        {
-            return 
-                null;
-        }
-
-        public SupervisedNeuron Supervised(int size, int connections, float learning, float momentum, AnnBasicOperations operations)
-        {
-            return null;
+            return new SupervisedNeuron(size, connections, learning, momentum, operations);
         }
     }
 }

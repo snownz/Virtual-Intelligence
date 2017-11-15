@@ -2,9 +2,10 @@
 
 namespace VI.Neural.OptimizerFunction
 {
+    
     public interface IOptimizerFunction
     {
-        void CalculateParams();
+        void CalculateParams(ILayer target);
         void UpdateWeight(ILayer target);
         void UpdateBias(ILayer target);
     }
