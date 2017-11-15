@@ -30,7 +30,7 @@ namespace VI.Labs
                 .Hidden()
                 .WithSGD()
                 .WithMomentum(values[1])
-                .FullSynapse(.3f)
+                .FullSynapse()
                 .Build();
             
             var hiddens2 = new LayerBuilder(2, 2, values[0])
@@ -39,7 +39,7 @@ namespace VI.Labs
                 .Hidden()
                 .WithSGD()
                 .WithMomentum(values[1])
-                .FullSynapse(.3f)
+                .FullSynapse()
                 .Build();
             
             var outputs = new LayerBuilder(2, 2, values[0])
@@ -48,7 +48,7 @@ namespace VI.Labs
                 .Output()
                 .WithSGD()
                 .WithMomentum(values[1])
-                .FullSynapse(.3f)
+                .FullSynapse()
                 .Build();
 
             watch = System.Diagnostics.Stopwatch.StartNew();
