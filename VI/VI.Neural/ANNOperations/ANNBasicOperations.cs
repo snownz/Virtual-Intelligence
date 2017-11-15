@@ -1,67 +1,61 @@
-﻿using VI.Neural.Layer;
-using VI.NumSharp.Array;
-using VI.NumSharp.Provider;
+﻿using VI.Neural.ActivationFunction;
+using VI.Neural.Error;
+using VI.Neural.Layer;
+using VI.Neural.LossFunction;
+using VI.Neural.OptimizerFunction;
+using VI.NumSharp;
+using VI.NumSharp.Arrays;
 
 namespace VI.Neural.ANNOperations
 {
-    public sealed class AnnBasicOperations
+    public sealed class AnnBasicOperations : ISupervisedOperations
     {
-        private readonly IActivationFunctionProvider _activationProvider;
-        private readonly ILossFunctionProvider _lossProvider;
+        private readonly IActivationFunction _activationFunction;
+        private readonly IErrorFunction _errorFunction;
+        private readonly IOptimizerFunction _optimizerFunction;
+        private ILayer _target;
 
-        public AnnBasicOperations(IActivationFunctionProvider activation, ILossFunctionProvider loss)
+        public AnnBasicOperations(IActivationFunction activationFunction,
+            IErrorFunction errorFunction, IOptimizerFunction optimizerFunction)
         {
-            _activationProvider = activation;
-            _lossProvider = loss;
-        }
-
-        public void FeedForward(ILayer target, Array<float> feed)
-        {
-            target.SumVector = (feed.H * target.KnowlodgeMatrix).SumColumn() + target.BiasVector;
-            _activationProvider.Activation(target.SumVector, target.OutputVector);
+            _activationFunction = activationFunction;
+            _errorFunction = errorFunction;
+            _optimizerFunction = optimizerFunction;            
         }
 
-        public void BackWardDesired(ILayer target, Array<float> desired)
+        public void FeedForward(Array<float> feed)
         {
-            var de_dOut = _lossProvider.Error(target.OutputVector, desired);
-            var dOut_dSum = _activationProvider.Derivated(target.SumVector);
-            target.ErrorVector = de_dOut * dOut_dSum;
+            _target.SumVector = NumMath.SumColumn(feed.H * _target.KnowlodgeMatrix) + _target.BiasVector;
+            _target.OutputVector = _activationFunction.Activate(_target.SumVector);
         }
 
-        public void BackWard(ILayer target, Array<float> de_dOut)
+        public void BackWard(Array<float> values)
         {
-            var dOut_dSum = _activationProvider.Derivated(target.SumVector);
-            target.ErrorVector = de_dOut * dOut_dSum;
+            var DE = _errorFunction.Error(_target.OutputVector, values);
+            var DO = _activationFunction.Derivate(_target.SumVector);
+            _target.ErrorVector = DE * DO;
+            _target.ErrorWeightVector = NumMath.SumLine(_target.ErrorVector.W * _target.KnowlodgeMatrix);
         }
 
-        public void BackWardError(ILayer target)
+        public void ErrorGradient(Array<float> inputs)
         {
-            target.ErrorWeightVector = (target.ErrorVector.W * target.KnowlodgeMatrix).SumLine();
+            _target.GradientMatrix = (inputs.H * _target.ErrorVector);
         }
 
-        public void ErrorGradient(ILayer target, Array<float> inputs)
+        public void UpdateWeight()
         {
-            target.GradientMatrix = (inputs.H * target.ErrorVector) * target.LearningRate;
-        }
-        
-        public void UpdateWeight(ILayer target)
-        {
-            target.KnowlodgeMatrix += target.GradientMatrix;
-        }
-        public void UpdateWeight(ILayer target, Array2D<float> u)
-        {
-            target.KnowlodgeMatrix += (target.GradientMatrix + u);
+            _optimizerFunction.UpdateWeight(_target);
         }
 
-        public void UpdateBias(ILayer target)
+        public void UpdateBias()
         {
-            var biasAjust = target.ErrorVector * target.CachedLearningRate;
-            target.BiasVector += biasAjust;
+            _optimizerFunction.UpdateBias(_target);
         }
-        public void UpdateBias(ILayer target, Array<float> u)
+
+        public void SetLayer(ILayer layer)
         {
-            var biasAjust = target.ErrorVector * target.CachedLearningRate;
-            target.BiasVector += (biasAjust + u);
+            _target = layer;
+            _optimizerFunction.CalculateParams(_target);
         }
     }
 }

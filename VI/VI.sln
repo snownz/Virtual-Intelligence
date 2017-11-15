@@ -5,15 +5,15 @@ VisualStudioVersion = 15.0.26730.15
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VI.ParallelComputing", "VI.ParallelComputing\VI.ParallelComputing.csproj", "{A8389A15-0F02-4F7E-BE72-FFB680FECC6C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VI.Maths", "VI.Maths\VI.Maths.csproj", "{8453F428-5A3D-4532-A9CC-4F4E41E07192}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VI.Maths", "VI.Maths\VI.Maths.csproj", "{8453F428-5A3D-4532-A9CC-4F4E41E07192}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VI.NumSharp", "VI.NumSharp\VI.NumSharp.csproj", "{945410AC-9D2E-4255-8524-5E3203469947}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VI.NumSharp", "VI.NumSharp\VI.NumSharp.csproj", "{945410AC-9D2E-4255-8524-5E3203469947}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VI.Neural", "VI.Neural\VI.Neural.csproj", "{684B349A-83BA-4A1C-B534-737AD86FC942}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VI.Neural", "VI.Neural\VI.Neural.csproj", "{684B349A-83BA-4A1C-B534-737AD86FC942}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VI.Labs", "VI.Labs\VI.Labs.csproj", "{35DEDCC2-D46F-44D8-873B-45D29A0F1C6D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VI.Labs", "VI.Labs\VI.Labs.csproj", "{35DEDCC2-D46F-44D8-873B-45D29A0F1C6D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VI.Data", "VI.Data\VI.Data.csproj", "{2D1D2592-3DA2-4AA4-8A41-7E7EB2603734}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VI.Data", "VI.Data\VI.Data.csproj", "{2D1D2592-3DA2-4AA4-8A41-7E7EB2603734}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -65,12 +65,12 @@ Global
 		{35DEDCC2-D46F-44D8-873B-45D29A0F1C6D}.Release|x64.Build.0 = Release|x64
 		{2D1D2592-3DA2-4AA4-8A41-7E7EB2603734}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2D1D2592-3DA2-4AA4-8A41-7E7EB2603734}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2D1D2592-3DA2-4AA4-8A41-7E7EB2603734}.Debug|x64.ActiveCfg = Debug|x64
-		{2D1D2592-3DA2-4AA4-8A41-7E7EB2603734}.Debug|x64.Build.0 = Debug|x64
+		{2D1D2592-3DA2-4AA4-8A41-7E7EB2603734}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{2D1D2592-3DA2-4AA4-8A41-7E7EB2603734}.Debug|x64.Build.0 = Debug|Any CPU
 		{2D1D2592-3DA2-4AA4-8A41-7E7EB2603734}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2D1D2592-3DA2-4AA4-8A41-7E7EB2603734}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2D1D2592-3DA2-4AA4-8A41-7E7EB2603734}.Release|x64.ActiveCfg = Release|x64
-		{2D1D2592-3DA2-4AA4-8A41-7E7EB2603734}.Release|x64.Build.0 = Release|x64
+		{2D1D2592-3DA2-4AA4-8A41-7E7EB2603734}.Release|x64.ActiveCfg = Release|Any CPU
+		{2D1D2592-3DA2-4AA4-8A41-7E7EB2603734}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

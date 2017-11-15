@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using VI.NumSharp.Array;
+using VI.NumSharp.Arrays;
 
 namespace VI.Neural.Layer
 {
