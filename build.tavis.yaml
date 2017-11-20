@@ -1,4 +1,8 @@
 language: csharp
+solution: VI/VI.sln
 mono: none
 dotnet: 2.0.0
 dist: trusty
+install:
+  - sudo apt-get install -y gtk-sharp2
+  - nuget restore VI/VI.sln
