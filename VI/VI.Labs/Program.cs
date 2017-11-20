@@ -14,9 +14,7 @@ namespace VI.Labs
         {
             var rd = new Random();
             var values = new[] {.1f, .002f };
-
-            string header = $"Learning Rate: {values[0]}\nMin Error:{values[1]}\nMomentum: {values[3]}\n";
-
+                        
             var watch = System.Diagnostics.Stopwatch.StartNew();
 
             ProcessingDevice.Device = Device.CPU;
@@ -110,7 +108,7 @@ namespace VI.Labs
             };
 
             int cont = 0;
-            int sizeTrain = 15;
+            int sizeTrain = 10;
      
             var e = double.MaxValue;
 
