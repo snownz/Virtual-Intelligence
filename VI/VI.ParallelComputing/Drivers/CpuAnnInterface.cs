@@ -1,7 +1,5 @@
 ﻿using System;
-using ILGPU;
 using ILGPU.Runtime;
-using ILGPU.Runtime.CPU;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;

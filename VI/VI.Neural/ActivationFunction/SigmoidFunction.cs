@@ -1,5 +1,4 @@
-﻿using System;
-using VI.NumSharp;
+﻿using VI.NumSharp;
 using VI.NumSharp.Arrays;
 
 namespace VI.Neural.ActivationFunction
