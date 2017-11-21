@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-using System.Runtime;
-using VI.Maths.Random;
+﻿using VI.Maths.Random;
 using VI.Neural.ANNOperations;
 using VI.Neural.Layer;
 using VI.NumSharp.Arrays;
