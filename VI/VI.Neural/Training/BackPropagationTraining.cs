@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using VI.Neural.ANNOperations;
-using VI.NumSharp.Arrays;
+﻿using VI.NumSharp.Arrays;
 
 namespace VI.Neural.Training
 {

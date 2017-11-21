@@ -1,7 +1,6 @@
 ﻿using VI.Neural.ActivationFunction;
 using VI.Neural.Error;
 using VI.Neural.Layer;
-using VI.Neural.LossFunction;
 using VI.Neural.OptimizerFunction;
 using VI.NumSharp;
 using VI.NumSharp.Arrays;

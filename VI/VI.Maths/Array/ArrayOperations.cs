@@ -1,5 +1,4 @@
-﻿using System;
-using ILGPU;
+﻿using ILGPU;
 
 namespace VI.Maths.Array
 {

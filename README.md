@@ -1,4 +1,4 @@
-# VI - Virtual Intelligence (Smart Minds)
+# VI - Virtual Intelligence [![Build Status](https://travis-ci.org/snownz/Virtual-Intelligence.svg?branch=master)](https://travis-ci.org/snownz/Virtual-Intelligence)
 ----------------------------
 Framework for Artificial Intelligence 
 ----------------------
