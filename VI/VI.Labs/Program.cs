@@ -140,4 +140,21 @@ namespace VI.Labs
                     //Console.WriteLine($"\nBackward Time: { watch.ElapsedMilliseconds}ms");
 
                     // Error
- 
+                    var e0 = Math.Abs(_o[0] - desireds[0]);
+                    var e1 = Math.Abs(_o[1] - desireds[1]);
+                    var error = Math.Sqrt(Math.Abs(e0 * e0 + e1 * e0));
+                    e += error / 2.0;
+                }
+
+                e /= sizeTrain;
+                cont++;
+                watch.Stop();
+                var time = watch.ElapsedMilliseconds;
+                Console.WriteLine($"Interactions: {cont}\nError: {e}");
+                //Console.WriteLine($"Interactions: {cont}\nError: {e}\nTime: {time / (double)sizeTrain}ms");
+                Console.Title =
+                    $"TSPS (Training Sample per Second): {Math.Ceiling(1000d / ((double) time / (double)sizeTrain))}";
+            }
+        }
+    }
+}
