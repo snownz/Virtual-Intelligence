@@ -19,7 +19,33 @@ namespace VI.NumSharp
             ProcessingDevice.ArrayDevice.Executor.Wait();
             return mem;
         }
-        
+
+        public static Array<T> Sin<T>(Array<T> arr)
+            where T : struct
+        {
+            var size = new Index(arr.View.Length);
+            var mem = Allocate<T>(size);
+            ProcessingDevice
+                .ArrayDevice
+                .Executor["_V_Sin"]
+                .Launch(size, mem.View.View, arr.View.View);
+            ProcessingDevice.ArrayDevice.Executor.Wait();
+            return mem;
+        }
+
+        public static Array<T> Cos<T>(Array<T> arr)
+            where T : struct
+        {
+            var size = new Index(arr.View.Length);
+            var mem = Allocate<T>(size);
+            ProcessingDevice
+                .ArrayDevice
+                .Executor["_V_Cos"]
+                .Launch(size, mem.View.View, arr.View.View);
+            ProcessingDevice.ArrayDevice.Executor.Wait();
+            return mem;
+        }
+
         public static Array<T> Sqrt<T>(Array<T> arr)
             where T: struct 
         {

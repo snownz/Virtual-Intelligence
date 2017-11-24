@@ -124,5 +124,17 @@ namespace VI.Maths.Array
             int x = size.X;
             output[x] = GPUMath.Max(v[x], v1[x]);
         }
+
+        public static void _V_Sin(Index size, ArrayView<float> output, ArrayView<float> v)
+        {
+            int x = size.X;
+            output[x] = GPUMath.Sin(v[x]);
+        }
+
+        public static void _V_Cos(Index size, ArrayView<float> output, ArrayView<float> v)
+        {
+            int x = size.X;
+            output[x] = GPUMath.Cos(v[x]);
+        }
     }
 }
