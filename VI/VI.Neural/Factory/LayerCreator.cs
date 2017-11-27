@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using VI.Neural.Factory;
+using VI.Neural.Node;
 
-namespace VI.Neural.Node
+namespace VI.Neural.Factory
 {
     public class LayerBuilder : LayerCreator
     {

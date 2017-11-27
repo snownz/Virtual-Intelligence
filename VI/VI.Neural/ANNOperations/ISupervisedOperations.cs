@@ -8,8 +8,7 @@ namespace VI.Neural.ANNOperations
         void FeedForward(Array<float> feed);
         void BackWard(Array<float> values);
         void ErrorGradient(Array<float> inputs);
-        void UpdateWeight();
-        void UpdateBias();
+        void UpdateParams();
         void SetLayer(ILayer layer);
     }
 }

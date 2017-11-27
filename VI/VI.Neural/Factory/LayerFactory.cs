@@ -29,10 +29,10 @@ namespace VI.Neural.Factory
             switch (err)
             {
                 case EErrorFunction.Dense:
-                    errorFunction = new DenseErrorFunction();
+                    errorFunction = new HiddenErrorFunction();
                     break;
                 case EErrorFunction.Desired:
-                    errorFunction = new DesiredErrorFunction();
+                    errorFunction = new OutputErrorFunction();
                     break;
             }
 
@@ -43,7 +43,7 @@ namespace VI.Neural.Factory
                     break;
             }
 
-            return new AnnBasicOperations(activationFunction,
+            return new ANNDenseOperations(activationFunction,
                 errorFunction,
                 optimizerFunction);
         }

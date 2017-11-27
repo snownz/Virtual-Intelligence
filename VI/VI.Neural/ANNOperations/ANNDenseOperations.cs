@@ -7,14 +7,14 @@ using VI.NumSharp.Arrays;
 
 namespace VI.Neural.ANNOperations
 {
-    public sealed class AnnBasicOperations : ISupervisedOperations
+    public class ANNDenseOperations : ISupervisedOperations
     {
         private readonly IActivationFunction _activationFunction;
         private readonly IErrorFunction _errorFunction;
         private readonly IOptimizerFunction _optimizerFunction;
         private ILayer _target;
 
-        public AnnBasicOperations(IActivationFunction activationFunction,
+        public ANNDenseOperations(IActivationFunction activationFunction,
             IErrorFunction errorFunction, IOptimizerFunction optimizerFunction)
         {
             _activationFunction = activationFunction;
@@ -22,13 +22,18 @@ namespace VI.Neural.ANNOperations
             _optimizerFunction = optimizerFunction;            
         }
 
-        public void FeedForward(Array<float> feed)
+        protected ANNDenseOperations( IOptimizerFunction optimizerFunction)
+        {
+            _optimizerFunction = optimizerFunction;
+        }
+
+        public virtual void FeedForward(Array<float> feed)
         {
             _target.SumVector = NumMath.SumColumn(feed.H * _target.KnowlodgeMatrix) + _target.BiasVector;
             _target.OutputVector = _activationFunction.Activate(_target.SumVector);
         }
 
-        public void BackWard(Array<float> values)
+        public virtual void BackWard(Array<float> values)
         {
             var DE = _errorFunction.Error(_target.OutputVector, values);
             var DO = _activationFunction.Derivate(_target.SumVector);
@@ -41,16 +46,12 @@ namespace VI.Neural.ANNOperations
             _target.GradientMatrix = (inputs.H * _target.ErrorVector);
         }
 
-        public void UpdateWeight()
+        public void UpdateParams()
         {
             _optimizerFunction.UpdateWeight(_target);
-        }
-
-        public void UpdateBias()
-        {
             _optimizerFunction.UpdateBias(_target);
         }
-
+        
         public void SetLayer(ILayer layer)
         {
             _target = layer;

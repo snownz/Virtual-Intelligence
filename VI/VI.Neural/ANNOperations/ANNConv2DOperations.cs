@@ -3,7 +3,7 @@ using VI.NumSharp.Arrays;
 
 namespace VI.Neural.ANNOperations
 {
-    public sealed class RnnBasicOperations : ISupervisedOperations
+    public class ANNConv2DOperations : ISupervisedOperations
     {
         public void FeedForward(Array<float> feed)
         {
@@ -20,17 +20,7 @@ namespace VI.Neural.ANNOperations
             throw new System.NotImplementedException();
         }
 
-        public float Loss(Array<float> desired)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void UpdateWeight()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void UpdateBias()
+        public void UpdateParams()
         {
             throw new System.NotImplementedException();
         }
