@@ -15,7 +15,7 @@ namespace VI.NumSharp
             ProcessingDevice
                 .ArrayDevice
                 .Executor["_V_Exp"]
-                .Launch(size, mem.View.View, arr.View.View);
+                .Launch(size, mem.View, arr.View);
             ProcessingDevice.ArrayDevice.Executor.Wait();
             return mem;
         }
@@ -28,7 +28,7 @@ namespace VI.NumSharp
             ProcessingDevice
                 .ArrayDevice
                 .Executor["_V_Sin"]
-                .Launch(size, mem.View.View, arr.View.View);
+                .Launch(size, mem.View, arr.View);
             ProcessingDevice.ArrayDevice.Executor.Wait();
             return mem;
         }
@@ -41,7 +41,7 @@ namespace VI.NumSharp
             ProcessingDevice
                 .ArrayDevice
                 .Executor["_V_Cos"]
-                .Launch(size, mem.View.View, arr.View.View);
+                .Launch(size, mem.View, arr.View);
             ProcessingDevice.ArrayDevice.Executor.Wait();
             return mem;
         }
@@ -72,7 +72,7 @@ namespace VI.NumSharp
             ProcessingDevice
                 .ArrayDevice
                 .Executor["_V_Max"]
-                .Launch(size, mem.View.View, arr0.View.View, arr1.View.View);
+                .Launch(size, mem.View, arr0.View, arr1.View);
             ProcessingDevice.ArrayDevice.Executor.Wait();
             return mem;
         }

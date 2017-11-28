@@ -8,22 +8,16 @@ namespace VI.NumSharp.Arrays
         where T : struct
     {
         private readonly MemoryBuffer2D<T> _memoryBuffer;
-        private Array2DW<T> _w;
-        private Array2DH<T> _h;
 
         public MemoryBuffer2D<T> View => _memoryBuffer;
-        public Array2DW<T> W => _w;
-        public Array2DH<T> H => _h;
 
         public Array2D(int w, int h)
         {
             _memoryBuffer = ProcessingDevice.ArrayDevice.Executor.CreateBuffer<T>(w, h);
-            _construct();
         }
         public Array2D(T[,] data)
         {
             _memoryBuffer = ProcessingDevice.ArrayDevice.Executor.SetBuffer(data);
-            _construct();
         }
         public Array2D(MemoryBuffer2D<T> memoryBuffer)
         {
@@ -93,12 +87,6 @@ namespace VI.NumSharp.Arrays
               throw new NotImplementedException("Talk to the owner of the repository to implement this method (Issue)");
         }
 
-        private void _construct()
-        {
-            _w = new Array2DW<T>(_memoryBuffer);
-            _h = new Array2DH<T>(_memoryBuffer);
-        }
-
         public override string ToString()
         {
             var str = "[";
@@ -113,6 +101,10 @@ namespace VI.NumSharp.Arrays
             }
             str += "]";
             return str;
+        }
+        public Array<T> AsLinear()
+        {
+            return new Array<T>(_memoryBuffer.AsLinearView());
         }
     }
 }

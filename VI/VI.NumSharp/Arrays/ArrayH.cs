@@ -8,8 +8,7 @@ namespace VI.NumSharp.Arrays
         where T : struct
     {
         private MemoryBuffer<T> _memoryBuffer;
-
-        public MemoryBuffer<T> View => _memoryBuffer;
+        public ArrayView<T> View => _memoryBuffer.View;
 
         public ArrayH(MemoryBuffer<T> memoryBuffer)
         {
@@ -23,7 +22,7 @@ namespace VI.NumSharp.Arrays
             ProcessingDevice
                 .ArrayDevice
                 .Executor["_V_X_V_M"]
-                .Launch(size, output.View.View, v1.View.View, v0.View.View);
+                .Launch(size, output.View.View, v1.View, v0.View);
             ProcessingDevice.ArrayDevice.Executor.Wait();
             return output;
         }
@@ -47,7 +46,7 @@ namespace VI.NumSharp.Arrays
             ProcessingDevice
                 .ArrayDevice
                 .Executor["_V_X_M_column_M"]
-                .Launch(size, output.View.View, m0.View.View, v0.View.View);
+                .Launch(size, output.View.View, m0.View.View, v0.View);
             ProcessingDevice.ArrayDevice.Executor.Wait();
             return output;
         }

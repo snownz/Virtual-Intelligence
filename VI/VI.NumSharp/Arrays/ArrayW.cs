@@ -8,6 +8,8 @@ namespace VI.NumSharp.Arrays
         where T : struct
     {
         private MemoryBuffer<T> _memoryBuffer;
+        public ArrayView<T> View => _memoryBuffer.View;
+
         public ArrayW(MemoryBuffer<T> memoryBuffer)
         {
             _memoryBuffer = memoryBuffer;
