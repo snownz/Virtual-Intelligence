@@ -14,7 +14,7 @@ Framework for Artificial Intelligence
 
 #### Learning
 ```ini
-	Back Propagation 		-> 30/11/2017
+	Back Propagation 		-> 30/12/2017
 	Back Propagation Through Time 	-> ??/??/2017
 	Competitive Learning (SOM) 	-> ??/??/2018
 	Shared Learning (Conv) 		-> ??/??/2018
