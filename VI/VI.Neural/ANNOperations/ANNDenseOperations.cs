@@ -9,10 +9,11 @@ namespace VI.Neural.ANNOperations
 {
     public class ANNDenseOperations : ISupervisedOperations
     {
+        protected ILayer _target;
+        
         private IActivationFunction _activationFunction;
-        private IErrorFunction _errorFunction;
+        protected IErrorFunction _errorFunction;
         private IOptimizerFunction _optimizerFunction;
-        private ILayer _target;
      
         public virtual void FeedForward(Array<float> feed)
         {

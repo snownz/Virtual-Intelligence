@@ -50,7 +50,12 @@ namespace VI.NumSharp.Arrays
             get => _memoryBuffer[x];
             set => _memoryBuffer[x] = value;
         }
-        
+
+        public string Get(int x)
+        {
+            return _memoryBuffer[x].ToString();
+        }
+
         public void Dispose()
         {
             _memoryBuffer.Dispose();
@@ -97,7 +102,7 @@ namespace VI.NumSharp.Arrays
         {
             var size = v0._memoryBuffer.Length;
             var output = NumMath.Allocate<T>(size);
-            ProcessingDevice.ArrayDevice.Executor["_C_div_V"].Launch(size, c, output.View, v0.View);
+            ProcessingDevice.ArrayDevice.Executor["_V_div_C"].Launch(size, c, output.View, v0.View);
             ProcessingDevice.ArrayDevice.Executor.Wait();
             return output;
         }
@@ -119,7 +124,11 @@ namespace VI.NumSharp.Arrays
         }
         public static Array<T> operator /(T c, Array<T> v0)
         {
-            return v0 / c;
+            var size = v0._memoryBuffer.Length;
+            var output = NumMath.Allocate<T>(size);
+            ProcessingDevice.ArrayDevice.Executor["_C_div_V"].Launch(size, c, output.View, v0.View);
+            ProcessingDevice.ArrayDevice.Executor.Wait();
+            return output;
         }
         public static Array<T> operator +(T c, Array<T> v0)
         {

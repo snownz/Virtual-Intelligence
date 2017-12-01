@@ -83,10 +83,14 @@ namespace VI.NumSharp
             throw new NotImplementedException("Talk to the owner of the repository to implement this method (Issue)");
         }
         
-        public static T Sum<T>(Array<T> arr)
-            where T: struct 
+        public static float Sum(Array<float> arr)
         {
-            throw new NotImplementedException("Talk to the owner of the repository to implement this method (Issue)");
+            var sum = 0f;
+            for (int i = 0; i < arr.View.Length; i++)
+            {
+                sum += arr[i];
+            }
+            return sum;
         }
         
         public static T Mult<T>(Array<T> arr)

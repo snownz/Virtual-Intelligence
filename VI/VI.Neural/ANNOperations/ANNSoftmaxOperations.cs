@@ -9,20 +9,18 @@ namespace VI.Neural.ANNOperations
 {
     public class ANNSoftmaxOperations : ANNDenseOperations
     {
-        private readonly IErrorFunction _errorFunction;
-        private ILayer _target;
-
         public override void FeedForward(Array<float> feed)
         {
             _target.SumVector = NumMath.SumColumn(feed.H * _target.KnowlodgeMatrix) + _target.BiasVector;
             var exp = NumMath.Exp(_target.SumVector);
-            _target.OutputVector = exp / NumMath.Sum(exp);
+            var sum = NumMath.Sum(exp);
+            _target.OutputVector = exp / sum;
         }
 
         public override void BackWard(Array<float> values)
         {
             var DE = _errorFunction.Error(_target.OutputVector, values);
-            _target.ErrorVector = -1 * DE;
+            _target.ErrorVector = DE;
             _target.ErrorWeightVector = NumMath.SumLine(_target.ErrorVector.W * _target.KnowlodgeMatrix);
         }
     }
