@@ -12,12 +12,6 @@ namespace VI.Neural.ANNOperations
         private readonly IErrorFunction _errorFunction;
         private ILayer _target;
 
-        public ANNSoftmaxOperations(IErrorFunction errorFunction, IOptimizerFunction optimizerFunction)
-            : base(optimizerFunction)
-        {
-            _errorFunction = errorFunction;
-        }
-
         public override void FeedForward(Array<float> feed)
         {
             _target.SumVector = NumMath.SumColumn(feed.H * _target.KnowlodgeMatrix) + _target.BiasVector;

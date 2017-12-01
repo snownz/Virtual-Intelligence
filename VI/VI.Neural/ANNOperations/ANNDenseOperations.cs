@@ -9,24 +9,11 @@ namespace VI.Neural.ANNOperations
 {
     public class ANNDenseOperations : ISupervisedOperations
     {
-        private readonly IActivationFunction _activationFunction;
-        private readonly IErrorFunction _errorFunction;
-        private readonly IOptimizerFunction _optimizerFunction;
+        private IActivationFunction _activationFunction;
+        private IErrorFunction _errorFunction;
+        private IOptimizerFunction _optimizerFunction;
         private ILayer _target;
-
-        public ANNDenseOperations(IActivationFunction activationFunction,
-            IErrorFunction errorFunction, IOptimizerFunction optimizerFunction)
-        {
-            _activationFunction = activationFunction;
-            _errorFunction = errorFunction;
-            _optimizerFunction = optimizerFunction;            
-        }
-
-        protected ANNDenseOperations( IOptimizerFunction optimizerFunction)
-        {
-            _optimizerFunction = optimizerFunction;
-        }
-
+     
         public virtual void FeedForward(Array<float> feed)
         {
             _target.SumVector = NumMath.SumColumn(feed.H * _target.KnowlodgeMatrix) + _target.BiasVector;
@@ -56,6 +43,21 @@ namespace VI.Neural.ANNOperations
         {
             _target = layer;
             _optimizerFunction.CalculateParams(_target);
+        }
+
+        public void SetActivation(IActivationFunction act)
+        {
+            _activationFunction = act;
+        }
+
+        public void SetError(IErrorFunction err)
+        {
+            _errorFunction = err;
+        }
+
+        public void SetOptimizer(IOptimizerFunction opt)
+        {
+            _optimizerFunction = opt;
         }
     }
 }
