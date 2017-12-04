@@ -101,6 +101,12 @@ namespace VI.Maths.Array
             output[x] = c - v[x];
         }
 
+        public static void _V_sub_C(Index size, float c, ArrayView<float> output, ArrayView<float> v)
+        {
+            int x = size.X;
+            output[x] = v[x] - c;
+        }
+
         public static void _C_div_V(Index size, float c, ArrayView<float> output, ArrayView<float> v)
         {
             int x = size.X;

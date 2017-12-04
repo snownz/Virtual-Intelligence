@@ -17,7 +17,7 @@ namespace VI.Neural.ANNOperations
      
         public virtual void FeedForward(Array<float> feed)
         {
-            _target.SumVector = NumMath.SumColumn(feed.H * _target.KnowlodgeMatrix) + _target.BiasVector;
+            _target.SumVector = NumMath.SumColumn(feed.T * _target.KnowlodgeMatrix) + _target.BiasVector;
             _target.OutputVector = _activationFunction.Activate(_target.SumVector);
         }
 
@@ -26,12 +26,12 @@ namespace VI.Neural.ANNOperations
             var DE = _errorFunction.Error(_target.OutputVector, values);
             var DO = _activationFunction.Derivate(_target.SumVector);
             _target.ErrorVector = DE * DO;
-            _target.ErrorWeightVector = NumMath.SumLine(_target.ErrorVector.W * _target.KnowlodgeMatrix);
+            _target.ErrorWeightVector = NumMath.SumLine(_target.ErrorVector * _target.KnowlodgeMatrix);
         }
 
-        public void ErrorGradient(Array<float> inputs)
+        public void ErrorGradient(Array<float> feed)
         {
-            _target.GradientMatrix = (inputs.H * _target.ErrorVector);
+            _target.GradientMatrix = (feed * _target.ErrorVector.T);
         }
 
         public void UpdateParams()
