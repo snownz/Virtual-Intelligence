@@ -8,7 +8,7 @@ namespace VI.Neural.Node
     public class SupervisedNeuron : INeuron, ISupervisedLearning
     {
         private static readonly ThreadSafeRandom _tr = new ThreadSafeRandom();
-
+        
         private readonly ILayer _layer;
         private readonly ISupervisedOperations _operations;
 
@@ -79,14 +79,15 @@ namespace VI.Neural.Node
             _operations.UpdateParams();
             return _layer.ErrorWeightVector;
         }
-        
+
+        //TODO Make it on GPU
         public void Synapsis(int node, int connection)
         {
-            Synapsis(node, connection, (float) _tr.NextDouble());
+            _layer.KnowlodgeMatrix[node, connection] = (float)_tr.NextDouble();
         }
         public void Synapsis(int node, int connection, float w)
         {
-            _layer.KnowlodgeMatrix[node, connection] = w;
+            _layer.KnowlodgeMatrix[node, connection] = (float)_tr.NextDouble() * w;
         }
     }
 }

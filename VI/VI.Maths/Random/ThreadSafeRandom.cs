@@ -3,6 +3,7 @@
     public sealed class ThreadSafeRandom : System.Random
     {
         private object sync = new object();
+        private static readonly int[] _direction = new[] { -1, 1 };
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ThreadSafeRandom"/> class.
@@ -103,7 +104,20 @@
         ///
         public override double NextDouble()
         {
-            lock (sync) return base.NextDouble();
+            lock (sync) return base.NextDouble() * _direction[base.Next(0, 2)];
+        }
+
+        /// <summary>
+        /// Returns a random number between 0.0 and 1.0.
+        /// </summary>
+        /// 
+        /// <returns>Returns a double-precision floating point number greater than or equal to 0.0, and less than 1.0.</returns>
+        /// 
+        /// <remarks>See <see cref="Random.NextDouble()"/> for more information.</remarks>
+        ///
+        public float NextFloat()
+        {
+            lock (sync) return (float)(base.NextDouble() * _direction[base.Next(0, 2)]);
         }
     }
 }
