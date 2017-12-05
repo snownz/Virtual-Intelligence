@@ -101,16 +101,28 @@ namespace VI.Maths.Array
             output[x] = c - v[x];
         }
 
+        public static void _V_sub_C(Index size, float c, ArrayView<float> output, ArrayView<float> v)
+        {
+            int x = size.X;
+            output[x] = v[x] - c;
+        }
+
         public static void _C_div_V(Index size, float c, ArrayView<float> output, ArrayView<float> v)
         {
             int x = size.X;
             output[x] = c / v[x];
         }
+        
+        public static void _V_div_C(Index size, float c, ArrayView<float> output, ArrayView<float> v)
+        {
+            int x = size.X;
+            output[x] = v[x] / c;
+        }
 
         public static void _V_Exp(Index size, ArrayView<float> output, ArrayView<float> v)
         {
             int x = size.X;
-            output[x] = GPUMath.Exp(v[x]);
+            output[x] = GPUMath.Exp(v[x]);// v[x];
         }
 
         public static void _V_C_More_Equal(Index size, ArrayView<float> output, float c, ArrayView<float> v)
@@ -123,6 +135,26 @@ namespace VI.Maths.Array
         {
             int x = size.X;
             output[x] = GPUMath.Max(v[x], v1[x]);
+        }
+        
+        public static void _V_Sum(Index size, float output, ArrayView<float> v, int w)
+        {
+            for (int i = 0; i < w; i++)
+            {
+                output += v[i];
+            }
+        }
+
+        public static void _V_Sin(Index size, ArrayView<float> output, ArrayView<float> v)
+        {
+            int x = size.X;
+            output[x] = GPUMath.Sin(v[x]);
+        }
+
+        public static void _V_Cos(Index size, ArrayView<float> output, ArrayView<float> v)
+        {
+            int x = size.X;
+            output[x] = GPUMath.Cos(v[x]);
         }
     }
 }

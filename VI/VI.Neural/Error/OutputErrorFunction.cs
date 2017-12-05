@@ -2,7 +2,7 @@
 
 namespace VI.Neural.Error
 {
-    public class DesiredErrorFunction: IErrorFunction
+    public class OutputErrorFunction: IErrorFunction
     {
         public Array<float> Error(Array<float> targetOutputVector, Array<float> values)
         {

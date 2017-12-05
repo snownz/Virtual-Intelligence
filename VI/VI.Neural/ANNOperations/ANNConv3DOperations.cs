@@ -1,9 +1,12 @@
-﻿using VI.Neural.Layer;
+﻿using VI.Neural.ActivationFunction;
+using VI.Neural.Error;
+using VI.Neural.Layer;
+using VI.Neural.OptimizerFunction;
 using VI.NumSharp.Arrays;
 
 namespace VI.Neural.ANNOperations
 {
-    public sealed class RnnBasicOperations : ISupervisedOperations
+    public class ANNConv3DOperations: ISupervisedOperations
     {
         public void FeedForward(Array<float> feed)
         {
@@ -20,22 +23,27 @@ namespace VI.Neural.ANNOperations
             throw new System.NotImplementedException();
         }
 
-        public float Loss(Array<float> desired)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void UpdateWeight()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void UpdateBias()
+        public void UpdateParams()
         {
             throw new System.NotImplementedException();
         }
 
         public void SetLayer(ILayer layer)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void SetActivation(IActivationFunction act)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void SetError(IErrorFunction err)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void SetOptimizer(IOptimizerFunction opt)
         {
             throw new System.NotImplementedException();
         }

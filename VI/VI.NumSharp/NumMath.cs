@@ -15,11 +15,37 @@ namespace VI.NumSharp
             ProcessingDevice
                 .ArrayDevice
                 .Executor["_V_Exp"]
-                .Launch(size, mem.View.View, arr.View.View);
+                .Launch(size, mem.View, arr.View);
             ProcessingDevice.ArrayDevice.Executor.Wait();
             return mem;
         }
-        
+
+        public static Array<T> Sin<T>(Array<T> arr)
+            where T : struct
+        {
+            var size = new Index(arr.View.Length);
+            var mem = Allocate<T>(size);
+            ProcessingDevice
+                .ArrayDevice
+                .Executor["_V_Sin"]
+                .Launch(size, mem.View, arr.View);
+            ProcessingDevice.ArrayDevice.Executor.Wait();
+            return mem;
+        }
+
+        public static Array<T> Cos<T>(Array<T> arr)
+            where T : struct
+        {
+            var size = new Index(arr.View.Length);
+            var mem = Allocate<T>(size);
+            ProcessingDevice
+                .ArrayDevice
+                .Executor["_V_Cos"]
+                .Launch(size, mem.View, arr.View);
+            ProcessingDevice.ArrayDevice.Executor.Wait();
+            return mem;
+        }
+
         public static Array<T> Sqrt<T>(Array<T> arr)
             where T: struct 
         {
@@ -46,7 +72,7 @@ namespace VI.NumSharp
             ProcessingDevice
                 .ArrayDevice
                 .Executor["_V_Max"]
-                .Launch(size, mem.View.View, arr0.View.View, arr1.View.View);
+                .Launch(size, mem.View, arr0.View, arr1.View);
             ProcessingDevice.ArrayDevice.Executor.Wait();
             return mem;
         }
@@ -57,10 +83,14 @@ namespace VI.NumSharp
             throw new NotImplementedException("Talk to the owner of the repository to implement this method (Issue)");
         }
         
-        public static T Sum<T>(Array<T> arr)
-            where T: struct 
+        public static float Sum(Array<float> arr)
         {
-            throw new NotImplementedException("Talk to the owner of the repository to implement this method (Issue)");
+            var sum = 0f;
+            for (int i = 0; i < arr.View.Length; i++)
+            {
+                sum += arr[i];
+            }
+            return sum;
         }
         
         public static T Mult<T>(Array<T> arr)
