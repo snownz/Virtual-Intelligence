@@ -67,4 +67,4 @@ Model | Support
 Model|Date
 ---|---
 Learning Method | March, 2018
-Network | on March, 2018
+Network | March, 2018
