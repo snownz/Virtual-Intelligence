@@ -1,6 +1,6 @@
 ## Parallel Computing Adapter.
 
-Este projeto tem como objetivo criar uma interface entre Frameworks que provem processamento paralelo.
+This project aims to create an interface between Frameworks that provide parallel processing.
 
 Current Parallel Compiler - [ILGPU](http://ilgpu.net/)
 
