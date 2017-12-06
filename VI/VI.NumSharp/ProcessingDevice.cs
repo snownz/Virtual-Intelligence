@@ -11,7 +11,7 @@ namespace VI.NumSharp
     
     public static partial class ProcessingDevice
     {
-        private static Device _device;
+        private static Device _device = Device.CPU;
         private static IAnnParallelInterface _cpuArrayDevice;
         private static IAnnParallelInterface _cudaArrayDevice;
 
