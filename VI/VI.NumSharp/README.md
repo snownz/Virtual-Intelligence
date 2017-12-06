@@ -4,7 +4,7 @@
 
 This mathematic project aims to perform calculations between vectors using the original CSharp syntax.
 
--------
+
 ## Installation
 
 ### 1. Installing NumSharp
