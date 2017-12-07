@@ -2,7 +2,7 @@
 ---
 ## Parallel Artificial Neural Network.
 
-Library for creating and training neural networks in a simple and fast way.
+An easy and fast way to create and train a neural network
 
 -------
 ## Installation
