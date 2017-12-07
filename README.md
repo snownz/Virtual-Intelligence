@@ -1,6 +1,7 @@
 ## Virtual Intelligence
 
 Open source artificial intelligence framework.
+
 Developed by **Smart Mind** group.
 
 ## Project Tools
