@@ -66,5 +66,5 @@ Model | Support
 ## Roadmap
 Model|Date
 ---|---
-Learning Method | March, 2018
-Network | March, 2018
+Learning Method | Planning
+Network | Planning
