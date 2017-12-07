@@ -16,8 +16,8 @@ Dropout | ![](https://raw.githubusercontent.com/snownz/Virtual-Intelligence/Git/
 ## Roadmap
 Operation | Date
 ------------ | -------------
-Self Organized Maps | March, 2018
-Dropout | March, 2018
+Self Organized Maps | March, 2018 (it can happen earlier)
+Dropout | March, 2018 (it can happen earlier)
 Conv 2D | May, 2018 (it can happen earlier)
 Conv 3D | May, 2018 (it can happen earlier)
 Max Polling 2D | May, 2018 (it can happen earlier)
