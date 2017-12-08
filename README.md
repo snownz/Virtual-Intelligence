@@ -1,53 +1,33 @@
-# VI - Virtual Intelligence [![Build Status](https://travis-ci.org/snownz/Virtual-Intelligence.svg?branch=master)](https://travis-ci.org/snownz/Virtual-Intelligence)
-----------------------------
-Framework for Artificial Intelligence 
-----------------------
-	Virtual Neurons
-	GA
-	Artificial Neural Networks
-	Learning Methods
-	Math Custom Tools
--------------------------
+## Virtual Intelligence
+
+Open source artificial intelligence framework.
+
+Developed by **Smart Mind** group.
+
+## Project Tools
+---
+    Virtual Neurons
+    GA
+    Artificial Neural Networks
+    Learning Methods
+    Math Custom Tools
+
+## Project goals
+
+## Contributing guidelines
+
+## Build
+
+OS | Support | Build
+---|---|---
+Ubuntu | ![](https://raw.githubusercontent.com/snownz/Virtual-Intelligence/Git/Info/images/ok.png) |[![Build Status](https://travis-ci.org/snownz/Virtual-Intelligence.svg?branch=master)](https://travis-ci.org/snownz/Virtual-Intelligence)
+Debian | ![](https://raw.githubusercontent.com/snownz/Virtual-Intelligence/Git/Info/images/ok.png) |
+Windows | ![](https://raw.githubusercontent.com/snownz/Virtual-Intelligence/Git/Info/images/ok.png) |
+Mac | ![](https://raw.githubusercontent.com/snownz/Virtual-Intelligence/Git/Info/images/not.png) |
 
 
-### Road Map
+## Relevant Projects
 
-#### Learning
-```ini
-	Back Propagation 		-> 30/12/2017
-	Back Propagation Through Time 	-> ??/??/2017
-	Competitive Learning (SOM) 	-> ??/??/2018
-	Shared Learning (Conv) 		-> ??/??/2018
-	Dropout 			-> ??/??/2018
-```
-
-#### Virtual Neurons
-```ini
-	Inputs 			-> 16/10/2017
-	Hiddens			-> 16/10/2017
-	Ouputs 			-> 16/10/2017
-	Cooperative Neurons 	-> ??/??/2018
-```
-
-#### Parallel Processing Artificial Neural Networks
-ILGPU -> http://ilgpu.net/Home/Roadmap
-
-#### Activations Support
-```ini
-	Sigmoid	-> 16/10/2017
-	TanH	-> 16/10/2017
-	RELU	-> 16/10/2017
-	SoftMax	-> 10/12/2017
-```
-
-#### Artificial Neural Networks
-```ini
-	MLP 		-> 16/10/2017
-	Conv 		-> ??/??/2018
-	Recurrent 	-> ??/??/2018
-	Recursive 	-> ??/??/2018
-	LSTM 		-> ??/??/2018
-	GRU 		-> ??/??/2018
-	Multi Task 	-> ??/??/2018
-	SOM 		-> ??/??/2018
-```
+- [VI.Neural](https://github.com/snownz/Virtual-Intelligence/tree/master/VI/VI.Neural)
+- [VI.NumSharp](https://github.com/snownz/Virtual-Intelligence/tree/master/VI/VI.NumSharp)
+- [Samples With Dataset](https://github.com/snownz/Virtual-Intelligence.Samples)
