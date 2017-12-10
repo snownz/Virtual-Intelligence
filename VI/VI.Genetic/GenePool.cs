@@ -11,66 +11,65 @@ namespace VI.Genetic
     {
         private static ThreadSafeRandom rand = new ThreadSafeRandom();
 
-        private IFitnessFunction ff;
-        private ISelectionMethod sm;
-        private List<IChromosome> members = new List<IChromosome>();
-        private int size;
-        private double randomSelectionPortion = 0.0;
-        private bool autoShuffling = false;
+        private IFitnessFunction _fitnessFuntion;
+        private ISelectionMethod _selectionMethod;
+        private List<IChromosome> _genes;
+        private int _size;
+        private double _randomSelectionPortion = .05;
+        private bool _autoShuffling = false;
 
-        private double crossoverRate = 0.75;
-        private double mutationRate = 0.10;
+        private double _crossoverRate = .63;
+        private double _mutationRate = .08;
 
-        private double fitnessMax = 0;
-        private double fitnessSum = 0;
-        private double fitnessAvg = 0;
-        private IChromosome bestChromosome = null;
+        private double _fitnessMax = 0;
+        private double _fitnessAvg = 0;
+        private IChromosome _bestChromosome = null;
 
         public double CrossoverRate
         {
-            get { return crossoverRate; }
+            get { return _crossoverRate; }
             set
             {
-                crossoverRate = Math.Max(0.1, Math.Min(1.0, value));
+                _crossoverRate = Math.Max(0.1, Math.Min(1.0, value));
             }
         }
         public double MutationRate
         {
-            get { return mutationRate; }
+            get { return _mutationRate; }
             set
             {
-                mutationRate = Math.Max(0.1, Math.Min(1.0, value));
+                _mutationRate = Math.Max(0.1, Math.Min(1.0, value));
             }
         }
         public double RandomSelectionPortion
         {
-            get { return randomSelectionPortion; }
+            get { return _randomSelectionPortion; }
             set
             {
-                randomSelectionPortion = Math.Max(0, Math.Min(0.9, value));
+                _randomSelectionPortion = Math.Max(0, Math.Min(0.9, value));
             }
         }
         public bool AutoShuffling
         {
-            get { return autoShuffling; }
-            set { autoShuffling = value; }
+            get { return _autoShuffling; }
+            set { _autoShuffling = value; }
         }
 
         public ISelectionMethod SelectionMethod
         {
-            get { return sm; }
-            set { sm = value; }
+            get { return _selectionMethod; }
+            set { _selectionMethod = value; }
         }
         public IFitnessFunction FitnessFunction
         {
-            get { return ff; }
+            get { return _fitnessFuntion; }
             set
             {
-                ff = value;
+                _fitnessFuntion = value;
 
-                foreach (IChromosome member in members)
+                foreach (IChromosome member in _genes)
                 {
-                    member.Evaluate(ff);
+                    member.Evaluate(_fitnessFuntion);
                 }
 
                 FindBestChromosome();
@@ -79,30 +78,26 @@ namespace VI.Genetic
 
         public double FitnessMax
         {
-            get { return fitnessMax; }
-        }
-        public double FitnessSum
-        {
-            get { return fitnessSum; }
+            get { return _fitnessMax; }
         }
         public double FitnessAvg
         {
-            get { return fitnessAvg; }
+            get { return _fitnessAvg; }
         }
 
         public IChromosome BestChromosome
         {
-            get { return bestChromosome; }
+            get { return _bestChromosome; }
         }        
 
         public int Size
         {
-            get { return size; }
+            get { return _size; }
         }
 
         public IChromosome this[int index]
         {
-            get { return members[index]; }
+            get { return _genes[index]; }
         }
 
         public GenePool()
@@ -112,63 +107,63 @@ namespace VI.Genetic
 
         public void Regenerate()
         {
-            IChromosome ancestor = members[0];
-            members.Clear();
-            for (int i = 0; i < size; i++)
+            IChromosome ancestor = _genes[0];
+            _genes.Clear();
+            for (int i = 0; i < _size; i++)
             {
                 IChromosome c = ancestor.CreateNew();
-                c.Evaluate(ff);
-                members.Add(c);
+                c.Evaluate(_fitnessFuntion);
+                _genes.Add(c);
             }
         }
 
         public virtual void Crossover()
         {
-            for (int i = 1; i < size; i += 2)
+            for (int i = 1; i < _size; i += 2)
             {
-                if (rand.NextDouble() <= crossoverRate)
+                if (rand.NextDouble() <= _crossoverRate)
                 {
-                    IChromosome c1 = members[i - 1].Clone();
-                    IChromosome c2 = members[i].Clone();
+                    IChromosome c1 = _genes[i - 1].Clone();
+                    IChromosome c2 = _genes[i].Clone();
                     
                     c1.Crossover(c2);
                     
-                    c1.Evaluate(ff);
-                    c2.Evaluate(ff);
+                    c1.Evaluate(_fitnessFuntion);
+                    c2.Evaluate(_fitnessFuntion);
                     
-                    members.Add(c1);
-                    members.Add(c2);
+                    _genes.Add(c1);
+                    _genes.Add(c2);
                 }
             }
         }
         public virtual void Mutate()
         {
-            for (int i = 0; i < size; i++)
+            for (int i = 0; i < _size; i++)
             {
-                if (rand.NextDouble() <= mutationRate)
+                if (rand.NextDouble() <= _mutationRate)
                 {
-                    IChromosome c = members[i].Clone();
+                    IChromosome c = _genes[i].Clone();
                     c.Mutate();
-                    c.Evaluate(ff);
-                    members.Add(c);
+                    c.Evaluate(_fitnessFuntion);
+                    _genes.Add(c);
                 }
             }
         }
         public virtual void Selection()
         {
-            int randomAmount = (int)(randomSelectionPortion * size);
+            int randomAmount = (int)(_randomSelectionPortion * _size);
 
-            sm.ApplySelection(members, size - randomAmount);
+            _selectionMethod.ApplySelection(_genes, _size - randomAmount);
 
             if (randomAmount > 0)
             {
-                IChromosome ancestor = members[0];
+                IChromosome ancestor = _genes[0];
 
                 for (int i = 0; i < randomAmount; i++)
                 {
                     IChromosome c = ancestor.CreateNew();
-                    c.Evaluate(ff);
-                    members.Add(c);
+                    c.Evaluate(_fitnessFuntion);
+                    _genes.Add(c);
                 }
             }
 
@@ -181,24 +176,24 @@ namespace VI.Genetic
             Mutate();
             Selection();
 
-            if (autoShuffling)
+            if (_autoShuffling)
                 Shuffle();
         }
 
         public void Shuffle()
         {
             // current population size
-            int size = members.Count;
+            int size = _genes.Count;
             // create temporary copy of the population
-            List<IChromosome> tempPopulation = members.GetRange(0, size);
+            List<IChromosome> tempPopulation = _genes.GetRange(0, size);
             // clear current population and refill it randomly
-            members.Clear();
+            _genes.Clear();
 
             while (size > 0)
             {
                 int i = rand.Next(size);
 
-                members.Add(tempPopulation[i]);
+                _genes.Add(tempPopulation[i]);
                 tempPopulation.RemoveAt(i);
 
                 size--;
@@ -207,28 +202,28 @@ namespace VI.Genetic
 
         public void AddChromosome(IChromosome chromosome)
         {
-            chromosome.Evaluate(ff);
-            members.Add(chromosome);
+            chromosome.Evaluate(_fitnessFuntion);
+            _genes.Add(chromosome);
         }
 
         private void FindBestChromosome()
         {
-            bestChromosome = members[0];
-            fitnessMax = bestChromosome.Fitness;
-            fitnessSum = fitnessMax;
+            _bestChromosome = _genes[0];
+            _fitnessMax = _bestChromosome.Fitness;
+            _fitnessSum = _fitnessMax;
 
-            for (int i = 1; i < size; i++)
+            for (int i = 1; i < _size; i++)
             {
-                double fitness = members[i].Fitness;
-                fitnessSum += fitness;
+                double fitness = _genes[i].Fitness;
+                _fitnessSum += fitness;
 
-                if (fitness > fitnessMax)
+                if (fitness > _fitnessMax)
                 {
-                    fitnessMax = fitness;
-                    bestChromosome = members[i];
+                    _fitnessMax = fitness;
+                    _bestChromosome = _genes[i];
                 }
             }
-            fitnessAvg = fitnessSum / size;
+            _fitnessAvg = _fitnessSum / _size;
         }
     }
 }
