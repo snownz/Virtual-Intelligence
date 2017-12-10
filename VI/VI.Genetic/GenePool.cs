@@ -210,20 +210,18 @@ namespace VI.Genetic
         {
             _bestChromosome = _genes[0];
             _fitnessMax = _bestChromosome.Fitness;
-            _fitnessSum = _fitnessMax;
-
+            double sum = 0;
             for (int i = 1; i < _size; i++)
             {
                 double fitness = _genes[i].Fitness;
-                _fitnessSum += fitness;
-
+                sum += fitness;
                 if (fitness > _fitnessMax)
                 {
                     _fitnessMax = fitness;
                     _bestChromosome = _genes[i];
                 }
             }
-            _fitnessAvg = _fitnessSum / _size;
+            _fitnessAvg = sum / _size;
         }
     }
 }
