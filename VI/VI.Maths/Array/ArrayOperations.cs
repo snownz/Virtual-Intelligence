@@ -151,6 +151,18 @@ namespace VI.Maths.Array
             output[x] = GPUMath.Sin(v[x]);
         }
 
+        public static void _V_Tan(Index size, ArrayView<float> output, ArrayView<float> v)
+        {
+            int x = size.X;
+            output[x] = GPUMath.Tan(v[x]);
+        }
+
+        public static void _V_Pow(Index size, ArrayView<float> output, ArrayView<float> v, int p)
+        {
+            int x = size.X;
+            output[x] = GPUMath.Pow(v[x], p);
+        }
+
         public static void _V_Cos(Index size, ArrayView<float> output, ArrayView<float> v)
         {
             int x = size.X;
