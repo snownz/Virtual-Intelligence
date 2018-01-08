@@ -23,6 +23,7 @@ namespace VI.Genetic
 
         private double _fitnessMax = 0;
         private double _fitnessAvg = 0;
+
         private IChromosome _bestChromosome = null;
 
         public double CrossoverRate
@@ -177,10 +178,10 @@ namespace VI.Genetic
             Selection();
 
             if (_autoShuffling)
-                Shuffle();
+                RandomPool();
         }
 
-        public void Shuffle()
+        public void RandomPool()
         {
             // current population size
             int size = _genes.Count;

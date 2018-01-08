@@ -4,8 +4,7 @@ namespace VI.Genetic.Chromosomes
 {
     public interface IChromosome
     {        
-        object FitnessValue { get; }
-        float Fitness { get; set; }
+        float Fitness { get; }
         void Generate();
         IChromosome CreateNew();
         IChromosome Clone();
