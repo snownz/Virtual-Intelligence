@@ -183,11 +183,8 @@ namespace VI.Genetic
 
         public void RandomPool()
         {
-            // current population size
             int size = _genes.Count;
-            // create temporary copy of the population
             List<IChromosome> tempPopulation = _genes.GetRange(0, size);
-            // clear current population and refill it randomly
             _genes.Clear();
 
             while (size > 0)
