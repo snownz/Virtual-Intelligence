@@ -24,6 +24,13 @@
   </ItemGroup>
   <PropertyGroup>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <Authors>Lucas Fernandes</Authors>
+    <PackageProjectUrl>https://github.com/snownz/Virtual-Intelligence</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/snownz/Virtual-Intelligence</RepositoryUrl>
+    <RepositoryType>GitHub</RepositoryType>
+    <PackageVersion>1.0.1</PackageVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
