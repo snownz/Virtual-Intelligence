@@ -20,6 +20,32 @@ namespace VI.NumSharp
             return mem;
         }
 
+        public static Array<T> Tan<T>(Array<T> arr)
+            where T : struct
+        {
+            var size = new Index(arr.View.Length);
+            var mem = Allocate<T>(size);
+            ProcessingDevice
+                .ArrayDevice
+                .Executor["_V_Tan"]
+                .Launch(size, mem.View, arr.View);
+            ProcessingDevice.ArrayDevice.Executor.Wait();
+            return mem;
+        }
+
+        public static Array<T> Pow<T>(Array<T> arr, int v)
+            where T : struct
+        {
+            var size = new Index(arr.View.Length);
+            var mem = Allocate<T>(size);
+            ProcessingDevice
+                .ArrayDevice
+                .Executor["_V_Pow"]
+                .Launch(size, mem.View, arr.View, v);
+            ProcessingDevice.ArrayDevice.Executor.Wait();
+            return mem;
+        }
+
         public static Array<T> Sin<T>(Array<T> arr)
             where T : struct
         {
