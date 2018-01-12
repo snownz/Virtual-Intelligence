@@ -5,10 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ILGPU" Version="0.2.1" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\VI.Maths\VI.Maths.csproj" />
     <ProjectReference Include="..\VI.NumSharp\VI.NumSharp.csproj" />
   </ItemGroup>
