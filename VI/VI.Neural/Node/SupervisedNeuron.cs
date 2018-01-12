@@ -80,6 +80,11 @@ namespace VI.Neural.Node
             return _layer.ErrorWeightVector;
         }
 
+        public override string ToString()
+        {
+            return _layer.KnowlodgeMatrix.ToString();
+        }
+
         //TODO Make it on GPU
         public void Synapsis(int node, int connection)
         {
@@ -88,6 +93,10 @@ namespace VI.Neural.Node
         public void Synapsis(int node, int connection, float w)
         {
             _layer.KnowlodgeMatrix[node, connection] = (float)_tr.NextDouble() * w;
+        }
+        public void LoadSynapse(float[,] data)
+        {
+            _layer.KnowlodgeMatrix = new Array2D<float>(data);
         }
     }
 }

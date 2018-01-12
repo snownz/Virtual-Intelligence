@@ -9,7 +9,7 @@ namespace VI.Neural.LossFunction
         public float Loss(Array<float> targets, Array<float> prediction)
         {
             var dif = targets - prediction;
-            var sum = NumMath.Sum(dif);
+            var sum = (dif).Sum();
             return .5f * (sum / targets.View.Length);
         }
 
@@ -18,7 +18,7 @@ namespace VI.Neural.LossFunction
             using (var p = new Array<float>(prediction))
             {
                 var dif = targets - p;
-                var sum = NumMath.Sum(dif);
+                var sum = (dif).Sum();
                 return .5f * (sum / targets.View.Length);
             }
         }

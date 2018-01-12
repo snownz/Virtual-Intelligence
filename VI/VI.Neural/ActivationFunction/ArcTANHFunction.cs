@@ -7,7 +7,7 @@ namespace VI.Neural.ActivationFunction
     {
         public Array<float> Activate(Array<float> v)
         {
-            return NumMath.Pow(NumMath.Tan(v), -1);
+            return NumMath.Pow((v).Tan(), -1);
         }
 
         public Array<float> Derivate(Array<float> v)
