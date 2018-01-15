@@ -1,17 +1,15 @@
-﻿using VI.NumSharp;
-using VI.NumSharp.Arrays;
+﻿using VI.NumSharp.Arrays;
 
 namespace VI.Neural.LossFunction
 {
     /// <summary>
-    /// https://www.google.com.br/search?q=squared+error+loss+function&source=lnms&tbm=isch&sa=X&ved=0ahUKEwiS7LncpdrYAhUITJAKHaV4D-YQ_AUICigB&biw=1280&bih=893#imgrc=_3j0NRW4x0TYsM:
+    /// https://rdipietro.github.io/friendly-intro-to-cross-entropy-loss/
     /// </summary>
-    public class SquareLossFunction : ILossFunction
+    public class CrossEntropyLossFunction : ILossFunction
     {
-        
         public float Loss(Array<float> targets, Array<float> prediction)
         {
-            return (1 / targets.Length) * ((NumMath.Pow(prediction - targets, 2).Sum()));
+            return - (targets * prediction.Log()).Sum();
         }
 
         public float Loss(float[] targets, Array<float> prediction)
