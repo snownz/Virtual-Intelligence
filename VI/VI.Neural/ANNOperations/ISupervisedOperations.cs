@@ -11,6 +11,7 @@ namespace VI.Neural.ANNOperations
         void FeedForward(Array<float> feed);
         void BackWard(Array<float> values);
         void ErrorGradient(Array<float> inputs);
+        void ComputeGradient(Array<float> inputs);
         void UpdateParams();
         void SetLayer(ILayer layer);
         void SetActivation(IActivationFunction act);

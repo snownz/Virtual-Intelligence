@@ -34,6 +34,11 @@ namespace VI.Neural.ANNOperations
             _target.GradientMatrix = (feed * _target.ErrorVector.T);
         }
 
+        public void ComputeGradient(Array<float> inputs)
+        {
+            _target.GradientMatrix += (inputs * _target.ErrorVector.T);
+        }
+
         public void UpdateParams()
         {
             _optimizerFunction.UpdateWeight(_target);
@@ -59,6 +64,6 @@ namespace VI.Neural.ANNOperations
         public void SetOptimizer(IOptimizerFunction opt)
         {
             _optimizerFunction = opt;
-        }
+        }       
     }
 }
