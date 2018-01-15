@@ -36,6 +36,6 @@
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <OutputPath>P:\Marcello Borges\</OutputPath>
+    <OutputPath>bin\Release\netstandard2.0\</OutputPath>
   </PropertyGroup>
 </Project>
