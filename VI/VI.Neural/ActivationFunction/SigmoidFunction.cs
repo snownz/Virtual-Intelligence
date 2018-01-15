@@ -9,7 +9,7 @@ namespace VI.Neural.ActivationFunction
 
         public Array<float> Activate(Array<float> v)
         {
-            return (1f / (1 + NumMath.Exp(-Alpha * v)));
+            return (1f / (1 + (-Alpha * v).Exp()));
         }
 
         public Array<float> Derivate(Array<float> v)

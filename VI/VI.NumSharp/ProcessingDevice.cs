@@ -5,8 +5,8 @@ namespace VI.NumSharp
 {
     public enum Device
     {
-        CUDA,
-        CPU
+        CPU = 0,
+        CUDA = 1
     }
     
     public static partial class ProcessingDevice

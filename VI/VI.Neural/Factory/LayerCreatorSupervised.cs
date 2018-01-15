@@ -8,11 +8,11 @@ namespace VI.Neural.Factory
 {
     public class LayerCreatorSupervised : LayerCreator
     {
-        public LayerCreatorActivation SoftmaxLayer()
+        public LayerCreatorOptimizer SoftmaxLayer()
         {
             _supervised = new ANNSoftmaxOperations();
             
-            return new LayerCreatorActivation(_learningRate, _dropout, _momentum, _supervised, _unsupervised,
+            return new LayerCreatorOptimizer(_learningRate, _dropout, _momentum, _supervised, _unsupervised,
                 _activation, _optimizer, _error, _nodesToSynapsys, _weight, _size, _connections);
         }
         public LayerCreatorActivation Conv2DLayer()

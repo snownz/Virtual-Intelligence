@@ -58,6 +58,32 @@ namespace VI.Neural.Node
             return _layer.OutputVector;
         }
 
+        public Array<float> ComputeGradient(float[] inputs, Array<float> error)
+        {
+            using (var i = new Array<float>(inputs))
+            {
+                return ComputeGradient(i, error);
+            }
+        }
+        public Array<float> ComputeGradient(Array<float> inputs, float[] error)
+        {
+            using (var e = new Array<float>(error))
+            {
+                return ComputeGradient(inputs, e);
+            }
+        }
+        public Array<float> ComputeGradient(Array<float> inputs, Array<float> error)
+        {
+            _operations.BackWard(error);
+            _operations.ComputeGradient(inputs);
+            return _layer.ErrorWeightVector;
+        }
+
+        public void UpdateParams()
+        {
+            _operations.UpdateParams();
+        }
+
         public Array<float> Learn(float[] inputs, Array<float> error)
         {
             using (var i = new Array<float>(inputs))
@@ -80,6 +106,11 @@ namespace VI.Neural.Node
             return _layer.ErrorWeightVector;
         }
 
+        public override string ToString()
+        {
+            return _layer.KnowlodgeMatrix.ToString();
+        }
+
         //TODO Make it on GPU
         public void Synapsis(int node, int connection)
         {
@@ -88,6 +119,10 @@ namespace VI.Neural.Node
         public void Synapsis(int node, int connection, float w)
         {
             _layer.KnowlodgeMatrix[node, connection] = (float)_tr.NextDouble() * w;
+        }
+        public void LoadSynapse(float[,] data)
+        {
+            _layer.KnowlodgeMatrix = new Array2D<float>(data);
         }
     }
 }

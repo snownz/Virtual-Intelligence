@@ -7,12 +7,12 @@ namespace VI.Neural.ActivationFunction
     {
         public Array<float> Activate(Array<float> v)
         {
-            return NumMath.Sin(v);
+            return v.Sin();
         }
 
         public Array<float> Derivate(Array<float> v)
         {
-            return NumMath.Cos(v);
+            return v.Cos();
         }
     }
 }

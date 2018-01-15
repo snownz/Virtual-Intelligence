@@ -48,6 +48,8 @@ namespace VI.NumSharp.Arrays
             set => _memoryBuffer[x] = value;
         }
 
+        public int Length => _view.Length;
+
         public void Dispose()
         {
             _memoryBuffer.Dispose();

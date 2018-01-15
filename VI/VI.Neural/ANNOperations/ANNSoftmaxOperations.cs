@@ -7,9 +7,9 @@ namespace VI.Neural.ANNOperations
     {
         public override void FeedForward(Array<float> feed)
         {
-            _target.SumVector = NumMath.SumColumn(feed.T * _target.KnowlodgeMatrix) + _target.BiasVector;
-            var exp = NumMath.Exp(_target.SumVector);
-            var sum = NumMath.Sum(exp);
+            _target.SumVector = (feed.T * _target.KnowlodgeMatrix).SumColumn() + _target.BiasVector;
+            var exp = (_target.SumVector).Exp();
+            var sum = (exp).Sum();
             _target.OutputVector = exp / sum;
         }
 
@@ -17,7 +17,7 @@ namespace VI.Neural.ANNOperations
         {
             var DE = _errorFunction.Error(_target.OutputVector, values);
             _target.ErrorVector = DE;
-            _target.ErrorWeightVector = NumMath.SumLine(_target.ErrorVector * _target.KnowlodgeMatrix);
+            _target.ErrorWeightVector = (_target.ErrorVector * _target.KnowlodgeMatrix).SumLine();
         }
     }
 }

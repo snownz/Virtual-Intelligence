@@ -29,7 +29,7 @@ namespace VI.Maths.Array
             int y = size.X;
             v[y] = m[0, y] + m[1, y];
         }
-
+        
         public static void _V_X_V(Index size, ArrayView<float> output, ArrayView<float> v0, ArrayView<float> v1)
         {
             int x = size.X;
@@ -167,6 +167,12 @@ namespace VI.Maths.Array
         {
             int x = size.X;
             output[x] = GPUMath.Cos(v[x]);
+        }
+
+        public static void _V_Log(Index size, ArrayView<float> output, ArrayView<float> v)
+        {
+            int x = size.X;
+            output[x] = GPUMath.Log(v[x]);
         }
     }
 }

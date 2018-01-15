@@ -90,7 +90,7 @@ namespace VI.Neural.Factory
             _weight = value;
             return this;
         }
-
+        
         public void Dispose()
         {
             _supervised = null;

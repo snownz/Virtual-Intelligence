@@ -90,15 +90,17 @@ namespace VI.NumSharp.Arrays
         public override string ToString()
         {
             var str = "[";
-            for (int i = 0; i < _memoryBuffer.Width; i++)
+            for (int j = 0; j < _memoryBuffer.Height; j++) 
             {
                 str += "[";
-                for (int j = 0; j < _memoryBuffer.Height; j++)
+                for (int i = 0; i < _memoryBuffer.Width; i++)
                 {
                     str += $"{_memoryBuffer[new Index2(i, j)].ToString().Replace(",", ".")}, ";
                 }
-                str += "]";
+                str = str.Remove(str.Length - 2);
+                str += "],";
             }
+            str = str.Remove(str.Length - 1);
             str += "]";
             return str;
         }

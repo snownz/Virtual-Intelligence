@@ -47,5 +47,10 @@ namespace VI.Neural.ANNOperations
         {
             throw new System.NotImplementedException();
         }
+
+        public void ComputeGradient(Array<float> inputs)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

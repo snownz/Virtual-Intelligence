@@ -12,5 +12,6 @@ namespace VI.Neural.Node
         Array<float> Output(float[] inputs);
         void Synapsis(int node, int connection);
         void Synapsis(int node, int connection, float w);
+        void LoadSynapse(float[,] data);
     }
 }

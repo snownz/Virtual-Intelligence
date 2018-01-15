@@ -9,6 +9,14 @@ namespace VI.Neural.Factory
 {
     public class LayerBuilder : LayerCreator
     {
+        private float[,] Knowlodge;
+
+        public LayerBuilder LoadSynapse(float[,] data)
+        {
+            Knowlodge = data;
+            return this;
+        }
+
         public INeuron Build()
         {
             INeuron neuron = null;
@@ -25,8 +33,13 @@ namespace VI.Neural.Factory
                 
             }
 
-            if (_weight > 0) SynapseFull(neuron, _weight);
-            else             SynapseFull(neuron);
+            if (Knowlodge == null)
+            {
+                if (_weight > 0) SynapseFull(neuron, _weight);
+                else SynapseFull(neuron);
+            }
+            else
+                LoadSynapse(Knowlodge);            
             
             return neuron;
         }
