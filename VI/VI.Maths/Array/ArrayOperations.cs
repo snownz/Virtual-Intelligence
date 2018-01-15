@@ -168,5 +168,11 @@ namespace VI.Maths.Array
             int x = size.X;
             output[x] = GPUMath.Cos(v[x]);
         }
+
+        public static void _V_Log(Index size, ArrayView<float> output, ArrayView<float> v)
+        {
+            int x = size.X;
+            output[x] = GPUMath.Log(v[x]);
+        }
     }
 }

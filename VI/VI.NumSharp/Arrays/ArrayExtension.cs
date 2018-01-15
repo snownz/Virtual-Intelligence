@@ -52,6 +52,19 @@ namespace VI.NumSharp.Arrays
             return mem;
         }
 
+        public static Array<T> Log<T>(this Array<T> arr)
+            where T : struct
+        {
+            var size = new Index(arr.View.Length);
+            var mem = NumMath.Allocate<T>(size);
+            ProcessingDevice
+                .ArrayDevice
+                .Executor["_V_Log"]
+                .Launch(size, mem.View, arr.View);
+            ProcessingDevice.ArrayDevice.Executor.Wait();
+            return mem;
+        }
+
         public static Array<T> Sin<T>(this Array<T> arr)
             where T : struct
         {
