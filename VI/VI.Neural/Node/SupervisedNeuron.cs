@@ -58,6 +58,32 @@ namespace VI.Neural.Node
             return _layer.OutputVector;
         }
 
+        public Array<float> ComputeGradient(float[] inputs, Array<float> error)
+        {
+            using (var i = new Array<float>(inputs))
+            {
+                return ComputeGradient(i, error);
+            }
+        }
+        public Array<float> ComputeGradient(Array<float> inputs, float[] error)
+        {
+            using (var e = new Array<float>(error))
+            {
+                return ComputeGradient(inputs, e);
+            }
+        }
+        public Array<float> ComputeGradient(Array<float> inputs, Array<float> error)
+        {
+            _operations.BackWard(error);
+            _operations.ComputeGradient(inputs);
+            return _layer.ErrorWeightVector;
+        }
+
+        public void UpdateParams()
+        {
+            _operations.UpdateParams();
+        }
+
         public Array<float> Learn(float[] inputs, Array<float> error)
         {
             using (var i = new Array<float>(inputs))
