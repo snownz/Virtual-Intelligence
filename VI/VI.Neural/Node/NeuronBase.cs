@@ -35,6 +35,7 @@ namespace VI.Neural.Node
         private void InitializeArrays(int nodeSize, int connectionSize)
         {
             _layer.KnowlodgeMatrix = new Array2D<float>(nodeSize, connectionSize);
+            _layer.GradientMatrix = new Array2D<float>(nodeSize, connectionSize);
             _layer.OutputVector = new Array<float>(nodeSize);
 
             _layer.BiasVector = new Array<float>(nodeSize);

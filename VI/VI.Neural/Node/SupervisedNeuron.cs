@@ -18,9 +18,7 @@ namespace VI.Neural.Node
             _operations = operations;     
             _operations.SetLayer(_layer);
         }
-
         
-
         public Array<float> Output(float[] inputs)
         {
             using (var i = new Array<float>(inputs))
@@ -58,6 +56,7 @@ namespace VI.Neural.Node
         public void UpdateParams()
         {
             _operations.UpdateParams();
+            _layer.GradientMatrix = new Array2D<float>(NodesSize, Connections);
         }
 
         public Array<float> Learn(float[] inputs, Array<float> error)
