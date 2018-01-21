@@ -13,8 +13,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VI.Neural", "VI.Neural\VI.N
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VI.Vision", "VI.Vision\VI.Vision.csproj", "{0845B2DA-9A52-4C3B-8DFB-EF6EBEB612AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsFormsApp1", "WindowsFormsApp1\WindowsFormsApp1.csproj", "{377FDD0C-D9B4-4B40-A460-CF12E34C8EA7}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,14 +61,6 @@ Global
 		{0845B2DA-9A52-4C3B-8DFB-EF6EBEB612AE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0845B2DA-9A52-4C3B-8DFB-EF6EBEB612AE}.Release|x64.ActiveCfg = Release|Any CPU
 		{0845B2DA-9A52-4C3B-8DFB-EF6EBEB612AE}.Release|x64.Build.0 = Release|Any CPU
-		{377FDD0C-D9B4-4B40-A460-CF12E34C8EA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{377FDD0C-D9B4-4B40-A460-CF12E34C8EA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{377FDD0C-D9B4-4B40-A460-CF12E34C8EA7}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{377FDD0C-D9B4-4B40-A460-CF12E34C8EA7}.Debug|x64.Build.0 = Debug|Any CPU
-		{377FDD0C-D9B4-4B40-A460-CF12E34C8EA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{377FDD0C-D9B4-4B40-A460-CF12E34C8EA7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{377FDD0C-D9B4-4B40-A460-CF12E34C8EA7}.Release|x64.ActiveCfg = Release|Any CPU
-		{377FDD0C-D9B4-4B40-A460-CF12E34C8EA7}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
