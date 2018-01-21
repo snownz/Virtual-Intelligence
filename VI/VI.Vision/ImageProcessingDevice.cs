@@ -1,10 +1,10 @@
-﻿using VI.Maths.Array;
-using VI.ParallelComputing;
+﻿using VI.ParallelComputing;
 using VI.ParallelComputing.Drivers;
+using VI.Vision.Array;
 
-namespace VI.NumSharp
+namespace VI.Vision
 {
-    public static partial class ProcessingDevice
+    public class ImageProcessingDevice
     {
         private static DeviceType _device;
         private static IAnnParallelInterface _cpuArrayDevice;
@@ -29,10 +29,10 @@ namespace VI.NumSharp
         }
 
         private static IAnnParallelInterface CPUArrayDevice
-            => _cpuArrayDevice ?? (_cpuArrayDevice = new CpuAnnInterface<ArrayOperations>());
+            => _cpuArrayDevice ?? (_cpuArrayDevice = new CpuAnnInterface<CollorArrayOperations>());
         private static IAnnParallelInterface CUDAArrayDevice
-            => _cudaArrayDevice ?? (_cudaArrayDevice = new CudaAnnInterface<ArrayOperations>());
+            => _cudaArrayDevice ?? (_cudaArrayDevice = new CudaAnnInterface<CollorArrayOperations>());
 
         public static IAnnParallelInterface ArrayDevice { get; private set; }
-    }    
+    }
 }

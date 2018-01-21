@@ -187,6 +187,7 @@ namespace VI.NumSharp.Arrays
             throw new NotImplementedException("Talk to the owner of the repository to implement this method (Issue)");
         }
 
+        //TODO Return a single bit
         public static Array<K> operator ==(Array<K> v0, K c)
         {
             throw new NotImplementedException("Talk to the owner of the repository to implement this method (Issue)");
@@ -195,7 +196,7 @@ namespace VI.NumSharp.Arrays
         {
             throw new NotImplementedException("Talk to the owner of the repository to implement this method (Issue)");
         }
-
+        //TODO Return a single bit
         public static Array<K> operator >(Array<K> v0, K c)
         {
             throw new NotImplementedException("Talk to the owner of the repository to implement this method (Issue)");
@@ -204,7 +205,7 @@ namespace VI.NumSharp.Arrays
         {
             throw new NotImplementedException("Talk to the owner of the repository to implement this method (Issue)");
         }
-        
+        //TODO Return a single bit
         public static Array<K> operator >=(Array<K> v0, K c)
         {
             var size = v0._memoryBuffer.Length;
@@ -214,6 +215,19 @@ namespace VI.NumSharp.Arrays
             return output;
         }
         public static Array<K> operator <=(Array<K> v0, K c)
+        {
+            throw new NotImplementedException("Talk to the owner of the repository to implement this method (Issue)");
+        }
+
+        public Array2D<K> As2DView(int w, int h)
+        {
+            var size = new Index2(w, h);
+            var output = NumMath.Allocate<K>(size);
+            ProcessingDevice.ArrayDevice.Executor["_1D_to_2D"].Launch(size, output.View, View, w);
+            ProcessingDevice.ArrayDevice.Executor.Wait();
+            return output;
+        }
+        public Array2D<K> As3DView(int w, int h, int z)
         {
             throw new NotImplementedException("Talk to the owner of the repository to implement this method (Issue)");
         }

@@ -14,8 +14,11 @@ namespace VI.Neural.Factory
         protected float _dropout;
         protected float _momentum;
         protected float _weight;
+        protected float _maxDist;
+        protected float _degradation;
 
         protected int _size;
+        protected (int w, int h) _2Dsize;
         protected int _connections;
         
         protected IList<(int x, int y)> _nodesToSynapsys;
@@ -28,7 +31,7 @@ namespace VI.Neural.Factory
       
         public LayerCreator(float learningRate, float dropout, float momentum, ISupervisedOperations supervised,
             IUnsupervisedOperations unsupervised, IActivationFunction activation, IOptimizerFunction optimizer,
-            IErrorFunction error, IList<(int x, int y)> nodesToSynapsys, float weight, int size, int connections) : this(size, connections)
+            IErrorFunction error, IList<(int x, int y)> nodesToSynapsys, float weight, int size, int connections, (int w, int h) size2D) : this(size, connections)
         {
             _learningRate = learningRate;
             _dropout = dropout;
@@ -40,22 +43,30 @@ namespace VI.Neural.Factory
             _error = error;
             _nodesToSynapsys = nodesToSynapsys;
             _weight = weight;
+            _2Dsize = size2D;
         }
+
         public LayerCreator(int size, int connections)
         {
             _size = size;
             _connections = connections;
         }
 
+        public LayerCreator((int w, int h) size, int connections)
+        {
+            _2Dsize = size;
+            _connections = connections;
+        }
+
         public LayerCreatorSupervised Supervised()
         {
             return new LayerCreatorSupervised(_learningRate, _dropout, _momentum, _supervised, _unsupervised,
-                _activation, _optimizer, _error, _nodesToSynapsys, _weight, _size, _connections);
+                _activation, _optimizer, _error, _nodesToSynapsys, _weight, _size, _connections, _2Dsize);
         }
         public LayerCreatorUnsupervised Unsupervised()
         {
             return new LayerCreatorUnsupervised(_learningRate, _dropout, _momentum, _supervised, _unsupervised,
-                _activation, _optimizer, _error, _nodesToSynapsys, _weight, _size, _connections);
+                _activation, _optimizer, _error, _nodesToSynapsys, _weight, _size, _connections, _2Dsize);
         }
 
         public LayerCreator WithLearningRate(float value)

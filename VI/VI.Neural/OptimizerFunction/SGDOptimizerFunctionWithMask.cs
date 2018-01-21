@@ -1,8 +1,9 @@
 ﻿using VI.Neural.Layer;
+using VI.NumSharp.Arrays;
 
 namespace VI.Neural.OptimizerFunction
 {
-    public class SGDOptimizerFunction: IOptimizerFunction
+    public class SGDOptimizerFunctionWithMask : IOptimizerFunction
     {
         public void CalculateParams(ILayer target)
         {
@@ -13,14 +14,13 @@ namespace VI.Neural.OptimizerFunction
         public void UpdateWeight(ILayer target)
         {
             var update = target.GradientMatrix * target.CachedLearningRate;
-            //var momentum = target.KnowlodgeMatrix * target.CachedMomentum;
             target.KnowlodgeMatrix += update;
+            target.KnowlodgeMatrix.ApplyMask(target.ConnectionMask);
         }
 
         public void UpdateBias(ILayer target)
         {
             var update = target.ErrorVector * target.CachedLearningRate;
-            //var momentum = target.BiasVector * target.CachedMomentum;
             target.BiasVector += update;
         }
     }

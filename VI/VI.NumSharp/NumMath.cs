@@ -7,15 +7,26 @@ namespace VI.NumSharp
 {
     public static class NumMath
     {
-        public static Array<T> Pow<T>(Array<T> arr, int v)
-            where T : struct
+        public static Array<float> Euclidian(int size, int  position)
         {
-            var size = new Index(arr.View.Length);
-            var mem = Allocate<T>(size);
+            var mem = Allocate<float>(size);
             ProcessingDevice
                 .ArrayDevice
-                .Executor["_V_Pow"]
-                .Launch(size, mem.View, arr.View, v);
+                .Executor["_V_euclidian_distance"]
+                .Launch(size, mem.View, position);
+            ProcessingDevice.ArrayDevice.Executor.Wait();
+            return mem;
+        }
+
+        public static Array2D<float> Euclidian(int w, int h, int x, int y)
+        {
+            var size = new Index2(w, h);
+            var position = new Index2(x, y);
+            var mem = Allocate<float>(size);
+            ProcessingDevice
+                .ArrayDevice
+                .Executor["_M_euclidian_distance"]
+                .Launch(size, mem.View, position);
             ProcessingDevice.ArrayDevice.Executor.Wait();
             return mem;
         }

@@ -37,6 +37,19 @@ namespace VI.ParallelComputing
             return buffer;
         }
 
+        public MemoryBuffer3D<T> CreateBuffer<T>(int w, int h, int z)
+          where T : struct
+        {
+            var buffer = _accelerator.Allocate<T>(w, h, z);
+            return buffer;
+        }
+        public MemoryBuffer3D<T> CreateBuffer<T>(Index3 index)
+          where T : struct
+        {
+            var buffer = _accelerator.Allocate<T>(index.X, index.Y, index.Z);
+            return buffer;
+        }
+
         public MemoryBuffer<T> SetBuffer<T>(T[] obj)
             where T : struct
         {
@@ -52,6 +65,17 @@ namespace VI.ParallelComputing
 
             var buffer = _accelerator.Allocate<T>(w, h);
             buffer.CopyFrom(obj, new Index2(0, 0), new Index2(0, 0), new Index2(w, h));
+            return buffer;
+        }
+        public MemoryBuffer3D<T> SetBuffer<T>(T[,,] obj)
+          where T : struct
+        {
+            var w = obj.GetLength(0);
+            var h = obj.GetLength(1);
+            var z = obj.GetLength(2);
+
+            var buffer = _accelerator.Allocate<T>(w, h, z);
+            buffer.CopyFrom(obj, new Index3(0, 0, 0), new Index3(0, 0, 0), new Index3(w, h, z));
             return buffer;
         }
 

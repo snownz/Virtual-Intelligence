@@ -87,6 +87,35 @@ namespace VI.NumSharp.Arrays
               throw new NotImplementedException("Talk to the owner of the repository to implement this method (Issue)");
         }
 
+        public static Array2D<byte> operator ==(Array2D<T> m0, T c)
+        {
+            throw new NotImplementedException("Talk to the owner of the repository to implement this method (Issue)");
+        }
+        public static Array2D<byte> operator !=(Array2D<T> m0, T c)
+        {
+            throw new NotImplementedException("Talk to the owner of the repository to implement this method (Issue)");
+        }
+        public static Array2D<byte> operator >(Array2D<T> m0, T c)
+        {
+            throw new NotImplementedException("Talk to the owner of the repository to implement this method (Issue)");
+        }
+        public static Array2D<byte> operator <(Array2D<T> m0, T c)
+        {
+            throw new NotImplementedException("Talk to the owner of the repository to implement this method (Issue)");
+        }
+        public static Array2D<byte> operator >=(Array2D<T> m0, T c)
+        {
+            throw new NotImplementedException("Talk to the owner of the repository to implement this method (Issue)");
+        }
+        public static Array2D<byte> operator <=(Array2D<T> m0, T c)
+        {
+            var size = new Index2(m0.View.Width, m0.View.Height);
+            var output = NumMath.Allocate<byte>(size);
+            ProcessingDevice.ArrayDevice.Executor["_M_C_Less_Equal"].Launch(size, output.View, c, m0.View);
+            ProcessingDevice.ArrayDevice.Executor.Wait();
+            return output;
+        }
+        
         public override string ToString()
         {
             var str = "[";
@@ -104,6 +133,7 @@ namespace VI.NumSharp.Arrays
             str += "]";
             return str;
         }
+
         public Array<T> AsLinear()
         {
             return new Array<T>(_memoryBuffer.AsLinearView());

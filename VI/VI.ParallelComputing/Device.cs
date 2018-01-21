@@ -5,6 +5,12 @@ using ILGPU.Runtime.CPU;
 
 namespace VI.ParallelComputing
 {
+    public enum DeviceType
+    {
+        CPU = 0,
+        CUDA = 1
+    }
+
     public static class Device
     {
         private static Context _context;

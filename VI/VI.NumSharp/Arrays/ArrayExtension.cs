@@ -8,6 +8,43 @@ namespace VI.NumSharp.Arrays
 {
     public static class ArrayExtension
     {
+        public static Array2D<T> ApplyMask<T>(this Array2D<T> arr, Array2D<byte> mask)
+           where T : struct
+        {
+            var size = new Index2(arr.View.Length);
+            ProcessingDevice
+                .ArrayDevice
+                .Executor["_M_mask"]
+                .Launch(size, arr.View, mask.View);
+            ProcessingDevice.ArrayDevice.Executor.Wait();
+            return arr;
+        }
+
+        public static Array<T> Pow<T>(this Array<T> arr, int p)
+            where T : struct
+        {
+            var size = new Index(arr.View.Length);
+            var mem = NumMath.Allocate<T>(size);
+            ProcessingDevice
+                .ArrayDevice
+                .Executor["_V_Pow"]
+                .Launch(size, mem.View, arr.View, p);
+            ProcessingDevice.ArrayDevice.Executor.Wait();
+            return mem;
+        }
+
+        public static Array2D<T> Pow<T>(this Array2D<T> arr, int p)
+            where T : struct
+        {
+            var size = new Index2(arr.View.Length);
+            ProcessingDevice
+                .ArrayDevice
+                .Executor["_M_Pow"]
+                .Launch(size, arr.View, p);
+            ProcessingDevice.ArrayDevice.Executor.Wait();
+            return arr;
+        }
+
         public static Array<T> Sqrt<T>(this Array<T> arr)
            where T : struct
         {
@@ -180,7 +217,7 @@ namespace VI.NumSharp.Arrays
             }
             return new Array<T>(_joinColumns(arr.View.Height, arr.View));
         }
-
+        
         private static void _sumLines<T>(Index2 size, int r, MemoryBuffer2D<T> m)
             where T : struct
         {

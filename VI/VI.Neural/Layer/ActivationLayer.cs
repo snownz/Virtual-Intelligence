@@ -6,6 +6,8 @@ namespace VI.Neural.Layer
     {
         private Array2D<float> _knowlodgeMatrix;
         private Array2D<float> _gradientMatrix;
+        private Array2D<byte> _connectionMask;
+
         private Array<float> _biasVector;
         private Array<float> _outputVector;
         private Array<float> _transformVector;
@@ -20,10 +22,12 @@ namespace VI.Neural.Layer
 
         private int _size;
         private int _conectionsSize;
-                     
-        public Array<float> DropOutProbability { get => _dropOutProbability; set => _dropOutProbability = value; }
+
         public Array2D<float> KnowlodgeMatrix { get => _knowlodgeMatrix; set => _knowlodgeMatrix = value; }
         public Array2D<float> GradientMatrix { get => _gradientMatrix; set => _gradientMatrix = value; }
+        public Array2D<byte> ConnectionMask { get => _connectionMask; set => _connectionMask = value; }
+
+        public Array<float> DropOutProbability { get => _dropOutProbability; set => _dropOutProbability = value; }      
         public Array<float> BiasVector { get => _biasVector; set => _biasVector = value; }
         public Array<float> OutputVector { get => _outputVector; set => _outputVector = value; }
         public Array<float> SumVector { get => _transformVector; set => _transformVector = value; }

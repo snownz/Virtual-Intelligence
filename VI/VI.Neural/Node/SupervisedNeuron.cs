@@ -5,45 +5,21 @@ using VI.NumSharp.Arrays;
 
 namespace VI.Neural.Node
 {
-    public class SupervisedNeuron : INeuron, ISupervisedLearning
+    public class SupervisedNeuron : NeuronBase, INeuron, ISupervisedLearning
     {
-        private static readonly ThreadSafeRandom _tr = new ThreadSafeRandom();
-        
-        private readonly ILayer _layer;
-        private readonly ISupervisedOperations _operations;
-
-        public int NodesSize => _layer.Size;
-        public int Connections => _layer.ConectionsSize;
-
-        public ILayer Nodes => _layer;
+        protected readonly ISupervisedOperations _operations;
 
         public SupervisedNeuron(int nodeSize,
             int connectionSize,
             float learningRate,
             float momentum,
-            ISupervisedOperations operations)
+            ISupervisedOperations operations) : base(nodeSize, connectionSize, learningRate, momentum)
         {
-            _operations = operations;
-            _layer = new ActivationLayer(nodeSize, connectionSize)
-            {
-                LearningRate = learningRate,
-                Momentum = momentum
-            };
-            InitializeArrays(nodeSize, connectionSize);
+            _operations = operations;     
             _operations.SetLayer(_layer);
         }
 
-        private void InitializeArrays(int nodeSize, int connectionSize)
-        {
-            _layer.KnowlodgeMatrix = new Array2D<float>(nodeSize, connectionSize);
-            _layer.OutputVector = new Array<float>(nodeSize);
-
-            _layer.BiasVector = new Array<float>(nodeSize);
-            for (var i = 0; i < nodeSize; i++)
-            {
-                _layer.BiasVector[i] = 1;
-            }
-        }
+        
 
         public Array<float> Output(float[] inputs)
         {
@@ -104,25 +80,6 @@ namespace VI.Neural.Node
             _operations.ErrorGradient(inputs);
             _operations.UpdateParams();
             return _layer.ErrorWeightVector;
-        }
-
-        public override string ToString()
-        {
-            return _layer.KnowlodgeMatrix.ToString();
-        }
-
-        //TODO Make it on GPU
-        public void Synapsis(int node, int connection)
-        {
-            _layer.KnowlodgeMatrix[node, connection] = (float)_tr.NextDouble();
-        }
-        public void Synapsis(int node, int connection, float w)
-        {
-            _layer.KnowlodgeMatrix[node, connection] = (float)_tr.NextDouble() * w;
-        }
-        public void LoadSynapse(float[,] data)
-        {
-            _layer.KnowlodgeMatrix = new Array2D<float>(data);
-        }
+        }      
     }
 }
