@@ -50,14 +50,50 @@ namespace VI.NumSharp.Arrays
         {
             throw new NotImplementedException("Talk to the owner of the repository to implement this method (Issue)");
         }
+        
+        //TODO .... calc it on GPU
+        public static (float value, int x) FindMin(this Array<float> arr)
+        {
+            var min = float.MaxValue;
+            var pos = 0;
 
-        public static (T, Index) FindMin<T>(this Array<T> arr)
+            for (int i = 0; i < arr.Length; i++)
+            {
+                if(min > arr[i])
+                {
+                    min = arr[i];
+                    pos = i;
+                }
+            }
+
+            return (min, pos);
+        }
+        
+        //TODO .... calc it on GPU
+        public static (float value, int x) FindMax(this Array<float> arr)
+        {
+            var max = 0f;
+            var pos = 0;
+
+            for (int i = 0; i < arr.Length; i++)
+            {
+                if (max < arr[i])
+                {
+                    max = arr[i];
+                    pos = i;
+                }
+            }
+
+            return (max, pos);
+        }
+
+        public static (T, (int x, int y)) FindMin<T>(this Array2D<T> arr)
             where T : struct
         {
             throw new NotImplementedException("Talk to the owner of the repository to implement this method (Issue)");
         }
 
-        public static (T, Index) FindMax<T>(this Array<T> arr)
+        public static (T, (int x, int y)) FindMax<T>(this Array2D<T> arr)
             where T : struct
         {
             throw new NotImplementedException("Talk to the owner of the repository to implement this method (Issue)");
@@ -168,19 +204,7 @@ namespace VI.NumSharp.Arrays
             ProcessingDevice.ArrayDevice.Executor.Wait();
             return mem;
         }
-
-        public static (T, Index2) FindMin<T>(this Array2D<T> arr)
-            where T : struct
-        {
-            throw new NotImplementedException("Talk to the owner of the repository to implement this method (Issue)");
-        }
-
-        public static (T, Index2) FindMax<T>(this Array2D<T> arr)
-            where T : struct
-        {
-            throw new NotImplementedException("Talk to the owner of the repository to implement this method (Issue)");
-        }
-
+        
         public static Array<T> SumColumn<T>(this Array2D<T> arr)
             where T : struct
         {

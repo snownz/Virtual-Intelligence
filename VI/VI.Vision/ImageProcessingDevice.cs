@@ -29,9 +29,9 @@ namespace VI.Vision
         }
 
         private static IAnnParallelInterface CPUArrayDevice
-            => _cpuArrayDevice ?? (_cpuArrayDevice = new CpuAnnInterface<CollorArrayOperations>());
+            => _cpuArrayDevice ?? (_cpuArrayDevice = new CpuAnnInterface<colorArrayOperations>());
         private static IAnnParallelInterface CUDAArrayDevice
-            => _cudaArrayDevice ?? (_cudaArrayDevice = new CudaAnnInterface<CollorArrayOperations>());
+            => _cudaArrayDevice ?? (_cudaArrayDevice = new CudaAnnInterface<colorArrayOperations>());
 
         public static IAnnParallelInterface ArrayDevice { get; private set; }
     }
