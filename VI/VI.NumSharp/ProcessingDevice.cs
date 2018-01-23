@@ -1,4 +1,5 @@
 ﻿using VI.Maths.Array;
+using VI.NumSharp.Provider;
 using VI.ParallelComputing;
 using VI.ParallelComputing.Drivers;
 
@@ -10,6 +11,15 @@ namespace VI.NumSharp
         private static IAnnParallelInterface _cpuArrayDevice;
         private static IAnnParallelInterface _cudaArrayDevice;
 
+        private static IAnnParallelInterface ParallelCPUArrayDevice
+            => _cpuArrayDevice ?? (_cpuArrayDevice = new ParallelCpuAnnInterface<ArrayOperations>());
+
+        private static IAnnParallelInterface LinearCPUArrayDevice
+            => _cpuArrayDevice ?? (_cpuArrayDevice = new LinearCpuAnnInterface());
+
+        private static IAnnParallelInterface CUDAArrayDevice
+            => _cudaArrayDevice ?? (_cudaArrayDevice = new CudaAnnInterface<ArrayOperations>());
+
         public static DeviceType Device
         {
             get { return _device; }
@@ -19,20 +29,21 @@ namespace VI.NumSharp
                 {
                     case DeviceType.CUDA:
                         ArrayDevice = CUDAArrayDevice;
+                        ArrayExecutor = new ParallelArrayExecutor();
                         break;
-                    case DeviceType.CPU:
-                        ArrayDevice = CPUArrayDevice;
+                    case DeviceType.PARALLEL_CPU:
+                        ArrayDevice = ParallelCPUArrayDevice;
+                        ArrayExecutor = new ParallelArrayExecutor();
+                        break;
+                    case DeviceType.SINGLE_CPU:
+                        ArrayDevice = LinearCPUArrayDevice;
+                        ArrayExecutor = new LinearArrayExecutor();
                         break;
                 }
                 _device = value;
             }
-        }
-
-        private static IAnnParallelInterface CPUArrayDevice
-            => _cpuArrayDevice ?? (_cpuArrayDevice = new CpuAnnInterface<ArrayOperations>());
-        private static IAnnParallelInterface CUDAArrayDevice
-            => _cudaArrayDevice ?? (_cudaArrayDevice = new CudaAnnInterface<ArrayOperations>());
-
+        }        
         public static IAnnParallelInterface ArrayDevice { get; private set; }
+        public static IArrayExecutor ArrayExecutor { get; private set; }
     }    
 }

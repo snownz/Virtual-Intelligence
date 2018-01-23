@@ -20,7 +20,7 @@ namespace VI.Vision
                     case DeviceType.CUDA:
                         ArrayDevice = CUDAArrayDevice;
                         break;
-                    case DeviceType.CPU:
+                    case DeviceType.PARALLEL_CPU:
                         ArrayDevice = CPUArrayDevice;
                         break;
                 }
@@ -29,7 +29,7 @@ namespace VI.Vision
         }
 
         private static IAnnParallelInterface CPUArrayDevice
-            => _cpuArrayDevice ?? (_cpuArrayDevice = new CpuAnnInterface<colorArrayOperations>());
+            => _cpuArrayDevice ?? (_cpuArrayDevice = new ParallelCpuAnnInterface<colorArrayOperations>());
         private static IAnnParallelInterface CUDAArrayDevice
             => _cudaArrayDevice ?? (_cudaArrayDevice = new CudaAnnInterface<colorArrayOperations>());
 

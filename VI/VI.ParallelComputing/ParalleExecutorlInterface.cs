@@ -79,6 +79,14 @@ namespace VI.ParallelComputing
             return buffer;
         }
 
+        public MemoryBuffer<T> CloneBuffer<T>(MemoryBuffer<T> obj)
+            where T : struct
+        {
+            var buffer =  _accelerator.Allocate<T>(obj.Length);
+            obj.CopyTo(buffer, 0);
+            return buffer;
+        }
+        
         public void Wait()
         {
             _accelerator.Synchronize();

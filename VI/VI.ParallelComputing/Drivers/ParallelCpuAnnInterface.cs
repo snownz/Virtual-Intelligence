@@ -6,14 +6,14 @@ using System.Reflection;
 
 namespace VI.ParallelComputing.Drivers
 {
-    public class CpuAnnInterface<T> : IAnnParallelInterface
+    public class ParallelCpuAnnInterface<T> : IAnnParallelInterface
     {
         private readonly Accelerator _accelerator;
         private readonly ParalleExecutorlInterface _interface;
 
         public ParalleExecutorlInterface Executor => _interface;
 
-        public CpuAnnInterface()
+        public ParallelCpuAnnInterface()
         {
             try
             {

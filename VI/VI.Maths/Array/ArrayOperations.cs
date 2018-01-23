@@ -63,6 +63,27 @@ namespace VI.Maths.Array
             int y = size.Y;
             m0[x, y] = m0[x, y] + m1[x, y];
         }
+        
+        public static void _M_sum_C(Index2 size, ArrayView2D<float> output, ArrayView2D<float> m0, float c)
+        {
+            int x = size.X;
+            int y = size.Y;
+            output[x, y] = m0[x, y] + c;
+        }
+        
+        public static void _M_X_M(Index2 size, ArrayView2D<float> output, ArrayView2D<float> m0, ArrayView2D<float> m1)
+        {
+            int x = size.X;
+            int y = size.Y;
+            output[x, y] = m0[x, y] * m1[x, y];
+        }
+        
+        public static void _M_div_M(Index2 size, ArrayView2D<float> output, ArrayView2D<float> m0, ArrayView2D<float> m1)
+        {
+            int x = size.X;
+            int y = size.Y;
+            output[x, y] = m0[x, y] / m1[x, y];
+        }
 
         public static void _V_sum_V(Index size, ArrayView<float> output, ArrayView<float> v0, ArrayView<float> v1)
         {
@@ -74,6 +95,12 @@ namespace VI.Maths.Array
         {
             int x = size.X;
             output[x] = v0[x] - v1[x];
+        }
+        
+        public static void _V_div_V(Index size, ArrayView<float> output, ArrayView<float> v0, ArrayView<float> v1)
+        {
+            int x = size.X;
+            output[x] = v0[x] / v1[x];
         }
 
         public static void _V_X_M_column_M(Index2 size, ArrayView2D<float> output, ArrayView2D<float> m, ArrayView<float> v)
@@ -162,6 +189,21 @@ namespace VI.Maths.Array
                 output += v[i];
             }
         }
+        
+        public static void _M_Sqrt(Index2 size, ArrayView2D<float> output, ArrayView2D<float> m)
+        {
+            int x = size.X;
+            int y = size.Y;
+            
+            output[x, y] = GPUMath.Sqrt(m[x, y]);
+        }
+        
+        public static void _V_Sqrt(Index size, ArrayView<float> output, ArrayView<float> v)
+        {
+            int x = size.X;
+            
+            output[x] = GPUMath.Sqrt(v[x]);
+        }
 
         public static void _V_Sin(Index size, ArrayView<float> output, ArrayView<float> v)
         {
@@ -173,6 +215,12 @@ namespace VI.Maths.Array
         {
             int x = size.X;
             output[x] = GPUMath.Tan(v[x]);
+        }
+        
+        public static void _V_Tanh(Index size, ArrayView<float> output, ArrayView<float> v)
+        {
+            int x = size.X;
+            output[x] = GPUMath.Tanh(v[x]);
         }
 
         public static void _V_Pow(Index size, ArrayView<float> output, ArrayView<float> v, int p)
@@ -221,5 +269,22 @@ namespace VI.Maths.Array
 
             output[x, y] = v[point_projected];
         }
+        
+        public static void _M_normalize(Index2 size, ArrayView2D<float> output, float p0, float p1)
+        {
+            var x = size.X;
+            var y = size.Y;
+            
+            output[x, y] = output[x, y] > p1 ? p1 : (output[x, y] < p0 ? p0 : output[x, y]);
+        }
+        
+        public static void _V_normalize(Index size, ArrayView<float> output,float p0, float p1)
+        {
+            var x = size.X;
+            
+            output[x] = output[x] > p1 ? p1 : (output[x] < p0 ? p0 : output[x]);
+        }
+        
+        
     }
 }
