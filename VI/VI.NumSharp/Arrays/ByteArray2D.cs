@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using ILGPU;
-using VI.NumSharp.Drivers;
+﻿using VI.NumSharp.Drivers;
 
 namespace VI.NumSharp.Arrays
 {

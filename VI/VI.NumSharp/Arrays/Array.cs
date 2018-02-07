@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using ILGPU;
-using ILGPU.Runtime;
-
-namespace VI.NumSharp.Arrays
+﻿namespace VI.NumSharp.Arrays
 {
 	public class Array<T>
 		where T : class 

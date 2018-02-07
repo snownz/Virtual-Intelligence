@@ -1,4 +1,5 @@
-﻿using VI.NumSharp.Drivers.Data.CPU;
+﻿using ILGPU;
+using VI.NumSharp.Drivers.Data.CPU;
 using VI.NumSharp.Drivers.Data.GPU;
 
 namespace VI.NumSharp.Drivers.Executor.GPU
@@ -94,7 +95,80 @@ namespace VI.NumSharp.Drivers.Executor.GPU
 			ProcessingDevice.ArrayDevice.Executor.Wait();
 			return new GPU_FloatData(output);
 		}
+		
+		public IFloatData Tanh(IFloatData arr)
+		{
+			var size = arr.Length;
+			var output = ILGPUMethods.Allocate<float>(size);
+			ProcessingDevice.ArrayDevice.Executor["V_Tanh"].Launch(size, output.View, arr.View);
+			ProcessingDevice.ArrayDevice.Executor.Wait();
+			return new GPU_FloatData(output);
+		}
 
+		public IFloatData Sin(IFloatData arr)
+		{
+			var size   = arr.Length;
+			var output = ILGPUMethods.Allocate<float>(size);
+			ProcessingDevice.ArrayDevice.Executor["V_Sin"].Launch(size, output.View, arr.View);
+			ProcessingDevice.ArrayDevice.Executor.Wait();
+			return new GPU_FloatData(output);
+		}
+
+		public IFloatData Cos(IFloatData arr)
+		{
+			var size   = arr.Length;
+			var output = ILGPUMethods.Allocate<float>(size);
+			ProcessingDevice.ArrayDevice.Executor["V_Cos"].Launch(size, output.View, arr.View);
+			ProcessingDevice.ArrayDevice.Executor.Wait();
+			return new GPU_FloatData(output);
+		}
+
+		public IFloatData Pow(IFloatData arr, float exp)
+		{
+			var size   = arr.Length;
+			var output = ILGPUMethods.Allocate<float>(size);
+			ProcessingDevice.ArrayDevice.Executor["V_Pow"].Launch(size, output.View, arr.View);
+			ProcessingDevice.ArrayDevice.Executor.Wait();
+			return new GPU_FloatData(output);
+		}
+
+		public IFloatData Exp(IFloatData arr)
+		{
+			var size   = arr.Length;
+			var output = ILGPUMethods.Allocate<float>(size);
+			ProcessingDevice.ArrayDevice.Executor["V_Exp"].Launch(size, output.View, arr.View);
+			ProcessingDevice.ArrayDevice.Executor.Wait();
+			return new GPU_FloatData(output);
+		}
+
+		public IFloatData Log(IFloatData arr)
+		{
+			var size   = arr.Length;
+			var output = ILGPUMethods.Allocate<float>(size);
+			ProcessingDevice.ArrayDevice.Executor["V_Log"].Launch(size, output.View, arr.View);
+			ProcessingDevice.ArrayDevice.Executor.Wait();
+			return new GPU_FloatData(output);
+		}
+
+		public IFloatData Sqrt(IFloatData arr)
+		{
+			var size   = arr.Length;
+			var output = ILGPUMethods.Allocate<float>(size);
+			ProcessingDevice.ArrayDevice.Executor["V_Sqrt"].Launch(size, output.View, arr.View);
+			ProcessingDevice.ArrayDevice.Executor.Wait();
+			return new GPU_FloatData(output);
+		}
+
+		public IFloatData SumLine(IFloatData2D arr)
+		{
+			throw new System.NotImplementedException();
+		}
+
+		public IFloatData SumColumn(IFloatData2D arr)
+		{
+			throw new System.NotImplementedException();
+		}
+		
 		public IFloatData2D VT_mult_V(IFloatData vt, IFloatData v)
 		{
 			throw new System.NotImplementedException();
@@ -112,62 +186,110 @@ namespace VI.NumSharp.Drivers.Executor.GPU
 
 		public IFloatData2D M_mult_M(IFloatData2D m0, IFloatData2D m1)
 		{
-			throw new System.NotImplementedException();
+			var size   = new Index2(m0.W, m0.H);
+			var output = ILGPUMethods.Allocate<float>(size);
+			ProcessingDevice.ArrayDevice.Executor["M_mult_M"].Launch(size, output.View, m0.View, m1.View);
+			ProcessingDevice.ArrayDevice.Executor.Wait();
+			return new GPU_FloatData2D(output);
 		}
 
 		public IFloatData2D M_div_M(IFloatData2D m0, IFloatData2D m1)
 		{
-			throw new System.NotImplementedException();
+			var size   = new Index2(m0.W, m0.H);
+			var output = ILGPUMethods.Allocate<float>(size);
+			ProcessingDevice.ArrayDevice.Executor["M_div_M"].Launch(size, output.View, m0.View, m1.View);
+			ProcessingDevice.ArrayDevice.Executor.Wait();
+			return new GPU_FloatData2D(output);
 		}
 
 		public IFloatData2D M_sub_M(IFloatData2D m0, IFloatData2D m1)
 		{
-			throw new System.NotImplementedException();
+			var size   = new Index2(m0.W, m0.H);
+			var output = ILGPUMethods.Allocate<float>(size);
+			ProcessingDevice.ArrayDevice.Executor["M_sub_M"].Launch(size, output.View, m0.View, m1.View);
+			ProcessingDevice.ArrayDevice.Executor.Wait();
+			return new GPU_FloatData2D(output);
 		}
 
 		public IFloatData2D M_add_M(IFloatData2D m0, IFloatData2D m1)
 		{
-			throw new System.NotImplementedException();
+			var size   = new Index2(m0.W, m0.H);
+			var output = ILGPUMethods.Allocate<float>(size);
+			ProcessingDevice.ArrayDevice.Executor["M_add_M"].Launch(size, output.View, m0.View, m1.View);
+			ProcessingDevice.ArrayDevice.Executor.Wait();
+			return new GPU_FloatData2D(output);
 		}
 
 		public IFloatData2D M_mult_VT(IFloatData2D m, IFloatData v)
 		{
-			throw new System.NotImplementedException();
+			var size   = new Index2(m.W, m.H);
+			var output = ILGPUMethods.Allocate<float>(size);
+			ProcessingDevice.ArrayDevice.Executor["M_mult_VT"].Launch(size, output.View, m.View, v.View);
+			ProcessingDevice.ArrayDevice.Executor.Wait();
+			return new GPU_FloatData2D(output);
 		}
 
 		public IFloatData2D M_mult_V(IFloatData2D m, IFloatData v)
 		{
-			throw new System.NotImplementedException();
+			var size   = new Index2(m.W, m.H);
+			var output = ILGPUMethods.Allocate<float>(size);
+			ProcessingDevice.ArrayDevice.Executor["M_mult_V"].Launch(size, output.View, m.View, v.View);
+			ProcessingDevice.ArrayDevice.Executor.Wait();
+			return new GPU_FloatData2D(output);
 		}
 
 		public IFloatData2D V_mult_M(IFloatData v, IFloatData2D m)
 		{
-			throw new System.NotImplementedException();
+			var size   = new Index2(m.W, m.H);
+			var output = ILGPUMethods.Allocate<float>(size);
+			ProcessingDevice.ArrayDevice.Executor["V_mult_M"].Launch(size, output.View, m.View, v.View);
+			ProcessingDevice.ArrayDevice.Executor.Wait();
+			return new GPU_FloatData2D(output);
 		}
 
 		public IFloatData2D M_mult_C(IFloatData2D m, float c)
 		{
-			throw new System.NotImplementedException();
+			var size   = new Index2(m.W, m.H);
+			var output = ILGPUMethods.Allocate<float>(size);
+			ProcessingDevice.ArrayDevice.Executor["M_mult_C"].Launch(size, output.View, m.View, c);
+			ProcessingDevice.ArrayDevice.Executor.Wait();
+			return new GPU_FloatData2D(output);
 		}
 
 		public IFloatData2D M_add_C(IFloatData2D m, float c)
 		{
-			throw new System.NotImplementedException();
+			var size   = new Index2(m.W, m.H);
+			var output = ILGPUMethods.Allocate<float>(size);
+			ProcessingDevice.ArrayDevice.Executor["M_add_C"].Launch(size, output.View, m.View, c);
+			ProcessingDevice.ArrayDevice.Executor.Wait();
+			return new GPU_FloatData2D(output);
 		}
 
 		public IFloatData2D M_div_C(IFloatData2D m, float c)
 		{
-			throw new System.NotImplementedException();
+			var size   = new Index2(m.W, m.H);
+			var output = ILGPUMethods.Allocate<float>(size);
+			ProcessingDevice.ArrayDevice.Executor["M_div_C"].Launch(size, output.View, m.View, c);
+			ProcessingDevice.ArrayDevice.Executor.Wait();
+			return new GPU_FloatData2D(output);
 		}
 
 		public IFloatData2D C_div_M(IFloatData2D m, float c)
 		{
-			throw new System.NotImplementedException();
+			var size   = new Index2(m.W, m.H);
+			var output = ILGPUMethods.Allocate<float>(size);
+			ProcessingDevice.ArrayDevice.Executor["C_div_M"].Launch(size, output.View, m.View, c);
+			ProcessingDevice.ArrayDevice.Executor.Wait();
+			return new GPU_FloatData2D(output);
 		}
 
 		public IFloatData2D C_div_M(IFloatData2D m, int c)
 		{
-			throw new System.NotImplementedException();
+			var size   = new Index2(m.W, m.H);
+			var output = ILGPUMethods.Allocate<float>(size);
+			ProcessingDevice.ArrayDevice.Executor["C_div_M"].Launch(size, output.View, m.View, c);
+			ProcessingDevice.ArrayDevice.Executor.Wait();
+			return new GPU_FloatData2D(output);
 		}
 
 		public IFloatData2D M_mult_MT(IFloatData2D m0, IFloatData2D m1)
@@ -190,52 +312,7 @@ namespace VI.NumSharp.Drivers.Executor.GPU
 			throw new System.NotImplementedException();
 		}
 
-		public IFloatData Tanh(IFloatData arr)
-		{
-			throw new System.NotImplementedException();
-		}
-
-		public IFloatData Sin(IFloatData arr)
-		{
-			throw new System.NotImplementedException();
-		}
-
-		public IFloatData Cos(IFloatData arr)
-		{
-			throw new System.NotImplementedException();
-		}
-
-		public IFloatData Pow(IFloatData arr, float exp)
-		{
-			throw new System.NotImplementedException();
-		}
-
-		public IFloatData Exp(IFloatData arr)
-		{
-			throw new System.NotImplementedException();
-		}
-
-		public IFloatData Log(IFloatData arr)
-		{
-			throw new System.NotImplementedException();
-		}
-
 		public IFloatData2D Sqrt(IFloatData2D arr)
-		{
-			throw new System.NotImplementedException();
-		}
-
-		public IFloatData Sqrt(IFloatData arr)
-		{
-			throw new System.NotImplementedException();
-		}
-
-		public IFloatData SumLine(IFloatData2D arr)
-		{
-			throw new System.NotImplementedException();
-		}
-
-		public IFloatData SumColumn(IFloatData2D arr)
 		{
 			throw new System.NotImplementedException();
 		}

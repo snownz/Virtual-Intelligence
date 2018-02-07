@@ -28,6 +28,13 @@ namespace VI.NumSharp.Drivers.Data.GPU
 			AxesX = Enumerable.Range(0, data.GetLength(0));
 			AxesY = Enumerable.Range(0, data.GetLength(1));
 		}
+		
+		public GPU_FloatData2D(MemoryBuffer2D<float> data)
+		{
+			_view = data;
+			AxesX = Enumerable.Range(0, data.Width);
+			AxesY = Enumerable.Range(0, data.Height);
+		}
 
 		public object View => _view.View;
 

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using ILGPU;
 using VI.Maths.Random;
 using VI.NumSharp.Arrays;
 

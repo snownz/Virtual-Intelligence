@@ -1,8 +1,6 @@
 ﻿using VI.Maths.Array;
 using VI.NumSharp.Drivers;
 using VI.NumSharp.Drivers.Data;
-using VI.NumSharp.Drivers.Data.CPU;
-using VI.NumSharp.Drivers.Executor;
 using VI.NumSharp.Drivers.Executor.CPU;
 using VI.NumSharp.Drivers.Executor.GPU;
 using VI.ParallelComputing;

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
-using ILGPU;
-using ILGPU.Runtime;
-
-namespace VI.NumSharp.Arrays
+﻿namespace VI.NumSharp.Arrays
 {
 	public static class ArrayExtension
 	{
