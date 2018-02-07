@@ -29,12 +29,12 @@ namespace VI.Neural.ANNOperations
 
 		public void ErrorGradient(FloatArray feed)
 		{
-			_target.GradientMatrix = feed * _target.ErrorVector.T;
+			_target.GradientMatrix = feed.T * _target.ErrorVector;
 		}
 
 		public void ComputeGradient(FloatArray inputs)
 		{
-			_target.GradientMatrix += inputs * _target.ErrorVector.T;
+			_target.GradientMatrix += inputs.T * _target.ErrorVector;
 		}
 
 		public void UpdateParams()
