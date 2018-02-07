@@ -27,13 +27,13 @@ This mathematic project aims to perform calculations between vectors using the o
  ```
 ### 2. Simple Array Instance
 ```csharp
-    var arr0 = new Array<float>(10); // Will instance a zero array with 10 positions
-    var arr1 = new Array<float>(new[]{1f, 2f, 3f}); // Will instance valued array
+    var arr0 = new FloatArray(10); // Will instance a zero array with 10 positions
+    var arr1 = new FloatArray(new[]{1f, 2f, 3f}); // Will instance valued array
 ```
 
 ### 3. Simple Array 2D Instance
 ```csharp
-    var arr2D0 = new Array<float>(10, 15); // Will instance a zero array with 10 * 15 positions
+    var arr2D0 = new FloatArray(10, 15); // Will instance a zero array with 10 * 15 positions
 ```
 
 ### 4. Simple Array Operations
