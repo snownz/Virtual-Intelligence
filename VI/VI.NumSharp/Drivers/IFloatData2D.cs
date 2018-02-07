@@ -8,7 +8,8 @@ namespace VI.NumSharp.Drivers
 		float this[int x, int y] { get; set; }
 		IEnumerable<int> AxesX { get; }
 		IEnumerable<int> AxesY { get; }
-		float[,] AsArray();
+		float[,] AsArray2D();
+		float[] AsArray();
 		int     W { get; }
 		int     H { get; }
 		float[,] Clone();

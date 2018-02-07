@@ -94,15 +94,30 @@ namespace VI.Maths.Array
 			int x = pos.X;
 			output[x] = GPUMath.Sqrt(arr[x]);
 		}
-		public static void SumLine(Index2 pos, ArrayView<float> output, ArrayView2D<float> arr)
+		public static void M_SumLine(Index2 pos, ArrayView2D<float> m, int r, int boxSize)
 		{
-			
+			int x   = pos.X;
+			int y   = pos.Y;
+			m[x, y] = m[x, y] + m[x, y + r + boxSize];
 		}
-		public static void SumColumn(Index2 pos, ArrayView<float> output, ArrayView2D<float> arr)
+		public static void M_SumColumn(Index2 pos, ArrayView2D<float> m, int r, int boxSize)
 		{
-			
+			int x   = pos.X;
+			int y   = pos.Y;
+			m[x, y] = m[x, y] + m[x + r + boxSize, y];
 		}
 
+		public static void M_2_lines_V(Index size, ArrayView<float> v, ArrayView2D<float> m)
+		{
+			int x = size.X;
+			v[x]  = m[x, 0] + m[x, 1];
+		}
+		public static void M_2_columns_V(Index size, ArrayView<float> v, ArrayView2D<float> m)
+		{
+			int y = size.X;
+			v[y]  = m[0, y] + m[1, y];
+		}
+		
 		public static void VT_mult_V(Index2 pos, ArrayView2D<float> output, ArrayView<float> vt, ArrayView<float> v)
 		{
 			int x = pos.X;
@@ -125,97 +140,97 @@ namespace VI.Maths.Array
 		{
 			int x = pos.X;
 			int y = pos.Y;
-			output[x, y] = 0;
+			output[x, y] = m0[x, y] *  m1[x, y];
 		}
 		public static void M_div_M(Index2 pos, ArrayView2D<float> output, ArrayView2D<float> m0, ArrayView2D<float> m1)
 		{
 			int x = pos.X;
 			int y = pos.Y;
-			output[x, y] = 0;
+			output[x, y] = m0[x, y] /  m1[x, y];
 		}
 		public static void M_sub_M(Index2 pos, ArrayView2D<float> output, ArrayView2D<float> m0, ArrayView2D<float> m1)
 		{
 			int x = pos.X;
 			int y = pos.Y;
-			output[x, y] = 0;
+			output[x, y] = m0[x, y] -  m1[x, y];
 		}
 		public static void M_add_M(Index2 pos, ArrayView2D<float> output, ArrayView2D<float> m0, ArrayView2D<float> m1)
 		{
 			int x = pos.X;
 			int y = pos.Y;
-			output[x, y] = 0;
+			output[x, y] = m0[x, y] +  m1[x, y];
 		}
-		public static void M_mult_VT(Index2 pos, ArrayView2D<float> output, ArrayView2D<float> m, ArrayView<float> v)
+		public static void M_mult_VT(Index2 pos, ArrayView2D<float> output, ArrayView2D<float> m, ArrayView<float> vt)
 		{
 			int x = pos.X;
 			int y = pos.Y;
-			output[x, y] = 0;
+			output[x, y] = m[x, y] *  vt[y];
 		}
 		public static void M_mult_V(Index2 pos, ArrayView2D<float> output, ArrayView2D<float> m, ArrayView<float> v)
 		{
 			int x = pos.X;
 			int y = pos.Y;
-			output[x, y] = 0;
+			output[x, y] = m[x, y] *  v[x];
 		}
 		public static void V_mult_M(Index2 pos, ArrayView2D<float> output, ArrayView<float> v, ArrayView2D<float> m)
 		{
 			int x = pos.X;
 			int y = pos.Y;
-			output[x, y] = 0;
+			output[x, y] = m[x, y] *  v[x];
 		}
 		public static void M_mult_C(Index2 pos, ArrayView2D<float> output, ArrayView2D<float> m, float c)
 		{
 			int x = pos.X;
 			int y = pos.Y;
-			output[x, y] = 0;
+			output[x, y] = m[x, y] *  c;
 		}
 		public static void M_add_C(Index2 pos, ArrayView2D<float> output, ArrayView2D<float> m, float c)
 		{
 			int x = pos.X;
 			int y = pos.Y;
-			output[x, y] = 0;
+			output[x, y] = m[x, y] +  c;
 		}
 		public static void M_div_C(Index2 pos, ArrayView2D<float> output, ArrayView2D<float> m, float c)
 		{
 			int x = pos.X;
 			int y = pos.Y;
-			output[x, y] = 0;
+			output[x, y] = m[x, y] /  c;
 		}
 		public static void C_div_M(Index2 pos, ArrayView2D<float> output, ArrayView2D<float> m, float c)
 		{
 			int x = pos.X;
 			int y = pos.Y;
-			output[x, y] = 0;
+			output[x, y] = c / m[x, y];
 		}
-		public static void C_div_M(Index2 pos, ArrayView2D<float> output, ArrayView2D<float> m, int   c)
+		public static void IC_div_M(Index2 pos, ArrayView2D<float> output, ArrayView2D<float> m, int   c)
 		{
 			int x = pos.X;
 			int y = pos.Y;
-			output[x, y] = 0;
+			output[x, y] = c / m[x, y];
 		}
-		public static void M_mult_MT(Index2 pos, ArrayView2D<float> output, ArrayView2D<float> m0, ArrayView2D<float> m1)
+		public static void M_mult_MT(Index2 pos, ArrayView2D<float> output, ArrayView2D<float> m, ArrayView2D<float> mt)
 		{
 			int x = pos.X;
 			int y = pos.Y;
-			output[x, y] = 0;
+			output[x, y] = m[x, y] * mt[y, x];
 		}
-		public static void MT_mult_M(Index2 pos, ArrayView2D<float> output, ArrayView2D<float> m0, ArrayView2D<float> m1)
+		public static void MT_mult_M(Index2 pos, ArrayView2D<float> output, ArrayView2D<float> mt, ArrayView2D<float> m)
 		{
 			int x = pos.X;
 			int y = pos.Y;
-			output[x, y] = 0;
+			output[x, y] = mt[y, x] * m[x, y];
 		}
-		public static void ApplyMask(Index2 pos, ArrayView2D<float> output, ArrayView2D<float> arr, ArrayView2D<byte> mask)
+		public static void M_ApplyMask(Index2 pos, ArrayView2D<float> output, ArrayView2D<float> arr, ArrayView2D<byte> mask)
 		{
 			int x = pos.X;
 			int y = pos.Y;
-			output[x, y] = 0;
+			output[x, y] = arr[x, y] * mask[x, y];
 		}
-		public static void Sqrt(Index2 pos, ArrayView2D<float> output, ArrayView2D<float> arr)
+		public static void m_Sqrt(Index2 pos, ArrayView2D<float> output, ArrayView2D<float> arr)
 		{
 			int x = pos.X;
 			int y = pos.Y;
-			output[x, y] = 0;
+			output[x, y] = GPUMath.Sqrt(arr[x, y]);
 		}
 	}
 }

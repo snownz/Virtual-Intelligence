@@ -20,7 +20,9 @@ namespace VI.NumSharp.Drivers.Data.CPU
 		{
 			_view = data;
 		}
-		
+
+		public object View { get; }
+
 		public byte this[int x, int y]
 		{
 			get => _view[x, y];
@@ -30,9 +32,14 @@ namespace VI.NumSharp.Drivers.Data.CPU
 		public IEnumerable<int> AxesX { get; }
 		public IEnumerable<int> AxesY { get; }
 
-		public byte[,] AsArray()
+		public byte[,] AsArray2D()
 		{
 			return _view;
+		}
+
+		public byte[,] AsArray()
+		{
+			throw new System.NotImplementedException();
 		}
 
 		public int W => _view.GetLength(0);

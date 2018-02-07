@@ -47,11 +47,16 @@ namespace VI.NumSharp.Drivers.Data.GPU
 		public IEnumerable<int> AxesX { get; }
 		public IEnumerable<int> AxesY { get; }
 
-		public float[,] AsArray()
+		public float[,] AsArray2D()
 		{
 			var arr = new float[W, H];
 			Parallel.ForEach(AxesX, (x) => { Parallel.ForEach(AxesY, (y) => { arr[y, x] = this[x, y]; }); });
 			return arr;
+		}
+
+		public float[] AsArray()
+		{
+			return _view.GetAsArray();
 		}
 
 		public int W => _view.Width;
@@ -59,7 +64,7 @@ namespace VI.NumSharp.Drivers.Data.GPU
 		
 		public float[,] Clone()
 		{
-			return AsArray();
+			return AsArray2D();
 		}
 	}
 }

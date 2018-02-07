@@ -37,9 +37,14 @@ namespace VI.NumSharp.Drivers.Data.CPU
 		public IEnumerable<int> AxesX { get; }
 		public IEnumerable<int> AxesY { get; }
 
-		public float[,] AsArray()
+		public float[,] AsArray2D()
 		{
 			return _view;
+		}
+
+		public float[] AsArray()
+		{
+			throw new System.NotImplementedException();
 		}
 
 		public int W => _view.GetLength(0);

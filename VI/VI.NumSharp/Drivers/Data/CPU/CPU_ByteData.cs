@@ -20,7 +20,9 @@ namespace VI.NumSharp.Drivers.Data.CPU
 		{
 			_view = data;
 		}
-		
+
+		public object View { get; }
+
 		public byte this[int x]
 		{
 			get => _view[x];
