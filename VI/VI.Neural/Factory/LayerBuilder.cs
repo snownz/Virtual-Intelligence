@@ -30,7 +30,7 @@ namespace VI.Neural.Factory
             }
             else if (_unsupervised != null)
             {
-                
+                neuron = new UnsupervisedNeuron(_size, _connections, _learningRate, _momentum, _unsupervised);
             }
 
             if (Knowlodge == null)
@@ -43,7 +43,6 @@ namespace VI.Neural.Factory
             
             return neuron;
         }
-        
         
         private static void SynapseFull(INeuron n)
         {
@@ -76,9 +75,9 @@ namespace VI.Neural.Factory
 
         public LayerBuilder(float learningRate, float dropout, float momentum, ISupervisedOperations supervised,
             IUnsupervisedOperations unsupervised, IActivationFunction activation, IOptimizerFunction optimizer,
-            IErrorFunction error, IList<(int x, int y)> nodesToSynapsys, float weight, int size, int connections) :
+            IErrorFunction error, IList<(int x, int y)> nodesToSynapsys, float weight, int size, int connections, (int w, int h) size2D) :
             base(learningRate, dropout, momentum, supervised, unsupervised, activation, optimizer, error,
-                nodesToSynapsys, weight, size, connections)
+                nodesToSynapsys, weight, size, connections, size2D)
         {
         }
     }

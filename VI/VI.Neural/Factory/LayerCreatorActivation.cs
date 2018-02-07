@@ -13,7 +13,7 @@ namespace VI.Neural.Factory
             _activation = new SigmoidFunction();
             
             return new LayerCreatorOptimizer(_learningRate, _dropout, _momentum, _supervised, _unsupervised,
-                _activation, _optimizer, _error, _nodesToSynapsys, _weight, _size, _connections);
+                _activation, _optimizer, _error, _nodesToSynapsys, _weight, _size, _connections, _2Dsize);
         }
 
         public LayerCreatorOptimizer WithTANH()
@@ -21,7 +21,7 @@ namespace VI.Neural.Factory
             _activation = new TANHFunction();
             
             return new LayerCreatorOptimizer(_learningRate, _dropout, _momentum, _supervised, _unsupervised,
-                _activation, _optimizer, _error, _nodesToSynapsys, _weight, _size, _connections);
+                _activation, _optimizer, _error, _nodesToSynapsys, _weight, _size, _connections, _2Dsize);
         }
 
         public LayerCreatorOptimizer WithLeakRelu()
@@ -29,21 +29,21 @@ namespace VI.Neural.Factory
             _activation = new LeakReluFunction();
             
             return new LayerCreatorOptimizer(_learningRate, _dropout, _momentum, _supervised, _unsupervised,
-                _activation, _optimizer, _error, _nodesToSynapsys, _weight, _size, _connections);
+                _activation, _optimizer, _error, _nodesToSynapsys, _weight, _size, _connections, _2Dsize);
         }
 
         public LayerCreatorOptimizer Nothing()
         {
             
             return new LayerCreatorOptimizer(_learningRate, _dropout, _momentum, _supervised, _unsupervised,
-                _activation, _optimizer, _error, _nodesToSynapsys, _weight, _size, _connections);
+                _activation, _optimizer, _error, _nodesToSynapsys, _weight, _size, _connections, _2Dsize);
         }
 
         public LayerCreatorActivation(float learningRate, float dropout, float momentum,
             ISupervisedOperations supervised, IUnsupervisedOperations unsupervised, IActivationFunction activation,
             IOptimizerFunction optimizer, IErrorFunction error, IList<(int x, int y)> nodesToSynapsys, float weight,
-            int size, int connections) : base(learningRate, dropout, momentum, supervised, unsupervised, activation,
-            optimizer, error, nodesToSynapsys, weight, size, connections)
+            int size, int connections, (int w, int h) size2D) : base(learningRate, dropout, momentum, supervised, unsupervised, activation,
+            optimizer, error, nodesToSynapsys, weight, size, connections, size2D)
         {
         }
     }

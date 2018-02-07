@@ -9,6 +9,8 @@ namespace VI.Neural.Layer
     {
         Array2D<float> KnowlodgeMatrix { get; set; }
         Array2D<float> GradientMatrix { get; set; }
+        Array2D<byte> ConnectionMask { get; set; }
+
         Array<float> BiasVector { get; set; }
         Array<float> OutputVector { get; set; }
         Array<float> SumVector { get; set; }

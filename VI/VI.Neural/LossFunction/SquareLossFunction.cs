@@ -11,7 +11,7 @@ namespace VI.Neural.LossFunction
         
         public float Loss(Array<float> targets, Array<float> prediction)
         {
-            return (1 / targets.Length) * ((NumMath.Pow(prediction - targets, 2).Sum()));
+            return (1 / targets.Length) * (((prediction - targets).Pow(2).Sum()));
         }
 
         public float Loss(float[] targets, Array<float> prediction)

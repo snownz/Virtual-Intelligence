@@ -13,15 +13,15 @@ namespace VI.Neural.OptimizerFunction
         public void UpdateWeight(ILayer target)
         {
             var update = target.GradientMatrix * target.CachedLearningRate;
-            var momentum = target.KnowlodgeMatrix * target.CachedMomentum;
-            target.KnowlodgeMatrix += (momentum + update);
+            //var momentum = target.KnowlodgeMatrix * target.CachedMomentum;
+            target.KnowlodgeMatrix += update;
         }
 
         public void UpdateBias(ILayer target)
         {
             var update = target.ErrorVector * target.CachedLearningRate;
-            var momentum = target.BiasVector * target.CachedMomentum;
-            target.BiasVector += (momentum + update);
+            //var momentum = target.BiasVector * target.CachedMomentum;
+            target.BiasVector += update;
         }
     }
 }

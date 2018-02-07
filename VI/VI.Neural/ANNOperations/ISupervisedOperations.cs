@@ -16,6 +16,6 @@ namespace VI.Neural.ANNOperations
         void SetLayer(ILayer layer);
         void SetActivation(IActivationFunction act);
         void SetError(IErrorFunction err);
-        void SetOptimizer(IOptimizerFunction opt);
+        void SetOptimizer(IOptimizerFunction opt);        
     }
 }

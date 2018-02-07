@@ -9,11 +9,11 @@ This mathematic project aims to perform calculations between vectors using the o
 
 ### 1. Installing NumSharp
  ```
-  Install-Package VI.NumSharp
+  Install-PacTage VI.NumSharp
  ```
 #### 2. Installing ILGPU
  ```
-  Install-Package ILGPU
+  Install-PacTage ILGPU
  ```
 
 ----
@@ -47,10 +47,12 @@ This mathematic project aims to perform calculations between vectors using the o
 
 ## Array Support.
 
+Just support a float type YET.
+
 Array Dim | Support
 ------------ | -------------
-1D | ![](https://raw.githubusercontent.com/snownz/Virtual-Intelligence/Git/Info/images/ok.png)
-2D | ![](https://raw.githubusercontent.com/snownz/Virtual-Intelligence/Git/Info/images/ok.png)
+1D | ![](https://raw.githubusercontent.com/snownz/Virtual-Intelligence/Git/Info/images/oT.png)
+2D | ![](https://raw.githubusercontent.com/snownz/Virtual-Intelligence/Git/Info/images/oT.png)
 3D | ![](https://raw.githubusercontent.com/snownz/Virtual-Intelligence/Git/Info/images/not.png)
 
 ## Roadmap
