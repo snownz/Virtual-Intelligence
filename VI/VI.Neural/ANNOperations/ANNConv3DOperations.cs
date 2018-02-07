@@ -1,4 +1,5 @@
-﻿using VI.Neural.ActivationFunction;
+﻿using System;
+using VI.Neural.ActivationFunction;
 using VI.Neural.Error;
 using VI.Neural.Layer;
 using VI.Neural.OptimizerFunction;
@@ -6,51 +7,51 @@ using VI.NumSharp.Arrays;
 
 namespace VI.Neural.ANNOperations
 {
-    public class ANNConv3DOperations: ISupervisedOperations
-    {
-        public void FeedForward(Array<float> feed)
-        {
-            throw new System.NotImplementedException();
-        }
+	public class ANNConv3DOperations : ISupervisedOperations
+	{
+		public void FeedForward(FloatArray feed)
+		{
+			throw new NotImplementedException();
+		}
 
-        public void BackWard(Array<float> values)
-        {
-            throw new System.NotImplementedException();
-        }
+		public void BackWard(FloatArray values)
+		{
+			throw new NotImplementedException();
+		}
 
-        public void ErrorGradient(Array<float> inputs)
-        {
-            throw new System.NotImplementedException();
-        }
+		public void ErrorGradient(FloatArray inputs)
+		{
+			throw new NotImplementedException();
+		}
 
-        public void UpdateParams()
-        {
-            throw new System.NotImplementedException();
-        }
+		public void UpdateParams()
+		{
+			throw new NotImplementedException();
+		}
 
-        public void SetLayer(ILayer layer)
-        {
-            throw new System.NotImplementedException();
-        }
+		public void SetLayer(ILayer layer)
+		{
+			throw new NotImplementedException();
+		}
 
-        public void SetActivation(IActivationFunction act)
-        {
-            throw new System.NotImplementedException();
-        }
+		public void SetActivation(IActivationFunction act)
+		{
+			throw new NotImplementedException();
+		}
 
-        public void SetError(IErrorFunction err)
-        {
-            throw new System.NotImplementedException();
-        }
+		public void SetError(IErrorFunction err)
+		{
+			throw new NotImplementedException();
+		}
 
-        public void SetOptimizer(IOptimizerFunction opt)
-        {
-            throw new System.NotImplementedException();
-        }
+		public void SetOptimizer(IOptimizerFunction opt)
+		{
+			throw new NotImplementedException();
+		}
 
-        public void ComputeGradient(Array<float> inputs)
-        {
-            throw new System.NotImplementedException();
-        }
-    }
+		public void ComputeGradient(FloatArray inputs)
+		{
+			throw new NotImplementedException();
+		}
+	}
 }

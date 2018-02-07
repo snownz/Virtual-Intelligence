@@ -1,9 +1,6 @@
-﻿using VI.NumSharp.Arrays;
-
-namespace VI.Neural.Training
+﻿namespace VI.Neural.Training
 {
-    public class BackPropagationTraining
-    {
-       
-    }
+	public class BackPropagationTraining
+	{
+	}
 }

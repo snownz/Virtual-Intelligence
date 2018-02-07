@@ -1,10 +1,6 @@
-﻿using System.Threading.Tasks;
-using VI.Neural.Node;
-
-namespace VI.Neural.Network
+﻿namespace VI.Neural.Network
 {
-    public class MLPNetwork : INetwork
-    {
-        
-    }
+	public class MLPNetwork : INetwork
+	{
+	}
 }
