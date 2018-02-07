@@ -170,19 +170,19 @@ namespace VI.NumSharp.Arrays
 		
 		public int Length => _view.Length;
 
-		public static FloatArray2D operator *(FloatArrayT v0, FloatArray v1)
+		public static FloatArray2D operator *(FloatArrayT vt, FloatArray v)
 		{
-			return new FloatArray2D(ProcessingDevice.FloatExecutor.VT_mult_V(v0._view, v1.View));
+			return new FloatArray2D(ProcessingDevice.FloatExecutor.VT_mult_V(vt._view, v.View));
 		}
 
-		public static FloatArray2D operator *(FloatArray v0, FloatArrayT v1)
+		public static FloatArray2D operator *(FloatArray v, FloatArrayT vt)
 		{
-			return new FloatArray2D(ProcessingDevice.FloatExecutor.V_mult_VT(v0.View, v1._view));
+			return new FloatArray2D(ProcessingDevice.FloatExecutor.V_mult_VT(v.View, vt._view));
 		}
 
-		public static FloatArray2D operator *(FloatArrayT v, FloatArray2D m)
+		public static FloatArray2D operator *(FloatArrayT vt, FloatArray2D m)
 		{
-			return new FloatArray2D(ProcessingDevice.FloatExecutor.VT_mult_M(v._view, m.View));
+			return new FloatArray2D(ProcessingDevice.FloatExecutor.VT_mult_M(vt._view, m.View));
 		}
 	}
 }

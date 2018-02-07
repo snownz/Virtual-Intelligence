@@ -10,8 +10,8 @@ namespace VI.NumSharp.Drivers.Executor.GPU
 		{
 			var size   = v0.Length;
 			var output = ILGPUMethods.Allocate<float>(size);
-			ProcessingDevice.ArrayDevice.Executor["_V_X_V"].Launch(size, output.View, v0.View, v1.View);
-			ProcessingDevice.ArrayDevice.Executor.Wait();
+			ProcessingDevice.FloatArrayDevice.Executor["_V_X_V"].Launch(size, output.View, v0.View, v1.View);
+			ProcessingDevice.FloatArrayDevice.Executor.Wait();
 			return new GPU_FloatData(output);
 		}
 
@@ -19,8 +19,8 @@ namespace VI.NumSharp.Drivers.Executor.GPU
 		{
 			var size   = v0.Length;
 			var output = ILGPUMethods.Allocate<float>(size);
-			ProcessingDevice.ArrayDevice.Executor["_V_div_V"].Launch(size, output.View, v0.View, v1.View);
-			ProcessingDevice.ArrayDevice.Executor.Wait();
+			ProcessingDevice.FloatArrayDevice.Executor["_V_div_V"].Launch(size, output.View, v0.View, v1.View);
+			ProcessingDevice.FloatArrayDevice.Executor.Wait();
 			return new GPU_FloatData(output);
 		}
 
@@ -28,8 +28,8 @@ namespace VI.NumSharp.Drivers.Executor.GPU
 		{
 			var size   = v0.Length;
 			var output = ILGPUMethods.Allocate<float>(size);
-			ProcessingDevice.ArrayDevice.Executor["_V_sub_V"].Launch(size, output.View, v0.View, v1.View);
-			ProcessingDevice.ArrayDevice.Executor.Wait();
+			ProcessingDevice.FloatArrayDevice.Executor["_V_sub_V"].Launch(size, output.View, v0.View, v1.View);
+			ProcessingDevice.FloatArrayDevice.Executor.Wait();
 			return new GPU_FloatData(output);
 		}
 
@@ -37,8 +37,8 @@ namespace VI.NumSharp.Drivers.Executor.GPU
 		{
 			var size   = v0.Length;
 			var output = ILGPUMethods.Allocate<float>(size);
-			ProcessingDevice.ArrayDevice.Executor["_V_add_V"].Launch(size, output.View, v0.View, v1.View);
-			ProcessingDevice.ArrayDevice.Executor.Wait();
+			ProcessingDevice.FloatArrayDevice.Executor["_V_add_V"].Launch(size, output.View, v0.View, v1.View);
+			ProcessingDevice.FloatArrayDevice.Executor.Wait();
 			return new GPU_FloatData(output);
 		}
 
@@ -46,8 +46,8 @@ namespace VI.NumSharp.Drivers.Executor.GPU
 		{
 			var size   = v.Length;
 			var output = ILGPUMethods.Allocate<float>(size);
-			ProcessingDevice.ArrayDevice.Executor["V_add_C"].Launch(size, output.View, v.View, c);
-			ProcessingDevice.ArrayDevice.Executor.Wait();
+			ProcessingDevice.FloatArrayDevice.Executor["V_add_C"].Launch(size, output.View, v.View, c);
+			ProcessingDevice.FloatArrayDevice.Executor.Wait();
 			return new GPU_FloatData(output);
 		}
 
@@ -55,8 +55,8 @@ namespace VI.NumSharp.Drivers.Executor.GPU
 		{
 			var size   = v.Length;
 			var output = ILGPUMethods.Allocate<float>(size);
-			ProcessingDevice.ArrayDevice.Executor["V_mult_C"].Launch(size, output.View, v.View, c);
-			ProcessingDevice.ArrayDevice.Executor.Wait();
+			ProcessingDevice.FloatArrayDevice.Executor["V_mult_C"].Launch(size, output.View, v.View, c);
+			ProcessingDevice.FloatArrayDevice.Executor.Wait();
 			return new GPU_FloatData(output);
 		}
 
@@ -64,8 +64,8 @@ namespace VI.NumSharp.Drivers.Executor.GPU
 		{
 			var size   = v.Length;
 			var output = ILGPUMethods.Allocate<float>(size);
-			ProcessingDevice.ArrayDevice.Executor["V_sub_C"].Launch(size, output.View, v.View, c);
-			ProcessingDevice.ArrayDevice.Executor.Wait();
+			ProcessingDevice.FloatArrayDevice.Executor["V_sub_C"].Launch(size, output.View, v.View, c);
+			ProcessingDevice.FloatArrayDevice.Executor.Wait();
 			return new GPU_FloatData(output);
 		}
 
@@ -73,8 +73,8 @@ namespace VI.NumSharp.Drivers.Executor.GPU
 		{
 			var size   = v.Length;
 			var output = ILGPUMethods.Allocate<float>(size);
-			ProcessingDevice.ArrayDevice.Executor["V_sub_C"].Launch(size, output.View, v.View, c);
-			ProcessingDevice.ArrayDevice.Executor.Wait();
+			ProcessingDevice.FloatArrayDevice.Executor["V_sub_C"].Launch(size, output.View, v.View, c);
+			ProcessingDevice.FloatArrayDevice.Executor.Wait();
 			return new GPU_FloatData(output);
 		}
 
@@ -82,8 +82,8 @@ namespace VI.NumSharp.Drivers.Executor.GPU
 		{
 			var size   = v.Length;
 			var output = ILGPUMethods.Allocate<float>(size);
-			ProcessingDevice.ArrayDevice.Executor["V_div_C"].Launch(size, output.View, v.View, c);
-			ProcessingDevice.ArrayDevice.Executor.Wait();
+			ProcessingDevice.FloatArrayDevice.Executor["V_div_C"].Launch(size, output.View, v.View, c);
+			ProcessingDevice.FloatArrayDevice.Executor.Wait();
 			return new GPU_FloatData(output);
 		}
 
@@ -91,8 +91,8 @@ namespace VI.NumSharp.Drivers.Executor.GPU
 		{
 			var size   = v.Length;
 			var output = ILGPUMethods.Allocate<float>(size);
-			ProcessingDevice.ArrayDevice.Executor["V_div_C"].Launch(size, output.View, v.View, c);
-			ProcessingDevice.ArrayDevice.Executor.Wait();
+			ProcessingDevice.FloatArrayDevice.Executor["V_div_C"].Launch(size, output.View, v.View, c);
+			ProcessingDevice.FloatArrayDevice.Executor.Wait();
 			return new GPU_FloatData(output);
 		}
 		
@@ -100,8 +100,8 @@ namespace VI.NumSharp.Drivers.Executor.GPU
 		{
 			var size = arr.Length;
 			var output = ILGPUMethods.Allocate<float>(size);
-			ProcessingDevice.ArrayDevice.Executor["V_Tanh"].Launch(size, output.View, arr.View);
-			ProcessingDevice.ArrayDevice.Executor.Wait();
+			ProcessingDevice.FloatArrayDevice.Executor["V_Tanh"].Launch(size, output.View, arr.View);
+			ProcessingDevice.FloatArrayDevice.Executor.Wait();
 			return new GPU_FloatData(output);
 		}
 
@@ -109,8 +109,8 @@ namespace VI.NumSharp.Drivers.Executor.GPU
 		{
 			var size   = arr.Length;
 			var output = ILGPUMethods.Allocate<float>(size);
-			ProcessingDevice.ArrayDevice.Executor["V_Sin"].Launch(size, output.View, arr.View);
-			ProcessingDevice.ArrayDevice.Executor.Wait();
+			ProcessingDevice.FloatArrayDevice.Executor["V_Sin"].Launch(size, output.View, arr.View);
+			ProcessingDevice.FloatArrayDevice.Executor.Wait();
 			return new GPU_FloatData(output);
 		}
 
@@ -118,8 +118,8 @@ namespace VI.NumSharp.Drivers.Executor.GPU
 		{
 			var size   = arr.Length;
 			var output = ILGPUMethods.Allocate<float>(size);
-			ProcessingDevice.ArrayDevice.Executor["V_Cos"].Launch(size, output.View, arr.View);
-			ProcessingDevice.ArrayDevice.Executor.Wait();
+			ProcessingDevice.FloatArrayDevice.Executor["V_Cos"].Launch(size, output.View, arr.View);
+			ProcessingDevice.FloatArrayDevice.Executor.Wait();
 			return new GPU_FloatData(output);
 		}
 
@@ -127,8 +127,8 @@ namespace VI.NumSharp.Drivers.Executor.GPU
 		{
 			var size   = arr.Length;
 			var output = ILGPUMethods.Allocate<float>(size);
-			ProcessingDevice.ArrayDevice.Executor["V_Pow"].Launch(size, output.View, arr.View);
-			ProcessingDevice.ArrayDevice.Executor.Wait();
+			ProcessingDevice.FloatArrayDevice.Executor["V_Pow"].Launch(size, output.View, arr.View);
+			ProcessingDevice.FloatArrayDevice.Executor.Wait();
 			return new GPU_FloatData(output);
 		}
 
@@ -136,8 +136,8 @@ namespace VI.NumSharp.Drivers.Executor.GPU
 		{
 			var size   = arr.Length;
 			var output = ILGPUMethods.Allocate<float>(size);
-			ProcessingDevice.ArrayDevice.Executor["V_Exp"].Launch(size, output.View, arr.View);
-			ProcessingDevice.ArrayDevice.Executor.Wait();
+			ProcessingDevice.FloatArrayDevice.Executor["V_Exp"].Launch(size, output.View, arr.View);
+			ProcessingDevice.FloatArrayDevice.Executor.Wait();
 			return new GPU_FloatData(output);
 		}
 
@@ -145,8 +145,8 @@ namespace VI.NumSharp.Drivers.Executor.GPU
 		{
 			var size   = arr.Length;
 			var output = ILGPUMethods.Allocate<float>(size);
-			ProcessingDevice.ArrayDevice.Executor["V_Log"].Launch(size, output.View, arr.View);
-			ProcessingDevice.ArrayDevice.Executor.Wait();
+			ProcessingDevice.FloatArrayDevice.Executor["V_Log"].Launch(size, output.View, arr.View);
+			ProcessingDevice.FloatArrayDevice.Executor.Wait();
 			return new GPU_FloatData(output);
 		}
 
@@ -154,8 +154,8 @@ namespace VI.NumSharp.Drivers.Executor.GPU
 		{
 			var size   = arr.Length;
 			var output = ILGPUMethods.Allocate<float>(size);
-			ProcessingDevice.ArrayDevice.Executor["V_Sqrt"].Launch(size, output.View, arr.View);
-			ProcessingDevice.ArrayDevice.Executor.Wait();
+			ProcessingDevice.FloatArrayDevice.Executor["V_Sqrt"].Launch(size, output.View, arr.View);
+			ProcessingDevice.FloatArrayDevice.Executor.Wait();
 			return new GPU_FloatData(output);
 		}
 
@@ -188,8 +188,8 @@ namespace VI.NumSharp.Drivers.Executor.GPU
 		{
 			var size   = new Index2(m0.W, m0.H);
 			var output = ILGPUMethods.Allocate<float>(size);
-			ProcessingDevice.ArrayDevice.Executor["M_mult_M"].Launch(size, output.View, m0.View, m1.View);
-			ProcessingDevice.ArrayDevice.Executor.Wait();
+			ProcessingDevice.FloatArrayDevice.Executor["M_mult_M"].Launch(size, output.View, m0.View, m1.View);
+			ProcessingDevice.FloatArrayDevice.Executor.Wait();
 			return new GPU_FloatData2D(output);
 		}
 
@@ -197,8 +197,8 @@ namespace VI.NumSharp.Drivers.Executor.GPU
 		{
 			var size   = new Index2(m0.W, m0.H);
 			var output = ILGPUMethods.Allocate<float>(size);
-			ProcessingDevice.ArrayDevice.Executor["M_div_M"].Launch(size, output.View, m0.View, m1.View);
-			ProcessingDevice.ArrayDevice.Executor.Wait();
+			ProcessingDevice.FloatArrayDevice.Executor["M_div_M"].Launch(size, output.View, m0.View, m1.View);
+			ProcessingDevice.FloatArrayDevice.Executor.Wait();
 			return new GPU_FloatData2D(output);
 		}
 
@@ -206,8 +206,8 @@ namespace VI.NumSharp.Drivers.Executor.GPU
 		{
 			var size   = new Index2(m0.W, m0.H);
 			var output = ILGPUMethods.Allocate<float>(size);
-			ProcessingDevice.ArrayDevice.Executor["M_sub_M"].Launch(size, output.View, m0.View, m1.View);
-			ProcessingDevice.ArrayDevice.Executor.Wait();
+			ProcessingDevice.FloatArrayDevice.Executor["M_sub_M"].Launch(size, output.View, m0.View, m1.View);
+			ProcessingDevice.FloatArrayDevice.Executor.Wait();
 			return new GPU_FloatData2D(output);
 		}
 
@@ -215,8 +215,8 @@ namespace VI.NumSharp.Drivers.Executor.GPU
 		{
 			var size   = new Index2(m0.W, m0.H);
 			var output = ILGPUMethods.Allocate<float>(size);
-			ProcessingDevice.ArrayDevice.Executor["M_add_M"].Launch(size, output.View, m0.View, m1.View);
-			ProcessingDevice.ArrayDevice.Executor.Wait();
+			ProcessingDevice.FloatArrayDevice.Executor["M_add_M"].Launch(size, output.View, m0.View, m1.View);
+			ProcessingDevice.FloatArrayDevice.Executor.Wait();
 			return new GPU_FloatData2D(output);
 		}
 
@@ -224,8 +224,8 @@ namespace VI.NumSharp.Drivers.Executor.GPU
 		{
 			var size   = new Index2(m.W, m.H);
 			var output = ILGPUMethods.Allocate<float>(size);
-			ProcessingDevice.ArrayDevice.Executor["M_mult_VT"].Launch(size, output.View, m.View, v.View);
-			ProcessingDevice.ArrayDevice.Executor.Wait();
+			ProcessingDevice.FloatArrayDevice.Executor["M_mult_VT"].Launch(size, output.View, m.View, v.View);
+			ProcessingDevice.FloatArrayDevice.Executor.Wait();
 			return new GPU_FloatData2D(output);
 		}
 
@@ -233,8 +233,8 @@ namespace VI.NumSharp.Drivers.Executor.GPU
 		{
 			var size   = new Index2(m.W, m.H);
 			var output = ILGPUMethods.Allocate<float>(size);
-			ProcessingDevice.ArrayDevice.Executor["M_mult_V"].Launch(size, output.View, m.View, v.View);
-			ProcessingDevice.ArrayDevice.Executor.Wait();
+			ProcessingDevice.FloatArrayDevice.Executor["M_mult_V"].Launch(size, output.View, m.View, v.View);
+			ProcessingDevice.FloatArrayDevice.Executor.Wait();
 			return new GPU_FloatData2D(output);
 		}
 
@@ -242,8 +242,8 @@ namespace VI.NumSharp.Drivers.Executor.GPU
 		{
 			var size   = new Index2(m.W, m.H);
 			var output = ILGPUMethods.Allocate<float>(size);
-			ProcessingDevice.ArrayDevice.Executor["V_mult_M"].Launch(size, output.View, m.View, v.View);
-			ProcessingDevice.ArrayDevice.Executor.Wait();
+			ProcessingDevice.FloatArrayDevice.Executor["V_mult_M"].Launch(size, output.View, m.View, v.View);
+			ProcessingDevice.FloatArrayDevice.Executor.Wait();
 			return new GPU_FloatData2D(output);
 		}
 
@@ -251,8 +251,8 @@ namespace VI.NumSharp.Drivers.Executor.GPU
 		{
 			var size   = new Index2(m.W, m.H);
 			var output = ILGPUMethods.Allocate<float>(size);
-			ProcessingDevice.ArrayDevice.Executor["M_mult_C"].Launch(size, output.View, m.View, c);
-			ProcessingDevice.ArrayDevice.Executor.Wait();
+			ProcessingDevice.FloatArrayDevice.Executor["M_mult_C"].Launch(size, output.View, m.View, c);
+			ProcessingDevice.FloatArrayDevice.Executor.Wait();
 			return new GPU_FloatData2D(output);
 		}
 
@@ -260,8 +260,8 @@ namespace VI.NumSharp.Drivers.Executor.GPU
 		{
 			var size   = new Index2(m.W, m.H);
 			var output = ILGPUMethods.Allocate<float>(size);
-			ProcessingDevice.ArrayDevice.Executor["M_add_C"].Launch(size, output.View, m.View, c);
-			ProcessingDevice.ArrayDevice.Executor.Wait();
+			ProcessingDevice.FloatArrayDevice.Executor["M_add_C"].Launch(size, output.View, m.View, c);
+			ProcessingDevice.FloatArrayDevice.Executor.Wait();
 			return new GPU_FloatData2D(output);
 		}
 
@@ -269,8 +269,8 @@ namespace VI.NumSharp.Drivers.Executor.GPU
 		{
 			var size   = new Index2(m.W, m.H);
 			var output = ILGPUMethods.Allocate<float>(size);
-			ProcessingDevice.ArrayDevice.Executor["M_div_C"].Launch(size, output.View, m.View, c);
-			ProcessingDevice.ArrayDevice.Executor.Wait();
+			ProcessingDevice.FloatArrayDevice.Executor["M_div_C"].Launch(size, output.View, m.View, c);
+			ProcessingDevice.FloatArrayDevice.Executor.Wait();
 			return new GPU_FloatData2D(output);
 		}
 
@@ -278,8 +278,8 @@ namespace VI.NumSharp.Drivers.Executor.GPU
 		{
 			var size   = new Index2(m.W, m.H);
 			var output = ILGPUMethods.Allocate<float>(size);
-			ProcessingDevice.ArrayDevice.Executor["C_div_M"].Launch(size, output.View, m.View, c);
-			ProcessingDevice.ArrayDevice.Executor.Wait();
+			ProcessingDevice.FloatArrayDevice.Executor["C_div_M"].Launch(size, output.View, m.View, c);
+			ProcessingDevice.FloatArrayDevice.Executor.Wait();
 			return new GPU_FloatData2D(output);
 		}
 
@@ -287,8 +287,8 @@ namespace VI.NumSharp.Drivers.Executor.GPU
 		{
 			var size   = new Index2(m.W, m.H);
 			var output = ILGPUMethods.Allocate<float>(size);
-			ProcessingDevice.ArrayDevice.Executor["C_div_M"].Launch(size, output.View, m.View, c);
-			ProcessingDevice.ArrayDevice.Executor.Wait();
+			ProcessingDevice.FloatArrayDevice.Executor["C_div_M"].Launch(size, output.View, m.View, c);
+			ProcessingDevice.FloatArrayDevice.Executor.Wait();
 			return new GPU_FloatData2D(output);
 		}
 

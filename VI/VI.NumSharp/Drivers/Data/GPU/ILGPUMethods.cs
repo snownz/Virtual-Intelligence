@@ -9,7 +9,7 @@ namespace VI.NumSharp.Drivers.Data.GPU
 			where T : struct
 		{
 			//var watch = System.Diagnostics.Stopwatch.StartNew();
-			var mem = ProcessingDevice.ArrayDevice.Executor.CreateBuffer<T>(size);
+			var mem = ProcessingDevice.FloatArrayDevice.Executor.CreateBuffer<T>(size);
 			//watch.Stop();
 			//Console.WriteLine($"\n-----\nAllocation Time: {watch.ElapsedMilliseconds}ms\nSize {size.X}\n-----");
 			return mem;
@@ -19,7 +19,7 @@ namespace VI.NumSharp.Drivers.Data.GPU
 			where T : struct
 		{
 			//var watch = System.Diagnostics.Stopwatch.StartNew();
-			var mem = ProcessingDevice.ArrayDevice.Executor.SetBuffer(data);
+			var mem = ProcessingDevice.FloatArrayDevice.Executor.SetBuffer(data);
 			//watch.Stop();
 			//Console.WriteLine($"\n-----\nAllocation Time: {watch.ElapsedMilliseconds}ms\nSize {size.X}\n-----");
 			return mem;
@@ -30,7 +30,7 @@ namespace VI.NumSharp.Drivers.Data.GPU
 			where T : struct
 		{
 			//var watch = System.Diagnostics.Stopwatch.StartNew();
-			var mem = ProcessingDevice.ArrayDevice.Executor.CloneBuffer(data);
+			var mem = ProcessingDevice.FloatArrayDevice.Executor.CloneBuffer(data);
 			//watch.Stop();
 			//Console.WriteLine($"\n-----\nAllocation Time: {watch.ElapsedMilliseconds}ms\nSize {size.X}\n-----");
 			return mem;
@@ -40,7 +40,7 @@ namespace VI.NumSharp.Drivers.Data.GPU
 			where T : struct
 		{
 			//var watch = System.Diagnostics.Stopwatch.StartNew();
-			var mem = ProcessingDevice.ArrayDevice.Executor.CreateBuffer<T>(size);
+			var mem = ProcessingDevice.FloatArrayDevice.Executor.CreateBuffer<T>(size);
 			//watch.Stop();
 			//Console.WriteLine($"\n-----\nAllocation Time: {watch.ElapsedMilliseconds}ms\nSize {size.X}\n-----");
 			return mem;
@@ -50,7 +50,7 @@ namespace VI.NumSharp.Drivers.Data.GPU
 			where T : struct
 		{
 			//var watch = System.Diagnostics.Stopwatch.StartNew();
-			var mem = ProcessingDevice.ArrayDevice.Executor.SetBuffer(data);
+			var mem = ProcessingDevice.FloatArrayDevice.Executor.SetBuffer(data);
 			//watch.Stop();
 			//Console.WriteLine($"\n-----\nAllocation Time: {watch.ElapsedMilliseconds}ms\nSize {size.X}\n-----");
 			return mem;
@@ -61,7 +61,7 @@ namespace VI.NumSharp.Drivers.Data.GPU
 			where T : struct
 		{
 			//var watch = System.Diagnostics.Stopwatch.StartNew();
-			var mem = ProcessingDevice.ArrayDevice.Executor.CloneBuffer(data);
+			var mem = ProcessingDevice.FloatArrayDevice.Executor.CloneBuffer(data);
 			//watch.Stop();
 			//Console.WriteLine($"\n-----\nAllocation Time: {watch.ElapsedMilliseconds}ms\nSize {size.X}\n-----");
 			return mem;
