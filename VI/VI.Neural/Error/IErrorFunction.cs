@@ -2,8 +2,8 @@
 
 namespace VI.Neural.Error
 {
-    public interface IErrorFunction
-    {
-        Array<float> Error(Array<float> targetOutputVector, Array<float> values);
-    }
+	public interface IErrorFunction
+	{
+		FloatArray Error(FloatArray targetOutputVector, FloatArray values);
+	}
 }

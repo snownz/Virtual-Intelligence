@@ -2,11 +2,11 @@
 
 namespace VI.Neural.Error
 {
-    public class OutputErrorFunction: IErrorFunction
-    {
-        public Array<float> Error(Array<float> targetOutputVector, Array<float> values)
-        {
-            return values - targetOutputVector;
-        }
-    }
+	public class OutputErrorFunction : IErrorFunction
+	{
+		public FloatArray Error(FloatArray targetOutputVector, FloatArray values)
+		{
+			return values - targetOutputVector;
+		}
+	}
 }

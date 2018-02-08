@@ -1,7 +1,6 @@
 ﻿namespace VI.Neural.Network
 {
-    public class MultiTaskNetwork : INetwork
-    {
-        
-    }
+	public class MultiTaskNetwork : INetwork
+	{
+	}
 }

@@ -8,11 +8,13 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Optimize>true</Optimize>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <OutputPath>P:\Marcello Borges\netstandard2.0\netstandard2.0\</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <PlatformTarget>x64</PlatformTarget>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Optimize>true</Optimize>
+    <OutputPath>bin\x64\Release\netstandard2.0\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="ILGPU" Version="0.2.1" />
@@ -30,12 +32,12 @@
     <PackageProjectUrl>https://github.com/snownz/Virtual-Intelligence</PackageProjectUrl>
     <RepositoryUrl>https://github.com/snownz/Virtual-Intelligence</RepositoryUrl>
     <RepositoryType>GitHub</RepositoryType>
-    <PackageVersion>1.1.2</PackageVersion>
+    <PackageVersion>2.0.0</PackageVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <OutputPath>bin\Release\netstandard2.0\</OutputPath>
+    <OutputPath>P:\Marcello Borges\netstandard2.0\netstandard2.0\</OutputPath>
   </PropertyGroup>
 </Project>

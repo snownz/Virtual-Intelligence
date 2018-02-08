@@ -1,18 +1,17 @@
-﻿using VI.NumSharp;
-using VI.NumSharp.Arrays;
+﻿using VI.NumSharp.Arrays;
 
 namespace VI.Neural.ActivationFunction
 {
-    public class ArcTANHFunction : IActivationFunction
-    {
-        public Array<float> Activate(Array<float> v)
-        {
-            return NumMath.Pow((v).Tan(), -1);
-        }
+	public class ArcTANHFunction : IActivationFunction
+	{
+		public FloatArray Activate(FloatArray v)
+		{
+			return v.Tanh().Pow(-1);
+		}
 
-        public Array<float> Derivate(Array<float> v)
-        {
-            return 1 / ((v * v) + 1); 
-        }
-    }
+		public FloatArray Derivate(FloatArray v)
+		{
+			return 1 / (v * v + 1);
+		}
+	}
 }

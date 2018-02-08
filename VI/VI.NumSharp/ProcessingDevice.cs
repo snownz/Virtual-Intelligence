@@ -1,43 +1,47 @@
 ﻿using VI.Maths.Array;
+using VI.NumSharp.Drivers;
+using VI.NumSharp.Drivers.Data;
+using VI.NumSharp.Drivers.Executor.CPU;
+using VI.NumSharp.Drivers.Executor.GPU;
+using VI.ParallelComputing;
 using VI.ParallelComputing.Drivers;
 
 namespace VI.NumSharp
 {
-    public enum Device
+    public class ProcessingDevice
     {
-        CPU = 0,
-        CUDA = 1
-    }
-    
-    public static partial class ProcessingDevice
-    {
-        private static Device _device;
-        private static IAnnParallelInterface _cpuArrayDevice;
+        private static DeviceType _device;
         private static IAnnParallelInterface _cudaArrayDevice;
+        private static IAnnParallelInterface CUDAFloatArrayDevice
+            => _cudaArrayDevice ?? (_cudaArrayDevice = new CudaAnnInterface<FloatArrayOperations>());
 
-        public static Device Device
+        public static DeviceType Device
         {
-            get { return _device; }
+            get => _device;
             set
             {
                 switch (value)
                 {
-                    case Device.CUDA:
-                        ArrayDevice = CUDAArrayDevice;
+                    case DeviceType.CUDA:
+                        FloatArrayDevice = CUDAFloatArrayDevice;
+                        FloatExecutor = new ParallelFloatExecutorGPU();
+                        FloatData = new FloatDataGPU();
+                        ByteData = new ByteDataGPU();
                         break;
-                    case Device.CPU:
-                        ArrayDevice = CPUArrayDevice;
+                    case DeviceType.CPU:
+                        FloatExecutor = new ParallelFloatExecutorCPU();
+                        FloatData = new FloatDataCPU();
+                        ByteData = new ByteDataCPU();
                         break;
                 }
+
                 _device = value;
             }
         }
 
-        private static IAnnParallelInterface CPUArrayDevice
-            => _cpuArrayDevice ?? (_cpuArrayDevice = new CpuAnnInterface<ArrayOperations>());
-        private static IAnnParallelInterface CUDAArrayDevice
-            => _cudaArrayDevice ?? (_cudaArrayDevice = new CudaAnnInterface<ArrayOperations>());
-
-        public static IAnnParallelInterface ArrayDevice { get; private set; }
-    }    
+        public static IAnnParallelInterface FloatArrayDevice { get; private set; }
+        public static IFloatArrayExecutor FloatExecutor { get; private set; }
+        public static IFloatDataProcess FloatData { get; private set; }
+        public static IByteDataProcess ByteData { get; private set; }
+    }
 }
