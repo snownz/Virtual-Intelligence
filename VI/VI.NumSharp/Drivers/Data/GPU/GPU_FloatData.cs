@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using ILGPU.Runtime;
+using ILGPU;
 
 namespace VI.NumSharp.Drivers.Data.GPU
 {
@@ -31,7 +32,7 @@ namespace VI.NumSharp.Drivers.Data.GPU
 			AxesX = Enumerable.Range(0, data.Length);
 		}
 
-		public object View => _view.View;
+		public ArrayView<float> View => _view.View;
 
 		public float this[int x]
 		{
@@ -45,8 +46,8 @@ namespace VI.NumSharp.Drivers.Data.GPU
 		{
 			return _view.GetAsArray();
 		}
-
-		public int Length => _view.Length;
+        
+        public int Length => _view.Length;
 		
 		public float[] Clone()
 		{

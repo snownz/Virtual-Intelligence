@@ -24,6 +24,7 @@ namespace VI.NumSharp.Drivers.Data.GPU
 		
 		public GPU_ByteData2D(byte[,] data)
 		{
+            if (data == null) return;
 			_view = ILGPUMethods.Allocate(data);
 			AxesX = Enumerable.Range(0, data.GetLength(0));
 			AxesY = Enumerable.Range(0, data.GetLength(1));

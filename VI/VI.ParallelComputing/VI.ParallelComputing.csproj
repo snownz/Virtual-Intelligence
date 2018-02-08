@@ -26,6 +26,6 @@
     <PackageProjectUrl>https://github.com/snownz/Virtual-Intelligence</PackageProjectUrl>
     <RepositoryUrl>https://github.com/snownz/Virtual-Intelligence</RepositoryUrl>
     <RepositoryType>GitHub</RepositoryType>
-    <PackageVersion>1.1.0</PackageVersion>
+    <PackageVersion>2.0.0</PackageVersion>
   </PropertyGroup>
 </Project>

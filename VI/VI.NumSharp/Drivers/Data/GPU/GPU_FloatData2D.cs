@@ -36,7 +36,7 @@ namespace VI.NumSharp.Drivers.Data.GPU
 			AxesY = Enumerable.Range(0, data.Height);
 		}
 
-		public object View => _view.View;
+		public ArrayView2D<float> View => _view.View;
 
 		public float this[int x, int y]
 		{
@@ -54,7 +54,23 @@ namespace VI.NumSharp.Drivers.Data.GPU
 			return arr;
 		}
 
-		public float[] AsArray()
+        public override string ToString()
+        {
+            var str = "[";
+            for (var j = 0; j < H; j++)
+            {
+                str += "[";
+                for (var i = 0; i < W; i++) str += $"{_view[new Index2(i, j)].ToString().Replace(",", ".")}, ";
+                str = str.Remove(str.Length - 2);
+                str += "],";
+            }
+
+            str = str.Remove(str.Length - 1);
+            str += "]";
+            return str;
+        }
+
+        public float[] AsArray()
 		{
 			return _view.GetAsArray();
 		}

@@ -8,41 +8,40 @@ using VI.ParallelComputing.Drivers;
 
 namespace VI.NumSharp
 {
-	public static class ProcessingDevice
-	{
-		private static DeviceType            _device;
-		
-		private static IAnnParallelInterface _cudaArrayDevice;
-		//private static IAnnParallelInterface CUDAFloatArrayDevice
-		//	=> _cudaArrayDevice ?? (_cudaArrayDevice = new CudaAnnInterface<FloatArrayOperations>());
-		
-		public static DeviceType Device
-		{
-			get => _device;
-			set
-			{
-				switch (value)
-				{
-					case DeviceType.CUDA:
-						//FloatArrayDevice = CUDAFloatArrayDevice;
-						FloatExecutor = new ParallelFloatExecutorGPU();
-						FloatData     = new FloatDataGPU();
-						ByteData      = new ByteDataGPU();
-						break;
-					case DeviceType.CPU:
-						FloatExecutor = new ParallelFloatExecutorCPU();
-						FloatData = new FloatDataCPU();
-						ByteData = new ByteDataCPU();
-						break;
-				}
+    public class ProcessingDevice
+    {
+        private static DeviceType _device;
+        private static IAnnParallelInterface _cudaArrayDevice;
+        private static IAnnParallelInterface CUDAFloatArrayDevice
+            => _cudaArrayDevice ?? (_cudaArrayDevice = new CudaAnnInterface<FloatArrayOperations>());
 
-				_device = value;
-			}
-		}
+        public static DeviceType Device
+        {
+            get => _device;
+            set
+            {
+                switch (value)
+                {
+                    case DeviceType.CUDA:
+                        FloatArrayDevice = CUDAFloatArrayDevice;
+                        FloatExecutor = new ParallelFloatExecutorGPU();
+                        FloatData = new FloatDataGPU();
+                        ByteData = new ByteDataGPU();
+                        break;
+                    case DeviceType.CPU:
+                        FloatExecutor = new ParallelFloatExecutorCPU();
+                        FloatData = new FloatDataCPU();
+                        ByteData = new ByteDataCPU();
+                        break;
+                }
 
-		public static IAnnParallelInterface FloatArrayDevice { get; private set; }
-		public static IFloatArrayExecutor FloatExecutor { get; private set; }
-		public static IFloatDataProcess FloatData { get; private set; }
-		public static IByteDataProcess ByteData { get; private set; }
-	}
+                _device = value;
+            }
+        }
+
+        public static IAnnParallelInterface FloatArrayDevice { get; private set; }
+        public static IFloatArrayExecutor FloatExecutor { get; private set; }
+        public static IFloatDataProcess FloatData { get; private set; }
+        public static IByteDataProcess ByteData { get; private set; }
+    }
 }

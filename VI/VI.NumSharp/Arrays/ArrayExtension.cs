@@ -15,42 +15,42 @@
 
 		public static FloatArray Tanh(this FloatArray arr)
 		{
-			return new FloatArray(ProcessingDevice.FloatExecutor.Tanh(arr.View));
+			return new FloatArray(ProcessingDevice.FloatExecutor.Tanh(arr.Cache, arr.View));
 		}
 		
 		public static FloatArray Sin(this FloatArray arr)
 		{
-			return new FloatArray(ProcessingDevice.FloatExecutor.Sin(arr.View));
+			return new FloatArray(ProcessingDevice.FloatExecutor.Sin(arr.Cache, arr.View));
 		}
 		
 		public static FloatArray Cos(this FloatArray arr)
 		{
-			return new FloatArray(ProcessingDevice.FloatExecutor.Cos(arr.View));
+			return new FloatArray(ProcessingDevice.FloatExecutor.Cos(arr.Cache, arr.View));
 		}
 		
 		public static FloatArray Pow(this FloatArray arr, float exp)
 		{
-			return new FloatArray(ProcessingDevice.FloatExecutor.Pow(arr.View, exp));
+			return new FloatArray(ProcessingDevice.FloatExecutor.Pow(arr.Cache, arr.View, exp));
 		}
 
 		public static FloatArray Exp(this FloatArray arr)
 		{
-			return new FloatArray(ProcessingDevice.FloatExecutor.Exp(arr.View));
+			return new FloatArray(ProcessingDevice.FloatExecutor.Exp(arr.Cache, arr.View));
 		}
 
 		public static FloatArray Log(this FloatArray arr)
 		{
-			return new FloatArray(ProcessingDevice.FloatExecutor.Log(arr.View));
+			return new FloatArray(ProcessingDevice.FloatExecutor.Log(arr.Cache, arr.View));
 		}
 
 		public static FloatArray2D Sqrt(this FloatArray2D arr)
 		{
-			return new FloatArray2D(ProcessingDevice.FloatExecutor.Sqrt(arr.View));
+			return new FloatArray2D(ProcessingDevice.FloatExecutor.Sqrt(arr.Cache, arr.View));
 		}
 
 		public static FloatArray Sqrt(this FloatArray arr)
 		{
-			return new FloatArray(ProcessingDevice.FloatExecutor.Sqrt(arr.View));
+			return new FloatArray(ProcessingDevice.FloatExecutor.Sqrt(arr.Cache, arr.View));
 		}
 
 		public static FloatArray SumLine(this FloatArray2D arr)

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using ILGPU;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace VI.NumSharp.Drivers.Data.CPU
@@ -26,7 +27,7 @@ namespace VI.NumSharp.Drivers.Data.CPU
 			AxesY = Enumerable.Range(0, data.GetLength(1));
 		}
 
-		public object View { get; }
+		public ArrayView2D<float> View { get; }
 
 		public float this[int x, int y]
 		{
