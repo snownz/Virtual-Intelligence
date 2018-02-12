@@ -24,6 +24,9 @@
     <ProjectReference Include="..\VI.Maths\VI.Maths.csproj" />
     <ProjectReference Include="..\VI.NumSharp\VI.NumSharp.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Prototype\" />
+  </ItemGroup>
   <PropertyGroup>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>

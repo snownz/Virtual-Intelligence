@@ -5,8 +5,8 @@ namespace VI.Neural.Layer
 	public class CubicLayer
 	{
 		
-		public FloatArray3D KnowlodgeMatrix { get; set; }
-		public FloatArray3D DerivateMatrix { get; set; }
+		//public FloatArray3D KnowlodgeMatrix { get; set; }
+		//public FloatArray3D DerivateMatrix { get; set; }
 		
 		public FloatArray2D OutputVector { get; set; }
 		public FloatArray2D SumVector { get; set; }
