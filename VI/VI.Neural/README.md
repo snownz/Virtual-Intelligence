@@ -18,9 +18,9 @@ Library for creating and training neural networks in a simple and fast way.
 
 ## News
 #### *Prototype Networks*
-- Recurrent
+- [Recurrent](https://github.com/snownz/Virtual-Intelligence/tree/master/VI/VI.Neural/Prototype/RecurrentNeuralNetwork.cs)
 	```
-	var rnn = new [RecurrentNeuralNetwork](https://github.com/snownz/Virtual-Intelligence/tree/master/VI/VI.Neural/Prototype/RecurrentNeuralNetwork.cs)(input_size, output_size, hidden_size, learning_rate, std);
+	var rnn = new RecurrentNeuralNetwork(input_size, output_size, hidden_size, learning_rate, std);
 	// Forward
 	hprev[-1] = new FloatArray(hidden_size);
 	for (var t = 0; t < inputs.Length; t++)
@@ -30,9 +30,9 @@ Library for creating and training neural networks in a simple and fast way.
 	smooth_loss = rnn.SmoothLoss(loss);
 	rnn.UpdateParams(dWxt, dWtt, dWhy, dbh, dby);
     ```
-- LSTM
+- [LSTM](https://github.com/snownz/Virtual-Intelligence/tree/master/VI/VI.Neural/Prototype/LSTM.cs)
 	```
-	var rnn = new [LSTM](https://github.com/snownz/Virtual-Intelligence/tree/master/VI/VI.Neural/Prototype/LSTM.cs)(input_size, output_size, hidden_size, learning_rate, std);
+	var rnn = new LSTM(input_size, output_size, hidden_size, learning_rate, std);
 	// Forward
 	hprev[-1] = new FloatArray(hidden_size);
 	for (var t = 0; t < inputs.Length; t++)
