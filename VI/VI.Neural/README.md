@@ -16,6 +16,33 @@ Library for creating and training neural networks in a simple and fast way.
   Install-Package ILGPU
  ```
 
+## News
+#### *Prototype Networks*
+- [Recurrent](https://github.com/snownz/Virtual-Intelligence/tree/master/VI/VI.Neural/Prototype/RecurrentNeuralNetwork.cs)
+	```csharp
+	var rnn = new RecurrentNeuralNetwork(input_size, output_size, hidden_size, learning_rate, std);
+	// Forward
+	hprev[-1] = new FloatArray(hidden_size);
+	for (var t = 0; t < inputs.Length; t++)
+		(p[t], hprev[t], _, _ ) = rnn.FeedForward(new FloatArray(inputs[t]), hprev[t - 1]);
+	// Backward
+	(var loss, var dWxt, var dWtt, var dWhy, var dbh, var dby,_ ) = rnn.BPTT(inputs, target, new FloatArray(hidden_size));
+	smooth_loss = rnn.SmoothLoss(loss);
+	rnn.UpdateParams(dWxt, dWtt, dWhy, dbh, dby);
+    ```
+- [LSTM](https://github.com/snownz/Virtual-Intelligence/tree/master/VI/VI.Neural/Prototype/LSTM.cs)
+	```csharp
+	var rnn = new LSTM(input_size, output_size, hidden_size, learning_rate, std);
+	// Forward
+	hprev[-1] = new FloatArray(hidden_size);
+	for (var t = 0; t < inputs.Length; t++)
+		(_, _, _, _, cprev[t], _, hprev[t], _,  p[t]) = rnn.FeedForward(new FloatArray(inputs[t]), hprev[t - 1], cprev[t - 1]);
+	// Backward
+  (var loss, var dWf, var dWi, var dWc, var dWo, var dWv, var dBf, var dBi, var dBc, var dBo, var dBv, var hs, var cs) =
+				rnn.BPTT(inputs, targets, new FloatArray(hidden_size), new FloatArray(hidden_size));
+	smooth_loss = rnn.SmoothLoss(loss);
+	rnn.UpdateParams(dWf, dWi, dWc, dWo, dWv, dBf, dBi, dBc, dBo, dBv);
+    ```
 ----
 
 ## Usage

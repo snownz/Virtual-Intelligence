@@ -112,14 +112,14 @@ namespace VI.NumSharp
 			}
 		}
 
-		public static void Normalize(float p0, float p1, FloatArray2D m)
+		public static void Normalize(float p0, float p1, ref FloatArray2D m)
 		{
 			for (var x = 0; x  < m.W; x++)
 			for (var y = 0; y  < m.H; y++)
 				m[x, y] = m[x, y] < p0 ? p0 : (m[x, y] > p1 ? p1 : m[x, y]);
 		}
 
-		public static void Normalize(float p0, float p1, FloatArray v)
+		public static void Normalize(float p0, float p1, ref FloatArray v)
 		{
 			for (var x = 0; x < v.Length; x++) v[x] = v[x] < p0 ? p0 : (v[x] > p1 ? p1 : v[x]);
 		}
