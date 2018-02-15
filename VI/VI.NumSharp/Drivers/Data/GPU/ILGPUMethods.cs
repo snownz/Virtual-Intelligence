@@ -24,9 +24,9 @@ namespace VI.NumSharp.Drivers.Data.GPU
 			//Console.WriteLine($"\n-----\nAllocation Time: {watch.ElapsedMilliseconds}ms\nSize {size.X}\n-----");
 			return mem;
 		}
-		
-		
-		public static MemoryBuffer<T> Clone<T> (MemoryBuffer<T> data)
+
+
+		public static MemoryBuffer<T> Clone<T>(MemoryBuffer<T> data)
 			where T : struct
 		{
 			//var watch = System.Diagnostics.Stopwatch.StartNew();
@@ -35,7 +35,7 @@ namespace VI.NumSharp.Drivers.Data.GPU
 			//Console.WriteLine($"\n-----\nAllocation Time: {watch.ElapsedMilliseconds}ms\nSize {size.X}\n-----");
 			return mem;
 		}
-		
+
 		public static MemoryBuffer2D<T> Allocate<T>(Index2 size)
 			where T : struct
 		{
@@ -55,9 +55,9 @@ namespace VI.NumSharp.Drivers.Data.GPU
 			//Console.WriteLine($"\n-----\nAllocation Time: {watch.ElapsedMilliseconds}ms\nSize {size.X}\n-----");
 			return mem;
 		}
-		
-		
-		public static MemoryBuffer2D<T> Clone<T> (MemoryBuffer2D<T> data)
+
+
+		public static MemoryBuffer2D<T> Clone<T>(MemoryBuffer2D<T> data)
 			where T : struct
 		{
 			//var watch = System.Diagnostics.Stopwatch.StartNew();

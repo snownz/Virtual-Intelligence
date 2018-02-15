@@ -1,5 +1,4 @@
-﻿using System;
-using VI.Neural.Layer;
+﻿using VI.Neural.Layer;
 using VI.NumSharp;
 using VI.NumSharp.Arrays;
 
@@ -7,8 +6,8 @@ namespace VI.Neural.OptimizerFunction
 {
 	public class AdagradOptimizerFunction : IOptimizerFunction
 	{
-		private FloatArray2D mW;
 		private FloatArray mB;
+		private FloatArray2D mW;
 
 		public void CalculateParams(ILayer target)
 		{

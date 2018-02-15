@@ -14,7 +14,7 @@ namespace VI.NumSharp.Drivers.Executor.CPU
 		{
 			return new CPU_ByteData(data);
 		}
-		
+
 		public IByteData2D New(int w, int h)
 		{
 			return new CPU_ByteData2D(w, h);

@@ -7,7 +7,7 @@ namespace VI.Neural.LossFunction
 	{
 		public float Loss(FloatArray targets, FloatArray prediction)
 		{
-			return (float)Math.Sqrt(1f / targets.Length * (prediction - targets).Pow(2).Sum());
+			return (float) Math.Sqrt(1f / targets.Length * (prediction - targets).Pow(2).Sum());
 		}
 
 		public float Loss(float[] targets, FloatArray prediction)

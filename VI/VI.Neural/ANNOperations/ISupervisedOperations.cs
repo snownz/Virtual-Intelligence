@@ -13,9 +13,9 @@ namespace VI.Neural.ANNOperations
 		void ErrorGradient(FloatArray inputs);
 		void ComputeGradient(FloatArray inputs);
 		void UpdateParams();
-		void SetLayer(ILayer                   layer);
+		void SetLayer(ILayer layer);
 		void SetActivation(IActivationFunction act);
-		void SetError(IErrorFunction           err);
-		void SetOptimizer(IOptimizerFunction   opt);
+		void SetError(IErrorFunction err);
+		void SetOptimizer(IOptimizerFunction opt);
 	}
 }

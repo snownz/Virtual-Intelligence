@@ -9,28 +9,28 @@ namespace VI.NumSharp
 	public static class NumMath
 	{
 		private static readonly ThreadSafeRandom th = new ThreadSafeRandom();
-		private static readonly Random           rd = new Random(DateTime.Now.Millisecond);
+		private static readonly Random rd = new Random(DateTime.Now.Millisecond);
 
 		public static FloatArray Array(int size)
 		{
 			return new FloatArray(size);
 		}
-		
+
 		public static FloatArray Array(float[] data)
 		{
 			return new FloatArray(data);
 		}
-		
+
 		public static FloatArray2D Array(int w, int h)
 		{
 			return new FloatArray2D(w, h);
 		}
-		
+
 		public static FloatArray2D Array(float[,] data)
 		{
 			return new FloatArray2D(data);
 		}
-		
+
 		public static FloatArray2D Random(int w, int h, float factor)
 		{
 			var arr = new FloatArray2D(w, h);
@@ -61,7 +61,7 @@ namespace VI.NumSharp
 
 			return arr;
 		}
-		
+
 		public static ByteArray2D Repeat(int w, int h, byte value)
 		{
 			var arr = new ByteArray2D(w, h);
@@ -81,7 +81,7 @@ namespace VI.NumSharp
 
 			return arr;
 		}
-		
+
 		public static FloatArray Max(FloatArray v, FloatArray v1)
 		{
 			var arr = new FloatArray(v.Length);

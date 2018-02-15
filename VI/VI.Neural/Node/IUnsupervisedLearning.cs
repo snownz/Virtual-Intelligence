@@ -4,7 +4,7 @@ namespace VI.Neural.Node
 {
 	public interface IUnsupervisedLearning
 	{
-		void Learn(float[]      inputs);
+		void Learn(float[] inputs);
 		void Learn(FloatArray inputs);
 	}
 }

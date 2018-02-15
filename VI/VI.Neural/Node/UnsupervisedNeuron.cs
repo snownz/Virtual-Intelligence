@@ -8,10 +8,10 @@ namespace VI.Neural.Node
 		protected readonly IUnsupervisedOperations _operations;
 
 		public UnsupervisedNeuron(int nodeSize,
-			int                          connectionSize,
-			float                        learningRate,
-			float                        momentum,
-			IUnsupervisedOperations      operations) : base(nodeSize, connectionSize, learningRate, momentum)
+			int connectionSize,
+			float learningRate,
+			float momentum,
+			IUnsupervisedOperations operations) : base(nodeSize, connectionSize, learningRate, momentum)
 		{
 			_operations = operations;
 			_operations.SetLayer(_layer);
@@ -33,7 +33,7 @@ namespace VI.Neural.Node
 
 		public void Learn(float[] inputs)
 		{
-			using (var i = new FloatArray (inputs))
+			using (var i = new FloatArray(inputs))
 			{
 				Learn(i);
 			}

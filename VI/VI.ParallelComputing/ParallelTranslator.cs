@@ -10,7 +10,7 @@ namespace VI.ParallelComputing
 {
 	public class ParallelTranslator : IDisposable
 	{
-		private readonly Backend     _backend;
+		private readonly Backend _backend;
 		private readonly CompileUnit _compileUnit;
 
 		public ParallelTranslator(Accelerator device)

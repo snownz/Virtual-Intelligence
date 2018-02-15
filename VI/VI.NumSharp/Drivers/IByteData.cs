@@ -7,8 +7,8 @@ namespace VI.NumSharp.Drivers
 		object View { get; }
 		byte this[int x] { get; set; }
 		IEnumerable<int> AxesX { get; }
-		byte[]          AsArray();
-		int              Length { get; }
-		byte[]          Clone();
+		int Length { get; }
+		byte[] AsArray();
+		byte[] Clone();
 	}
 }

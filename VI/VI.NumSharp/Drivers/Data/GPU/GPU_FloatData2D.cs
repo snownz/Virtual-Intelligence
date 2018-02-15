@@ -8,27 +8,26 @@ namespace VI.NumSharp.Drivers.Data.GPU
 {
 	public class GPU_FloatData2D : IFloatData2D
 	{
-		private MemoryBuffer2D<float> _view;
+		private readonly MemoryBuffer2D<float> _view;
 
 		public GPU_FloatData2D()
 		{
-			
 		}
-		
+
 		public GPU_FloatData2D(int w, int h)
 		{
 			_view = ILGPUMethods.Allocate<float>(new Index2(w, h));
 			AxesX = Enumerable.Range(0, w);
 			AxesY = Enumerable.Range(0, h);
 		}
-		
+
 		public GPU_FloatData2D(float[,] data)
 		{
 			_view = ILGPUMethods.Allocate(data);
 			AxesX = Enumerable.Range(0, data.GetLength(0));
 			AxesY = Enumerable.Range(0, data.GetLength(1));
 		}
-		
+
 		public GPU_FloatData2D(MemoryBuffer2D<float> data)
 		{
 			_view = data;
@@ -49,38 +48,38 @@ namespace VI.NumSharp.Drivers.Data.GPU
 
 		public float[,] AsArray2D()
 		{
-			var arr = new float[W, H];
-			Parallel.ForEach(AxesX, (x) => { Parallel.ForEach(AxesY, (y) => { arr[y, x] = this[x, y]; }); });
+			var arr                                                                 = new float[W, H];
+			Parallel.ForEach(AxesX, x => { Parallel.ForEach(AxesY, y => { arr[y, x] = this[x, y]; }); });
 			return arr;
 		}
 
-        public override string ToString()
-        {
-            var str = "[";
-            for (var j = 0; j < H; j++)
-            {
-                str += "[";
-                for (var i = 0; i < W; i++) str += $"{_view[new Index2(i, j)].ToString().Replace(",", ".")}, ";
-                str = str.Remove(str.Length - 2);
-                str += "],";
-            }
-
-            str = str.Remove(str.Length - 1);
-            str += "]";
-            return str;
-        }
-
-        public float[] AsArray()
+		public float[] AsArray()
 		{
 			return _view.GetAsArray();
 		}
 
 		public int W => _view.Width;
 		public int H => _view.Height;
-		
+
 		public float[,] Clone()
 		{
 			return AsArray2D();
+		}
+
+		public override string ToString()
+		{
+			var str = "[";
+			for (var j = 0; j < H; j++)
+			{
+				str                             += "[";
+				for (var i = 0; i < W; i++) str += $"{_view[new Index2(i, j)].ToString().Replace(",", ".")}, ";
+				str                             =  str.Remove(str.Length - 2);
+				str                             += "],";
+			}
+
+			str =  str.Remove(str.Length - 1);
+			str += "]";
+			return str;
 		}
 	}
 }

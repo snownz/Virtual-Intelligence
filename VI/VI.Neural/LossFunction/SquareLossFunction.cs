@@ -2,11 +2,11 @@
 
 namespace VI.Neural.LossFunction
 {
-    /// <summary>
-    ///     https://www.google.com.br/search?q=squared+error+loss+function&source=lnms&tbm=isch&sa=X&ved
-    ///     =0ahUKEwiS7LncpdrYAhUITJAKHaV4D-YQ_AUICigB&biw=1280&bih=893#imgrc=_3j0NRW4x0TYsM:
-    /// </summary>
-    public class SquareLossFunction : ILossFunction
+	/// <summary>
+	///     https://www.google.com.br/search?q=squared+error+loss+function&source=lnms&tbm=isch&sa=X&ved
+	///     =0ahUKEwiS7LncpdrYAhUITJAKHaV4D-YQ_AUICigB&biw=1280&bih=893#imgrc=_3j0NRW4x0TYsM:
+	/// </summary>
+	public class SquareLossFunction : ILossFunction
 	{
 		public float Loss(FloatArray targets, FloatArray prediction)
 		{

@@ -1,5 +1,4 @@
 ﻿using VI.Neural.ANNOperations;
-using VI.NumSharp;
 using VI.NumSharp.Arrays;
 
 namespace VI.Neural.Node
@@ -9,11 +8,11 @@ namespace VI.Neural.Node
 		protected readonly ISupervisedOperations _operations;
 
 		public SupervisedNeuron(int nodeSize,
-			int                        connectionSize,
-			float                      learningRate,
-			float                      momentum,
-			byte[,] 				   connections,
-			ISupervisedOperations      operations) : base(nodeSize, connectionSize, learningRate, momentum)
+			int connectionSize,
+			float learningRate,
+			float momentum,
+			byte[,] connections,
+			ISupervisedOperations operations) : base(nodeSize, connectionSize, learningRate, momentum)
 		{
 			_operations = operations;
 			_operations.SetLayer(_layer);
@@ -22,15 +21,15 @@ namespace VI.Neural.Node
 		}
 
 		public SupervisedNeuron(int nodeSize,
-			int                        connectionSize,
-			float                      learningRate,
-			float                      momentum,
-			ISupervisedOperations      operations,
-			byte[]                     biasMask,
-			byte[,]                    connections
+			int connectionSize,
+			float learningRate,
+			float momentum,
+			ISupervisedOperations operations,
+			byte[] biasMask,
+			byte[,] connections
 		) : this(nodeSize, connectionSize, learningRate, momentum, connections, operations)
 		{
-			_layer.BiasMask       = new ByteArray(biasMask);
+			_layer.BiasMask = new ByteArray(biasMask);
 		}
 
 		public FloatArray Output(float[] inputs)

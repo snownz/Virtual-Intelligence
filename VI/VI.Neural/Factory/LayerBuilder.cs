@@ -9,16 +9,16 @@ namespace VI.Neural.Factory
 {
 	public class LayerBuilder : LayerCreator
 	{
-		private float[,] Knowlodge;
 		private byte[,] connectionMask;
-		private bool     withOutBias;
+		private float[,] Knowlodge;
+		private bool withOutBias;
 
 		public LayerBuilder(float learningRate, float dropout, float momentum,
-			ISupervisedOperations    supervised,
-			IUnsupervisedOperations  unsupervised, IActivationFunction activation, IOptimizerFunction optimizer,
-			IErrorFunction           error, IList<(int x, int y)>      nodesToSynapsys, float         weight, int size,
-			int                      connections,
-			(int w, int h)           size2D) :
+			ISupervisedOperations supervised,
+			IUnsupervisedOperations unsupervised, IActivationFunction activation, IOptimizerFunction optimizer,
+			IErrorFunction error, IList<(int x, int y)> nodesToSynapsys, float weight, int size,
+			int connections,
+			(int w, int h) size2D) :
 			base(learningRate, dropout, momentum, supervised, unsupervised, activation, optimizer, error,
 				nodesToSynapsys, weight, size, connections, size2D)
 		{
@@ -35,7 +35,7 @@ namespace VI.Neural.Factory
 			withOutBias = true;
 			return this;
 		}
-		
+
 		public LayerBuilder WithConnectionMask(byte[,] mask)
 		{
 			withOutBias = true;
@@ -51,11 +51,12 @@ namespace VI.Neural.Factory
 				_supervised.SetActivation(_activation);
 				_supervised.SetError(_error);
 				_supervised.SetOptimizer(_optimizer);
-				
+
 				if (withOutBias)
 				{
 					var bMask = new byte[_size];
-					neuron    = new SupervisedNeuron(_size, _connections, _learningRate, _momentum, _supervised, bMask, connectionMask);
+					neuron    = new SupervisedNeuron(_size, _connections, _learningRate, _momentum, _supervised, bMask,
+						connectionMask);
 				}
 				else
 				{

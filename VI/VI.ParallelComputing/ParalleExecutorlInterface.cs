@@ -7,7 +7,7 @@ namespace VI.ParallelComputing
 {
 	public class ParalleExecutorlInterface : IDisposable
 	{
-		private readonly Accelerator                _accelerator;
+		private readonly Accelerator _accelerator;
 		private readonly Dictionary<string, Kernel> _kernels;
 
 		public ParalleExecutorlInterface(Accelerator accelerator, Dictionary<string, Kernel> kernels)
@@ -98,12 +98,12 @@ namespace VI.ParallelComputing
 			obj.CopyTo(buffer, 0);
 			return buffer;
 		}
-		
+
 		public MemoryBuffer2D<T> CloneBuffer<T>(MemoryBuffer2D<T> obj)
 			where T : struct
 		{
 			var buffer = _accelerator.Allocate<T>(obj.Width, obj.Height);
-			obj.CopyTo(buffer,new Index2(0,0));
+			obj.CopyTo(buffer, new Index2(0, 0));
 			return buffer;
 		}
 

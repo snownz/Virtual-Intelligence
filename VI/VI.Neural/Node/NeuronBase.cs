@@ -11,9 +11,9 @@ namespace VI.Neural.Node
 		protected readonly ILayer _layer;
 
 		public NeuronBase(int nodeSize,
-			int                  connectionSize,
-			float                learningRate,
-			float                momentum)
+			int connectionSize,
+			float learningRate,
+			float momentum)
 		{
 			_layer = new ActivationLayer(nodeSize, connectionSize)
 			{
@@ -23,7 +23,7 @@ namespace VI.Neural.Node
 			InitializeArrays(nodeSize, connectionSize);
 		}
 
-		public int NodesSize   => _layer.Size;
+		public int NodesSize => _layer.Size;
 		public int Connections => _layer.ConectionsSize;
 
 		public ILayer Nodes => _layer;

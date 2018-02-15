@@ -6,8 +6,8 @@ namespace VI.Neural.OptimizerFunction
 {
 	public class RMSOptimizerFunction : IOptimizerFunction
 	{
-		private FloatArray2D gW;
 		private FloatArray bW;
+		private FloatArray2D gW;
 
 		public void CalculateParams(ILayer target)
 		{
@@ -18,8 +18,9 @@ namespace VI.Neural.OptimizerFunction
 		public void UpdateWeight(ILayer target)
 		{
 			gW =
-				9e-1f                                        * gW  + 1e-1f         * (target.GradientMatrix * target.GradientMatrix);
-			target.KnowlodgeMatrix -= target.LearningRate / (gW + 1e-8f).Sqrt() * target.GradientMatrix;
+				9e-1f                                        * gW +
+				1e-1f                                        * (target.GradientMatrix * target.GradientMatrix);
+			target.KnowlodgeMatrix -= target.LearningRate / (gW + 1e-8f).Sqrt()    * target.GradientMatrix;
 		}
 
 		public void UpdateBias(ILayer target)

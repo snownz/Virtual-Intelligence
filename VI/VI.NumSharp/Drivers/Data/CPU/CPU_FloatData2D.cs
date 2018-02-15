@@ -1,25 +1,25 @@
-﻿using ILGPU;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using ILGPU;
 
 namespace VI.NumSharp.Drivers.Data.CPU
 {
 	public class CPU_FloatData2D : IFloatData2D
 	{
-		private float[,] _view;
+		private readonly float[,] _view;
 
 		public CPU_FloatData2D()
 		{
-			
 		}
-		
+
 		public CPU_FloatData2D(int w, int h)
 		{
 			_view = new float[w, h];
 			AxesX = Enumerable.Range(0, w);
 			AxesY = Enumerable.Range(0, h);
 		}
-		
+
 		public CPU_FloatData2D(float[,] data)
 		{
 			_view = data;
@@ -45,12 +45,12 @@ namespace VI.NumSharp.Drivers.Data.CPU
 
 		public float[] AsArray()
 		{
-			throw new System.NotImplementedException();
+			throw new NotImplementedException();
 		}
 
 		public int W => _view.GetLength(0);
 		public int H => _view.GetLength(1);
-		
+
 		public float[,] Clone()
 		{
 			return _view.Clone() as float[,];
