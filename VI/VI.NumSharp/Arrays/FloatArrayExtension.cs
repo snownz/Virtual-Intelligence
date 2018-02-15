@@ -1,6 +1,6 @@
 ﻿namespace VI.NumSharp.Arrays
 {
-	public static class ArrayExtension
+	public static class FloatArrayExtension
 	{
 		public static FloatArray ApplyMask(this FloatArray arr, ByteArray mask)
 		{
