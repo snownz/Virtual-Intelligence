@@ -2,6 +2,17 @@
 {
 	public static class FloatArrayExtension
 	{
+		public static FloatArray Cleanup(this FloatArray arr)
+		{
+			return arr.Cleanup();
+		}
+		
+		public static FloatArray2D Cleanup(this FloatArray2D arr)
+		{
+			return arr.Cleanup();
+		}
+		
+		
 		public static FloatArray ApplyMask(this FloatArray arr, ByteArray mask)
 		{
 			return new FloatArray(ProcessingDevice.FloatExecutor.ApplyMask(arr.View, mask.View));

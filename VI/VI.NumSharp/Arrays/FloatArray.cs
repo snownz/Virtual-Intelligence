@@ -21,12 +21,18 @@ namespace VI.NumSharp.Arrays
 		public FloatArray(IFloatData data)
 		{
 			View  = data;
+			//Cache = data;
 			Cache = ProcessingDevice.FloatData.New(Length);
 		}
 
-		public IFloatData View { get; }
+		public FloatArray Cleanup()
+		{
+			return new FloatArray(View) {View = this.View, Cache = ProcessingDevice.FloatData.New(Length)};
+		}
 
-		public IFloatData Cache { get; }
+		public IFloatData View { get; private set; }
+
+		public IFloatData Cache { get; private set;  }
 
 		public float this[int x]
 		{
@@ -110,7 +116,7 @@ namespace VI.NumSharp.Arrays
 		{
 			return new FloatArray(ProcessingDevice.FloatExecutor.V_sub_C(v0.Cache, c, v0.View));
 		}
-
+		
 		public static FloatArray operator >=(FloatArray v0, float c)
 		{
 			var output                                    = new float[v0.Length];

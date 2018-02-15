@@ -10,279 +10,217 @@ namespace VI.NumSharp.Drivers.Executor.GPU
 		public IFloatData V_mult_V(IFloatData cache, IFloatData v0, IFloatData v1)
 		{
 			var size = v0.Length;
-			////var output = ILGPUMethods.Allocate<float>(size);
 			ProcessingDevice.FloatArrayDevice.Executor["V_mult_V"].Launch(size, cache.View, v0.View, v1.View);
-			//ProcessingDevice.FloatArrayDevice.Executor.Wait();
 			return cache;
 		}
 
 		public IFloatData V_div_V(IFloatData cache, IFloatData v0, IFloatData v1)
 		{
 			var size = v0.Length;
-			////var output = ILGPUMethods.Allocate<float>(size);
 			ProcessingDevice.FloatArrayDevice.Executor["V_div_V"].Launch(size, cache.View, v0.View, v1.View);
-			//ProcessingDevice.FloatArrayDevice.Executor.Wait();
 			return cache;
 		}
 
 		public IFloatData V_sub_V(IFloatData cache, IFloatData v0, IFloatData v1)
 		{
 			var size = v0.Length;
-			////var output = ILGPUMethods.Allocate<float>(size);
 			ProcessingDevice.FloatArrayDevice.Executor["V_sub_V"].Launch(size, cache.View, v0.View, v1.View);
-			//ProcessingDevice.FloatArrayDevice.Executor.Wait();
 			return cache;
 		}
 
 		public IFloatData V_add_V(IFloatData cache, IFloatData v0, IFloatData v1)
 		{
 			var size = v0.Length;
-			//var output = ILGPUMethods.Allocate<float>(size);
 			ProcessingDevice.FloatArrayDevice.Executor["V_add_V"].Launch(size, cache.View, v0.View, v1.View);
-			//ProcessingDevice.FloatArrayDevice.Executor.Wait();
 			return cache;
 		}
 
 		public IFloatData V_add_C(IFloatData cache, IFloatData v, float c)
 		{
 			var size = v.Length;
-			////var output = ILGPUMethods.Allocate<float>(size);
 			ProcessingDevice.FloatArrayDevice.Executor["V_add_C"].Launch(size, cache.View, v.View, c);
-			//ProcessingDevice.FloatArrayDevice.Executor.Wait();
 			return cache;
 		}
 
 		public IFloatData V_mult_C(IFloatData cache, IFloatData v, float c)
 		{
 			var size = v.Length;
-			////var output = ILGPUMethods.Allocate<float>(size);
 			ProcessingDevice.FloatArrayDevice.Executor["V_mult_C"].Launch(size, cache.View, v.View, c);
-			//ProcessingDevice.FloatArrayDevice.Executor.Wait();
 			return cache;
 		}
 
 		public IFloatData V_sub_C(IFloatData cache, IFloatData v, float c)
 		{
 			var size = v.Length;
-			//var output = ILGPUMethods.Allocate<float>(size);
 			ProcessingDevice.FloatArrayDevice.Executor["V_sub_C"].Launch(size, cache.View, v.View, c);
-			//ProcessingDevice.FloatArrayDevice.Executor.Wait();
 			return cache;
 		}
 
 		public IFloatData V_sub_C(IFloatData cache, float c, IFloatData v)
 		{
 			var size = v.Length;
-			//var output = ILGPUMethods.Allocate<float>(size);
 			ProcessingDevice.FloatArrayDevice.Executor["V_sub_C"].Launch(size, cache.View, v.View, c);
-			//ProcessingDevice.FloatArrayDevice.Executor.Wait();
 			return cache;
 		}
 
 		public IFloatData V_div_C(IFloatData cache, IFloatData v, float c)
 		{
 			var size = v.Length;
-			//var output = ILGPUMethods.Allocate<float>(size);
 			ProcessingDevice.FloatArrayDevice.Executor["V_div_C"].Launch(size, cache.View, v.View, c);
-			//ProcessingDevice.FloatArrayDevice.Executor.Wait();
 			return cache;
 		}
 
 		public IFloatData V_div_C(IFloatData cache, float c, IFloatData v)
 		{
 			var size = v.Length;
-			////var output = ILGPUMethods.Allocate<float>(size);
 			ProcessingDevice.FloatArrayDevice.Executor["V_div_C"].Launch(size, cache.View, v.View, c);
-			//ProcessingDevice.FloatArrayDevice.Executor.Wait();
 			return cache;
 		}
 
 		public IFloatData Tanh(IFloatData cache, IFloatData arr)
 		{
 			var size = arr.Length;
-			////var output = ILGPUMethods.Allocate<float>(size);
 			ProcessingDevice.FloatArrayDevice.Executor["V_Tanh"].Launch(size, cache.View, arr.View);
-			//ProcessingDevice.FloatArrayDevice.Executor.Wait();
 			return cache;
 		}
 
 		public IFloatData Sin(IFloatData cache, IFloatData arr)
 		{
 			var size = arr.Length;
-			//var output = ILGPUMethods.Allocate<float>(size);
 			ProcessingDevice.FloatArrayDevice.Executor["V_Sin"].Launch(size, cache.View, arr.View);
-			//ProcessingDevice.FloatArrayDevice.Executor.Wait();
 			return cache;
 		}
 
 		public IFloatData Cos(IFloatData cache, IFloatData arr)
 		{
 			var size = arr.Length;
-			//var output = ILGPUMethods.Allocate<float>(size);
 			ProcessingDevice.FloatArrayDevice.Executor["V_Cos"].Launch(size, cache.View, arr.View);
-			//ProcessingDevice.FloatArrayDevice.Executor.Wait();
 			return cache;
 		}
 
 		public IFloatData Pow(IFloatData cache, IFloatData arr, float exp)
 		{
 			var size = arr.Length;
-			//var output = ILGPUMethods.Allocate<float>(size);
 			ProcessingDevice.FloatArrayDevice.Executor["V_Pow"].Launch(size, cache.View, arr.View);
-			//ProcessingDevice.FloatArrayDevice.Executor.Wait();
 			return cache;
 		}
 
 		public IFloatData Exp(IFloatData cache, IFloatData arr)
 		{
 			var size = arr.Length;
-			//var output = ILGPUMethods.Allocate<float>(size);
 			ProcessingDevice.FloatArrayDevice.Executor["V_Exp"].Launch(size, cache.View, arr.View);
-			//ProcessingDevice.FloatArrayDevice.Executor.Wait();
 			return cache;
 		}
 
 		public IFloatData Log(IFloatData cache, IFloatData arr)
 		{
 			var size = arr.Length;
-			//var output = ILGPUMethods.Allocate<float>(size);
 			ProcessingDevice.FloatArrayDevice.Executor["V_Log"].Launch(size, cache.View, arr.View);
-			//ProcessingDevice.FloatArrayDevice.Executor.Wait();
 			return cache;
 		}
 
 		public IFloatData Sqrt(IFloatData cache, IFloatData arr)
 		{
 			var size = arr.Length;
-			//var output = ILGPUMethods.Allocate<float>(size);
 			ProcessingDevice.FloatArrayDevice.Executor["V_Sqrt"].Launch(size, cache.View, arr.View);
-			//ProcessingDevice.FloatArrayDevice.Executor.Wait();
 			return cache;
 		}
 
 		public IFloatData2D VT_mult_M(IFloatData2D cache, IFloatData vt, IFloatData2D m)
 		{
 			var size = new Index2(m.W, m.H);
-			//var output = ILGPUMethods.Allocate<float>(size);
 			ProcessingDevice.FloatArrayDevice.Executor["VT_mult_M"].Launch(size, cache.View, vt.View, m.View);
-			//ProcessingDevice.FloatArrayDevice.Executor.Wait();
 			return cache;
 		}
 
 		public IFloatData2D M_mult_M(IFloatData2D cache, IFloatData2D m0, IFloatData2D m1)
 		{
 			var size = new Index2(m0.W, m0.H);
-			//var output = ILGPUMethods.Allocate<float>(size);
 			ProcessingDevice.FloatArrayDevice.Executor["M_mult_M"].Launch(size, cache.View, m0.View, m1.View);
-			//ProcessingDevice.FloatArrayDevice.Executor.Wait();
 			return cache;
 		}
 
 		public IFloatData2D M_div_M(IFloatData2D cache, IFloatData2D m0, IFloatData2D m1)
 		{
 			var size = new Index2(m0.W, m0.H);
-			//var output = ILGPUMethods.Allocate<float>(size);
 			ProcessingDevice.FloatArrayDevice.Executor["M_div_M"].Launch(size, cache.View, m0.View, m1.View);
-			//ProcessingDevice.FloatArrayDevice.Executor.Wait();
 			return cache;
 		}
 
 		public IFloatData2D M_sub_M(IFloatData2D cache, IFloatData2D m0, IFloatData2D m1)
 		{
 			var size = new Index2(m0.W, m0.H);
-			//var output = ILGPUMethods.Allocate<float>(size);
 			ProcessingDevice.FloatArrayDevice.Executor["M_sub_M"].Launch(size, cache.View, m0.View, m1.View);
-			//ProcessingDevice.FloatArrayDevice.Executor.Wait();
 			return cache;
 		}
 
 		public IFloatData2D M_add_M(IFloatData2D cache, IFloatData2D m0, IFloatData2D m1)
 		{
 			var size = new Index2(m0.W, m0.H);
-			//var output = ILGPUMethods.Allocate<float>(size);
 			ProcessingDevice.FloatArrayDevice.Executor["M_add_M"].Launch(size, cache.View, m0.View, m1.View);
-			//ProcessingDevice.FloatArrayDevice.Executor.Wait();
 			return cache;
 		}
 
 		public IFloatData2D M_mult_VT(IFloatData2D cache, IFloatData2D m, IFloatData v)
 		{
 			var size = new Index2(m.W, m.H);
-			//var output = ILGPUMethods.Allocate<float>(size);
 			ProcessingDevice.FloatArrayDevice.Executor["M_mult_VT"].Launch(size, cache.View, m.View, v.View);
-			//ProcessingDevice.FloatArrayDevice.Executor.Wait();
 			return cache;
 		}
 
 		public IFloatData2D M_mult_V(IFloatData2D cache, IFloatData2D m, IFloatData v)
 		{
 			var size = new Index2(m.W, m.H);
-			//var output = ILGPUMethods.Allocate<float>(size);
 			ProcessingDevice.FloatArrayDevice.Executor["M_mult_V"].Launch(size, cache.View, m.View, v.View);
-			//ProcessingDevice.FloatArrayDevice.Executor.Wait();
 			return cache;
 		}
 
 		public IFloatData2D V_mult_M(IFloatData2D cache, IFloatData v, IFloatData2D m)
 		{
 			var size = new Index2(m.W, m.H);
-			//var output = ILGPUMethods.Allocate<float>(size);
 			ProcessingDevice.FloatArrayDevice.Executor["V_mult_M"].Launch(size, cache.View, v.View, m.View);
-			//ProcessingDevice.FloatArrayDevice.Executor.Wait();
 			return cache;
 		}
 
 		public IFloatData2D M_mult_C(IFloatData2D cache, IFloatData2D m, float c)
 		{
 			var size = new Index2(m.W, m.H);
-			//var output = ILGPUMethods.Allocate<float>(size);
 			ProcessingDevice.FloatArrayDevice.Executor["M_mult_C"].Launch(size, cache.View, m.View, c);
-			//ProcessingDevice.FloatArrayDevice.Executor.Wait();
 			return cache;
 		}
 
 		public IFloatData2D M_add_C(IFloatData2D cache, IFloatData2D m, float c)
 		{
 			var size = new Index2(m.W, m.H);
-			//var output = ILGPUMethods.Allocate<float>(size);
 			ProcessingDevice.FloatArrayDevice.Executor["M_add_C"].Launch(size, cache.View, m.View, c);
-			//ProcessingDevice.FloatArrayDevice.Executor.Wait();
 			return cache;
 		}
 
 		public IFloatData2D M_div_C(IFloatData2D cache, IFloatData2D m, float c)
 		{
 			var size = new Index2(m.W, m.H);
-			//var output = ILGPUMethods.Allocate<float>(size);
 			ProcessingDevice.FloatArrayDevice.Executor["M_div_C"].Launch(size, cache.View, m.View, c);
-			//ProcessingDevice.FloatArrayDevice.Executor.Wait();
 			return cache;
 		}
 
 		public IFloatData2D C_div_M(IFloatData2D cache, IFloatData2D m, float c)
 		{
 			var size = new Index2(m.W, m.H);
-			//var output = ILGPUMethods.Allocate<float>(size);
 			ProcessingDevice.FloatArrayDevice.Executor["C_div_M"].Launch(size, cache.View, m.View, c);
-			//ProcessingDevice.FloatArrayDevice.Executor.Wait();
 			return cache;
 		}
 
 		public IFloatData2D C_div_M(IFloatData2D cache, IFloatData2D m, int c)
 		{
 			var size = new Index2(m.W, m.H);
-			//var output = ILGPUMethods.Allocate<float>(size);
 			ProcessingDevice.FloatArrayDevice.Executor["IC_div_M"].Launch(size, cache.View, m.View, c);
-			//ProcessingDevice.FloatArrayDevice.Executor.Wait();
 			return cache;
 		}
 
 		public IFloatData2D Sqrt(IFloatData2D cache, IFloatData2D arr)
 		{
 			var size = new Index2(arr.W, arr.H);
-			//var output = ILGPUMethods.Allocate<float>(size);
 			ProcessingDevice.FloatArrayDevice.Executor["m_Sqrt"].Launch(size, cache.View, arr.View);
-			//ProcessingDevice.FloatArrayDevice.Executor.Wait();
 			return cache;
 		}
 
@@ -291,7 +229,6 @@ namespace VI.NumSharp.Drivers.Executor.GPU
 			var size   = new Index2(v.Length, vt.Length);
 			var output = ILGPUMethods.Allocate<float>(size);
 			ProcessingDevice.FloatArrayDevice.Executor["VT_mult_V"].Launch(size, output.View, vt.View, v.View);
-			//ProcessingDevice.FloatArrayDevice.Executor.Wait();
 			return new GPU_FloatData2D(output);
 		}
 
@@ -300,7 +237,6 @@ namespace VI.NumSharp.Drivers.Executor.GPU
 			var size   = new Index2(v.Length, vt.Length);
 			var output = ILGPUMethods.Allocate<float>(size);
 			ProcessingDevice.FloatArrayDevice.Executor["V_mult_VT"].Launch(size, output.View, v.View, vt.View);
-			//ProcessingDevice.FloatArrayDevice.Executor.Wait();
 			return new GPU_FloatData2D(output);
 		}
 
@@ -309,7 +245,6 @@ namespace VI.NumSharp.Drivers.Executor.GPU
 			var size   = new Index2(m.W, m.H);
 			var output = ILGPUMethods.Allocate<float>(size);
 			ProcessingDevice.FloatArrayDevice.Executor["M_mult_MT"].Launch(size, output.View, m.View, mt.View);
-			//ProcessingDevice.FloatArrayDevice.Executor.Wait();
 			return new GPU_FloatData2D(output);
 		}
 
@@ -318,7 +253,6 @@ namespace VI.NumSharp.Drivers.Executor.GPU
 			var size   = new Index2(mt.H, mt.W);
 			var output = ILGPUMethods.Allocate<float>(size);
 			ProcessingDevice.FloatArrayDevice.Executor["MT_mult_M"].Launch(size, output.View, mt.View, m.View);
-			//ProcessingDevice.FloatArrayDevice.Executor.Wait();
 			return new GPU_FloatData2D(output);
 		}
 
@@ -326,7 +260,6 @@ namespace VI.NumSharp.Drivers.Executor.GPU
 		{
 			var size = arr.Length;
 			ProcessingDevice.FloatArrayDevice.Executor["V_ApplyMask"].Launch(size, arr.View, arr.View, mask.View);
-			//ProcessingDevice.FloatArrayDevice.Executor.Wait();
 			return arr;
 		}
 
@@ -334,7 +267,6 @@ namespace VI.NumSharp.Drivers.Executor.GPU
 		{
 			var size = new Index2(arr.W, arr.H);
 			ProcessingDevice.FloatArrayDevice.Executor["M_ApplyMask"].Launch(size, arr.View, arr.View, mask.View);
-			//ProcessingDevice.FloatArrayDevice.Executor.Wait();
 			return arr;
 		}
 
@@ -379,20 +311,17 @@ namespace VI.NumSharp.Drivers.Executor.GPU
 		private void _sumLines(Index2 size, int r, ArrayView2D<float> m)
 		{
 			ProcessingDevice.FloatArrayDevice.Executor["M_SumLine"].Launch(size, m, r, size.Y);
-			//ProcessingDevice.FloatArrayDevice.Executor.Wait();
 		}
 
 		private void _sumColumns(Index2 size, int r, ArrayView2D<float> m)
 		{
 			ProcessingDevice.FloatArrayDevice.Executor["M_SumColumn"].Launch(size, m, r, size.X);
-			//ProcessingDevice.FloatArrayDevice.Executor.Wait();
 		}
 
 		private MemoryBuffer<float> _joinLines(Index size, ArrayView2D<float> m)
 		{
 			var output = ILGPUMethods.Allocate<float>(size);
 			ProcessingDevice.FloatArrayDevice.Executor["M_2_lines_V"].Launch(size, output.View, m);
-			//ProcessingDevice.FloatArrayDevice.Executor.Wait();
 			return output;
 		}
 
@@ -400,7 +329,6 @@ namespace VI.NumSharp.Drivers.Executor.GPU
 		{
 			var output = ILGPUMethods.Allocate<float>(size);
 			ProcessingDevice.FloatArrayDevice.Executor["M_2_columns_V"].Launch(size, output.View, m);
-			//ProcessingDevice.FloatArrayDevice.Executor.Wait();
 			return output;
 		}
 	}

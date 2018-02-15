@@ -7,6 +7,7 @@ namespace VI.NumSharp.Arrays
 		public FloatArray2D(IFloatData2D data)
 		{
 			View  = data;
+			//Cache = data;
 			Cache = ProcessingDevice.FloatData.New(W, H);
 		}
 
@@ -21,10 +22,15 @@ namespace VI.NumSharp.Arrays
 			View  = ProcessingDevice.FloatData.New(data);
 			Cache = ProcessingDevice.FloatData.New(W, H);
 		}
+		
+		public FloatArray2D Cleanup()
+		{
+			return new FloatArray2D(View) {View = this.View, Cache = ProcessingDevice.FloatData.New(W, H)};
+		}
 
-		public IFloatData2D View { get; }
+		public IFloatData2D View { get; private set; }
 
-		public IFloatData2D Cache { get; }
+		public IFloatData2D Cache { get; private set;}
 
 		public float this[int x, int y]
 		{
