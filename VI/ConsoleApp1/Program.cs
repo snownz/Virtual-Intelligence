@@ -103,7 +103,7 @@ namespace ConsoleApp1
 		private static void OpenText()
 		{
 			txt = new StreamReader(
-				@"..\..\..\kafka.txt",
+				@"ConsoleApp1/kafka.txt",
 				Encoding.UTF7).ReadToEnd();
 			var chars = txt.ToArray().Distinct().OrderBy(x => x).ToArray();
 
