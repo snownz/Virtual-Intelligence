@@ -30,7 +30,7 @@ namespace ConsoleApp1
 
 		private static void ExecuteRecurrent()
 		{
-			ProcessingDevice.Device = DeviceType.CPU;
+			ProcessingDevice.Device = DeviceType.CUDA;
 
 			OpenText();
 
