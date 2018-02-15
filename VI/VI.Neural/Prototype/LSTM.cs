@@ -90,19 +90,19 @@ namespace VI.Neural.Prototype
 
 		public void ResetAdagradParams()
 		{
-			mWf = NumMath.Array(hidden_size, input_size + hidden_size);
-			mWi = NumMath.Array(hidden_size, input_size + hidden_size);
-			mWc = NumMath.Array(hidden_size, input_size + hidden_size);
-			mWo = NumMath.Array(hidden_size, input_size + hidden_size);
+			mWf = NumMath.Array(hidden_size, input_size + hidden_size, 0f);
+			mWi = NumMath.Array(hidden_size, input_size + hidden_size, 0f);
+			mWc = NumMath.Array(hidden_size, input_size + hidden_size, 0f);
+			mWo = NumMath.Array(hidden_size, input_size + hidden_size, 0f);
 
-			mBf = NumMath.Array(hidden_size);
-			mBi = NumMath.Array(hidden_size);
-			mBc = NumMath.Array(hidden_size);
-			mBo = NumMath.Array(hidden_size);
+			mBf = NumMath.Array(hidden_size, 0f);
+			mBi = NumMath.Array(hidden_size, 0f);
+			mBc = NumMath.Array(hidden_size, 0f);
+			mBo = NumMath.Array(hidden_size, 0f);
 
-			mWv = NumMath.Array(output_size, hidden_size);
+			mWv = NumMath.Array(output_size, hidden_size, 0f);
 
-			mBv = NumMath.Array(output_size);
+			mBv = NumMath.Array(output_size, 0f);
 		}
 
 		public (FloatArray z, FloatArray f, FloatArray i, FloatArray c_bar, FloatArray c, FloatArray o,
@@ -202,19 +202,19 @@ namespace VI.Neural.Prototype
 			}
 
 			// gradients
-			var dWf = NumMath.Array(Wf.W, Wf.H);
-			var dWi = NumMath.Array(Wi.W, Wi.H);
-			var dWc = NumMath.Array(Wc.W, Wc.H);
-			var dWo = NumMath.Array(Wo.W, Wo.H);
-			var dWv = NumMath.Array(Wv.W, Wv.H);
-			var dBf = NumMath.Array(Bf.Length);
-			var dBi = NumMath.Array(Bi.Length);
-			var dBc = NumMath.Array(Bc.Length);
-			var dBo = NumMath.Array(Bo.Length);
-			var dBv = NumMath.Array(Bv.Length);
+			var dWf = NumMath.Array(Wf.W, Wf.H, 0f);
+			var dWi = NumMath.Array(Wi.W, Wi.H, 0f);
+			var dWc = NumMath.Array(Wc.W, Wc.H, 0f);
+			var dWo = NumMath.Array(Wo.W, Wo.H, 0f);
+			var dWv = NumMath.Array(Wv.W, Wv.H, 0f);
+			var dBf = NumMath.Array(Bf.Length, 0f);
+			var dBi = NumMath.Array(Bi.Length, 0f);
+			var dBc = NumMath.Array(Bc.Length, 0f);
+			var dBo = NumMath.Array(Bo.Length, 0f);
+			var dBv = NumMath.Array(Bv.Length, 0f);
 
-			var dhnext = NumMath.Array(hidden_size);
-			var dcnext = NumMath.Array(hidden_size);
+			var dhnext = NumMath.Array(hidden_size, 0f);
+			var dcnext = NumMath.Array(hidden_size, 0f);
 
 			// backward
 			for (var t = inputs.Length                                     - 1; t >= 0; t--)
@@ -275,19 +275,19 @@ namespace VI.Neural.Prototype
 			}
 
 			// gradients
-			var dWf = NumMath.Array(Wf.W, Wf.H);
-			var dWi = NumMath.Array(Wi.W, Wi.H);
-			var dWc = NumMath.Array(Wc.W, Wc.H);
-			var dWo = NumMath.Array(Wo.W, Wo.H);
-			var dWv = NumMath.Array(Wv.W, Wv.H);
-			var dBf = NumMath.Array(Bf.Length);
-			var dBi = NumMath.Array(Bi.Length);
-			var dBc = NumMath.Array(Bc.Length);
-			var dBo = NumMath.Array(Bo.Length);
-			var dBv = NumMath.Array(Bv.Length);
+			var dWf = NumMath.Array(Wf.W, Wf.H, 0f);
+			var dWi = NumMath.Array(Wi.W, Wi.H, 0f);
+			var dWc = NumMath.Array(Wc.W, Wc.H, 0f);
+			var dWo = NumMath.Array(Wo.W, Wo.H, 0f);
+			var dWv = NumMath.Array(Wv.W, Wv.H, 0f);
+			var dBf = NumMath.Array(Bf.Length, 0f);
+			var dBi = NumMath.Array(Bi.Length, 0f);
+			var dBc = NumMath.Array(Bc.Length, 0f);
+			var dBo = NumMath.Array(Bo.Length, 0f);
+			var dBv = NumMath.Array(Bv.Length, 0f);
 
-			var dhnext = NumMath.Array(hidden_size);
-			var dcnext = NumMath.Array(hidden_size);
+			var dhnext = NumMath.Array(hidden_size, 0f);
+			var dcnext = NumMath.Array(hidden_size, 0f);
 
 			// backward
 			for (var t = inputs.Length                                     - 1; t >= 0; t--)

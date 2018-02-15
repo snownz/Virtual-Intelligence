@@ -11,8 +11,8 @@ namespace VI.Neural.OptimizerFunction
 
 		public void CalculateParams(ILayer target)
 		{
-			gW = NumMath.Array(target.Size, target.ConectionsSize);
-			bW = NumMath.Array(target.Size);
+			gW = NumMath.Array(target.Size, target.ConectionsSize, 0f);
+			bW = NumMath.Array(target.Size, 0f);
 		}
 
 		public void UpdateWeight(ILayer target)

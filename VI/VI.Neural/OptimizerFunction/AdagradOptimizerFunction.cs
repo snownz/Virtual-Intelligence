@@ -11,8 +11,8 @@ namespace VI.Neural.OptimizerFunction
 
 		public void CalculateParams(ILayer target)
 		{
-			mW = NumMath.Array(target.Size, target.ConectionsSize);
-			mB = NumMath.Array(target.Size);
+			mW = NumMath.Array(target.Size, target.ConectionsSize, 0f);
+			mB = NumMath.Array(target.Size, 0f);
 		}
 
 		public void UpdateBias(ILayer target)
