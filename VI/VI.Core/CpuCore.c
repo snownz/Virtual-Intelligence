@@ -1,11 +1,13 @@
 #include <stdio.h>
+#include <math.h>
 
-void print(const char *message)
+void C_V_mult_C(float* cache, float* v, float c)
 {
-	printf("%s\\n", message);
-}
+	int i = 0;
+	int len = sizeof(cache) / sizeof(float);
 
-int next(int n)
-{
-	return n + 1;
+	for (i = 0; i < len; i++)
+	{
+		cache[i] = v[i] * c;
+	}
 }

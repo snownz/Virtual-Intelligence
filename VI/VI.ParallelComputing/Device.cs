@@ -7,8 +7,9 @@ namespace VI.ParallelComputing
 {
 	public enum DeviceType
 	{
-		CPU  = 0,
-		CUDA = 1
+		CSharp_CPU  = 0,
+        C_CPU = 1,
+		CUDA = 2
 	}
 
 	public static class Device

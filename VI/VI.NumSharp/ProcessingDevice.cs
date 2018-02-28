@@ -28,8 +28,13 @@ namespace VI.NumSharp
                         FloatData = new FloatDataGPU();
                         ByteData = new ByteDataGPU();
                         break;
-                    case DeviceType.CPU:
+                    case DeviceType.CSharp_CPU:
                         FloatExecutor = new ParallelFloatExecutorCPU();
+                        FloatData = new FloatDataCPU();
+                        ByteData = new ByteDataCPU();
+                        break;
+                    case DeviceType.C_CPU:
+                        FloatExecutor = new ParallelCFloatExecutorCPU();
                         FloatData = new FloatDataCPU();
                         ByteData = new ByteDataCPU();
                         break;
