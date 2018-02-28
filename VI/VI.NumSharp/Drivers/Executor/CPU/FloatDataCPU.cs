@@ -10,7 +10,7 @@ namespace VI.NumSharp.Drivers.Executor.CPU
 			return new CPU_FloatData(size);
 		}
 
-		public IFloatData New(float[] data)
+        public IFloatData New(float[] data)
 		{
 			return new CPU_FloatData(data);
 		}

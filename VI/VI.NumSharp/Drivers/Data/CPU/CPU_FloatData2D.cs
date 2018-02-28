@@ -27,7 +27,7 @@ namespace VI.NumSharp.Drivers.Data.CPU
 			AxesY = Enumerable.Range(0, data.GetLength(1));
 		}
 
-		public ArrayView2D<float> View { get; }
+		public ArrayView2D<float> MemoryView { get; }
 
 		public float this[int x, int y]
 		{
@@ -50,8 +50,10 @@ namespace VI.NumSharp.Drivers.Data.CPU
 
 		public int W => _view.GetLength(0);
 		public int H => _view.GetLength(1);
-		
-		public float[,] Clone()
+
+        public float[,] View { get => _view; set => _view = value; }
+
+        public float[,] Clone()
 		{
 			return _view.Clone() as float[,];
 		}

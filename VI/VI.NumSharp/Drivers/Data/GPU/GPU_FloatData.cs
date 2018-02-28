@@ -17,22 +17,22 @@ namespace VI.NumSharp.Drivers.Data.GPU
 		public GPU_FloatData(int size)
 		{
 			_view = ILGPUMethods.Allocate<float>(size);
-			AxesX = Enumerable.Range(0, size);
+			AxesX = Enumerable.Range(0, size).ToArray();
 		}
 		
 		public GPU_FloatData(MemoryBuffer<float> data)
 		{
 			_view = data;
-			AxesX = Enumerable.Range(0, data.Length);
+			AxesX = Enumerable.Range(0, data.Length).ToArray();
 		}
 		
 		public GPU_FloatData(float[] data)
 		{
 			_view = ILGPUMethods.Allocate(data);
-			AxesX = Enumerable.Range(0, data.Length);
+			AxesX = Enumerable.Range(0, data.Length).ToArray();
 		}
 
-		public ArrayView<float> View => _view.View;
+		public ArrayView<float> MemoryView => _view.View;
 
 		public float this[int x]
 		{
@@ -40,7 +40,7 @@ namespace VI.NumSharp.Drivers.Data.GPU
 			set => _view[x] = value;
 		}
 
-		public IEnumerable<int> AxesX { get; }
+		public int[] AxesX { get; }
 
 		public float[] AsArray()
 		{
@@ -48,8 +48,10 @@ namespace VI.NumSharp.Drivers.Data.GPU
 		}
         
         public int Length => _view.Length;
-		
-		public float[] Clone()
+
+        public float[] View { get => AsArray(); set => _view = ILGPUMethods.Allocate<float>(value); }
+
+        public float[] Clone()
 		{
 			return ILGPUMethods.Clone(_view).GetAsArray();
 		}

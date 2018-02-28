@@ -1,16 +1,22 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using VI.NumSharp.Drivers;
+﻿using VI.NumSharp.Drivers;
 
 namespace VI.NumSharp.Arrays
 {
-	public class FloatArray2D : IArray2D
+    public class FloatArray2D : IArray2D
 	{
-		private readonly IFloatData2D _view;
+		private IFloatData2D _view;
 		private readonly IFloatData2D _cache;
 
-        public IFloatData2D View => _view;
+        public IFloatData2D View
+        {
+            get { return _view; }
+            set { _view = value; }
+        }
         public IFloatData2D Cache => _cache;
+
+        public FloatArray2D()
+        {            
+        }
 
         public FloatArray2D(IFloatData2D data)
 		{

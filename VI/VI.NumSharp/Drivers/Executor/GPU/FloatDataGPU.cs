@@ -9,8 +9,8 @@ namespace VI.NumSharp.Drivers.Executor.GPU
 		{
 			return new GPU_FloatData(size);
 		}
-
-		public IFloatData New(float[] data)
+        
+        public IFloatData New(float[] data)
 		{
 			return new GPU_FloatData(data);
 		}

@@ -5,9 +5,10 @@ namespace VI.NumSharp.Drivers
 {
 	public interface IFloatData
 	{
-        ArrayView<float> View { get; }
+        ArrayView<float> MemoryView { get; }
 		float this[int x] { get; set; }
-		IEnumerable<int> AxesX { get; }
+        float[] View { get; set; }
+        int[] AxesX { get; }
 		float[] AsArray();
 		int Length { get; }
 		float[] Clone();

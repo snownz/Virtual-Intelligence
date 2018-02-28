@@ -36,7 +36,7 @@ namespace VI.NumSharp.Drivers.Data.GPU
 			AxesY = Enumerable.Range(0, data.Height);
 		}
 
-		public ArrayView2D<float> View => _view.View;
+		public ArrayView2D<float> MemoryView => _view.View;
 
 		public float this[int x, int y]
 		{
@@ -77,8 +77,10 @@ namespace VI.NumSharp.Drivers.Data.GPU
 
 		public int W => _view.Width;
 		public int H => _view.Height;
-		
-		public float[,] Clone()
+
+        public float[,] View { get => AsArray2D(); set => _view = ILGPUMethods.Allocate<float>(value); }
+
+        public float[,] Clone()
 		{
 			return AsArray2D();
 		}

@@ -8,19 +8,27 @@ namespace VI.NumSharp.Arrays
 {
 	public class FloatArray : IArray, IDisposable
 	{
-		private readonly IFloatData _view;
+		private IFloatData _view;
         private readonly IFloatData _cache;
 
-        public IFloatData View => _view;
+        public IFloatData View
+        {
+            get { return _view; }
+            set { _view = value; }
+        }
         public IFloatData Cache => _cache;
+
+        public FloatArray()
+        {
+        }
 
         public FloatArray(int size)
 		{
 			_view = ProcessingDevice.FloatData.New(size);
             _cache = ProcessingDevice.FloatData.New(size);
         }
-		
-		public FloatArray(float[] data)
+        
+        public FloatArray(float[] data)
 		{
 			_view = ProcessingDevice.FloatData.New(data);
             _cache = ProcessingDevice.FloatData.New(Length);

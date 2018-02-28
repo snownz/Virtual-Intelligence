@@ -15,8 +15,8 @@ namespace VI.NumSharp
 		{
 			return new FloatArray(size);
 		}
-		
-		public static FloatArray Array(float[] data)
+        
+        public static FloatArray Array(float[] data)
 		{
 			return new FloatArray(data);
 		}
@@ -121,7 +121,8 @@ namespace VI.NumSharp
 
 		public static void Normalize(float p0, float p1, ref FloatArray v)
 		{
-			for (var x = 0; x < v.Length; x++) v[x] = v[x] < p0 ? p0 : (v[x] > p1 ? p1 : v[x]);
+			for (var x = 0; x < v.Length; x++)
+                v[x] = v[x] < p0 ? p0 : (v[x] > p1 ? p1 : v[x]);
 		}
 	}
 }

@@ -16,16 +16,16 @@ namespace VI.NumSharp.Drivers.Data.CPU
 		public CPU_FloatData(int size)
 		{
 			_view = new float[size];
-			AxesX = Enumerable.Range(0, size);
+			AxesX = Enumerable.Range(0, size).ToArray();
 		}
 		
 		public CPU_FloatData(float[] data)
 		{
 			_view = data;
-			AxesX = Enumerable.Range(0, data.Length);
+			AxesX = Enumerable.Range(0, data.Length).ToArray();
 		}
 
-		public ArrayView<float> View { get; }
+		public ArrayView<float> MemoryView { get; }
 
 		public float this[int x]
 		{
@@ -33,7 +33,7 @@ namespace VI.NumSharp.Drivers.Data.CPU
 			set => _view[x] = value;
 		}
 
-		public IEnumerable<int> AxesX { get; }
+		public int[] AxesX { get; }
 
 		public float[] AsArray()
 		{
@@ -41,8 +41,10 @@ namespace VI.NumSharp.Drivers.Data.CPU
 		}
 
 		public int Length => _view.Length;
-		
-		public float[] Clone()
+
+        public float[] View { get => _view; set => _view = value; }
+
+        public float[] Clone()
 		{
 			return _view.Clone() as float[];
 		}
