@@ -125,20 +125,10 @@ namespace VI.NumSharp.Drivers.Executor.CPU
         {
             Parallel.ForEach(m0.AxesX, x => { Parallel.ForEach(m0.AxesY, y => { cache[x, y] = m0[x, y] + m1[x, y]; }); });
             return cache;
-        }
-        public IFloatData2D M_mult_VT(IFloatData2D cache, IFloatData2D m, IFloatData vt)
-        {
-            Parallel.ForEach(m.AxesX, x => { Parallel.ForEach(m.AxesY, y => { cache[y, x] = m[x, y] * vt[y]; }); });
-            return cache;
-        }
+        }       
         public IFloatData2D M_mult_V(IFloatData2D cache, IFloatData2D m, IFloatData v)
         {
             Parallel.ForEach(m.AxesX, x => { Parallel.ForEach(m.AxesY, y => { cache[x, y] = m[x, y] * v[x]; }); });
-            return cache;
-        }
-        public IFloatData2D V_mult_M(IFloatData2D cache, IFloatData v, IFloatData2D m)
-        {
-            Parallel.ForEach(m.AxesX, x => { Parallel.ForEach(m.AxesY, y => { cache[x, y] = v[x] * m[x, y]; }); });
             return cache;
         }
         public IFloatData2D M_mult_C(IFloatData2D cache, IFloatData2D m, float c)
@@ -178,22 +168,10 @@ namespace VI.NumSharp.Drivers.Executor.CPU
             Parallel.ForEach(v.AxesX, x => { Parallel.ForEach(vt.AxesX, y => { output[x, y] = vt[y] * v[x]; }); });
             return new CPU_FloatData2D(output);
         }
-        public IFloatData2D V_mult_VT(IFloatData v, IFloatData vt)
-        {
-            var output = new float[v.Length, vt.Length];
-            Parallel.ForEach(v.AxesX, x => { Parallel.ForEach(vt.AxesX, y => { output[x, y] = v[x] * vt[y]; }); });
-            return new CPU_FloatData2D(output);
-        }
         public IFloatData2D M_mult_MT(IFloatData2D mt, IFloatData2D m)
         {
             var output = new float[mt.W, mt.H];
             Parallel.ForEach(mt.AxesX, x => { Parallel.ForEach(mt.AxesY, y => { output[y, x] = m[x, y] * mt[y, x]; }); });
-            return new CPU_FloatData2D(output);
-        }
-        public IFloatData2D MT_mult_M(IFloatData2D m, IFloatData2D mt)
-        {
-            var output = new float[m.H, m.W];
-            Parallel.ForEach(m.AxesX, x => { Parallel.ForEach(m.AxesY, y => { output[y, x] = mt[y, x] * m[x, y]; }); });
             return new CPU_FloatData2D(output);
         }
         public IFloatData SumLine(IFloatData2D arr)

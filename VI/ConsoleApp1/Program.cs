@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 using VI.NumSharp;
-using VI.NumSharp.Arrays;
 using VI.ParallelComputing;
 
 namespace ConsoleApp1

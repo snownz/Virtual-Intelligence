@@ -190,7 +190,7 @@ namespace VI.NumSharp.Arrays
 
 		public static FloatArray2D operator *(FloatArray v, FloatArrayT vt)
 		{
-			return new FloatArray2D(ProcessingDevice.FloatExecutor.V_mult_VT(v.View, vt._view));
+			return new FloatArray2D(ProcessingDevice.FloatExecutor.VT_mult_V(vt.View, v.View));
 		}
 
 		public static FloatArray2D operator *(FloatArrayT vt, FloatArray2D m)

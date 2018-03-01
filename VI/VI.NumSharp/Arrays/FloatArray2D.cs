@@ -66,7 +66,7 @@ namespace VI.NumSharp.Arrays
 
 		public static FloatArray2D operator *(FloatArray2D m, FloatArrayT v)
 		{
-			return new FloatArray2D(ProcessingDevice.FloatExecutor.M_mult_VT(m._cache, m.View, v.View));
+			return new FloatArray2D(ProcessingDevice.FloatExecutor.VT_mult_M(m._cache, v.View, m.View));
 		}
 		public static FloatArray2D operator *(FloatArray2D m, FloatArray v)
 		{
@@ -74,7 +74,7 @@ namespace VI.NumSharp.Arrays
 		}
 		public static FloatArray2D operator *(FloatArray v, FloatArray2D m)
 		{
-			return new FloatArray2D(ProcessingDevice.FloatExecutor.V_mult_M(m._cache, v.View, m.View));
+			return new FloatArray2D(ProcessingDevice.FloatExecutor.M_mult_V(m._cache, m.View, v.View));
 		}
 		
         public static FloatArray2D operator *(FloatArray2D m, float c)
@@ -147,7 +147,7 @@ namespace VI.NumSharp.Arrays
 		}
 		public static FloatArray2D operator *(FloatArray2D m, FloatArray2DT mt)
 		{
-			return new FloatArray2D(ProcessingDevice.FloatExecutor.MT_mult_M(mt.View, m.View));
+            return mt * m;
 		}
 	}
 }
