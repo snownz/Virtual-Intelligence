@@ -8,48 +8,28 @@ namespace ConsoleApp1
 {
     class Program
     {        
-        static void Main(string[] args)
+        static void executeTests(DeviceType d)
         {
+            ProcessingDevice.Device = d;
+
+            int sizeVector = 100000000;
+            int loops = 1;
+            var c = NumMath.Repeat(sizeVector, 4);
+
             var time = Stopwatch.StartNew();
-
-            //ProcessingDevice.Device = DeviceType.CSharp_CPU;
-            ProcessingDevice.Device = DeviceType.C_CPU;
-
-            time.Stop();
-            Console.WriteLine($"Setup Time: {time.ElapsedMilliseconds} ms");
-
-            int sizeVector = 10000;
-
-            time = Stopwatch.StartNew();
-            var a = NumMath.Array(100, 100);
-            var b = NumMath.Array(100, 100);
-            var c = NumMath.Array(sizeVector);
-            time.Stop();
-            Console.WriteLine($"Alocate Time: {time.ElapsedMilliseconds} ms");
-
-            time = Stopwatch.StartNew();
-            for (int i = 0; i < 1000; i++)
+            for (int i = 0; i < loops; i++)
             {
-                var d = c * 20;
+                var hd = c * 20;
             }
             time.Stop();
-            Console.WriteLine($"Execution Array Time: {time.ElapsedMilliseconds} ms");
-            
-            //time = Stopwatch.StartNew();
-            //for (int i = 0; i < 1000; i++)
-            //{
-            //    var d = (a + 10 * b * 18 / 4 + 15);
-            //}
-            //time.Stop();
-            //Console.WriteLine($"Execution Matrix Time: {time.ElapsedMilliseconds} ms");
-            //
-            //time = Stopwatch.StartNew();
-            //for (int i = 0; i < 1000; i++)
-            //{
-            //    var d = (a + 10 * b * 18 / 4 + 15).SumLine() * c * 20;
-            //}
-            //time.Stop();
-            //Console.WriteLine($"Execution Heavy Time: {time.ElapsedMilliseconds} ms");
+            Console.WriteLine($"{Enum.GetName(typeof(DeviceType), d)} - Execution Array Time: {time.ElapsedMilliseconds} ms"); 
+            System.Console.WriteLine("\n------------------------------------------------------------------------\n");
+        }
+        static void Main(string[] args)
+        {
+            System.Console.WriteLine("\n------------------------------------------------------------------------\n");
+            executeTests(DeviceType.CSharp_CPU);
+            executeTests(DeviceType.C_CPU);
         }
     }
 }

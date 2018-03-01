@@ -7,121 +7,121 @@ namespace VI.NumSharp.Drivers.Executor.CPU
 {
     partial class ParallelCFloatExecutorCPU
     {
-        [DllImport("VI.Core.CPU", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("VI.Core.Cpu", CallingConvention = CallingConvention.Cdecl)]
         public static extern void C_V_mult_V(float[] cache, float[] v0, float[] v1);
 
-        [DllImport("VI.Core.CPU", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("VI.Core.Cpu", CallingConvention = CallingConvention.Cdecl)]
         public static extern void C_V_div_V(float[] cache, float[] v0, float[] v1);
 
-        [DllImport("VI.Core.CPU", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("VI.Core.Cpu", CallingConvention = CallingConvention.Cdecl)]
         public static extern void C_V_sub_V(float[] cache, float[] v0, float[] v1);
 
-        [DllImport("VI.Core.CPU", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("VI.Core.Cpu", CallingConvention = CallingConvention.Cdecl)]
         public static extern void C_V_add_V(float[] cache, float[] v0, float[] v1);
 
-        [DllImport("VI.Core.CPU", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("VI.Core.Cpu", CallingConvention = CallingConvention.Cdecl)]
         public static extern void C_V_add_C(float[] cache, float[] v, float c);
 
-        [DllImport("VI.Core.CPU", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void C_V_mult_C(float[] cache, float[] v, float c);
+        [DllImport("VI.Core.Cpu", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void C_V_mult_C(int len,float[] cache, float[] v, float c);
 
-        [DllImport("VI.Core.CPU", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("VI.Core.Cpu", CallingConvention = CallingConvention.Cdecl)]
         public static extern void C_V_sub_C(float[] cache, float[] v, float c);
 
-        [DllImport("VI.Core.CPU", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("VI.Core.Cpu", CallingConvention = CallingConvention.Cdecl)]
         public static extern void C_V_sub_C(float[] cache, float c, float[] v);
 
-        [DllImport("VI.Core.CPU", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("VI.Core.Cpu", CallingConvention = CallingConvention.Cdecl)]
         public static extern void C_V_div_C(float[] cache, float[] v, float c);
 
-        [DllImport("VI.Core.CPU", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("VI.Core.Cpu", CallingConvention = CallingConvention.Cdecl)]
         public static extern void _V_div_C(float[] cache, float c, float[] v);
 
-        [DllImport("VI.Core.CPU", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("VI.Core.Cpu", CallingConvention = CallingConvention.Cdecl)]
         public static extern void C_Tanh(float[] cache, float[] arr);
 
-        [DllImport("VI.Core.CPU", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("VI.Core.Cpu", CallingConvention = CallingConvention.Cdecl)]
         public static extern void  C_Sin(float[] cache, float[] arr);
 
-        [DllImport("VI.Core.CPU", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("VI.Core.Cpu", CallingConvention = CallingConvention.Cdecl)]
         public static extern void C_Cos(float[] cache, float[] arr);
 
-        [DllImport("VI.Core.CPU", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("VI.Core.Cpu", CallingConvention = CallingConvention.Cdecl)]
         public static extern void C_Pow(float[] cache, float[] arr, float exp);
 
-        [DllImport("VI.Core.CPU", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("VI.Core.Cpu", CallingConvention = CallingConvention.Cdecl)]
         public static extern void C_Exp(float[] cache, float[] arr);
 
-        [DllImport("VI.Core.CPU", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("VI.Core.Cpu", CallingConvention = CallingConvention.Cdecl)]
         public static extern void C_Log(float[] cache, float[] arr);
 
-        [DllImport("VI.Core.CPU", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("VI.Core.Cpu", CallingConvention = CallingConvention.Cdecl)]
         public static extern void C_Sqrt(float[] cache, float[] arr);
 
-        [DllImport("VI.Core.CPU", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("VI.Core.Cpu", CallingConvention = CallingConvention.Cdecl)]
         public static extern void C_VT_mult_M(float[,] cache, float[] vt, float[,] m);
 
-        [DllImport("VI.Core.CPU", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("VI.Core.Cpu", CallingConvention = CallingConvention.Cdecl)]
         public static extern void C_M_mult_M(float[,] cache, float[,] m0, float[,] m1);
 
-        [DllImport("VI.Core.CPU", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("VI.Core.Cpu", CallingConvention = CallingConvention.Cdecl)]
         public static extern void C_M_div_M(float[,] cache, float[,] m0, float[,] m1);
 
-        [DllImport("VI.Core.CPU", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("VI.Core.Cpu", CallingConvention = CallingConvention.Cdecl)]
         public static extern void C_M_sub_M(float[,] cache, float[,] m0, float[,] m1);
 
-        [DllImport("VI.Core.CPU", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("VI.Core.Cpu", CallingConvention = CallingConvention.Cdecl)]
         public static extern void C_M_add_M(float[,] cache, float[,] m0, float[,] m1);
 
-        [DllImport("VI.Core.CPU", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("VI.Core.Cpu", CallingConvention = CallingConvention.Cdecl)]
         public static extern void C_M_mult_VT(float[,] cache, float[,] m, float[] vt);
 
-        [DllImport("VI.Core.CPU", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("VI.Core.Cpu", CallingConvention = CallingConvention.Cdecl)]
         public static extern void C_M_mult_V(float[,] cache, float[,] m, float[] v);
 
-        [DllImport("VI.Core.CPU", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("VI.Core.Cpu", CallingConvention = CallingConvention.Cdecl)]
         public static extern void C_V_mult_M(float[,] cache, float[] v, float[,] m);
 
-        [DllImport("VI.Core.CPU", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("VI.Core.Cpu", CallingConvention = CallingConvention.Cdecl)]
         public static extern void C_M_mult_C(float[,] cache, float[,] m, float c);
 
-        [DllImport("VI.Core.CPU", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("VI.Core.Cpu", CallingConvention = CallingConvention.Cdecl)]
         public static extern void C_M_add_C(float[,] cache, float[,] m, float c);
 
-        [DllImport("VI.Core.CPU", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("VI.Core.Cpu", CallingConvention = CallingConvention.Cdecl)]
         public static extern void C_M_div_C(float[,] cache, float[,] m, float c);
 
-        [DllImport("VI.Core.CPU", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("VI.Core.Cpu", CallingConvention = CallingConvention.Cdecl)]
         public static extern void C_C_div_M(float[,] cache, float[,] m, float c);
 
-        [DllImport("VI.Core.CPU", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("VI.Core.Cpu", CallingConvention = CallingConvention.Cdecl)]
         public static extern void C_C_div_M(float[,] cache, float[,] m, int c);
 
-        [DllImport("VI.Core.CPU", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("VI.Core.Cpu", CallingConvention = CallingConvention.Cdecl)]
         public static extern void C_Sqrt(float[,] cache, float[,] arr);
 
-        [DllImport("VI.Core.CPU", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("VI.Core.Cpu", CallingConvention = CallingConvention.Cdecl)]
         public static extern void C_VT_mult_V(float[] vt, float[] v);
 
-        [DllImport("VI.Core.CPU", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("VI.Core.Cpu", CallingConvention = CallingConvention.Cdecl)]
         public static extern void C_V_mult_VT(float[] v, float[] vt);
 
-        [DllImport("VI.Core.CPU", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("VI.Core.Cpu", CallingConvention = CallingConvention.Cdecl)]
         public static extern void C_M_mult_MT(float[,] mt, float[,] m);
 
-        [DllImport("VI.Core.CPU", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("VI.Core.Cpu", CallingConvention = CallingConvention.Cdecl)]
         public static extern void C_MT_mult_M(float[,] m, float[,] mt);
 
-        [DllImport("VI.Core.CPU", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("VI.Core.Cpu", CallingConvention = CallingConvention.Cdecl)]
         public static extern void C_SumLine(float[,] arr);
 
-        [DllImport("VI.Core.CPU", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("VI.Core.Cpu", CallingConvention = CallingConvention.Cdecl)]
         public static extern void C_SumColumn(float[,] arr);
 
-        [DllImport("VI.Core.CPU", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("VI.Core.Cpu", CallingConvention = CallingConvention.Cdecl)]
         public static extern void C_ApplyMask(float[] arr, IByteData mask);
 
-        [DllImport("VI.Core.CPU", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("VI.Core.Cpu", CallingConvention = CallingConvention.Cdecl)]
         public static extern void C_ApplyMask(float[,] arr, IByteData2D mask);
     }
 
@@ -154,7 +154,7 @@ namespace VI.NumSharp.Drivers.Executor.CPU
         }
         public IFloatData V_mult_C(IFloatData cache, IFloatData v, float c)
         {
-            C_V_mult_C(cache.View, v.View, c);
+            C_V_mult_C(cache.Length, cache.View, v.View, c);
             return cache;
         }
         public IFloatData V_sub_C(IFloatData cache, IFloatData v, float c)
