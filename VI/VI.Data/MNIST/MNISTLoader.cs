@@ -14,10 +14,10 @@ namespace VI.Data.MNIST
             {
                 IList<DigitImage> ret = new List<DigitImage>();
                 var ifsLabels =
-                    new FileStream($@"{DataPath}\train-labels.idx1-ubyte",
+                    new FileStream($"{DataPath}/train-labels.idx1-ubyte",
                         FileMode.Open); // test labels
                 var ifsImages =
-                    new FileStream($@"{DataPath}\train-images.idx3-ubyte",
+                    new FileStream($"{DataPath}/train-images.idx3-ubyte",
                         FileMode.Open); // test images
 
                 var brLabels =

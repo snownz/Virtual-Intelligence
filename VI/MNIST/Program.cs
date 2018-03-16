@@ -19,7 +19,7 @@ namespace MNIST
 
             var watch = System.Diagnostics.Stopwatch.StartNew();
 
-            ProcessingDevice.Device = DeviceType.CSharp_CPU;
+            ProcessingDevice.Device = DeviceType.C_CPU;
 
             var loss = new CrossEntropyLossFunction();
 
@@ -59,7 +59,7 @@ namespace MNIST
             watch.Stop();
             Console.WriteLine($"Sinapse Time: {watch.ElapsedMilliseconds}ms");
 
-            MnistLoader.DataPath = @"C:\Projects\GitHub\Virtual-Intelligence.Samples\DataSet\MNIST";
+            MnistLoader.DataPath = "MNIST/Data";
             var trainingValues = MnistLoader.OpenMnist();
 
             int cont = 0;
