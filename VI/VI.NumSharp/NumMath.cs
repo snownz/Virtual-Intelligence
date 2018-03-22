@@ -10,7 +10,7 @@ namespace VI.NumSharp
 	{
 		private static readonly ThreadSafeRandom th = new ThreadSafeRandom();
 		private static readonly Random           rd = new Random(DateTime.Now.Millisecond);
-
+        
 		public static FloatArray Array(int size)
 		{
 			return new FloatArray(size);
@@ -30,8 +30,28 @@ namespace VI.NumSharp
 		{
 			return new FloatArray2D(data);
 		}
-		
-		public static FloatArray2D Random(int w, int h, float factor)
+
+        public static FloatArray2D Random(int w, int h, Func<float> randomFunction)
+        {
+            var arr = new FloatArray2D(w, h);
+
+            for (var x = 0; x < w; x++)
+                for (var y = 0; y < h; y++)
+                    arr[x, y] = randomFunction();
+
+            return arr;
+        }
+
+        public static FloatArray Random(int w, Func<float> randomFunction)
+        {
+            var arr = new FloatArray(w);
+
+            for (var x = 0; x < w; x++) arr[x] = randomFunction();
+
+            return arr;
+        }
+
+        public static FloatArray2D Random(int w, int h, float factor)
 		{
 			var arr = new FloatArray2D(w, h);
 

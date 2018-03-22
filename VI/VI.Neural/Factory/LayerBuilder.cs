@@ -1,105 +1,133 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 using VI.Neural.ActivationFunction;
 using VI.Neural.ANNOperations;
-using VI.Neural.Error;
 using VI.Neural.Node;
 using VI.Neural.OptimizerFunction;
 
 namespace VI.Neural.Factory
 {
-	public class LayerBuilder : LayerCreator
-	{
-		private float[,] Knowlodge;
-		private byte[,] connectionMask;
-		private bool     withOutBias;
+    public class LayerBuilder
+    {
+        private int size, connections;
+        private float lr,  mo, std;
+        private ANNOperationsEnum operation;
+        private ActivationFunctionEnum activation;
+        private OptimizerFunctionEnum optmizator;
+        private NodeEnum nodeType;
 
-		public LayerBuilder(float learningRate, float dropout, float momentum,
-			ISupervisedOperations    supervised,
-			IUnsupervisedOperations  unsupervised, IActivationFunction activation, IOptimizerFunction optimizer,
-			IErrorFunction           error, IList<(int x, int y)>      nodesToSynapsys, float         weight, int size,
-			int                      connections,
-			(int w, int h)           size2D) :
-			base(learningRate, dropout, momentum, supervised, unsupervised, activation, optimizer, error,
-				nodesToSynapsys, weight, size, connections, size2D)
-		{
-		}
+        public LayerBuilder(int size, int connections, float lr, float mo, ANNOperationsEnum operation, ActivationFunctionEnum activation, OptimizerFunctionEnum optmizator)
+        {
+            this.size = size;
+            this.connections = connections;
+            this.lr = lr;
+            this.mo = mo;
+            this.operation = operation;
+            this.activation = activation;
+            this.optmizator = optmizator;
+        }
 
-		public LayerBuilder LoadSynapse(float[,] data)
-		{
-			Knowlodge = data;
-			return this;
-		}
+        public LayerBuilder FullSynapse(float std)
+        {
+            this.std = std;
+            return this;
+        }
 
-		public LayerBuilder WithoutBias()
-		{
-			withOutBias = true;
-			return this;
-		}
-		
-		public LayerBuilder WithConnectionMask(byte[,] mask)
-		{
-			withOutBias = true;
-			return this;
-		}
+        public INeuron Build()
+        {
+            switch (nodeType)
+            {
+                case NodeEnum.Supervised:
+                    return BuildSupervised();
+                case NodeEnum.Unsupervised:
+                    return BuildUnsupervised();
+                default:
+                    throw new InvalidOperationException();
+            }
+        }
 
-		public INeuron Build()
-		{
-			INeuron neuron = null;
+        private INeuron BuildSupervised()
+        {
+            ISupervisedOperations opr = null;
+            IActivationFunction act = null;
+            IOptimizerFunction opt = null;
 
-			if (_supervised != null)
-			{
-				_supervised.SetActivation(_activation);
-				_supervised.SetError(_error);
-				_supervised.SetOptimizer(_optimizer);
-				
-				if (withOutBias)
-				{
-					var bMask = new byte[_size];
-					neuron    = new SupervisedNeuron(_size, _connections, _learningRate, _momentum, _supervised, bMask, connectionMask);
-				}
-				else
-				{
-					neuron = new SupervisedNeuron(_size, _connections, _learningRate, _momentum, connectionMask, _supervised);
-				}
-			}
-			else if (_unsupervised != null)
-			{
-				neuron = new UnsupervisedNeuron(_size, _connections, _learningRate, _momentum, _unsupervised);
-			}
+            switch (activation)
+            {
+                case ActivationFunctionEnum.ArcTANH:
+                    act = new ArcTANHFunction();
+                    break;
+                case ActivationFunctionEnum.TANH:
+                    act = new TANHFunction();
+                    break;
+                case ActivationFunctionEnum.Binary:
+                    act = new BinaryStepFunction();
+                    break;
+                case ActivationFunctionEnum.LeakRelu:
+                    act = new LeakReluFunction();
+                    break;
+                case ActivationFunctionEnum.Relu:
+                    act = new ReluFunction();
+                    break;
+                case ActivationFunctionEnum.Sigmoid:
+                    act = new SigmoidFunction();
+                    break;
+                case ActivationFunctionEnum.Sinusoid:
+                    act = new SinusoidFunction();
+                    break;
+                case ActivationFunctionEnum.Nothing:
+                    act = null;
+                    break;
+                default:
+                    throw new InvalidOperationException();
+            }
 
-			if (Knowlodge == null)
-				if (_weight  > 0)
-					SynapseFull(neuron, _weight);
-				else
-					SynapseFull(neuron);
-			else
-				neuron.LoadSynapse(Knowlodge);
+            switch (optmizator)
+            {
+                case OptimizerFunctionEnum.Adagrad:
+                    opt = new AdagradOptimizerFunction();
+                    break;
+                case OptimizerFunctionEnum.RmsProp:
+                    opt = new RMSOptimizerFunction();
+                    break;
+                case OptimizerFunctionEnum.Simple:
+                    opt = new SimpleOptimizerFunction();
+                    break;
+                case OptimizerFunctionEnum.Momentum:
+                    opt = new OptmizerFunctionMomentum();
+                    break;
+                default:
+                    throw new InvalidOperationException();
+            }
 
-			return neuron;
-		}
+            switch (operation)
+            {
+                case ANNOperationsEnum.Activator:
+                    opr = new ANNActivatorOperations();
+                    break;
+                case ANNOperationsEnum.Recurrent:
+                    opr = new ANNRecurrentOperations();
+                    break;
+                case ANNOperationsEnum.SoftMax:
+                    opr = new ANNSoftmaxOperations();
+                    break;
+                default:
+                    throw new InvalidOperationException();
+            }
 
-		private void SynapseFull(INeuron n)
-		{
-			for (var i = 0; i < n.NodesSize; i++)
-			for (var j = 0; j < n.Connections; j++)
-				Synapse(n, i, j);
-		}
+            opr.SetActivation(act);
+            opr.SetOptimizer(opt);
 
-		private void Synapse(INeuron n, int node, int connection)
-		{
-			n.Synapsis(node, connection);
-		}
+            var neuron = new SupervisedNeuron(size, connections, lr, mo, opr);
+            neuron.FullSynapsis(size, connections, std);
 
-		private void SynapseFull(INeuron n, float w)
-		{
-			for (var i = 0; i < n.NodesSize; i++)
-			for (var j = 0; j < n.Connections; j++)
-				Synapse(n, i, j, w);
-		}
+            return neuron;
+        }
 
-		private void Synapse(INeuron n, int node, int connection, float w)
-		{
-			n.Synapsis(node, connection, w);
-		}
-	}
+        private INeuron BuildUnsupervised()
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

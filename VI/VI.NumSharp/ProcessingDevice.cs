@@ -8,6 +8,7 @@ using VI.ParallelComputing.Drivers;
 
 namespace VI.NumSharp
 {
+
     public class ProcessingDevice
     {
         private static DeviceType _device;
@@ -30,11 +31,6 @@ namespace VI.NumSharp
                         break;
                     case DeviceType.CSharp_CPU:
                         FloatExecutor = new ParallelFloatExecutorCPU();
-                        FloatData = new FloatDataCPU();
-                        ByteData = new ByteDataCPU();
-                        break;
-                    case DeviceType.C_CPU:
-                        FloatExecutor = new ParallelCFloatExecutorCPU();
                         FloatData = new FloatDataCPU();
                         ByteData = new ByteDataCPU();
                         break;

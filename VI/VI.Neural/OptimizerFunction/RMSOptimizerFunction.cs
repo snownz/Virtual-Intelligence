@@ -14,18 +14,22 @@ namespace VI.Neural.OptimizerFunction
 			gW = NumMath.Array(target.Size, target.ConectionsSize);
 			bW = NumMath.Array(target.Size);
 		}
+        
+        public FloatArray Error(FloatArray targetOutputVector, FloatArray values)
+        {
+            return values - targetOutputVector;
+        }
 
-		public void UpdateWeight(ILayer target)
-		{
-			gW =
-				9e-1f                                        * gW  + 1e-1f         * (target.GradientMatrix * target.GradientMatrix);
-			target.KnowlodgeMatrix -= target.LearningRate / (gW + 1e-8f).Sqrt() * target.GradientMatrix;
-		}
+        public void UpdateWeight(ILayer target, FloatArray2D dW)
+        {
+            gW = 9e-1f * gW + 1e-1f * (dW * dW);
+            target.KnowlodgeMatrix -= target.LearningRate / (gW + 1e-8f).Sqrt() * dW;
+        }
 
-		public void UpdateBias(ILayer target)
-		{
-			bW                =  9e-1f               * bW  + 1e-1f         * (target.ErrorVector * target.ErrorVector);
-			target.BiasVector -= target.LearningRate / (bW + 1e-8f).Sqrt() * target.ErrorVector;
-		}
-	}
+        public void UpdateBias(ILayer target, FloatArray dB)
+        {
+            bW = 9e-1f * bW + 1e-1f * (dB * dB);
+            target.BiasVector -= target.LearningRate / (bW + 1e-8f).Sqrt() * dB;
+        }
+    }
 }

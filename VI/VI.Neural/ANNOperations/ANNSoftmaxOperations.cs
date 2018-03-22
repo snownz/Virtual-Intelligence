@@ -1,8 +1,9 @@
-﻿using VI.NumSharp.Arrays;
+﻿using System;
+using VI.NumSharp.Arrays;
 
 namespace VI.Neural.ANNOperations
 {
-    public class ANNSoftmaxOperations : ANNDenseOperations
+    public class ANNSoftmaxOperations : ANNActivatorOperations
     {
         public override void FeedForward(FloatArray feed)
         {
@@ -12,11 +13,19 @@ namespace VI.Neural.ANNOperations
             _target.OutputVector = exp / sum;
         }
 
-        public override void BackWard(FloatArray values)
+        public override FloatArray BackWard(FloatArray values)
         {
-            var DE = _errorFunction.Error(_target.OutputVector, values);
-            _target.ErrorVector = DE;
-            _target.ErrorWeightVector = (_target.ErrorVector * _target.KnowlodgeMatrix).SumColumn();
+            throw new Exception("This layer haven't a support for this feature! Just [ComputeErrorNBackWard]");
+        }
+
+        public override FloatArray ComputeErrorNBackWard(FloatArray values)
+        {
+            var dh = _target.OutputVector.Clone();
+            var pos = values.Pos(1);
+            dh[pos]  = dh[pos] - 1; 
+            //var dh = _optimizerFunction.Error(_target.OutputVector, values);
+            _target.ErrorVector = dh;
+            return (_target.ErrorVector * _target.KnowlodgeMatrix).SumColumn();
         }
     }
 }

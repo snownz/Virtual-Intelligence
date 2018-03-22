@@ -1,4 +1,6 @@
-﻿namespace VI.NumSharp.Arrays
+﻿using System.Threading.Tasks;
+
+namespace VI.NumSharp.Arrays
 {
 	public static class ArrayExtension
 	{
@@ -53,7 +55,21 @@
 			return new FloatArray(ProcessingDevice.FloatExecutor.Sqrt(arr.Cache, arr.View));
 		}
 
-		public static FloatArray SumLine(this FloatArray2D arr)
+        public static int Pos(this FloatArray arr, float v)
+        {
+            int pos = -1;
+            Parallel.For(0, arr.Length, i =>
+            {
+                if (arr[i] == v)
+                {
+                    pos = i;
+                }
+            });
+
+            return pos;
+        }
+
+        public static FloatArray SumLine(this FloatArray2D arr)
 		{
 			return new FloatArray(ProcessingDevice.FloatExecutor.SumLine(arr.View));
 		}
@@ -62,8 +78,36 @@
 		{
 			return new FloatArray(ProcessingDevice.FloatExecutor.SumColumn(arr.View));
 		}
-		
-		public static float Sum(this FloatArray arr)
+
+        public static FloatArray Join(this FloatArray arr0, FloatArray arr1)
+        {
+            var result = new FloatArray(arr0.Length + arr1.Length);
+            var jump = 0;
+            Parallel.For(0, arr0.Length, i => result[i + jump] = arr0[i]);
+            jump += arr0.Length;
+            Parallel.For(0, arr1.Length, i => result[i + jump] = arr1[i]);
+            return result;
+        }
+
+        public static FloatArray Divide(this FloatArray arr)
+        {
+            var result = new FloatArray(arr.Length / 2);
+            Parallel.For(0, arr.Length, i => result[i] = arr[i] + arr[i + result.Length]);
+            return result;
+        }
+
+        public static (FloatArray p0, FloatArray p1) Take(this FloatArray arr, int size)
+        {
+            var p0 = new FloatArray(size);
+            var p1 = new FloatArray(arr.Length - size);
+
+            Parallel.For(0, size, i => p0[i] = arr[i]);
+            Parallel.For(0, arr.Length - size, i => p0[i] = arr[size + i]);
+
+            return (p0, p1);
+        }
+
+        public static float Sum(this FloatArray arr)
 		{
 			var sum                                  = 0f;
 			for (var i = 0; i < arr.Length; i++) sum += arr[i];

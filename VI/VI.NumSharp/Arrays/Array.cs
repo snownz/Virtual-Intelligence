@@ -1,7 +1,7 @@
 ﻿namespace VI.NumSharp.Arrays
 {
 	public class Array<T>
-		where T : class 
+		where T : class
 	{
 		private readonly T[] _view;
 
@@ -34,8 +34,12 @@
 
 		public T[] AsArray => _view;
 		
-		
-		public override string ToString()
+        public Array<T> Clone()
+        {
+            return new Array<T>((T[])_view.Clone());
+        }
+
+        public override string ToString()
 		{
 			var str                                    = "[";
 			for (var i = 0; i < _view.Length; i++) str += $"{_view[i]},\n ";

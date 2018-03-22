@@ -11,13 +11,5 @@ namespace VI.Neural.LossFunction
 		{
 			return -(targets * prediction.Log()).Sum();
 		}
-
-		public float Loss(float[] targets, FloatArray prediction)
-		{
-			using (var t = new FloatArray(targets))
-			{
-				return Loss(t, prediction);
-			}
-		}
 	}
 }

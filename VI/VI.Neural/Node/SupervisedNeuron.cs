@@ -1,109 +1,87 @@
 ﻿using VI.Neural.ANNOperations;
+using VI.Neural.Layer;
 using VI.NumSharp;
 using VI.NumSharp.Arrays;
 
 namespace VI.Neural.Node
 {
-	public class SupervisedNeuron : NeuronBase, INeuron, ISupervisedLearning
+	public class SupervisedNeuron : INeuron
 	{
-		protected readonly ISupervisedOperations _operations;
+		protected readonly ISupervisedOperations _operations;        
+        protected readonly ILayer _layer;
 
-		public SupervisedNeuron(int nodeSize,
-			int                        connectionSize,
-			float                      learningRate,
-			float                      momentum,
-			byte[,] 				   connections,
-			ISupervisedOperations      operations) : base(nodeSize, connectionSize, learningRate, momentum)
-		{
-			_operations = operations;
-			_operations.SetLayer(_layer);
-			SetpArray(nodeSize);
-			_layer.ConnectionMask = new ByteArray2D(connections);
-		}
+        public int NodesSize => _layer.Size;
+        public int Connections => _layer.ConectionsSize;
+        public ILayer Nodes => _layer;
 
-		public SupervisedNeuron(int nodeSize,
-			int                        connectionSize,
-			float                      learningRate,
-			float                      momentum,
-			ISupervisedOperations      operations,
-			byte[]                     biasMask,
-			byte[,]                    connections
-		) : this(nodeSize, connectionSize, learningRate, momentum, connections, operations)
-		{
-			_layer.BiasMask       = new ByteArray(biasMask);
-		}
+        public FloatArray Output => _layer.OutputVector;
+        public FloatArray2D Weights => _layer.KnowlodgeMatrix;
+        public FloatArray2D WGradients => _layer.GradientMatrix;
+        public FloatArray BGradients => _layer.ErrorVector;
 
-		public FloatArray Output(float[] inputs)
-		{
-			using (var i = new FloatArray(inputs))
-			{
-				return Output(i);
-			}
-		}
+        public SupervisedNeuron(
+            int nodeSize,
+            int connectionSize,
+            float learningRate,
+            float momentum,
+           ISupervisedOperations operations)
+        {            
+            _layer = new ActivationLayer(nodeSize, connectionSize)
+            {
+                LearningRate = learningRate,
+                Momentum = momentum
+            };
+            _operations = operations;
+            _operations.SetLayer(_layer);
+            InitializeArrays(nodeSize, connectionSize);
+        }
+        
+        private void InitializeArrays(int nodeSize, int connectionSize)
+        {
+            _layer.GradientMatrix = new FloatArray2D(nodeSize, connectionSize);
+            _layer.OutputVector = new FloatArray(nodeSize);
+            _layer.BiasVector = new FloatArray(nodeSize);
+        }
 
-		public FloatArray Output(FloatArray inputs)
-		{
-			_operations.FeedForward(inputs);
-			return _layer.OutputVector;
-		}
+        public FloatArray FeedForward(FloatArray x)
+        {
+            _operations.FeedForward(x);
+            return Output;
+        }
 
-		public FloatArray ComputeGradient(float[] inputs, FloatArray error)
-		{
-			using (var i = new FloatArray(inputs))
-			{
-				return ComputeGradient(i, error);
-			}
-		}
+        public FloatArray ComputeErrorNBackWard(FloatArray target)
+        {
+            return _operations.ComputeErrorNBackWard(target);
+        }
 
-		public FloatArray ComputeGradient(FloatArray inputs, float[] error)
-		{
-			using (var e = new FloatArray(error))
-			{
-				return ComputeGradient(inputs, e);
-			}
-		}
+        public FloatArray BackWard(FloatArray dw)
+        {
+            return _operations.BackWard(dw);
+        }
 
-		public FloatArray ComputeGradient(FloatArray inputs, FloatArray error)
-		{
-			_operations.BackWard(error);
-			_operations.ComputeGradient(inputs);
-			return _layer.ErrorWeightVector;
-		}
+        public void ComputeGradient(FloatArray input)
+        {
+            _operations.ComputeGradient(input);
+        }
 
-		public void UpdateParams()
-		{
-			_operations.UpdateParams();
-			_layer.GradientMatrix = new FloatArray2D(NodesSize, Connections);
-		}
+        public void UpdateParams(FloatArray2D dw, FloatArray db)
+        {
+            _operations.UpdateParams(dw, db);
+        }
 
-		public FloatArray Learn(float[] inputs, FloatArray error)
-		{
-			using (var i = new FloatArray(inputs))
-			{
-				return Learn(i, error);
-			}
-		}
+        public void FullSynapsis(int node, int connection, float std)
+        {
+            _layer.KnowlodgeMatrix = NumMath.Random(node, connection, std);
+        }
 
-		public FloatArray Learn(FloatArray inputs, float[] error)
-		{
-			using (var e = new FloatArray(error))
-			{
-				return Learn(inputs, e);
-			}
-		}
+        public void LoadSynapse(float[,] data)
+        {
+            _layer.KnowlodgeMatrix = new FloatArray2D(data);
+        }
 
-		public FloatArray Learn(FloatArray inputs, FloatArray error)
-		{
-			_operations.BackWard(error);
-			_operations.ErrorGradient(inputs);
-			_operations.UpdateParams();
-			return _layer.ErrorWeightVector;
-		}
-
-		private void SetpArray(int nodeSize)
-		{
-			_layer.BiasVector                                       = new FloatArray(nodeSize);
-			for (var i = 0; i < nodeSize; i++) _layer.BiasVector[i] = 1;
-		}
-	}
+        public override string ToString()
+        {
+            return _layer.KnowlodgeMatrix.ToString();
+        }       
+    }
 }

@@ -5,13 +5,20 @@ namespace VI.Neural.Node
 {
 	public interface INeuron
 	{
-		int NodesSize { get; }
+        FloatArray Output { get; }
+        FloatArray2D Weights { get; }
+        FloatArray2D WGradients { get; }
+        FloatArray BGradients { get; }
+
+        int NodesSize { get; }
 		ILayer Nodes { get; }
 		int Connections { get; }
-		FloatArray Output(FloatArray inputs);
-		FloatArray Output(float[] inputs);
-		void Synapsis(int node, int connection);
-		void Synapsis(int node, int connection, float w);
-		void LoadSynapse(float[,] data);
-	}
+        void FullSynapsis(int node, int connection, float std);
+        void LoadSynapse(float[,] data);
+        FloatArray FeedForward(FloatArray x);
+        FloatArray ComputeErrorNBackWard(FloatArray target);
+        FloatArray BackWard(FloatArray dw);
+        void ComputeGradient(FloatArray outputVector);
+        void UpdateParams(FloatArray2D dw, FloatArray db);
+    }
 }
