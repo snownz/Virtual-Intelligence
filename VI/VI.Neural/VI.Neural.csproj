@@ -14,4 +14,9 @@
     <ProjectReference Include="..\VI.ParallelComputing\VI.ParallelComputing.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\ModelTranfer\" />
+    <Folder Include="Prototype\" />
+  </ItemGroup>
+
 </Project>

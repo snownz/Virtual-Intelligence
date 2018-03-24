@@ -13,29 +13,28 @@ namespace MNIST
 {
     class Program
     {
-
-        private static Random rd = new Random();
+#if DEBUG
+        private static string path = "../VI.Test.MNIST/Data";
+#else
+        private static string path = "VI.Test.MNIST/Data";
+#endif
         static void Main(string[] args)
         {
-#if DEBUG
-            MnistLoader.DataPath = "../VI.Test.MNIST/Data";
-#else
-            MnistLoader.DataPath = "VI.Test.MNIST/Data";
-#endif
+
             Console.Clear();
 
             var watch = System.Diagnostics.Stopwatch.StartNew();
 
-            ProcessingDevice.Device = DeviceType.CSharp_CPU;
+            ProcessingDevice.Device = DeviceType.CPU;
 
             var loss = new CrossEntropyLossFunction();
 
             watch.Stop();
             Console.WriteLine($"Device Time: {watch.ElapsedMilliseconds}ms");
 
-            var hiddens = BuildedModels.DenseLeakRelu(784, 100, 1e-3f, 1e-1f, OptimizerFunctionEnum.Adagrad);
-            var hiddens2 = BuildedModels.DenseLeakRelu(100, 30, 1e-3f, 1e-1f, OptimizerFunctionEnum.Adagrad); 
-            var outputs = BuildedModels.DenseSoftMax(30, 10, 1e-3f, 1e-1f, OptimizerFunctionEnum.Adagrad); 
+            var hiddens = BuildedModels.DenseLeakRelu(784, 256, 1e-3f, 1e-1f, OptimizerFunctionEnum.Adagrad);
+            var hiddens2 = BuildedModels.DenseLeakRelu(128, 256, 1e-3f, 1e-1f, OptimizerFunctionEnum.Adagrad); 
+            var outputs = BuildedModels.DenseSoftMax(10, 128, 1e-3f, 1e-1f, OptimizerFunctionEnum.Adagrad); 
 
             var model = new DenseModel();
             model.AddLayer(hiddens);
@@ -46,6 +45,7 @@ namespace MNIST
             watch.Stop();
             Console.WriteLine($"Sinapse Time: {watch.ElapsedMilliseconds}ms");
 
+            MnistLoader.DataPath = path;
             var trainingValues = MnistLoader.OpenMnist();
 
             int cont = 0;
@@ -66,7 +66,7 @@ namespace MNIST
                     var desireds = new FloatArray(ArrayMethods.ByteToArray(trainingValues[index].label, 10));
 
                     // Feed Forward
-                    var _out = model.FeedForward(inputs);
+                    var _out = model.Output(inputs);
 
                     // Backward
                     model.ComputeErrorNBackward(desireds);

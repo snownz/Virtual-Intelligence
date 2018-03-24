@@ -4,7 +4,7 @@ using VI.NumSharp.Arrays;
 namespace VI.Neural.OptimizerFunction
 {
 	public class OptmizerFunctionMomentum : IOptimizerFunction
-	{
+    {
 		public void CalculateParams(ILayer target)
 		{
 			target.CachedMomentum     = target.LearningRate * target.Momentum;

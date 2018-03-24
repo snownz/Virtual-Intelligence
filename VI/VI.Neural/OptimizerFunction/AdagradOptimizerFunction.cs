@@ -6,7 +6,7 @@ using VI.NumSharp.Arrays;
 namespace VI.Neural.OptimizerFunction
 {
 	public class AdagradOptimizerFunction : IOptimizerFunction
-	{
+    {
 		private FloatArray2D mW;
 		private FloatArray mB;
 
@@ -24,13 +24,13 @@ namespace VI.Neural.OptimizerFunction
         public void UpdateBias(ILayer target, FloatArray dB)
         {
             mB += dB * dB;
-            target.BiasVector += -target.LearningRate * dB / (mB + 1e-8f).Sqrt();
+            target.BiasVector -= ((target.LearningRate / (mB + 1e-8f).Sqrt()) * dB);
         }
         
         public void UpdateWeight(ILayer target, FloatArray2D dW)
         {
             mW += dW * dW;
-            target.KnowlodgeMatrix += -target.LearningRate * dW / (mW + 1e-8f).Sqrt();
+            target.KnowlodgeMatrix -= ((target.LearningRate / (mW + 1e-8f).Sqrt()) * dW);
         }
     }
 }

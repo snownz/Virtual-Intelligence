@@ -106,9 +106,6 @@ namespace VI.Neural.Factory
                 case ANNOperationsEnum.Activator:
                     opr = new ANNActivatorOperations();
                     break;
-                case ANNOperationsEnum.Recurrent:
-                    opr = new ANNRecurrentOperations();
-                    break;
                 case ANNOperationsEnum.SoftMax:
                     opr = new ANNSoftmaxOperations();
                     break;

@@ -5,10 +5,11 @@ namespace VI.Neural.Node
 {
 	public interface INeuron
 	{
-        FloatArray Output { get; }
-        FloatArray2D Weights { get; }
+        FloatArray Output { get; set; }
+        FloatArray2D Weights { get; set; }
         FloatArray2D WGradients { get; }
         FloatArray BGradients { get; }
+        FloatArray Bias { get; set; }
 
         int NodesSize { get; }
 		ILayer Nodes { get; }

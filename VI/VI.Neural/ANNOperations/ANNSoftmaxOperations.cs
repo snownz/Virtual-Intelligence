@@ -5,9 +5,8 @@ namespace VI.Neural.ANNOperations
 {
     public class ANNSoftmaxOperations : ANNActivatorOperations
     {
-        public override void FeedForward(FloatArray feed)
+        public override void Activate()
         {
-            _target.SumVector = (feed.T * _target.KnowlodgeMatrix).SumLine() + _target.BiasVector;
             var exp = _target.SumVector.Exp();
             var sum = exp.Sum();
             _target.OutputVector = exp / sum;
@@ -22,8 +21,7 @@ namespace VI.Neural.ANNOperations
         {
             var dh = _target.OutputVector.Clone();
             var pos = values.Pos(1);
-            dh[pos]  = dh[pos] - 1; 
-            //var dh = _optimizerFunction.Error(_target.OutputVector, values);
+            dh[pos] -= 1; 
             _target.ErrorVector = dh;
             return (_target.ErrorVector * _target.KnowlodgeMatrix).SumColumn();
         }

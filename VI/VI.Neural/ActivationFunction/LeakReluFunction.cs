@@ -5,14 +5,14 @@ namespace VI.Neural.ActivationFunction
 {
 	public class LeakReluFunction : IActivationFunction
 	{
-		public FloatArray Activate(FloatArray v)
+		public FloatArray Activate(FloatArray sum)
 		{
-			return NumMath.Max(.001f * v, v);
+			return NumMath.Max(.001f * sum, sum);
 		}
 
-		public FloatArray Derivate(FloatArray v)
+		public FloatArray Derivate(FloatArray sum, FloatArray act)
 		{
-			return (v >= 0) + .001f;
+			return (sum >= .001f) + .001f;
 		}
 	}
 }

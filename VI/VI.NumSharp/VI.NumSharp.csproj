@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="ILGPU" Version="0.2.1" />
+    <PackageReference Include="ILGPU.Lightning" Version="0.2.0" />
   </ItemGroup>
 
   <ItemGroup>

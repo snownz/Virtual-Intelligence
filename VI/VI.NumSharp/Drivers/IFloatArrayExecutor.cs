@@ -36,8 +36,6 @@
         
         IFloatData2D M_mult_MT(IFloatData2D m0, IFloatData2D m1);
         IFloatData2D VT_mult_V(IFloatData vt, IFloatData v);
-        IFloatData ApplyMask(IFloatData arr, IByteData mask);
-        IFloatData2D ApplyMask(IFloatData2D arr, IByteData2D mask);
         IFloatData SumLine(IFloatData2D arr);
 		IFloatData SumColumn(IFloatData2D arr);
 	}

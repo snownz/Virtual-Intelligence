@@ -6,15 +6,14 @@ namespace VI.Neural.ActivationFunction
 	{
 		private const float Alpha = 2f;
 
-		public FloatArray Activate(FloatArray v)
+		public FloatArray Activate(FloatArray sum)
 		{
-			return 1f / (1 + (-Alpha * v).Exp());
+			return 1f / (1 + (-Alpha * sum).Exp());
 		}
 
-		public FloatArray Derivate(FloatArray v)
+		public FloatArray Derivate(FloatArray sum, FloatArray act)
 		{
-			var y = Activate(v);
-			return Alpha * y * (1 - y);
+			return Alpha * act * (1 - act);
 		}
 	}
 }

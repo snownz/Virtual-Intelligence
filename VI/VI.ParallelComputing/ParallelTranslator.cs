@@ -36,9 +36,7 @@ namespace VI.ParallelComputing
 		{
 			foreach (var methodname in methodsname)
 			{
-				// Info: use compiledKernel.GetBuffer() to retrieve the compiled kernel program data
-				var method = source.GetMethod(methodname, BindingFlags.Public | BindingFlags.Static);
-				yield return _backend.Compile(_compileUnit, method);
+				yield return TranslateMethod(source, methodname);
 			}
 		}
 	}

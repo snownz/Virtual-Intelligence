@@ -7,7 +7,8 @@ namespace VI.Neural.ANNOperations
 {
     public interface ISupervisedOperations
     {
-        void FeedForward(FloatArray feed);
+        void Summarization(FloatArray feed);
+        void Activate();
         FloatArray BackWard(FloatArray backprop);
         FloatArray ComputeErrorNBackWard(FloatArray values);
         void ComputeGradient(FloatArray inputs);

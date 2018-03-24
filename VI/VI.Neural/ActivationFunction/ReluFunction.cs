@@ -5,14 +5,14 @@ namespace VI.Neural.ActivationFunction
 {
 	public class ReluFunction : IActivationFunction
 	{
-		public FloatArray Activate(FloatArray v)
+		public FloatArray Activate(FloatArray sum)
 		{
-			return NumMath.Max(.0f * v, v);
+			return NumMath.Max(.0f * sum, sum);
 		}
 
-		public FloatArray Derivate(FloatArray v)
+		public FloatArray Derivate(FloatArray sum, FloatArray act)
 		{
-			return v >= 0;
+			return sum >= 0;
 		}
 	}
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using VI.Maths.Random;
 using VI.NumSharp.Arrays;
 
@@ -11,7 +12,21 @@ namespace VI.NumSharp
 		private static readonly ThreadSafeRandom th = new ThreadSafeRandom();
 		private static readonly Random           rd = new Random(DateTime.Now.Millisecond);
         
-		public static FloatArray Array(int size)
+        public static Array<FloatArray2D> Array(int w, int[] h)
+        {
+            var a = new Array<FloatArray2D>(h.Length);
+            Parallel.For(0, h.Length, i => a[i] = Array(w, h[i]));
+            return a;
+        }
+
+        public static Array<FloatArray2D> Random(int w, int[] h, float factor)
+        {
+            var a = new Array<FloatArray2D>(h.Length);
+            Parallel.For(0, h.Length, i => a[i] = Random(w, h[i], factor));
+            return a;
+        }
+
+        public static FloatArray Array(int size)
 		{
 			return new FloatArray(size);
 		}
@@ -132,17 +147,31 @@ namespace VI.NumSharp
 			}
 		}
 
-		public static void Normalize(float p0, float p1, ref FloatArray2D m)
+        public static Array<FloatArray2D> Normalize(float p0, float p1, Array<FloatArray2D> m)
+        {
+            Parallel.For(0, m.Length, i => { Normalize(p0, p1, m[i]); });
+            return m;
+        }
+
+        public static Array<FloatArray> Normalize(float p0, float p1, Array<FloatArray> m)
+        {
+            Parallel.For(0, m.Length, i => { Normalize(p0, p1, m[i]); });
+            return m;
+        }
+
+        public static FloatArray2D Normalize(float p0, float p1, FloatArray2D m)
 		{
 			for (var x = 0; x  < m.W; x++)
 			for (var y = 0; y  < m.H; y++)
 				m[x, y] = m[x, y] < p0 ? p0 : (m[x, y] > p1 ? p1 : m[x, y]);
+            return m;
 		}
 
-		public static void Normalize(float p0, float p1, ref FloatArray v)
+		public static FloatArray Normalize(float p0, float p1, FloatArray v)
 		{
 			for (var x = 0; x < v.Length; x++)
                 v[x] = v[x] < p0 ? p0 : (v[x] > p1 ? p1 : v[x]);
+            return v;
 		}
 	}
 }

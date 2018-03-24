@@ -4,15 +4,14 @@ namespace VI.Neural.ActivationFunction
 {
 	public class TANHFunction : IActivationFunction
 	{
-		public FloatArray Activate(FloatArray v)
+		public FloatArray Activate(FloatArray sum)
 		{
-			return v.Tanh();
+			return sum.Tanh();
 		}
 
-		public FloatArray Derivate(FloatArray v)
+		public FloatArray Derivate(FloatArray sum, FloatArray act)
 		{
-			var y = Activate(v);
-			return (1 - y * y);
+			return (1 - act * act);
 		}
 	}
 }

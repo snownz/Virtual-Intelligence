@@ -6,7 +6,7 @@ using ILGPU.Runtime;
 
 namespace VI.ParallelComputing.Drivers
 {
-	public class CudaAnnInterface<T> : IAnnParallelInterface
+	public class CudaAnnInterface<T> : IGpuInterface
 	{
 		private readonly Accelerator _accelerator;
 

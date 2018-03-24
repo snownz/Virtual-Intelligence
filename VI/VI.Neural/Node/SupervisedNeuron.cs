@@ -14,10 +14,12 @@ namespace VI.Neural.Node
         public int Connections => _layer.ConectionsSize;
         public ILayer Nodes => _layer;
 
-        public FloatArray Output => _layer.OutputVector;
-        public FloatArray2D Weights => _layer.KnowlodgeMatrix;
+        public FloatArray Output { get => _layer.OutputVector; set => _layer.OutputVector = value; }
         public FloatArray2D WGradients => _layer.GradientMatrix;
         public FloatArray BGradients => _layer.ErrorVector;
+
+        public FloatArray2D Weights { get => _layer.KnowlodgeMatrix; set => _layer.KnowlodgeMatrix = value; }
+        public FloatArray Bias { get => _layer.BiasVector; set => _layer.BiasVector = value; }
 
         public SupervisedNeuron(
             int nodeSize,
@@ -45,7 +47,8 @@ namespace VI.Neural.Node
 
         public FloatArray FeedForward(FloatArray x)
         {
-            _operations.FeedForward(x);
+            _operations.Summarization(x);
+            _operations.Activate();
             return Output;
         }
 

@@ -4,7 +4,7 @@ namespace VI.Neural.ActivationFunction
 {
 	public interface IActivationFunction
 	{
-		FloatArray Activate(FloatArray v);
-		FloatArray Derivate(FloatArray v);
+		FloatArray Activate(FloatArray sum);
+		FloatArray Derivate(FloatArray sum, FloatArray act);
 	}
 }

@@ -28,9 +28,9 @@ namespace VI.Neural.Factory
             return new LayerCreatorHiddenActivations(size, connections, lr, mo, ANNOperationsEnum.Activator);
         }
 
-        public LayerCreatorHiddenActivations Recurrent_f()
+        public LayerCreatorHiddenMultipleActivations MultipleActivator_f(int[] con)
         {
-            return new LayerCreatorHiddenActivations(size, connections, lr, mo, ANNOperationsEnum.Recurrent);
+            return new LayerCreatorHiddenMultipleActivations(size, con, lr, mo, ANNOperationsEnum.Activator);
         }
     }
 }

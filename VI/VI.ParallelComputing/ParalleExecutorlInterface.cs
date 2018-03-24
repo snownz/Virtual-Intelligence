@@ -8,7 +8,7 @@ namespace VI.ParallelComputing
 	public class ParalleExecutorlInterface : IDisposable
 	{
 		private readonly Accelerator                _accelerator;
-		private readonly Dictionary<string, Kernel> _kernels;
+		private volatile Dictionary<string, Kernel> _kernels;
 
 		public ParalleExecutorlInterface(Accelerator accelerator, Dictionary<string, Kernel> kernels)
 		{
@@ -31,28 +31,24 @@ namespace VI.ParallelComputing
 			var buffer = _accelerator.Allocate<T>(size);
 			return buffer;
 		}
-
 		public MemoryBuffer2D<T> CreateBuffer<T>(int w, int h)
 			where T : struct
 		{
 			var buffer = _accelerator.Allocate<T>(w, h);
 			return buffer;
 		}
-
 		public MemoryBuffer2D<T> CreateBuffer<T>(Index2 index)
 			where T : struct
 		{
 			var buffer = _accelerator.Allocate<T>(index.X, index.Y);
 			return buffer;
 		}
-
 		public MemoryBuffer3D<T> CreateBuffer<T>(int w, int h, int z)
 			where T : struct
 		{
 			var buffer = _accelerator.Allocate<T>(w, h, z);
 			return buffer;
 		}
-
 		public MemoryBuffer3D<T> CreateBuffer<T>(Index3 index)
 			where T : struct
 		{
@@ -67,7 +63,6 @@ namespace VI.ParallelComputing
 			buffer.CopyFrom(obj, 0, 0, obj.Length);
 			return buffer;
 		}
-
 		public MemoryBuffer2D<T> SetBuffer<T>(T[,] obj)
 			where T : struct
 		{
@@ -78,7 +73,6 @@ namespace VI.ParallelComputing
 			buffer.CopyFrom(obj, new Index2(0, 0), new Index2(0, 0), new Index2(w, h));
 			return buffer;
 		}
-
 		public MemoryBuffer3D<T> SetBuffer<T>(T[,,] obj)
 			where T : struct
 		{
@@ -97,8 +91,7 @@ namespace VI.ParallelComputing
 			var buffer = _accelerator.Allocate<T>(obj.Length);
 			obj.CopyTo(buffer, 0);
 			return buffer;
-		}
-		
+		}		
 		public MemoryBuffer2D<T> CloneBuffer<T>(MemoryBuffer2D<T> obj)
 			where T : struct
 		{

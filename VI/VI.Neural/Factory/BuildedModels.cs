@@ -31,6 +31,19 @@ namespace VI.Neural.Factory
                        .Build();
         }
 
+        public static IMultipleNeuron RecurrentTanh(int connections, int size, float learningRate, float std, OptimizerFunctionEnum opt)
+        {
+            return new LayerCreator(size, 0)
+                       .WithLearningRate(learningRate)
+                       .Supervised_f()
+                       .Hidden_f()
+                       .MultipleActivator_f(new[] { connections , size})
+                       .TANH_f()
+                       .WithOpetimizator_f(opt)
+                       .FullSynapse(std)
+                       .Build();
+        }
+
         public static INeuron DenseLeakRelu(int connections, int size, float learningRate, float std, OptimizerFunctionEnum opt)
         {
             return new LayerCreator(size, connections)

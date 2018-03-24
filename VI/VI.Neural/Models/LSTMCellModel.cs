@@ -4,6 +4,7 @@ using VI.Neural.extension;
 using VI.Neural.Factory;
 using VI.Neural.Node;
 using VI.Neural.OptimizerFunction;
+using VI.NumSharp;
 using VI.NumSharp.Arrays;
 
 namespace VI.Neural.Models
@@ -26,15 +27,12 @@ namespace VI.Neural.Models
            FloatArray hState)
            FeedForward(FloatArray x, FloatArray hiddenState, FloatArray cellState)
         {
-            var z = hiddenState.Join(x);
+            var z = hiddenState.Union(x);
 
-            Parallel.For(0, W.Length, i =>
-            {
-                W[i].FeedForward(z);
-            });
+            Parallel.For(0, W.Length, i => W[i].FeedForward(z));
 
             var c = W[0].Output * cellState + W[1].Output * W[2].Output;
-            var h = W[3].Output * ActivationFunctions.Tanh(c);
+            var h = W[3].Output * c.Tanh();
 
             return (z, W[0].Output, W[1].Output, W[2].Output, c, W[3].Output, h);
         }
@@ -43,16 +41,16 @@ namespace VI.Neural.Models
             Backward(FloatArray dh, FloatArray dcnext, FloatArray cprev,
                 FloatArray fGate, FloatArray iGate, FloatArray cGate, FloatArray cellState, FloatArray oGate)
         {
-            var cellStateAct = ActivationFunctions.Tanh(cellState);
-            var cellStateDer = ActivationFunctions.Dtanh(cellStateAct);
-
-            // output gate gradient
-            var doGate = W[3].BackWard(dh) * cellStateAct;
+            var cellStateAct = cellState.Tanh();
+            var cellStateDer = (1 - cellStateAct * cellStateAct);
 
             // cell state gradient
             var dcellSate = dcnext.Clone();
             dcellSate += dh * oGate * cellStateDer;
 
+            // output gate gradient
+            var doGate = W[3].BackWard(dh) * cellStateAct;
+            
             // cell gate gradient
             var dcGate = W[2].BackWard(dcellSate) * iGate;
 
@@ -71,20 +69,13 @@ namespace VI.Neural.Models
 
         public (Array<FloatArray2D> dw, Array<FloatArray> db) ComputeGradient(FloatArray input)
         {
-            Parallel.For(1, W.Length, i =>
-            {
-                W[i].ComputeGradient(input);
-            });
-
+            Parallel.For(1, W.Length, i => W[i].ComputeGradient(input));
             return (W.GetWeightsGradient(), W.GetBiasGradient());
         }
 
         public void UpdateParams(Array<FloatArray2D> dw, Array<FloatArray> db)
         {
-            Parallel.For(0, W.Length, i =>
-            {
-                W[i].UpdateParams(dw[i], db[i]);
-            });
+            Parallel.For(0, W.Length, i => W[i].UpdateParams(dw[i], db[i]));
         }
     }
 }

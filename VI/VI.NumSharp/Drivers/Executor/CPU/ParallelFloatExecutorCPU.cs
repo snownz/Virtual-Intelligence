@@ -173,13 +173,13 @@ namespace VI.NumSharp.Drivers.Executor.CPU
             Parallel.For(0, mt.W, x => { Parallel.For(0, mt.H, y => { output[y, x] = m[x, y] * mt[y, x]; }); });
             return new CPU_FloatData2D(output);
         }
+
         public IFloatData SumLine(IFloatData2D arr)
         {
             var output = new float[arr.W];
             Parallel.For(0, arr.W, x =>
             {
                 var sum = 0f;
-                //(from x in arr.View.AsParallel() select x).Aggregate(1.0d, (y1, y2) => y1 * y2);
                 for (var y = 0; y < arr.H; y++) sum += arr[x, y];
 
                 output[x] = sum;
@@ -198,6 +198,7 @@ namespace VI.NumSharp.Drivers.Executor.CPU
             });
             return new CPU_FloatData(output);
         }
+
         public IFloatData ApplyMask(IFloatData arr, IByteData mask)
         {
             var output = new float[arr.Length];

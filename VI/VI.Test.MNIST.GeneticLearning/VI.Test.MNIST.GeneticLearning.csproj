@@ -5,4 +5,8 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="ILGPU" Version="0.2.1" />
+  </ItemGroup>
+
 </Project>

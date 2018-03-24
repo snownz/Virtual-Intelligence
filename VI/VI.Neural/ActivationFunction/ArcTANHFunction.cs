@@ -4,14 +4,14 @@ namespace VI.Neural.ActivationFunction
 {
 	public class ArcTANHFunction : IActivationFunction
 	{
-		public FloatArray Activate(FloatArray v)
+		public FloatArray Activate(FloatArray sum)
 		{
-			return v.Tanh().Pow(-1);
+			return sum.Tanh().Pow(-1);
 		}
 
-		public FloatArray Derivate(FloatArray v)
+		public FloatArray Derivate(FloatArray sum, FloatArray act)
 		{
-			return 1 / (v * v + 1);
+			return 1 / (sum * sum + 1);
 		}
 	}
 }

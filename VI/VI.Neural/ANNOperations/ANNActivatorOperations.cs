@@ -1,4 +1,5 @@
-﻿using VI.Neural.ActivationFunction;
+﻿using System.Threading.Tasks;
+using VI.Neural.ActivationFunction;
 using VI.Neural.Layer;
 using VI.Neural.OptimizerFunction;
 using VI.NumSharp.Arrays;
@@ -8,18 +9,22 @@ namespace VI.Neural.ANNOperations
 	public class ANNActivatorOperations : ISupervisedOperations
 	{
         protected IActivationFunction _activationFunction;
-        protected IOptimizerFunction  _optimizerFunction;
+        protected IOptimizerFunction _optimizerFunction;
 		protected ILayer              _target;
 
-		public virtual void FeedForward(FloatArray feed)
-		{
-			_target.SumVector    = (feed.T * _target.KnowlodgeMatrix).SumLine() + _target.BiasVector;
-			_target.OutputVector = _activationFunction.Activate(_target.SumVector);
-		}
+        public void Summarization(FloatArray feed)
+        {
+            _target.SumVector = (feed.T * _target.KnowlodgeMatrix).SumLine() + _target.BiasVector;
+        }
 
+        public virtual void Activate()
+        {
+            _target.OutputVector = _activationFunction.Activate(_target.SumVector);
+        }
+        
         public virtual FloatArray BackWard(FloatArray backprop)
         {
-            var DO = _activationFunction.Derivate(_target.SumVector);
+            var DO = _activationFunction.Derivate(_target.SumVector, _target.OutputVector);
             _target.ErrorVector =  DO * backprop;
             return (_target.ErrorVector * _target.KnowlodgeMatrix).SumColumn();
         }
@@ -27,23 +32,23 @@ namespace VI.Neural.ANNOperations
         public virtual FloatArray ComputeErrorNBackWard(FloatArray values)
         {
             var DE = _optimizerFunction.Error(_target.OutputVector, values);
-            var DO = _activationFunction.Derivate(_target.SumVector);
+            var DO = _activationFunction.Derivate(_target.SumVector, _target.OutputVector);
             _target.ErrorVector = DO * DE ;
             return (_target.ErrorVector * _target.KnowlodgeMatrix).SumColumn();
         }
 
-        public void ComputeGradient(FloatArray inputs)
+        public virtual void ComputeGradient(FloatArray inputs)
 		{
 			_target.GradientMatrix = inputs.T * _target.ErrorVector;
         }
 
-		public void UpdateParams(FloatArray2D dW, FloatArray dB)
+		public virtual void UpdateParams(FloatArray2D dW, FloatArray dB)
 		{
 			_optimizerFunction.UpdateWeight(_target, dW);
 			_optimizerFunction.UpdateBias(_target, dB);
 		}
 
-		public void SetLayer(ILayer layer)
+		public virtual void SetLayer(ILayer layer)
 		{
 			_target = layer;
 			_optimizerFunction.CalculateParams(_target);
@@ -54,9 +59,9 @@ namespace VI.Neural.ANNOperations
 			_activationFunction = act;
 		}        
 
-		public void SetOptimizer(IOptimizerFunction opt)
+		public virtual void SetOptimizer(IOptimizerFunction opt)
 		{
 			_optimizerFunction = opt;
-		}
+		}       
     }
 }
