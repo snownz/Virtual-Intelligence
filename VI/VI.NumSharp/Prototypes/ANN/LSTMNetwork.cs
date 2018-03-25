@@ -1,4 +1,7 @@
-﻿using VI.NumSharp;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using VI.NumSharp;
 using VI.NumSharp.Arrays;
 
 namespace VI.NumSharp.Prototypes.ANN
@@ -32,6 +35,37 @@ namespace VI.NumSharp.Prototypes.ANN
         private FloatArray mBo;
         private FloatArray mBv;
         
+        private FloatArray Sigmoid(FloatArray x)
+        {
+            return 1 / (1 + (-1 * x).Exp());
+        }
+
+        private FloatArray Dsigmoid(FloatArray y)
+        {
+            return y * (1 - y);
+        }
+
+        private FloatArray Tanh(FloatArray x)
+        {
+            return x.Tanh();
+        }
+
+        private FloatArray Dtanh(FloatArray y)
+        {
+            return 1 - y * y;
+        }
+
+        private float[] JoinArray(float[] arr0, float[] arr1)
+        {
+            var result = new float[arr0.Length + arr1.Length];
+            var jump = 0;
+            for (int i = 0; i < arr0.Length; i++) result[i + jump] = arr0[i];
+            jump += arr0.Length;
+            for (int i = 0; i < arr1.Length; i++) result[i + jump] = arr1[i];
+
+            return result;
+        }
+
         public LSTMNetwork(int input, int output, int hidden, float learning_rate, float std)
         {
             input_size = input;
@@ -76,23 +110,59 @@ namespace VI.NumSharp.Prototypes.ANN
             FloatArray h, FloatArray v, FloatArray y)
             FeedForward(FloatArray x, FloatArray hprev, FloatArray cprev)
         {
-
-            var z = x.Union(hprev);
-
-            var f = ActivationFunctions.Sigmoid((z.T * Wf).SumLine() + Bf);
-            var i = ActivationFunctions.Sigmoid((z.T * Wi).SumLine() + Bi);
-            var cbar = ActivationFunctions.Tanh((z.T * Wc).SumLine() + Bc);
-            var o = ActivationFunctions.Sigmoid((z.T * Wo).SumLine() + Bo);
+            var z = new FloatArray(JoinArray(hprev.ToArray(), x.ToArray()));
+            var f = Sigmoid((z.T * Wf).SumLine() + Bf);
+            var i = Sigmoid((z.T * Wi).SumLine() + Bi);
+            var cbar = Tanh((z.T * Wc).SumLine() + Bc);
+            var o = Sigmoid((z.T * Wo).SumLine() + Bo);
 
             var c = f * cprev + i * cbar;
-            var h = o * ActivationFunctions.Tanh(c);
+            var h = o * Tanh(c);
 
             var v = (h.T * Wv).SumLine() + Bv;
             var y = v.Exp() / v.Exp().Sum();
 
             return (z, f, i, cbar, c, o, h, v, y);
         }
-        
+
+        public (FloatArray dhprev, FloatArray dcprev)
+            Backward(int target, FloatArray dhnext, FloatArray dcnext, FloatArray cprev,
+                FloatArray z, FloatArray f, FloatArray i, FloatArray cbar, FloatArray c,
+                FloatArray o, FloatArray h, FloatArray v, FloatArray y,
+                ref FloatArray2D dWf, ref FloatArray2D dWi, ref FloatArray2D dWc, ref FloatArray2D dWo,
+                ref FloatArray2D dWv, ref FloatArray dBf, ref FloatArray dBi,
+                ref FloatArray dBc, ref FloatArray dBo, ref FloatArray dBv)
+        {
+            // output gradient
+            var dv = y.Clone();
+            dv[target] -= 1;
+            dWv += (h.T * dv);
+            dBv += dv;
+            // output gate gradient
+            var dh = (Wv * dv).SumColumn() + dhnext;
+            var DO = Dsigmoid(o) * (dh * Tanh(c));
+            dWo += (DO * z.T);
+            dBo += DO;
+            // cell gate gradient
+            var dc = dcnext.Clone();
+            dc += dh * o * Dtanh(Tanh(c));
+            var dcbar = Dtanh(cbar) * (dc * i);
+            dWc += dcbar * z.T;
+            dBc += dcbar;
+            // input gate gradient
+            var di = Dsigmoid(i) * (dc * cbar);
+            dWi += (di * z.T);
+            dBi += di;
+            // forget gate gradient
+            var df = Dsigmoid(f) * (dc * cprev);
+            dWf += (df * z.T);
+            dBf += df;
+            // lstm next
+            var dz = (Wf * df).SumColumn() + (Wi * di).SumColumn() + (Wc * dcbar).SumColumn() + (Wo * DO).SumColumn();
+            //  dhPrev, cprev
+            return (dz, f * dc);
+        }
+
         public (double loss, FloatArray2D dWf, FloatArray2D dWi, FloatArray2D dWc, FloatArray2D dWo, FloatArray2D dWv,
             FloatArray dBf, FloatArray dBi, FloatArray dBc, FloatArray dBo, FloatArray dBv,
             FloatArray hs, FloatArray cs) BPTT(int[] inputs, int[] targets, FloatArray hprev, FloatArray cprev)
@@ -150,89 +220,51 @@ namespace VI.NumSharp.Prototypes.ANN
             // backward
             for (var t = inputs.Length - 1; t >= 0; t--)
             {
-                // output gradient
-                var dv = y_s[t].Clone();
-                dv[targets[t]] -= 1;
-
-                // baackpropagate
-                var dh = NumMath.Normalize(-6, 6, (Wv * dv).SumColumn() + dhnext);
-                                                              
-                // output gate gradient                
-                var DO = ActivationFunctions.Dsigmoid(o_s[t]) * (dh * ActivationFunctions.Tanh(c_s[t]));
-                
-                // cell gate gradient
-                var dc = dcnext.Clone();
-                dc += NumMath.Normalize(-6, 6, dh * o_s[t] * ActivationFunctions.Dtanh(ActivationFunctions.Tanh(c_s[t])));
-                var dcbar = ActivationFunctions.Dtanh(c_s_s[t]) * (dc * i_s[t]);
-                
-                // input gate gradient
-                var di = ActivationFunctions.Dsigmoid(i_s[t]) * (dc * c_s_s[t]);
-                
-                // forget gate gradient
-                var df = ActivationFunctions.Dsigmoid(f_s[t]) * (dc * cprev);
-                
-                // lstm next
-                var dz = (Wf * df).SumColumn() + (Wi * di).SumColumn() + (Wc * dcbar).SumColumn() + (Wo * DO).SumColumn();
-                
-                //  dhPrev, cprev
-                dhnext = dz;
-                dcnext = f_s[t] * dc;
-
-                // Accumulate W Gradients
-                dWv += (h_s[t].T * dv);
-                dWo += (z_s[t].T * DO);
-                dWc += (z_s[t].T * dcbar);
-                dWi += (z_s[t].T * di);
-                dWf += (z_s[t].T * df);
-
-                // Accumulate B Gradients
-                dBv += dv;
-                dBo += DO;
-                dBc += dcbar;
-                dBi += di;
-                dBf += df;
+                (dhnext, dcnext) = Backward(targets[t], dhnext, dcnext, c_s[t - 1],
+                    z_s[t], f_s[t], i_s[t], c_s_s[t], c_s[t], o_s[t], h_s[t], v_s[t], y_s[t],
+                    ref dWf, ref dWi, ref dWc, ref dWo, ref dWv, ref dBf, ref dBi, ref dBc, ref dBo, ref dBv);
             }
 
-            //dWf = NumMath.Normalize(-1, 1, dWf / inputs.Length);
-            //dWi = NumMath.Normalize(-1, 1, dWi / inputs.Length);
-            //dWc = NumMath.Normalize(-1, 1, dWc / inputs.Length);
-            //dWo = NumMath.Normalize(-1, 1, dWo / inputs.Length);
-            //dWv = NumMath.Normalize(-1, 1, dWv / inputs.Length);
-            //dBf = NumMath.Normalize(-1, 1, dBf/ inputs.Length);
-            //dBi = NumMath.Normalize(-1, 1, dBi/ inputs.Length);
-            //dBc = NumMath.Normalize(-1, 1, dBc/ inputs.Length);
-            //dBo = NumMath.Normalize(-1, 1, dBo / inputs.Length);
-            //dBv = NumMath.Normalize(-1, 1, dBv / inputs.Length);
+            dWf = NumMath.Normalize(-5, 5, dWf / inputs.Length);
+            dWi = NumMath.Normalize(-5, 5, dWi / inputs.Length);
+            dWc = NumMath.Normalize(-5, 5, dWc / inputs.Length);
+            dWo = NumMath.Normalize(-5, 5, dWo / inputs.Length);
+            dWv = NumMath.Normalize(-5, 5, dWv / inputs.Length);
+            dBf = NumMath.Normalize(-5, 5, dBf / inputs.Length);
+            dBi = NumMath.Normalize(-5, 5, dBi / inputs.Length);
+            dBc = NumMath.Normalize(-5, 5, dBc / inputs.Length);
+            dBo = NumMath.Normalize(-5, 5, dBo / inputs.Length);
+            dBv = NumMath.Normalize(-5, 5, dBv / inputs.Length);
 
             return (loss, dWf, dWi, dWc, dWo, dWv, dBf, dBi, dBc, dBo, dBv, h_s[inputs.Length - 1], c_s[inputs.Length - 1]);
         }
-
+        
         public void UpdateParams(FloatArray2D dWf, FloatArray2D dWi, FloatArray2D dWc, FloatArray2D dWo, FloatArray2D dWv,
             FloatArray dBf, FloatArray dBi, FloatArray dBc, FloatArray dBo, FloatArray dBv)
         {
             // memoria Adagrad
-            mWf =  (0.9f * mWf) + (0.1f * (dWf * dWf)); //Wf * dWf;
-            mWi =  (0.9f * mWi) + (0.1f * (dWi * dWi)); //Wi * dWi;
-            mWc =  (0.9f * mWc) + (0.1f * (dWc * dWc)); //Wc * dWc;
-            mWo =  (0.9f * mWo) + (0.1f * (dWo * dWo)); //Wo * dWo;
-            mWv =  (0.9f * mWv) + (0.1f * (dWv * dWv)); //Wv * dWv;
-            mBf =  (0.9f * mBf) + (0.1f * (dBf * dBf)); //Bf * dBf;
-            mBi =  (0.9f * mBi) + (0.1f * (dBi * dBi)); //Bi * dBi;
-            mBc =  (0.9f * mBc) + (0.1f * (dBc * dBc)); //Bc * dBc;
-            mBo =  (0.9f * mBo) + (0.1f * (dBo * dBo)); //Bo * dBo;
-            mBv =  (0.9f * mBv) + (0.1f * (dBv * dBv)); //dBv * dBv;
+            mWf += dWf * dWf;
+            mWi += dWi * dWi;
+            mWc += dWc * dWc;
+            mWo += dWo * dWo;
+            mWv += dWv * dWv;
+            mBf += dBf * dBf;
+            mBi += dBi * dBi;
+            mBc += dBc * dBc;
+            mBo += dBo * dBo;
+            mBv += dBv * dBv;
 
             // update params
-            Wf -= learning_rate / (mWf + 1e-8f).Sqrt() * dWf; 
-            Wi -= learning_rate / (mWi + 1e-8f).Sqrt() * dWi; 
-            Wc -= learning_rate / (mWc + 1e-8f).Sqrt() * dWc; 
-            Wo -= learning_rate / (mWo + 1e-8f).Sqrt() * dWo; 
-            Wv -= learning_rate / (mWv + 1e-8f).Sqrt() * dWv; 
-            Bf -= learning_rate / (mBf + 1e-8f).Sqrt() * dBf; 
-            Bi -= learning_rate / (mBi + 1e-8f).Sqrt() * dBi; 
-            Bc -= learning_rate / (mBc + 1e-8f).Sqrt() * dBc; 
-            Bo -= learning_rate / (mBo + 1e-8f).Sqrt() * dBo; 
-            Bv -= learning_rate / (mBv + 1e-8f).Sqrt() * dBv;  
-        }       
+            Wf -= (learning_rate / (mWf + 1e-8f).Sqrt())* dWf ;
+            Wi -= (learning_rate / (mWi + 1e-8f).Sqrt())* dWi ;
+            Wc -= (learning_rate / (mWc + 1e-8f).Sqrt())* dWc ;
+            Wo -= (learning_rate / (mWo + 1e-8f).Sqrt())* dWo ;
+            Wv -= (learning_rate / (mWv + 1e-8f).Sqrt())* dWv ;
+            Bf -= (learning_rate / (mBf + 1e-8f).Sqrt())* dBf ;
+            Bi -= (learning_rate / (mBi + 1e-8f).Sqrt())* dBi ;
+            Bc -= (learning_rate / (mBc + 1e-8f).Sqrt())* dBc ;
+            Bo -= (learning_rate / (mBo + 1e-8f).Sqrt())* dBo ;
+            Bv -= (learning_rate / (mBv + 1e-8f).Sqrt())* dBv ;
+        }        
     }
 }

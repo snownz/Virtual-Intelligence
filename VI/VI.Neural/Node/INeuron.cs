@@ -19,7 +19,7 @@ namespace VI.Neural.Node
         FloatArray FeedForward(FloatArray x);
         FloatArray ComputeErrorNBackWard(FloatArray target);
         FloatArray BackWard(FloatArray dw);
-        void ComputeGradient(FloatArray outputVector);
+        void ComputeGradient(FloatArray input);
         void UpdateParams(FloatArray2D dw, FloatArray db);
     }
 }

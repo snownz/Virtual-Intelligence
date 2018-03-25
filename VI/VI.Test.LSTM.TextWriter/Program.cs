@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using VI.NumSharp.Arrays;
-using VI.Neural.Prototype;
 using VI.NumSharp;
 using VI.ParallelComputing;
 using System.Linq;
@@ -12,6 +11,13 @@ namespace VI.Test.LSTM.TextWriter
 {
     class Program
     {
+
+#if DEBUG
+        private static string path = "../VI.Test.LSTM.TextWriter/Data/text.txt";
+#else
+        private static string path = "VI.Test.LSTM.TextWriter/Data/text.txt";
+#endif
+
         private static int vocab_size;
         private static int hidden_size;
         private static int seq_length;
@@ -27,11 +33,7 @@ namespace VI.Test.LSTM.TextWriter
 
         static void OpenText()
         {
-#if DEBUG
-            txt = File.ReadAllText("../VI.Test.LSTM.TextWriter/Data/text.txt");
-#else
-            txt = File.ReadAllText("VI.Test.LSTM.TextWriter/Data/text.txt");
-#endif
+            txt = File.ReadAllText(path);
 
             var chars = new String(txt.Distinct().ToArray());
 
@@ -60,7 +62,7 @@ namespace VI.Test.LSTM.TextWriter
 
             hidden_size = 100;
             seq_length = 25;
-            learning_rate = 1e-2f;
+            learning_rate = 1e-1f;
 
             net = new LSTMNetwork(vocab_size, vocab_size, hidden_size, learning_rate, 1e-1f);
 
@@ -70,14 +72,13 @@ namespace VI.Test.LSTM.TextWriter
 
             int n = 0;
             int p = 0;
-
-            var watch = System.Diagnostics.Stopwatch.StartNew();
-
+            
             while (n <= 1000 * 100)
             {
                 if (p + seq_length + 1 >= data_size || n == 0)
                 {
                     hprev = new FloatArray(hidden_size);
+                    cprev = new FloatArray(hidden_size);
                     p = 0;
                 }
 
@@ -92,20 +93,17 @@ namespace VI.Test.LSTM.TextWriter
                  var hs, var cs) = net.BPTT(inputs, targets, hprev, cprev);
 
                 net.UpdateParams(dWf, dWi, dWc, dWo, dWv, dBf, dBi, dBc, dBo, dBv);
+                
+                if (n % 100 == 0)
+                {
+                    Sample(hprev, cprev, inputs[0], 200);
+                    Console.WriteLine($"iter {n}, loss: {smooth_loss}");
+                }
 
                 hprev = hs;
                 cprev = cs;
 
                 smooth_loss = smooth_loss * 0.999 + loss * 0.001;
-
-                if (n % 100 == 0)
-                {
-                    Sample(hprev, cprev, inputs[0], 200);
-                    watch.Stop();
-                    Console.WriteLine($"iter {n}, loss: {smooth_loss}");
-                    Console.Title = $"Time: {watch.ElapsedMilliseconds} /s";
-                    watch = System.Diagnostics.Stopwatch.StartNew();
-                }
 
                 p += seq_length;
                 n += 1;

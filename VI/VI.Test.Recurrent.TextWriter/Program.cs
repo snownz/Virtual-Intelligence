@@ -88,17 +88,16 @@ namespace VI.Test.Recurrent.TextWriter
                 
                 (var loss, var dwy, var dby, var dwh, var dbh, var hs) = net.BPTT(inputs, targets, hprev);      
                 
-                net.UpdateParams(dwy, dby, dwh, dbh);
-              
-                hprev = hs;
-                
-                smooth_loss = smooth_loss * 0.999 + loss * 0.001;
-
                 if(n % 100 == 0)
                 {
                     Sample(hprev, inputs[0], 200);
                     Console.WriteLine($"iter {n}, loss: {smooth_loss}");
-                }                
+                }
+
+                net.UpdateParams(dwy, dby, dwh, dbh);
+
+                hprev = hs;
+                smooth_loss = smooth_loss * 0.999 + loss * 0.001;
 
                 p += seq_length;
                 n += 1;

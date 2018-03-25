@@ -25,25 +25,25 @@ namespace VI.Neural.Factory
 
         public LayerBuilderMultiple Simple_f()
         {
-            return new LayerBuilderMultiple(size, connections, lr, mo, operation, activation, OptimizerFunctionEnum.Simple);
+            return new LayerBuilderMultiple(size, connections, lr, mo, operation, activation, EnumOptimizerFunction.SGD);
         }
 
         public LayerBuilderMultiple Momentum_f()
         {
-            return new LayerBuilderMultiple(size, connections, lr, mo, operation, activation, OptimizerFunctionEnum.Momentum);
+            return new LayerBuilderMultiple(size, connections, lr, mo, operation, activation, EnumOptimizerFunction.Momentum);
         }
 
         public LayerBuilderMultiple RMSProp_f()
         {
-            return new LayerBuilderMultiple(size, connections, lr, mo, operation, activation, OptimizerFunctionEnum.RmsProp);
+            return new LayerBuilderMultiple(size, connections, lr, mo, operation, activation, EnumOptimizerFunction.RmsProp);
         }
 
         public LayerBuilderMultiple AdaGrad_f()
         {
-            return new LayerBuilderMultiple(size, connections, lr, mo, operation, activation, OptimizerFunctionEnum.Adagrad);
+            return new LayerBuilderMultiple(size, connections, lr, mo, operation, activation, EnumOptimizerFunction.Adagrad);
         }
 
-        public LayerBuilderMultiple WithOpetimizator_f(OptimizerFunctionEnum opt)
+        public LayerBuilderMultiple WithOpetimizator_f(EnumOptimizerFunction opt)
         {
             return new LayerBuilderMultiple(size, connections, lr, mo, operation, activation, opt);
         }

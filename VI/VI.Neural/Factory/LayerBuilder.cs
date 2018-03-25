@@ -14,10 +14,10 @@ namespace VI.Neural.Factory
         private float lr,  mo, std;
         private ANNOperationsEnum operation;
         private ActivationFunctionEnum activation;
-        private OptimizerFunctionEnum optmizator;
+        private EnumOptimizerFunction optmizator;
         private NodeEnum nodeType;
 
-        public LayerBuilder(int size, int connections, float lr, float mo, ANNOperationsEnum operation, ActivationFunctionEnum activation, OptimizerFunctionEnum optmizator)
+        public LayerBuilder(int size, int connections, float lr, float mo, ANNOperationsEnum operation, ActivationFunctionEnum activation, EnumOptimizerFunction optmizator)
         {
             this.size = size;
             this.connections = connections;
@@ -85,17 +85,17 @@ namespace VI.Neural.Factory
 
             switch (optmizator)
             {
-                case OptimizerFunctionEnum.Adagrad:
+                case EnumOptimizerFunction.Adagrad:
                     opt = new AdagradOptimizerFunction();
                     break;
-                case OptimizerFunctionEnum.RmsProp:
+                case EnumOptimizerFunction.RmsProp:
                     opt = new RMSOptimizerFunction();
                     break;
-                case OptimizerFunctionEnum.Simple:
-                    opt = new SimpleOptimizerFunction();
+                case EnumOptimizerFunction.SGD:
+                    opt = new SGDOptimizerFunction();
                     break;
-                case OptimizerFunctionEnum.Momentum:
-                    opt = new OptmizerFunctionMomentum();
+                case EnumOptimizerFunction.Momentum:
+                    opt = new MomentumOptmizerFunction();
                     break;
                 default:
                     throw new InvalidOperationException();

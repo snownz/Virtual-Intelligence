@@ -10,12 +10,4 @@ namespace VI.Neural.OptimizerFunction
         void UpdateWeight(ILayer target, FloatArray2D dW);
         void UpdateBias(ILayer target, FloatArray dB);
     }
-
-    public interface IOptimizerMultipleLayerFunction
-    {
-        void CalculateParams(IMultipleLayer target);
-        FloatArray Error(FloatArray targetOutputVector, FloatArray values);
-        void UpdateWeight(IMultipleLayer target, Array<FloatArray2D> dW);
-        void UpdateBias(IMultipleLayer target, FloatArray dB);
-    }
 }

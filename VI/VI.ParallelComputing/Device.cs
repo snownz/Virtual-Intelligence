@@ -1,12 +1,14 @@
 ﻿using ILGPU;
 using ILGPU.Runtime;
 using ILGPU.Runtime.Cuda;
+using System;
 
 namespace VI.ParallelComputing
 {
     public enum DeviceType
 	{
 		CPU  = 0,
+        [Obsolete("Not finalized")]
 		CUDA = 2
 	}
 

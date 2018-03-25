@@ -20,8 +20,8 @@ namespace VI.Neural.Network
 
         public RecurrentNeuralNetwork(int input, int output, int hidden, float learningRate, float std)
         {
-            var encoderLayer = BuildedModels.RecurrentTanh(input, hidden, learningRate, std, OptimizerFunctionEnum.Adagrad);
-            var decoderLayer = BuildedModels.DenseSoftMax(hidden, output, learningRate, std, OptimizerFunctionEnum.Adagrad);
+            var encoderLayer = BuildedModels.RecurrentTanh(input, hidden, learningRate, std, EnumOptimizerFunction.Adagrad);
+            var decoderLayer = BuildedModels.DenseSoftMax(hidden, output, learningRate, std, EnumOptimizerFunction.Adagrad);
 
             encoder = new RecurrentCellModel(encoderLayer);
             decoder = new DenseModel();

@@ -5,7 +5,7 @@ namespace VI.Neural.Factory
 {
     public static class BuildedModels
     {
-        public static INeuron DenseSigmoid(int connections, int size, float learningRate, float std, OptimizerFunctionEnum opt)
+        public static INeuron DenseSigmoid(int connections, int size, float learningRate, float std, EnumOptimizerFunction opt)
         {
             return new LayerCreator(size, connections)
                        .WithLearningRate(learningRate)
@@ -18,7 +18,7 @@ namespace VI.Neural.Factory
                        .Build();
         }
 
-        public static INeuron DenseTanh(int connections, int size, float learningRate, float std, OptimizerFunctionEnum opt)
+        public static INeuron DenseTanh(int connections, int size, float learningRate, float std, EnumOptimizerFunction opt)
         {
             return new LayerCreator(size, connections)
                        .WithLearningRate(learningRate)
@@ -31,7 +31,7 @@ namespace VI.Neural.Factory
                        .Build();
         }
 
-        public static IMultipleNeuron RecurrentTanh(int connections, int size, float learningRate, float std, OptimizerFunctionEnum opt)
+        public static IMultipleNeuron RecurrentTanh(int connections, int size, float learningRate, float std, EnumOptimizerFunction opt)
         {
             return new LayerCreator(size, 0)
                        .WithLearningRate(learningRate)
@@ -44,7 +44,7 @@ namespace VI.Neural.Factory
                        .Build();
         }
 
-        public static INeuron DenseLeakRelu(int connections, int size, float learningRate, float std, OptimizerFunctionEnum opt)
+        public static INeuron DenseLeakRelu(int connections, int size, float learningRate, float std, EnumOptimizerFunction opt)
         {
             return new LayerCreator(size, connections)
                        .WithLearningRate(learningRate)
@@ -57,7 +57,7 @@ namespace VI.Neural.Factory
                        .Build();
         }
 
-        public static INeuron DenseSoftMax(int connections, int size, float learningRate, float std, OptimizerFunctionEnum opt)
+        public static INeuron DenseSoftMax(int connections, int size, float learningRate, float std, EnumOptimizerFunction opt)
         {
             return new LayerCreator(size, connections)
                        .WithLearningRate(learningRate)

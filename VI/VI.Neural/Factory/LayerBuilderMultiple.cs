@@ -3,6 +3,7 @@ using VI.Neural.ActivationFunction;
 using VI.Neural.ANNOperations;
 using VI.Neural.Node;
 using VI.Neural.OptimizerFunction;
+using VI.Neural.OptimizerFunction.MultipleLayer;
 
 namespace VI.Neural.Factory
 {
@@ -13,10 +14,10 @@ namespace VI.Neural.Factory
         private float lr, mo, std;
         private ANNOperationsEnum operation;
         private ActivationFunctionEnum activation;
-        private OptimizerFunctionEnum optmizator;
+        private EnumOptimizerFunction optmizator;
         private NodeEnum nodeType;
 
-        public LayerBuilderMultiple(int size, int[] connections, float lr, float mo, ANNOperationsEnum operation, ActivationFunctionEnum activation, OptimizerFunctionEnum optmizator)
+        public LayerBuilderMultiple(int size, int[] connections, float lr, float mo, ANNOperationsEnum operation, ActivationFunctionEnum activation, EnumOptimizerFunction optmizator)
         {
             this.size = size;
             this.connections = connections;
@@ -84,16 +85,16 @@ namespace VI.Neural.Factory
 
             switch (optmizator)
             {
-                case OptimizerFunctionEnum.Adagrad:
+                case EnumOptimizerFunction.Adagrad:
                     opt = new AdagradMultipleOptimizerFunction();
                     break;
-                case OptimizerFunctionEnum.RmsProp:
+                case EnumOptimizerFunction.RmsProp:
                     throw new InvalidOperationException();
                     break;
-                case OptimizerFunctionEnum.Simple:
+                case EnumOptimizerFunction.SGD:
                     throw new InvalidOperationException();
                     break;
-                case OptimizerFunctionEnum.Momentum:
+                case EnumOptimizerFunction.Momentum:
                     throw new InvalidOperationException();
                     break;
                 default:

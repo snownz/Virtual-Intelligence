@@ -1,13 +1,13 @@
 ﻿using System.Threading.Tasks;
 using VI.Neural.ActivationFunction;
 using VI.Neural.Layer;
-using VI.Neural.OptimizerFunction;
+using VI.Neural.OptimizerFunction.MultipleLayer;
 using VI.NumSharp;
 using VI.NumSharp.Arrays;
 
 namespace VI.Neural.ANNOperations
 {
-	public class ANNMultipleActivatorOperations : ISupervisedMultipleOperations
+    public class ANNMultipleActivatorOperations : ISupervisedMultipleOperations
     {
         protected IActivationFunction _activationFunction;
         protected IOptimizerMultipleLayerFunction _optimizerFunction;
