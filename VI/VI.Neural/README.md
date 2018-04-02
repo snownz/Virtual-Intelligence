@@ -60,12 +60,12 @@ Library for creating and training neural networks in a simple and fast way.
 				.WithLearningRate(.1f)           // learning rate value 
 				.WithMomentum(0)                 // momentum value
 				.Supervised_f()					 // setup a supervised layer
-                .Hidden_f()						 // setup a hidden | output layer
-                .Activation_f()					 // simgle or multiple Layer (1 - N or N - N)
-                .LeakRelu_f()					 // activation function
-                .AdaGrad_f()					 // optmizator	    
-                .FullSynapse(std)			     // std value for weight initialize
-                .Build();	
+				.Hidden_f()						 // setup a hidden | output layer
+				.Activation_f()					 // simgle or multiple Layer (1 - N or N - N)
+				.LeakRelu_f()					 // activation function
+				.AdaGrad_f()					 // optmizator	    
+				.FullSynapse(std)			     // std value for weight initialize
+				.Build();	
 ```
 
 or
@@ -88,8 +88,11 @@ or
 
 ## Some Samples
 [MNIST](https://github.com/snownz/Virtual-Intelligence/tree/cstruct/VI/VI.Test.MNIST)
+
 [Recurrent Text Writer](https://github.com/snownz/Virtual-Intelligence/tree/cstruct/VI/VI.Test.LSTM.TextWriter)
+
 [LSTM Text Writer](https://github.com/snownz/Virtual-Intelligence/tree/cstruct/VI/VI.Test.Recurrent.TextWriter)
+
 
 ## Current Support
 
