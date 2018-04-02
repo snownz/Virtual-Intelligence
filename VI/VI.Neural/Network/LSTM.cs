@@ -8,7 +8,7 @@ using VI.NumSharp.Arrays;
 
 namespace VI.Neural.Network
 {
-    public class LSTMNetwork
+    public class LSTM
     {
         public int input_size;
         public int hidden_size;
