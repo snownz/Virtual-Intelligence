@@ -32,9 +32,9 @@ namespace MNIST
             watch.Stop();
             Console.WriteLine($"Device Time: {watch.ElapsedMilliseconds}ms");
 
-            var hiddens = BuildedModels.DenseLeakRelu(784, 100, 1e-3f, 1e-1f, EnumOptimizerFunction.Adagrad);
-            var hiddens2 = BuildedModels.DenseLeakRelu(100, 30, 1e-3f, 1e-1f, EnumOptimizerFunction.Adagrad); 
-            var outputs = BuildedModels.DenseSoftMax(30, 10, 1e-3f, 1e-1f, EnumOptimizerFunction.Adagrad); 
+            var hiddens = BuildedModels.DenseLeakRelu(784, 100, 1e-1f, 1e-1f, EnumOptimizerFunction.SGD);
+            var hiddens2 = BuildedModels.DenseLeakRelu(100, 30, 1e-1f, 1e-1f, EnumOptimizerFunction.SGD); 
+            var outputs = BuildedModels.DenseSoftMax(30, 10, 1e-1f, 1e-1f, EnumOptimizerFunction.SGD); 
 
             var model = new DenseModel();
             model.AddLayer(hiddens);

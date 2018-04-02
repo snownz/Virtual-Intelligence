@@ -59,24 +59,24 @@ namespace VI.NumSharp.Arrays
 
 		public static FloatArray operator *(FloatArray v0, FloatArray v1)
 		{
-			return new FloatArray(ProcessingDevice.FloatExecutor.V_mult_V(v0.cache, v0.view, v1.view));
+			return new FloatArray(ProcessingDevice.FloatExecutor.V_mult_V(ProcessingDevice.FloatData.New(v0.Length), v0.view, v1.view));
 		}
         public static FloatArray operator /(FloatArray v0, FloatArray v1)
         {
-	        return new FloatArray(ProcessingDevice.FloatExecutor.V_div_V(v0.cache, v0.view, v1.view));
+	        return new FloatArray(ProcessingDevice.FloatExecutor.V_div_V(ProcessingDevice.FloatData.New(v0.Length), v0.view, v1.view));
         }
         public static FloatArray operator +(FloatArray v0, FloatArray v1)
         {
-	        return new FloatArray(ProcessingDevice.FloatExecutor.V_add_V(v0.cache, v0.view, v1.view));
+	        return new FloatArray(ProcessingDevice.FloatExecutor.V_add_V(ProcessingDevice.FloatData.New(v0.Length), v0.view, v1.view));
         }
         public static FloatArray operator -(FloatArray v0, FloatArray v1)
         {
-	        return new FloatArray(ProcessingDevice.FloatExecutor.V_sub_V(v0.cache, v0.view, v1.view));
+	        return new FloatArray(ProcessingDevice.FloatExecutor.V_sub_V(ProcessingDevice.FloatData.New(v0.Length), v0.view, v1.view));
         }
 		
 		public static FloatArray operator *(FloatArray v0, float c)
         {
-	        return new FloatArray(ProcessingDevice.FloatExecutor.V_mult_C(v0.cache, v0.view, c));
+	        return new FloatArray(ProcessingDevice.FloatExecutor.V_mult_C(ProcessingDevice.FloatData.New(v0.Length), v0.view, c));
         }
 		public static FloatArray operator *(float c, FloatArray v0)
 		{
@@ -85,16 +85,16 @@ namespace VI.NumSharp.Arrays
 		
         public static FloatArray operator /(FloatArray v0, float c)
         {
-	        return new FloatArray(ProcessingDevice.FloatExecutor.V_div_C(v0.cache, v0.view, c));
+	        return new FloatArray(ProcessingDevice.FloatExecutor.V_div_C(ProcessingDevice.FloatData.New(v0.Length), v0.view, c));
         }
         public static FloatArray operator /(float c, FloatArray v0)
         {
-	        return new FloatArray(ProcessingDevice.FloatExecutor.V_div_C(v0.cache, c, v0.view));
+	        return new FloatArray(ProcessingDevice.FloatExecutor.V_div_C(ProcessingDevice.FloatData.New(v0.Length), c, v0.view));
         }
 		
         public static FloatArray operator +(FloatArray v0, float c)
         {
-	        return new FloatArray(ProcessingDevice.FloatExecutor.V_add_C(v0.cache, v0.view, c));
+	        return new FloatArray(ProcessingDevice.FloatExecutor.V_add_C(ProcessingDevice.FloatData.New(v0.Length), v0.view, c));
         }
 		public static FloatArray operator +(float c, FloatArray v0)
 		{
@@ -103,11 +103,11 @@ namespace VI.NumSharp.Arrays
 
         public static FloatArray operator -(FloatArray v0, float c)
         {
-	        return new FloatArray(ProcessingDevice.FloatExecutor.V_sub_C(v0.cache, v0.view, c));
+	        return new FloatArray(ProcessingDevice.FloatExecutor.V_sub_C(ProcessingDevice.FloatData.New(v0.Length), v0.view, c));
         }
         public static FloatArray operator -(float c, FloatArray v0)
         {
-	        return new FloatArray(ProcessingDevice.FloatExecutor.V_sub_C(v0.cache, c, v0.view));
+            return new FloatArray(ProcessingDevice.FloatExecutor.V_sub_C(ProcessingDevice.FloatData.New(v0.Length), c, v0.view));
         }
 
         public static FloatArray operator >=(FloatArray v0, float c)

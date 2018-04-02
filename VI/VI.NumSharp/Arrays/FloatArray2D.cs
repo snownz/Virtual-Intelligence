@@ -49,37 +49,37 @@ namespace VI.NumSharp.Arrays
 
 		public static FloatArray2D operator *(FloatArray2D m0, FloatArray2D m1)
 		{
-			return new FloatArray2D(ProcessingDevice.FloatExecutor.M_mult_M(m0._cache, m0.View, m1.View));
+			return new FloatArray2D(ProcessingDevice.FloatExecutor.M_mult_M(ProcessingDevice.FloatData.New(m0.W, m0.H), m0.View, m1.View));
 		}
 		public static FloatArray2D operator /(FloatArray2D m0, FloatArray2D m1)
 		{
-			return new FloatArray2D(ProcessingDevice.FloatExecutor.M_div_M(m0._cache, m0.View, m1.View));
+			return new FloatArray2D(ProcessingDevice.FloatExecutor.M_div_M(ProcessingDevice.FloatData.New(m0.W, m0.H), m0.View, m1.View));
 		}
 		public static FloatArray2D operator -(FloatArray2D m0, FloatArray2D m1)
 		{
-			return new FloatArray2D(ProcessingDevice.FloatExecutor.M_sub_M(m0._cache, m0.View, m1.View));
+			return new FloatArray2D(ProcessingDevice.FloatExecutor.M_sub_M(ProcessingDevice.FloatData.New(m0.W, m0.H), m0.View, m1.View));
 		}
         public static FloatArray2D operator +(FloatArray2D m0, FloatArray2D m1)
         {
-            return new FloatArray2D(ProcessingDevice.FloatExecutor.M_add_M(m0._cache, m0.View, m1.View));
+            return new FloatArray2D(ProcessingDevice.FloatExecutor.M_add_M(ProcessingDevice.FloatData.New(m0.W, m0.H), m0.View, m1.View));
         }
 
 		public static FloatArray2D operator *(FloatArray2D m, FloatArrayT v)
 		{
-			return new FloatArray2D(ProcessingDevice.FloatExecutor.VT_mult_M(m._cache, v.View, m.View));
+			return new FloatArray2D(ProcessingDevice.FloatExecutor.VT_mult_M(ProcessingDevice.FloatData.New(m.W, m.H), v.View, m.View));
 		}
 		public static FloatArray2D operator *(FloatArray2D m, FloatArray v)
 		{
-			return new FloatArray2D(ProcessingDevice.FloatExecutor.M_mult_V(m._cache, m.View, v.View));
+			return new FloatArray2D(ProcessingDevice.FloatExecutor.M_mult_V(ProcessingDevice.FloatData.New(m.W, m.H), m.View, v.View));
 		}
 		public static FloatArray2D operator *(FloatArray v, FloatArray2D m)
 		{
-			return new FloatArray2D(ProcessingDevice.FloatExecutor.M_mult_V(m._cache, m.View, v.View));
+			return new FloatArray2D(ProcessingDevice.FloatExecutor.M_mult_V(ProcessingDevice.FloatData.New(m.W, m.H), m.View, v.View));
 		}
 		
         public static FloatArray2D operator *(FloatArray2D m, float c)
 		{
-			return new FloatArray2D(ProcessingDevice.FloatExecutor.M_mult_C(m._cache, m.View, c));
+			return new FloatArray2D(ProcessingDevice.FloatExecutor.M_mult_C(ProcessingDevice.FloatData.New(m.W, m.H), m.View, c));
 		}
 		public static FloatArray2D operator *(float c, FloatArray2D m)
 		{
@@ -87,19 +87,19 @@ namespace VI.NumSharp.Arrays
 		}
 		public static FloatArray2D operator +(FloatArray2D m, float c)
 		{
-			return new FloatArray2D(ProcessingDevice.FloatExecutor.M_add_C(m._cache, m.View, c));
+			return new FloatArray2D(ProcessingDevice.FloatExecutor.M_add_C(ProcessingDevice.FloatData.New(m.W, m.H), m.View, c));
 		}
         public static FloatArray2D operator /(FloatArray2D m, int c)
         {
-            return new FloatArray2D(ProcessingDevice.FloatExecutor.M_div_C(m._cache, m.View, c));
+            return new FloatArray2D(ProcessingDevice.FloatExecutor.M_div_C(ProcessingDevice.FloatData.New(m.W, m.H), m.View, c));
         }
         public static FloatArray2D operator /(int c, FloatArray2D m)
         {
-            return new FloatArray2D(ProcessingDevice.FloatExecutor.C_div_M(m._cache, m.View, c));
+            return new FloatArray2D(ProcessingDevice.FloatExecutor.C_div_M(ProcessingDevice.FloatData.New(m.W, m.H), m.View, c));
         }
         public static FloatArray2D operator /(float c, FloatArray2D m)
         {
-            return new FloatArray2D(ProcessingDevice.FloatExecutor.C_div_M(m._cache, m.View, c));
+            return new FloatArray2D(ProcessingDevice.FloatExecutor.C_div_M(ProcessingDevice.FloatData.New(m.W, m.H), m.View, c));
         }
         
         public override string ToString()

@@ -30,7 +30,19 @@ namespace VI.NumSharp
             result[arr0.Length] = arr1;
             return result;
         }
-        
+
+        public static Array<T> AsArray<T>(this List<T> arr) where T : class
+        {
+            var result = new Array<T>(arr.Count);
+
+            for (int i = 0; i < arr.Count; i++)
+            {
+                result[i] = arr[i];
+            }
+
+            return result;
+        }
+
         public static Array<FloatArray> Join(this FloatArray arr0, FloatArray arr1)
         {
             var result = new Array<FloatArray>(2);
@@ -107,9 +119,44 @@ namespace VI.NumSharp
             return result;
         }        
         
-        public static IList<T> Clone<T>(this IList<T> listToClone) where T : ICloneable
+        public static Array<FloatArray> Split(this FloatArray f , int size)
         {
-            return listToClone.Select(item => (T)item.Clone()).ToList();
+            if (f.Length % 2 != 0)
+                throw new InvalidOperationException();
+
+            var p = f.Length / size;
+
+            var a = new Array<FloatArray>(size);
+
+            for (int i = 0; i < size; i++)
+            {
+                a[i] = new FloatArray(p);
+                for (int j = 0; j < p; j++)
+                {
+                    a[i][j] = f[i * p + j];
+                }
+            }
+
+            return a;
+        }
+
+        public static Array<FloatArray> Unuion(this FloatArray i, FloatArray a)
+        {
+            var l = new Array<FloatArray>(2);
+            l[0] = i;
+            l[1] = a;
+            return l;
+        }
+
+        public static Array<FloatArray> Multiply(this Array<FloatArray> arr, FloatArray arr1)
+        {
+            var result = new Array<FloatArray>(arr.Length);
+
+            Parallel.For(0, arr.Length, i =>
+            {
+                result[i] = arr[i] * arr1;
+            });
+            return result;
         }
     }
 }
