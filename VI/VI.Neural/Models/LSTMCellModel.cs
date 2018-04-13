@@ -48,7 +48,7 @@ namespace VI.Neural.Models
             C.Output = cGate;
             O.Output = oGate;
 
-            // cell State Derivate 
+            // cell State Derivate
             var cellStateAct = cellState.Tanh();
             var cellStateDer = (1 - cellStateAct * cellStateAct);
 
@@ -58,7 +58,7 @@ namespace VI.Neural.Models
 
             // output gate gradient
             var doGate = O.BackWard(dh * cellStateAct);
-            
+
             // cell gate gradient
             var dcGate = C.BackWard(dcellSate * iGate);
 

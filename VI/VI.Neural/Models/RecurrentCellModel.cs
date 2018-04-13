@@ -7,7 +7,7 @@ namespace VI.Neural.Models
     public class RecurrentCellModel
     {
         private IMultipleNeuron w;
-        
+
         public RecurrentCellModel(IMultipleNeuron layer)
         {
             w = layer;
@@ -17,7 +17,7 @@ namespace VI.Neural.Models
         {
             return w.FeedForward(inputs.Join(hprev));
         }
-        
+
         /// <summary>
         /// Backward for non-linear timing
         /// </summary>

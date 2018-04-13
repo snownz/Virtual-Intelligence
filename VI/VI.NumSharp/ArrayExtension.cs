@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using VI.NumSharp.Arrays;
 
 namespace VI.NumSharp
 {
     public static class ArrayExtension
-    {          
-        public static Array<T> Join<T>(this Array<T> arr0, Array<T> arr1)  where T : class
+    {
+        public static Array<T> Join<T>(this Array<T> arr0, Array<T> arr1) where T : class
         {
             var result = new Array<T>(arr0.Length + arr1.Length);
             var jump = 0;
@@ -67,9 +65,12 @@ namespace VI.NumSharp
             Parallel.For(0, arr.Count, i => result = result.Join(arr[i]));
             return result;
         }
-        
+
         public static Array<FloatArray> Sum(this Array<FloatArray> arr, Array<FloatArray> arr1)
         {
+            if (arr == null) return arr1;
+            if (arr1 == null) return arr;
+
             var result = new Array<FloatArray>(arr.Length);
             Parallel.For(0, arr.Length, i => result[i] = arr[i] + arr1[i]);
             return result;
@@ -94,7 +95,7 @@ namespace VI.NumSharp
                 r = s % 2;
                 s /= 2;
             }
-                          
+
             return arr[0] + arr[1];
         }
 
@@ -114,12 +115,15 @@ namespace VI.NumSharp
 
         public static Array<FloatArray2D> Sum(this Array<FloatArray2D> arr, Array<FloatArray2D> arr1)
         {
+            if(arr == null) return arr1;
+            if(arr1 == null) return arr;
+
             var result = new Array<FloatArray2D>(arr.Length);
             Parallel.For(0, arr.Length, i => result[i] = arr[i] + arr1[i]);
             return result;
-        }        
-        
-        public static Array<FloatArray> Split(this FloatArray f , int size)
+        }
+
+        public static Array<FloatArray> Split(this FloatArray f, int size)
         {
             if (f.Length % 2 != 0)
                 throw new InvalidOperationException();

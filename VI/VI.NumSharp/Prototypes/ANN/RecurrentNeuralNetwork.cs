@@ -1,5 +1,4 @@
-﻿using System;
-using VI.NumSharp;
+﻿using VI.NumSharp;
 using VI.NumSharp.Arrays;
 
 namespace VI.NumSharp.Prototypes.ANN
@@ -22,7 +21,7 @@ namespace VI.NumSharp.Prototypes.ANN
         private FloatArray2D mWhy;
         private FloatArray mbt;
         private FloatArray mby;
-        
+
         public RecurrentNeuralNetwork(int input, int output, int hidden, float learning_rate, float std)
         {
             input_size = input;
@@ -38,7 +37,7 @@ namespace VI.NumSharp.Prototypes.ANN
 
             ResetAdagradParams();
         }
-        
+
         public void ResetAdagradParams()
         {
             mWxt = new FloatArray2D(Wxt.W, Wxt.H);
@@ -52,15 +51,15 @@ namespace VI.NumSharp.Prototypes.ANN
         public (FloatArray ps, FloatArray hs) FeedForward(FloatArray xs, FloatArray hprev)
         {
             var ht = ((xs.T * Wxt).SumLine() + (hprev.T * Wtt).SumLine() + bt).Tanh();
-            
+
             var ys = (ht.T * Why).SumLine() + by;
 
             var exp = ys.Exp();
             var ps = exp / exp.Sum();
-            
+
             return (ps, ht);
         }
-        
+
         public (float loss, FloatArray2D dWxt, FloatArray2D dWtt, FloatArray2D dWhy, FloatArray dbh, FloatArray dby,
             FloatArray hs)
             BPTT(int[] inputs, int[] targets, FloatArray hprev)
@@ -99,7 +98,7 @@ namespace VI.NumSharp.Prototypes.ANN
                 dy[targets[t]] -= 1;
                 // backpropagate to
                 var dt = (Why * dy).SumColumn() + dhnext;
-                
+
                 // Compute gradient of T (Derivate of Tanh)
                 var dtraw = (1 - ht[t] * ht[t]) * dt;
 
@@ -109,9 +108,9 @@ namespace VI.NumSharp.Prototypes.ANN
 
                 // Acc to next Time
                 dhnext = (dtraw * Wtt).SumColumn();
-              
+
                 // Compute Derivates
-                dWhy += ht[t].T * dy;              
+                dWhy += ht[t].T * dy;
                 dby += dy;
             }
 
@@ -131,8 +130,8 @@ namespace VI.NumSharp.Prototypes.ANN
             mWxt += dWxt * dWxt;
             mWtt += dWtt * dWtt;
             mWhy += dWhy * dWhy;
-            mbt += dbt  * dbt;
-            mby += dby  * dby;
+            mbt += dbt * dbt;
+            mby += dby * dby;
 
             // update params
             Wxt -= ((learning_rate / (mWxt + 1e-8f).Sqrt()) * dWxt);
@@ -140,6 +139,6 @@ namespace VI.NumSharp.Prototypes.ANN
             Why -= ((learning_rate / (mWhy + 1e-8f).Sqrt()) * dWhy);
             bt -= ((learning_rate / (mbt + 1e-8f).Sqrt()) * dbt);
             by -= ((learning_rate / (mby + 1e-8f).Sqrt()) * dby);
-        }      
+        }
     }
 }

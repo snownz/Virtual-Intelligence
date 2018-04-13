@@ -1,10 +1,14 @@
 ﻿using System;
+using System.Threading.Tasks;
+using VI.NumSharp;
+using VI.NumSharp.Arrays;
+using VI.ParallelComputing;
 
 namespace VI.Test.MultiTaskLearning
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
         }

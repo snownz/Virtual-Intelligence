@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace VI.Neural.Factory
 {
@@ -9,7 +7,7 @@ namespace VI.Neural.Factory
     ///     (Supervised)   LayerCreatorSupervised
     ///                    (Hidden) LayerCreatorHidden
     ///                             (Activation, Recurrent) LayerCreatorHiddenActivations
-    ///                                                     (ArcTANH, Binary, LeakRelu, Relu, Sigmoid, Sinusoid, TANH) LayerCreatorOptmizer  
+    ///                                                     (ArcTANH, Binary, LeakRelu, Relu, Sigmoid, Sinusoid, TANH) LayerCreatorOptmizer
     ///                                                                                                                (Sinple, Momentum, RMSProp, AdaGrad) LayerBuilder
     ///                    (Output) LayerCreatorOutput
     ///                             (Activation) LayerCreatorOutputActivations
@@ -21,8 +19,8 @@ namespace VI.Neural.Factory
     /// </summary>
     public class LayerCreator
     {
-        int size, connections;
-        float lr, mo;
+        private int size, connections;
+        private float lr, mo;
 
         public LayerCreator(int size, int connections)
         {
@@ -68,6 +66,6 @@ namespace VI.Neural.Factory
         public LayerCreatorUnsupervised Unsupervised_f()
         {
             throw new NotImplementedException();
-        }     
+        }
     }
 }

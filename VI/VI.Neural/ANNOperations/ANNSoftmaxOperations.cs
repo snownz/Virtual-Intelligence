@@ -21,7 +21,7 @@ namespace VI.Neural.ANNOperations
         {
             var dh = _target.OutputVector.Clone();
             var pos = values.Pos(1);
-            dh[pos] -= 1; 
+            dh[pos] -= 1;
             _target.ErrorVector = dh;
             return (_target.ErrorVector * _target.KnowlodgeMatrix).SumColumn();
         }

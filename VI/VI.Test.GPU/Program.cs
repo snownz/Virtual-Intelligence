@@ -3,7 +3,6 @@ using ILGPU.Lightning;
 using ILGPU.Lightning.Sequencers;
 using ILGPU.ReductionOperations;
 using ILGPU.Runtime;
-using ILGPU.Runtime.CPU;
 using ILGPU.Runtime.Cuda;
 using ILGPU.ShuffleOperations;
 using System;
@@ -17,14 +16,14 @@ using VI.ParallelComputing;
 
 namespace VI.Test.GPU
 {
-    class Program
+    internal class Program
     {
         public static void MathKernel(Index2 index, ArrayView2D<float> singleView)
         {
             singleView[index.X, index.Y] = GPUMath.Sqrt(index.X * index.Y);
         }
 
-        static void Reduce(Accelerator accl)
+        private static void Reduce(Accelerator accl)
         {
             using (var buffer = accl.Allocate<int>(64))
             {
@@ -48,8 +47,9 @@ namespace VI.Test.GPU
                         Console.WriteLine($"Reduced[{i}] = {data[i]}");
                 }
             }
-        }        
-        static void AtomicReduce(Accelerator accl)
+        }
+
+        private static void AtomicReduce(Accelerator accl)
         {
             using (var buffer = accl.Allocate<int>(64))
             {
@@ -75,7 +75,7 @@ namespace VI.Test.GPU
             }
         }
 
-        static void Performance()
+        private static void Performance()
         {
             using (var context = new Context())
             {
@@ -173,7 +173,7 @@ namespace VI.Test.GPU
             }
         }
 
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             //Performance();
             ProcessingDevice.Device = DeviceType.CUDA;

@@ -72,7 +72,7 @@ namespace VI.NumSharp.Prototypes.ANN
             Bi = NumMath.Repeat(hidden_size, 0);
             Bc = NumMath.Repeat(hidden_size, 0);
             Bo = NumMath.Repeat(hidden_size, 0);
-            
+
             ResetAdagradParams();
         }
 
@@ -101,7 +101,7 @@ namespace VI.NumSharp.Prototypes.ANN
 
             var c = f * cprev + i * cbar;
             var h = o * Tanh(c);
-            
+
             return (z, f, i, cbar, c, o, h);
         }
 
@@ -150,14 +150,14 @@ namespace VI.NumSharp.Prototypes.ANN
             var c_s = new Array<FloatArray>(inputs.Length);
             var o_s = new Array<FloatArray>(inputs.Length);
             var h_s = new Array<FloatArray>(inputs.Length);
-            
+
             // init timing
             h_s[-1] = hprev.Clone();
             c_s[-1] = cprev.Clone();
 
-            // forward	
+            // forward
             for (var t = 0; t < inputs.Length; t++)
-            {                
+            {
                 (z_s[t], f_s[t], i_s[t], c_s_s[t], c_s[t], o_s[t], h_s[t]) =
                     FeedForward(inputs[t], h_s[t - 1], c_s[t - 1]);
             }

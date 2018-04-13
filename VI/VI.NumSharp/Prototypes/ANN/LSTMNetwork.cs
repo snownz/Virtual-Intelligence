@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using VI.NumSharp;
+﻿using VI.NumSharp;
 using VI.NumSharp.Arrays;
 
 namespace VI.NumSharp.Prototypes.ANN
@@ -34,7 +31,7 @@ namespace VI.NumSharp.Prototypes.ANN
         private FloatArray mBc;
         private FloatArray mBo;
         private FloatArray mBv;
-        
+
         private FloatArray Sigmoid(FloatArray x)
         {
             return 1 / (1 + (-1 * x).Exp());
@@ -187,7 +184,7 @@ namespace VI.NumSharp.Prototypes.ANN
             h_s[-1] = hprev.Clone();
             c_s[-1] = cprev.Clone();
 
-            // forward	
+            // forward
             for (var t = 0; t < inputs.Length; t++)
             {
                 x_s[t] = new FloatArray(input_size);
@@ -238,7 +235,7 @@ namespace VI.NumSharp.Prototypes.ANN
 
             return (loss, dWf, dWi, dWc, dWo, dWv, dBf, dBi, dBc, dBo, dBv, h_s[inputs.Length - 1], c_s[inputs.Length - 1]);
         }
-        
+
         public void UpdateParams(FloatArray2D dWf, FloatArray2D dWi, FloatArray2D dWc, FloatArray2D dWo, FloatArray2D dWv,
             FloatArray dBf, FloatArray dBi, FloatArray dBc, FloatArray dBo, FloatArray dBv)
         {
@@ -255,16 +252,16 @@ namespace VI.NumSharp.Prototypes.ANN
             mBv += dBv * dBv;
 
             // update params
-            Wf -= (learning_rate / (mWf + 1e-8f).Sqrt())* dWf ;
-            Wi -= (learning_rate / (mWi + 1e-8f).Sqrt())* dWi ;
-            Wc -= (learning_rate / (mWc + 1e-8f).Sqrt())* dWc ;
-            Wo -= (learning_rate / (mWo + 1e-8f).Sqrt())* dWo ;
-            Wv -= (learning_rate / (mWv + 1e-8f).Sqrt())* dWv ;
-            Bf -= (learning_rate / (mBf + 1e-8f).Sqrt())* dBf ;
-            Bi -= (learning_rate / (mBi + 1e-8f).Sqrt())* dBi ;
-            Bc -= (learning_rate / (mBc + 1e-8f).Sqrt())* dBc ;
-            Bo -= (learning_rate / (mBo + 1e-8f).Sqrt())* dBo ;
-            Bv -= (learning_rate / (mBv + 1e-8f).Sqrt())* dBv ;
-        }        
+            Wf -= (learning_rate / (mWf + 1e-8f).Sqrt()) * dWf;
+            Wi -= (learning_rate / (mWi + 1e-8f).Sqrt()) * dWi;
+            Wc -= (learning_rate / (mWc + 1e-8f).Sqrt()) * dWc;
+            Wo -= (learning_rate / (mWo + 1e-8f).Sqrt()) * dWo;
+            Wv -= (learning_rate / (mWv + 1e-8f).Sqrt()) * dWv;
+            Bf -= (learning_rate / (mBf + 1e-8f).Sqrt()) * dBf;
+            Bi -= (learning_rate / (mBi + 1e-8f).Sqrt()) * dBi;
+            Bc -= (learning_rate / (mBc + 1e-8f).Sqrt()) * dBc;
+            Bo -= (learning_rate / (mBo + 1e-8f).Sqrt()) * dBo;
+            Bv -= (learning_rate / (mBv + 1e-8f).Sqrt()) * dBv;
+        }
     }
 }

@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using VI.NumSharp.Arrays;
-using VI.NumSharp;
-using VI.ParallelComputing;
-using System.Linq;
 using System.IO;
+using System.Linq;
+using VI.NumSharp;
+using VI.NumSharp.Arrays;
 using VI.NumSharp.Prototypes.ANN;
+using VI.ParallelComputing;
 
 namespace VI.Test.LSTM.TextWriter
 {
-    class Program
+    internal class Program
     {
-
 #if DEBUG
         private static string path = "../VI.Test.LSTM.TextWriter/Data/text.txt";
 #else
@@ -31,7 +30,7 @@ namespace VI.Test.LSTM.TextWriter
 
         private static LSTMNetwork net;
 
-        static void OpenText()
+        private static void OpenText()
         {
             txt = File.ReadAllText(path);
 
@@ -52,7 +51,7 @@ namespace VI.Test.LSTM.TextWriter
             }
         }
 
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             Console.Clear();
 
@@ -72,7 +71,7 @@ namespace VI.Test.LSTM.TextWriter
 
             int n = 0;
             int p = 0;
-            
+
             while (n <= 1000 * 100)
             {
                 if (p + seq_length + 1 >= data_size || n == 0)
@@ -93,7 +92,7 @@ namespace VI.Test.LSTM.TextWriter
                  var hs, var cs) = net.BPTT(inputs, targets, hprev, cprev);
 
                 net.UpdateParams(dWf, dWi, dWc, dWo, dWv, dBf, dBi, dBc, dBo, dBv);
-                
+
                 if (n % 100 == 0)
                 {
                     Sample(hprev, cprev, inputs[0], 200);
@@ -110,7 +109,7 @@ namespace VI.Test.LSTM.TextWriter
             }
         }
 
-        static void Sample(FloatArray hprev, FloatArray cprev, int seed_ix, int size)
+        private static void Sample(FloatArray hprev, FloatArray cprev, int seed_ix, int size)
         {
             var x = new FloatArray(vocab_size);
             x[seed_ix] = 1;

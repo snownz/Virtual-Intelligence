@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using VI.Neural.ActivationFunction;
+﻿using VI.Neural.ActivationFunction;
 using VI.Neural.ANNOperations;
 
 namespace VI.Neural.Factory
 {
     /// <summary>
-    /// (ArcTANH, Binary, LeakRelu, Relu, Sigmoid, Sinusoid, TANH) LayerCreatorOptmizer  
+    /// (ArcTANH, Binary, LeakRelu, Relu, Sigmoid, Sinusoid, TANH) LayerCreatorOptmizer
     /// </summary>
     public class LayerCreatorHiddenActivations
     {

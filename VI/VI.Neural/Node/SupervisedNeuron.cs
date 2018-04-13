@@ -5,9 +5,9 @@ using VI.NumSharp.Arrays;
 
 namespace VI.Neural.Node
 {
-	public class SupervisedNeuron : INeuron
-	{
-		protected readonly ISupervisedOperations _operations;        
+    public class SupervisedNeuron : INeuron
+    {
+        protected readonly ISupervisedOperations _operations;
         protected readonly ILayer _layer;
 
         public int NodesSize => _layer.Size;
@@ -27,7 +27,7 @@ namespace VI.Neural.Node
             float learningRate,
             float momentum,
            ISupervisedOperations operations)
-        {            
+        {
             _layer = new ActivationLayer(nodeSize, connectionSize)
             {
                 LearningRate = learningRate,
@@ -37,7 +37,7 @@ namespace VI.Neural.Node
             _operations.SetLayer(_layer);
             InitializeArrays(nodeSize, connectionSize);
         }
-        
+
         private void InitializeArrays(int nodeSize, int connectionSize)
         {
             _layer.GradientMatrix = new FloatArray2D(nodeSize, connectionSize);
@@ -55,6 +55,11 @@ namespace VI.Neural.Node
         public FloatArray ComputeErrorNBackWard(FloatArray target)
         {
             return _operations.ComputeErrorNBackWard(target);
+        }
+
+         public FloatArray ComputeErrorNBackWard(FloatArray target, FloatArray compl)
+        {
+            return _operations.ComputeErrorNBackWard(target, compl);
         }
 
         public FloatArray BackWard(FloatArray dw)
@@ -85,6 +90,6 @@ namespace VI.Neural.Node
         public override string ToString()
         {
             return _layer.KnowlodgeMatrix.ToString();
-        }       
+        }
     }
 }

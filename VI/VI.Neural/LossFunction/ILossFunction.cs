@@ -2,8 +2,8 @@
 
 namespace VI.Neural.LossFunction
 {
-	public interface ILossFunction
-	{
-		float Loss(FloatArray targets, FloatArray prediction);
-	}
+    public interface ILossFunction
+    {
+        float Loss(FloatArray targets, FloatArray prediction);
+    }
 }

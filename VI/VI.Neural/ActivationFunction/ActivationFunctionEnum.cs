@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace VI.Neural.ActivationFunction
+﻿namespace VI.Neural.ActivationFunction
 {
     public enum ActivationFunctionEnum
     {

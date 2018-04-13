@@ -32,10 +32,11 @@ namespace VI.Algorithm.RecurrentScoringStructure
             }
             return item[0];
         }
+
         public Node Construct(List<Node> item)
         {
             int depth = 0;
-            
+
             while (item.Count > 1)
             {
                 // Create Scores
@@ -50,7 +51,7 @@ namespace VI.Algorithm.RecurrentScoringStructure
             }
             return item[0];
         }
-        
+
         private List<Node> CreateDesiredScores(List<Node> items, int depth)
         {
             // List Results
@@ -73,6 +74,7 @@ namespace VI.Algorithm.RecurrentScoringStructure
             }
             return resultNodes;
         }
+
         private List<Node> CreateScores(List<Node> items, int depth)
         {
             // List Results
@@ -84,14 +86,14 @@ namespace VI.Algorithm.RecurrentScoringStructure
                 for (int j = 0; j < items.Count; j++)
                 {
                     if (i == j) continue;
-                    
+
                     // Get nodes
                     var itemA = items[i];
                     var itemB = items[j];
-                
+
                     // Get Score
                     (var sc, var obj) = _score.Score(itemA, itemB, items, depth);
-                
+
                     // Create Node
                     resultNodes.Add(new Node(itemA, itemB, sc, depth) { Value = obj });
                 }
@@ -115,6 +117,7 @@ namespace VI.Algorithm.RecurrentScoringStructure
 
             return result;
         }
+
         private List<Node> SelectGroups(List<Node> resultNodes, List<Node> prior, int depth)
         {
             // Get Winner

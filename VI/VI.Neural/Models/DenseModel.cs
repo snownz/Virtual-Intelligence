@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using VI.Neural.ActivationFunction;
-using VI.Neural.ANNOperations;
+﻿using System.Threading.Tasks;
 using VI.Neural.extension;
-using VI.Neural.Factory;
 using VI.Neural.Node;
-using VI.Neural.OptimizerFunction;
 using VI.NumSharp;
 using VI.NumSharp.Arrays;
 
@@ -18,7 +11,7 @@ namespace VI.Neural.Models
         private Array<INeuron> w;
 
         public int[] Len => w.Len();
-        
+
         public DenseModel(Array<INeuron> layers)
         {
             w = layers;
@@ -52,7 +45,7 @@ namespace VI.Neural.Models
             {
                 result[i] = w[i].FeedForward(result[i - 1]);
             }
-            
+
             return result;
         }
 
@@ -82,6 +75,25 @@ namespace VI.Neural.Models
 
             return dw;
         }
+
+        /// <summary>
+        /// Compute error for linear timing
+        /// </summary>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        public FloatArray ComputeErrorNBackward(FloatArray target, Array<FloatArray> output, FloatArray compl)
+        {
+            w.SetOutputs(output);
+            var dw = w[w.Length - 1].ComputeErrorNBackWard(target, compl);
+
+            for (int i = w.Length - 2; i >= 0; i--)
+            {
+                dw = w[i].BackWard(dw);
+            }
+
+            return dw;
+        }
+
 
         /// <summary>
         /// Compute error for non-linear timing
@@ -166,5 +178,5 @@ namespace VI.Neural.Models
                 w[i].UpdateParams(dw[i], db[i]);
             });
         }
-    }    
+    }
 }

@@ -6,8 +6,11 @@ namespace VI.Neural.OptimizerFunction
     public interface IOptimizerFunction
     {
         void CalculateParams(ILayer target);
-        FloatArray Error(FloatArray targetOutputVector, FloatArray values);
+
+        FloatArray Error(FloatArray target, FloatArray output);
+
         void UpdateWeight(ILayer target, FloatArray2D dW);
+
         void UpdateBias(ILayer target, FloatArray dB);
     }
 }

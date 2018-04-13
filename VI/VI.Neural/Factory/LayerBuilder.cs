@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using VI.Neural.ActivationFunction;
 using VI.Neural.ANNOperations;
 using VI.Neural.Node;
@@ -11,7 +9,7 @@ namespace VI.Neural.Factory
     public class LayerBuilder
     {
         private int size, connections;
-        private float lr,  mo, std;
+        private float lr, mo, std;
         private ANNOperationsEnum operation;
         private ActivationFunctionEnum activation;
         private EnumOptimizerFunction optmizator;
@@ -40,8 +38,10 @@ namespace VI.Neural.Factory
             {
                 case NodeEnum.Supervised:
                     return BuildSupervised();
+
                 case NodeEnum.Unsupervised:
                     return BuildUnsupervised();
+
                 default:
                     throw new InvalidOperationException();
             }
@@ -58,27 +58,35 @@ namespace VI.Neural.Factory
                 case ActivationFunctionEnum.ArcTANH:
                     act = new ArcTANHFunction();
                     break;
+
                 case ActivationFunctionEnum.TANH:
                     act = new TANHFunction();
                     break;
+
                 case ActivationFunctionEnum.Binary:
                     act = new BinaryStepFunction();
                     break;
+
                 case ActivationFunctionEnum.LeakRelu:
                     act = new LeakReluFunction();
                     break;
+
                 case ActivationFunctionEnum.Relu:
                     act = new ReluFunction();
                     break;
+
                 case ActivationFunctionEnum.Sigmoid:
                     act = new SigmoidFunction();
                     break;
+
                 case ActivationFunctionEnum.Sinusoid:
                     act = new SinusoidFunction();
                     break;
+
                 case ActivationFunctionEnum.Nothing:
                     act = null;
                     break;
+
                 default:
                     throw new InvalidOperationException();
             }
@@ -88,15 +96,19 @@ namespace VI.Neural.Factory
                 case EnumOptimizerFunction.Adagrad:
                     opt = new AdagradOptimizerFunction();
                     break;
+
                 case EnumOptimizerFunction.RmsProp:
                     opt = new RMSOptimizerFunction();
                     break;
+
                 case EnumOptimizerFunction.SGD:
                     opt = new SGDOptimizerFunction();
                     break;
+
                 case EnumOptimizerFunction.Momentum:
                     opt = new MomentumOptmizerFunction();
                     break;
+
                 default:
                     throw new InvalidOperationException();
             }
@@ -106,9 +118,11 @@ namespace VI.Neural.Factory
                 case ANNOperationsEnum.Activator:
                     opr = new ANNActivatorOperations();
                     break;
+
                 case ANNOperationsEnum.SoftMax:
                     opr = new ANNSoftmaxOperations();
                     break;
+
                 default:
                     throw new InvalidOperationException();
             }

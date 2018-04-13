@@ -3,14 +3,14 @@ using VI.NumSharp.Arrays;
 
 namespace VI.Neural.OptimizerFunction
 {
-	public class MomentumOptmizerFunction : IOptimizerFunction
+    public class MomentumOptmizerFunction : IOptimizerFunction
     {
-		public void CalculateParams(ILayer target)
-		{
-			target.CachedMomentum     = target.LearningRate * target.Momentum;
-			target.CachedLearningRate = target.LearningRate * (1 - target.Momentum);
-		}
-        
+        public void CalculateParams(ILayer target)
+        {
+            target.CachedMomentum = target.LearningRate * target.Momentum;
+            target.CachedLearningRate = target.LearningRate * (1 - target.Momentum);
+        }
+
         public FloatArray Error(FloatArray targetOutputVector, FloatArray values)
         {
             return values - targetOutputVector;

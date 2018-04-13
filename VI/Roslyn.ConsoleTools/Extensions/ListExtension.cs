@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
-using System.Threading.Tasks;
 
 namespace VI.Roslyn.ConsoleTools.Extensions
 {
@@ -51,6 +50,6 @@ namespace VI.Roslyn.ConsoleTools.Extensions
                 list[k] = list[n];
                 list[n] = value;
             }
-        }       
+        }
     }
 }

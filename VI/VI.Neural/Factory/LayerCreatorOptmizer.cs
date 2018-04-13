@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using VI.Neural.ActivationFunction;
+﻿using VI.Neural.ActivationFunction;
 using VI.Neural.ANNOperations;
 using VI.Neural.OptimizerFunction;
 
@@ -18,7 +15,6 @@ namespace VI.Neural.Factory
         private int connections;
         private float lr;
         private float mo;
-        
 
         public LayerCreatorOptmizer(int size, int connections, float lr, float mo, ANNOperationsEnum operation, ActivationFunctionEnum activation)
         {
@@ -53,6 +49,6 @@ namespace VI.Neural.Factory
         public LayerBuilder WithOpetimizator_f(EnumOptimizerFunction opt)
         {
             return new LayerBuilder(size, connections, lr, mo, operation, activation, opt);
-        }        
+        }
     }
 }

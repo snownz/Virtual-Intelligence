@@ -1,58 +1,57 @@
-﻿using System.Collections.Generic;
+﻿using ILGPU;
+using ILGPU.Runtime;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ILGPU;
-using ILGPU.Runtime;
 
 namespace VI.NumSharp.Drivers.Data.GPU
 {
-	public class GPU_FloatData2D : IFloatData2D
-	{
-		private MemoryBuffer2D<float> _view;
+    public class GPU_FloatData2D : IFloatData2D
+    {
+        private MemoryBuffer2D<float> _view;
 
-		public GPU_FloatData2D()
-		{
-			
-		}
-		
-		public GPU_FloatData2D(int w, int h)
-		{
-			_view = ILGPUMethods.Allocate<float>(new Index2(w, h));
-			AxesX = Enumerable.Range(0, w);
-			AxesY = Enumerable.Range(0, h);
-		}
-		
-		public GPU_FloatData2D(float[,] data)
-		{
-			_view = ILGPUMethods.Allocate(data);
-			AxesX = Enumerable.Range(0, data.GetLength(0));
-			AxesY = Enumerable.Range(0, data.GetLength(1));
-		}
-		
-		public GPU_FloatData2D(MemoryBuffer2D<float> data)
-		{
-			_view = data;
-			AxesX = Enumerable.Range(0, data.Width);
-			AxesY = Enumerable.Range(0, data.Height);
-		}
+        public GPU_FloatData2D()
+        {
+        }
 
-		public ArrayView2D<float> MemoryView => _view.View;
+        public GPU_FloatData2D(int w, int h)
+        {
+            _view = ILGPUMethods.Allocate<float>(new Index2(w, h));
+            AxesX = Enumerable.Range(0, w);
+            AxesY = Enumerable.Range(0, h);
+        }
 
-		public float this[int x, int y]
-		{
-			get => _view[new Index2(x, y)];
-			set => _view[new Index2(x, y)] = value;
-		}
+        public GPU_FloatData2D(float[,] data)
+        {
+            _view = ILGPUMethods.Allocate(data);
+            AxesX = Enumerable.Range(0, data.GetLength(0));
+            AxesY = Enumerable.Range(0, data.GetLength(1));
+        }
 
-		public IEnumerable<int> AxesX { get; }
-		public IEnumerable<int> AxesY { get; }
+        public GPU_FloatData2D(MemoryBuffer2D<float> data)
+        {
+            _view = data;
+            AxesX = Enumerable.Range(0, data.Width);
+            AxesY = Enumerable.Range(0, data.Height);
+        }
 
-		public float[,] AsArray2D()
-		{
-			var arr = new float[W, H];
-			Parallel.ForEach(AxesX, (x) => { Parallel.ForEach(AxesY, (y) => { arr[y, x] = this[x, y]; }); });
-			return arr;
-		}
+        public ArrayView2D<float> MemoryView => _view.View;
+
+        public float this[int x, int y]
+        {
+            get => _view[new Index2(x, y)];
+            set => _view[new Index2(x, y)] = value;
+        }
+
+        public IEnumerable<int> AxesX { get; }
+        public IEnumerable<int> AxesY { get; }
+
+        public float[,] AsArray2D()
+        {
+            var arr = new float[W, H];
+            Parallel.ForEach(AxesX, (x) => { Parallel.ForEach(AxesY, (y) => { arr[y, x] = this[x, y]; }); });
+            return arr;
+        }
 
         public override string ToString()
         {
@@ -71,18 +70,18 @@ namespace VI.NumSharp.Drivers.Data.GPU
         }
 
         public float[] AsArray()
-		{
-			return _view.GetAsArray();
-		}
+        {
+            return _view.GetAsArray();
+        }
 
-		public int W => _view.Width;
-		public int H => _view.Height;
+        public int W => _view.Width;
+        public int H => _view.Height;
 
         public float[,] View { get => AsArray2D(); set => _view = ILGPUMethods.Allocate<float>(value); }
 
         public float[,] Clone()
-		{
-			return AsArray2D();
-		}
-	}
+        {
+            return AsArray2D();
+        }
+    }
 }

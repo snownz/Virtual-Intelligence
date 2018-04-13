@@ -68,60 +68,60 @@ namespace VI.Neural.Network
             BPTT(int[] inputs, int[] targets, FloatArray hprev)
         {
             float loss = 0f;
-            
+
             //Feedforward
             var xs = new Array<FloatArray>(inputs.Length); // Inputs
             var hs = new Array<FloatArray>(inputs.Length); // Hidden Result
             var ps = new Array<Array<FloatArray>>(inputs.Length); // Softmax probabilit
             var tg = new Array<FloatArray>(inputs.Length); // Targets
             hs[-1] = hprev;
-            
+
             //Backward
             var dwy = new Array<FloatArray2D>(new[] { NumMath.Array(output_size, hidden_size) });
             var dby = new Array<FloatArray>(new[] { NumMath.Array(output_size) });
             var dwh = new Array<FloatArray2D>(new[] { NumMath.Array(hidden_size, input_size), NumMath.Array(hidden_size, hidden_size) });
             var dbh = new FloatArray(hidden_size);
             var dhnext = new FloatArray(hidden_size);
-            
+
             for (int t = 0; t < inputs.Length; t++)
             {
                 xs[t] = new FloatArray(input_size);
                 xs[t][inputs[t]] = 1;
-            
+
                 tg[t] = new FloatArray(output_size);
                 tg[t][targets[t]] = 1;
-            
+
                 (hs[t], ps[t]) = FeedForward(xs[t], hs[t - 1]);
-                
+
                 loss += lossFunction.Loss(tg[t], ps[t][0]);
             }
-            
+
             for (int t = inputs.Length - 1; t >= 0; t--)
             {
                 // Sequencial
                 var dy = decoder.ComputeErrorNBackward(tg[t], ps[t]);
                 dhnext = encoder.Backward(dy, dhnext, hs[t]);
-            
+
                 // Parallel
                 (var wy, var by) = decoder.ComputeGradient(hs[t]);
                 (var wh, var bh) = encoder.ComputeGradient(xs[t], hs[t - 1]);
-            
+
                 // Parallel
                 dwy = dwy.Sum(wy);
                 dby = dby.Sum(by);
                 dwh = dwh.Sum(wh);
                 dbh += bh;
             }
-            
+
             // Parallel
             dwy = NumMath.Normalize(-5, 5, dwy);
             dby = NumMath.Normalize(-5, 5, dby);
             dwh = NumMath.Normalize(-5, 5, dwh);
             dbh = NumMath.Normalize(-5, 5, dbh);
-            
+
             return (loss, dwy, dby, dwh, dbh, hs[inputs.Length - 1]);
         }
-        
+
         /// <summary>
         /// Update Params from network
         /// </summary>
@@ -134,6 +134,6 @@ namespace VI.Neural.Network
             // Parallel
             decoder.UpdateParams(dwy, dby);
             encoder.UpdateParams(dwh, dbh);
-        }              
+        }
     }
 }

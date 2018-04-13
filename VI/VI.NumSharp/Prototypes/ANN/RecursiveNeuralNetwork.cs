@@ -15,6 +15,7 @@ namespace VI.NumSharp.Prototypes.ANN
             w = NumMath.Random(inputSize, inputSize + inputSize, std);
             wScore = NumMath.Random(1, inputSize, std);
             b = NumMath.Repeat(inputSize, 1);
+
             this.learningRate = learningRate;
         }
 
@@ -28,17 +29,7 @@ namespace VI.NumSharp.Prototypes.ANN
             return (p, s, x);
         }
 
-        public (FloatArray p, FloatArray s, FloatArray x) FeedForward(FloatArray c1, FloatArray c2, FloatArray c3)
-        {
-            var x = c1.Union(c2.Union(c3));
-
-            var p = ActivationFunctions.Tanh(((x.T * w).SumLine() + b));
-            var s = ActivationFunctions.Sigmoid((p.T * wScore).SumLine());
-
-            return (p, s, x);
-        }
-
-        public (float loss, FloatArray errorC1, FloatArray errorC2, FloatArray2D dw, FloatArray2D dwScore, FloatArray db) 
+        public (float loss, FloatArray errorC1, FloatArray errorC2, FloatArray2D dw, FloatArray2D dwScore, FloatArray db)
             ComputeErrorNBackWard(FloatArray p, FloatArray score, FloatArray inputs, FloatArray target)
         {
             var loss = 1 * (score - target).Pow(2).Sum();
@@ -54,7 +45,7 @@ namespace VI.NumSharp.Prototypes.ANN
 
             var dwScore = (p.T * deScore);
             var dw = (inputs.T * de);
-            
+
             return (loss, backProp[0], backProp[0], dw, dwScore, de);
         }
 
@@ -73,11 +64,11 @@ namespace VI.NumSharp.Prototypes.ANN
 
             var dwScore = (p.T * deScore);
             var dw = (inputs.T * de);
-            
+
             return (loss, backProp[0], backProp[1], dw, dwScore, de);
         }
 
-        public (FloatArray errorC1, FloatArray errorC2, FloatArray2D dw, FloatArray db) 
+        public (FloatArray errorC1, FloatArray errorC2, FloatArray2D dw, FloatArray db)
             BackWard(FloatArray error, FloatArray p, FloatArray inputs)
         {
             var de = ActivationFunctions.Dtanh(p) * error;
@@ -86,7 +77,7 @@ namespace VI.NumSharp.Prototypes.ANN
             var backProp = dh.Split(2);
 
             var dw = (inputs.T * de);
-            
+
             return (backProp[0], backProp[1], dw, de);
         }
 

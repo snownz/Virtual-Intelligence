@@ -1,6 +1,6 @@
 ﻿namespace VI.Neural.Training
 {
-	public class BPTTTraining
-	{
-	}
+    public class BPTTTraining
+    {
+    }
 }

@@ -4,17 +4,17 @@ using VI.NumSharp.Arrays;
 
 namespace VI.Neural.OptimizerFunction
 {
-	public class RMSOptimizerFunction : IOptimizerFunction
+    public class RMSOptimizerFunction : IOptimizerFunction
     {
-		private FloatArray2D gW;
-		private FloatArray bW;
+        private FloatArray2D gW;
+        private FloatArray bW;
 
-		public void CalculateParams(ILayer target)
-		{
-			gW = NumMath.Array(target.Size, target.ConectionsSize);
-			bW = NumMath.Array(target.Size);
-		}
-        
+        public void CalculateParams(ILayer target)
+        {
+            gW = NumMath.Array(target.Size, target.ConectionsSize);
+            bW = NumMath.Array(target.Size);
+        }
+
         public FloatArray Error(FloatArray targetOutputVector, FloatArray values)
         {
             return values - targetOutputVector;

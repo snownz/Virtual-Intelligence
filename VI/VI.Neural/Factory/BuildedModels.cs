@@ -37,7 +37,7 @@ namespace VI.Neural.Factory
                        .WithLearningRate(learningRate)
                        .Supervised_f()
                        .Hidden_f()
-                       .MultipleActivator_f(new[] { connections , size})
+                       .MultipleActivator_f(new[] { connections, size })
                        .TANH_f()
                        .WithOpetimizator_f(opt)
                        .FullSynapse(std)

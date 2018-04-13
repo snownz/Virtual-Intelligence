@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using VI.Neural.ANNOperations;
+﻿using VI.Neural.ANNOperations;
 using VI.Neural.Layer;
 using VI.NumSharp;
 using VI.NumSharp.Arrays;
@@ -66,7 +63,7 @@ namespace VI.Neural.Node
         {
             return _operations.BackWard(dw);
         }
-               
+
         public void ComputeGradient(Array<FloatArray> input)
         {
             _operations.ComputeGradient(input);

@@ -11,16 +11,16 @@ using VI.ParallelComputing;
 
 namespace MNIST
 {
-    class Program
+    internal class Program
     {
 #if DEBUG
         private static string path = "../VI.Test.MNIST/Data";
 #else
         private static string path = "VI.Test.MNIST/Data";
 #endif
-        static void Main(string[] args)
-        {
 
+        private static void Main(string[] args)
+        {
             Console.Clear();
 
             var watch = System.Diagnostics.Stopwatch.StartNew();
@@ -33,8 +33,8 @@ namespace MNIST
             Console.WriteLine($"Device Time: {watch.ElapsedMilliseconds}ms");
 
             var hiddens = BuildedModels.DenseLeakRelu(784, 100, 1e-1f, 1e-1f, EnumOptimizerFunction.SGD);
-            var hiddens2 = BuildedModels.DenseLeakRelu(100, 30, 1e-1f, 1e-1f, EnumOptimizerFunction.SGD); 
-            var outputs = BuildedModels.DenseSoftMax(30, 10, 1e-1f, 1e-1f, EnumOptimizerFunction.SGD); 
+            var hiddens2 = BuildedModels.DenseLeakRelu(100, 30, 1e-1f, 1e-1f, EnumOptimizerFunction.SGD);
+            var outputs = BuildedModels.DenseSoftMax(30, 10, 1e-1f, 1e-1f, EnumOptimizerFunction.SGD);
 
             var model = new DenseModel();
             model.AddLayer(hiddens);
@@ -70,7 +70,7 @@ namespace MNIST
 
                     // Backward
                     model.ComputeErrorNBackward(desireds);
-                    (var dw, var db) =  model.ComputeGradient(inputs);
+                    (var dw, var db) = model.ComputeGradient(inputs);
                     model.UpdateParams(dw, db);
 
                     if (ct % 1000 == 0)

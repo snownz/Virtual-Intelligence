@@ -6,98 +6,97 @@ using VI.NumSharp.Drivers;
 
 namespace VI.NumSharp.Arrays
 {
-	public class ByteArray : IDisposable
-	{
-		private readonly IByteData _view;
+    public class ByteArray : IDisposable
+    {
+        private readonly IByteData _view;
 
-		public IByteData View => _view;
-	
-		
-		public ByteArray(int size)
-		{
-			_view = ProcessingDevice.ByteData.New(size);
-			AxesX = Enumerable.Range(0, size);
-		}
+        public IByteData View => _view;
 
-		public ByteArray(byte[] data)
-		{
-			_view = ProcessingDevice.ByteData.New(data);;
-			AxesX = Enumerable.Range(0, data.Length);
-		}
+        public ByteArray(int size)
+        {
+            _view = ProcessingDevice.ByteData.New(size);
+            AxesX = Enumerable.Range(0, size);
+        }
 
-		public byte this[int x]
-		{
-			get
-			{
-				if (x < 0) x = Length - x;
-				return _view[x];
-			}
-			set
-			{
-				if (x < 0) x = Length - x;
+        public ByteArray(byte[] data)
+        {
+            _view = ProcessingDevice.ByteData.New(data); ;
+            AxesX = Enumerable.Range(0, data.Length);
+        }
 
-				_view[x] = value;
-			}
-		}
+        public byte this[int x]
+        {
+            get
+            {
+                if (x < 0) x = Length - x;
+                return _view[x];
+            }
+            set
+            {
+                if (x < 0) x = Length - x;
 
-		public IEnumerable<int> AxesX { get; }
+                _view[x] = value;
+            }
+        }
 
-		public int        Length => _view.Length;
-		public ByteArrayT T      => new ByteArrayT(_view, AxesX);
+        public IEnumerable<int> AxesX { get; }
 
-		public List<byte> ToList()
-		{
-			var lt = new List<byte>();
-			Parallel.ForEach(AxesX, (i) => { lt.Add(_view[i]); });
-			return lt;
-		}
+        public int Length => _view.Length;
+        public ByteArrayT T => new ByteArrayT(_view, AxesX);
 
-		public byte[] ToArray()
-		{
-			var lt                                 = new byte[Length];
-			Parallel.ForEach(AxesX, (i) => { lt[i] = _view[i]; });
-			return lt;
-		}
+        public List<byte> ToList()
+        {
+            var lt = new List<byte>();
+            Parallel.ForEach(AxesX, (i) => { lt.Add(_view[i]); });
+            return lt;
+        }
 
-		public ByteArray Clone()
-		{
-			return new ByteArray(_view.Clone() as byte[]);
-		}
+        public byte[] ToArray()
+        {
+            var lt = new byte[Length];
+            Parallel.ForEach(AxesX, (i) => { lt[i] = _view[i]; });
+            return lt;
+        }
 
-		public override string ToString()
-		{
-			var str                                    = "[";
-			for (var i = 0; i < _view.Length; i++) str += $"{_view[i].ToString().Replace(",", ".")}, ";
-			str                                        =  str.Remove(str.Length - 2);
-			str                                        += "]";
-			return str;
-		}
+        public ByteArray Clone()
+        {
+            return new ByteArray(_view.Clone() as byte[]);
+        }
 
-		public void Dispose()
-		{
-		}
-	}
+        public override string ToString()
+        {
+            var str = "[";
+            for (var i = 0; i < _view.Length; i++) str += $"{_view[i].ToString().Replace(",", ".")}, ";
+            str = str.Remove(str.Length - 2);
+            str += "]";
+            return str;
+        }
 
-	public class ByteArrayT
-	{
-		private readonly IByteData _view;
-		
-		public IByteData View => _view;
+        public void Dispose()
+        {
+        }
+    }
 
-		public IEnumerable<int> AxesX { get; }
-		
-		public ByteArrayT(IByteData data, IEnumerable<int> ax)
-		{
-			_view = data;
-			AxesX = ax;
-		}
+    public class ByteArrayT
+    {
+        private readonly IByteData _view;
 
-		public byte this[int x]
-		{
-			get => _view[x];
-			set => _view[x] = value;
-		}
+        public IByteData View => _view;
 
-		public int Length => _view.Length;
-	}
+        public IEnumerable<int> AxesX { get; }
+
+        public ByteArrayT(IByteData data, IEnumerable<int> ax)
+        {
+            _view = data;
+            AxesX = ax;
+        }
+
+        public byte this[int x]
+        {
+            get => _view[x];
+            set => _view[x] = value;
+        }
+
+        public int Length => _view.Length;
+    }
 }

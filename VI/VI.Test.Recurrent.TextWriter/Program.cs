@@ -9,7 +9,7 @@ using VI.ParallelComputing;
 
 namespace VI.Test.Recurrent.TextWriter
 {
-    class Program
+    internal class Program
     {
 #if DEBUG
         private static string path = "../VI.Test.Recurrent.TextWriter/Data/text.txt";
@@ -27,12 +27,11 @@ namespace VI.Test.Recurrent.TextWriter
 
         private static Dictionary<char, int> char_to_ix;
         private static Dictionary<int, char> ix_to_char;
-        
+
         private static RecurrentNeuralNetwork net;
 
-        static void OpenText()
+        private static void OpenText()
         {
-
             txt = File.ReadAllText(path);
 
             var chars = new String(txt.Distinct().ToArray());
@@ -52,10 +51,10 @@ namespace VI.Test.Recurrent.TextWriter
             }
         }
 
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             Console.Clear();
-            
+
             ProcessingDevice.Device = DeviceType.CPU;
 
             OpenText();
@@ -63,14 +62,14 @@ namespace VI.Test.Recurrent.TextWriter
             hidden_size = 100;
             seq_length = 25;
             learning_rate = 5e-2f;
-            
+
             net = new RecurrentNeuralNetwork(vocab_size, vocab_size, hidden_size, learning_rate, 1e-1f);
 
             var hprev = new FloatArray(hidden_size);
             var smooth_loss = -Math.Log(1.0 / vocab_size) * seq_length;
-            
+
             int n = 0;
-            int p = 0;    
+            int p = 0;
 
             while (1 == 1)
             {
@@ -85,10 +84,10 @@ namespace VI.Test.Recurrent.TextWriter
 
                 for (int i = 0; i < seq_length; i++) inputs[i] = char_to_ix[txt[p + i]];
                 for (int i = 0; i < seq_length; i++) targets[i] = char_to_ix[txt[p + 1 + i]];
-                
-                (var loss, var dwy, var dby, var dwh, var dbh, var hs) = net.BPTT(inputs, targets, hprev);      
-                
-                if(n % 100 == 0)
+
+                (var loss, var dwy, var dby, var dwh, var dbh, var hs) = net.BPTT(inputs, targets, hprev);
+
+                if (n % 100 == 0)
                 {
                     Sample(hprev, inputs[0], 200);
                     Console.WriteLine($"iter {n}, loss: {smooth_loss}");
@@ -104,7 +103,7 @@ namespace VI.Test.Recurrent.TextWriter
             }
         }
 
-        static void Sample(FloatArray hprev, int seed_ix, int size)
+        private static void Sample(FloatArray hprev, int seed_ix, int size)
         {
             var x = new FloatArray(vocab_size);
             x[seed_ix] = 1;

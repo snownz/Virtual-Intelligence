@@ -3,7 +3,7 @@ using VI.NumSharp.Arrays;
 
 namespace VI.Neural.Node
 {
-	public interface IMultipleNeuron
+    public interface IMultipleNeuron
     {
         FloatArray BGradients { get; }
         FloatArray Bias { get; set; }
@@ -15,12 +15,19 @@ namespace VI.Neural.Node
         Array<FloatArray2D> WGradients { get; }
 
         Array<FloatArray> BackWard(FloatArray dw);
+
         Array<FloatArray> ComputeErrorNBackWard(FloatArray target);
+
         void ComputeGradient(Array<FloatArray> input);
+
         FloatArray FeedForward(Array<FloatArray> x);
+
         void FullSynapsis(float std);
+
         void LoadSynapse(FloatArray2D[] data);
+
         string ToString();
+
         void UpdateParams(Array<FloatArray2D> dw, FloatArray db);
     }
 }

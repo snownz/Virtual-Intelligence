@@ -40,8 +40,10 @@ namespace VI.Neural.Factory
             {
                 case NodeEnum.Supervised:
                     return BuildSupervised();
+
                 case NodeEnum.Unsupervised:
                     return BuildUnsupervised();
+
                 default:
                     throw new InvalidOperationException();
             }
@@ -58,27 +60,35 @@ namespace VI.Neural.Factory
                 case ActivationFunctionEnum.ArcTANH:
                     act = new ArcTANHFunction();
                     break;
+
                 case ActivationFunctionEnum.TANH:
                     act = new TANHFunction();
                     break;
+
                 case ActivationFunctionEnum.Binary:
                     act = new BinaryStepFunction();
                     break;
+
                 case ActivationFunctionEnum.LeakRelu:
                     act = new LeakReluFunction();
                     break;
+
                 case ActivationFunctionEnum.Relu:
                     act = new ReluFunction();
                     break;
+
                 case ActivationFunctionEnum.Sigmoid:
                     act = new SigmoidFunction();
                     break;
+
                 case ActivationFunctionEnum.Sinusoid:
                     act = new SinusoidFunction();
                     break;
+
                 case ActivationFunctionEnum.Nothing:
                     act = null;
                     break;
+
                 default:
                     throw new InvalidOperationException();
             }
@@ -88,15 +98,19 @@ namespace VI.Neural.Factory
                 case EnumOptimizerFunction.Adagrad:
                     opt = new AdagradMultipleOptimizerFunction();
                     break;
+
                 case EnumOptimizerFunction.RmsProp:
                     throw new InvalidOperationException();
                     break;
+
                 case EnumOptimizerFunction.SGD:
                     throw new InvalidOperationException();
                     break;
+
                 case EnumOptimizerFunction.Momentum:
                     throw new InvalidOperationException();
                     break;
+
                 default:
                     throw new InvalidOperationException();
             }
@@ -106,9 +120,11 @@ namespace VI.Neural.Factory
                 case ANNOperationsEnum.Activator:
                     opr = new ANNMultipleActivatorOperations();
                     break;
+
                 case ANNOperationsEnum.SoftMax:
                     throw new InvalidOperationException();
                     break;
+
                 default:
                     throw new InvalidOperationException();
             }

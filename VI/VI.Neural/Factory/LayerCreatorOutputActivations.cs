@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using VI.Neural.ActivationFunction;
+﻿using VI.Neural.ActivationFunction;
 using VI.Neural.ANNOperations;
 
 namespace VI.Neural.Factory

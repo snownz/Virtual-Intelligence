@@ -11,7 +11,7 @@ namespace VI.Neural.ANNOperations
     {
         protected IActivationFunction _activationFunction;
         protected IOptimizerMultipleLayerFunction _optimizerFunction;
-		protected IMultipleLayer _target;
+        protected IMultipleLayer _target;
 
         public void Summarization(Array<FloatArray> feed)
         {
@@ -23,11 +23,11 @@ namespace VI.Neural.ANNOperations
         {
             _target.OutputVector = _activationFunction.Activate(_target.Sum);
         }
-        
+
         public virtual Array<FloatArray> BackWard(FloatArray backprop)
         {
             var DO = _activationFunction.Derivate(_target.Sum, _target.OutputVector);
-            _target.ErrorVector =  DO * backprop;
+            _target.ErrorVector = DO * backprop;
             var back = new Array<FloatArray>(_target.ConectionsSize.Length);
             Parallel.For(0, _target.ConectionsSize.Length, i => back[i] = (_target.ErrorVector * _target.KnowlodgeMatrix[i]).SumColumn());
             return back;
@@ -44,29 +44,29 @@ namespace VI.Neural.ANNOperations
         }
 
         public virtual void ComputeGradient(Array<FloatArray> inputs)
-		{
-            Parallel.For(0, _target.ConectionsSize.Length, i =>  _target.GradientMatrix[i] = inputs[i].T * _target.ErrorVector);        
+        {
+            Parallel.For(0, _target.ConectionsSize.Length, i => _target.GradientMatrix[i] = inputs[i].T * _target.ErrorVector);
         }
 
-		public virtual void UpdateParams(Array<FloatArray2D> dW, FloatArray dB)
-		{
-			_optimizerFunction.UpdateWeight(_target, dW);
-		}
+        public virtual void UpdateParams(Array<FloatArray2D> dW, FloatArray dB)
+        {
+            _optimizerFunction.UpdateWeight(_target, dW);
+        }
 
-		public virtual void SetLayer(IMultipleLayer layer)
-		{
-			_target = layer;
-			_optimizerFunction.CalculateParams(_target);
-		}
+        public virtual void SetLayer(IMultipleLayer layer)
+        {
+            _target = layer;
+            _optimizerFunction.CalculateParams(_target);
+        }
 
-		public void SetActivation(IActivationFunction act)
-		{
-			_activationFunction = act;
-		}        
+        public void SetActivation(IActivationFunction act)
+        {
+            _activationFunction = act;
+        }
 
-		public virtual void SetOptimizer(IOptimizerMultipleLayerFunction opt)
-		{
-			_optimizerFunction = opt;
-		}       
+        public virtual void SetOptimizer(IOptimizerMultipleLayerFunction opt)
+        {
+            _optimizerFunction = opt;
+        }
     }
 }

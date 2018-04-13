@@ -8,11 +8,11 @@ using VI.ParallelComputing.Drivers;
 
 namespace VI.NumSharp
 {
-
     public class ProcessingDevice
     {
         private static DeviceType _device;
         private static IGpuInterface _cudaArrayDevice;
+
         private static IGpuInterface CUDAFloatArrayDevice
             => _cudaArrayDevice ?? (_cudaArrayDevice = new CudaAnnInterface<FloatArrayOperations>());
 
@@ -29,7 +29,14 @@ namespace VI.NumSharp
                         FloatData = new FloatDataGPU();
                         ByteData = new ByteDataGPU();
                         break;
+
                     case DeviceType.CPU:
+                        FloatExecutor = new FloatExecutorCPU();
+                        FloatData = new FloatDataCPU();
+                        ByteData = new ByteDataCPU();
+                        break;
+
+                    case DeviceType.CPU_Parallel:
                         FloatExecutor = new ParallelFloatExecutorCPU();
                         FloatData = new FloatDataCPU();
                         ByteData = new ByteDataCPU();

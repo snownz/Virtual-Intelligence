@@ -11,7 +11,7 @@ namespace VI.Data
             return File.ReadAllText(path);
         }
 
-        public static (Dictionary<char, int>, Dictionary<int,char>) GetUnique(this string text)
+        public static (Dictionary<char, int>, Dictionary<int, char>) GetUnique(this string text)
         {
             var chars = text.Distinct().ToArray();
             return (null, null);
