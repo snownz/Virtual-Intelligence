@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="ILGPU" Version="0.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Roslyn.ConsoleTools\Roslyn.ConsoleTools.csproj" />
   </ItemGroup>
 

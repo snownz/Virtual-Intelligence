@@ -19,7 +19,7 @@ namespace VI.Test.CPU
 
             for (int i = 0; i < operacoes; i++)
             {
-                a[i] = new FloatArray2D(100, 100);
+                a[i] = new FloatArray2D(1000000, 1000000);
             }
 
             // isso vai executar em paralelo mesmo ou vai ser sequenciaal? Olhar a classe FloatArray2D, nela tem overload dos operadores
