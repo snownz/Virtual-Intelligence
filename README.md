@@ -1,3 +1,14 @@
+# Comming Soon
+New Major 3! -> Less code for more results
+- Performance (CPU),
+- New Model,
+- New Infra,
+- Neural Models N Networks,
+- Samples,
+- Math Models optmized,
+- More Array Functions and 
+- New Factory
+
 ## Virtual Intelligence
 
 Open source artificial intelligence framework.
