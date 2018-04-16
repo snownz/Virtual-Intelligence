@@ -1,4 +1,4 @@
-# Comming Soon
+# Coming Soon
 New Major 3! -> Less code for more results
 - Performance (CPU),
 - New Model,
