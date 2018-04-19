@@ -14,7 +14,7 @@ namespace VI.NumSharp.Drivers.Executor.GPU
 		{
 			return new GPU_ByteData(data);
 		}
-		
+
 		public IByteData2D New(int w, int h)
 		{
 			return new GPU_ByteData2D(w, h);

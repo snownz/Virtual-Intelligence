@@ -11,8 +11,8 @@
 		IFloatData V_sub_C(IFloatData cache, IFloatData v, float c);
 		IFloatData V_sub_C(IFloatData cache, float c, IFloatData v);
 		IFloatData V_div_C(IFloatData cache, IFloatData v, float c);
-        IFloatData V_div_C(IFloatData cache, float c, IFloatData v);
-       
+		IFloatData V_div_C(IFloatData cache, float c, IFloatData v);
+
 		IFloatData2D VT_mult_M(IFloatData2D cache, IFloatData vt, IFloatData2D m);
 		IFloatData2D M_mult_M(IFloatData2D cache, IFloatData2D m0, IFloatData2D m1);
 		IFloatData2D M_div_M(IFloatData2D cache, IFloatData2D m0, IFloatData2D m1);
@@ -27,22 +27,22 @@
 		IFloatData2D C_div_M(IFloatData2D cache, IFloatData2D m, float c);
 		IFloatData2D C_div_M(IFloatData2D cache, IFloatData2D m, int c);
 
-        IFloatData Tanh(IFloatData cache, IFloatData arr);
-        IFloatData Sin(IFloatData cache, IFloatData arr);
-        IFloatData Cos(IFloatData cache, IFloatData arr);
-        IFloatData Pow(IFloatData cache, IFloatData arr, float exp);
-        IFloatData Exp(IFloatData cache, IFloatData arr);
-        IFloatData Log(IFloatData cache, IFloatData arr);
-        IFloatData Sqrt(IFloatData cache, IFloatData arr);
-        IFloatData2D Sqrt(IFloatData2D cache,IFloatData2D arr);
-        
-        IFloatData2D M_mult_MT(IFloatData2D m0, IFloatData2D m1);
-        IFloatData2D MT_mult_M(IFloatData2D m0, IFloatData2D m1);
-        IFloatData2D VT_mult_V(IFloatData vt, IFloatData v);
-        IFloatData2D V_mult_VT(IFloatData v, IFloatData vt);
-        IFloatData ApplyMask(IFloatData arr, IByteData mask);
-        IFloatData2D ApplyMask(IFloatData2D arr, IByteData2D mask);
-        IFloatData SumLine(IFloatData2D arr);
+		IFloatData Tanh(IFloatData cache, IFloatData arr);
+		IFloatData Sin(IFloatData cache, IFloatData arr);
+		IFloatData Cos(IFloatData cache, IFloatData arr);
+		IFloatData Pow(IFloatData cache, IFloatData arr, float exp);
+		IFloatData Exp(IFloatData cache, IFloatData arr);
+		IFloatData Log(IFloatData cache, IFloatData arr);
+		IFloatData Sqrt(IFloatData cache, IFloatData arr);
+		IFloatData2D Sqrt(IFloatData2D cache, IFloatData2D arr);
+
+		IFloatData2D M_mult_MT(IFloatData2D m0, IFloatData2D m1);
+		IFloatData2D MT_mult_M(IFloatData2D m0, IFloatData2D m1);
+		IFloatData2D VT_mult_V(IFloatData vt, IFloatData v);
+		IFloatData2D V_mult_VT(IFloatData v, IFloatData vt);
+		IFloatData ApplyMask(IFloatData arr, IByteData mask);
+		IFloatData2D ApplyMask(IFloatData2D arr, IByteData2D mask);
+		IFloatData SumLine(IFloatData2D arr);
 		IFloatData SumColumn(IFloatData2D arr);
 	}
 }

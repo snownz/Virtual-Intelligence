@@ -8,11 +8,11 @@ namespace VI.Neural.Factory
 {
 	public class LayerCreatorOptimizer : LayerCreator
 	{
-		public LayerCreatorOptimizer(float learningRate, float                 dropout, float                    momentum,
-			ISupervisedOperations             supervised, IUnsupervisedOperations unsupervised, IActivationFunction activation,
-			IOptimizerFunction                optimizer, IErrorFunction           error,
-			IList<(int x, int y)>             nodesToSynapsys, float              weight,
-			int                               size, int                           connections, (int w, int h) size2D) :
+		public LayerCreatorOptimizer(float learningRate, float dropout, float momentum,
+			ISupervisedOperations supervised, IUnsupervisedOperations unsupervised, IActivationFunction activation,
+			IOptimizerFunction optimizer, IErrorFunction error,
+			IList<(int x, int y)> nodesToSynapsys, float weight,
+			int size, int connections, (int w, int h) size2D) :
 			base(learningRate, dropout, momentum, supervised, unsupervised,
 				activation,
 				optimizer, error, nodesToSynapsys, weight, size, connections, size2D)
@@ -21,7 +21,23 @@ namespace VI.Neural.Factory
 
 		public LayerCreatorType WithSgd()
 		{
+			_optimizer = new AdagradOptimizerFunction();
+
+			return new LayerCreatorType(_learningRate, _dropout, _momentum, _supervised, _unsupervised,
+				_activation, _optimizer, _error, _nodesToSynapsys, _weight, _size, _connections, _2Dsize);
+		}
+
+		public LayerCreatorType WithAdagrad()
+		{
 			_optimizer = new SGDOptimizerFunction();
+
+			return new LayerCreatorType(_learningRate, _dropout, _momentum, _supervised, _unsupervised,
+				_activation, _optimizer, _error, _nodesToSynapsys, _weight, _size, _connections, _2Dsize);
+		}
+
+		public LayerCreatorType WithRMSProp()
+		{
+			_optimizer = new RMSOptimizerFunction();
 
 			return new LayerCreatorType(_learningRate, _dropout, _momentum, _supervised, _unsupervised,
 				_activation, _optimizer, _error, _nodesToSynapsys, _weight, _size, _connections, _2Dsize);
@@ -34,11 +50,11 @@ namespace VI.Neural.Factory
 			return new LayerCreatorType(_learningRate, _dropout, _momentum, _supervised, _unsupervised,
 				_activation, _optimizer, _error, _nodesToSynapsys, _weight, _size, _connections, _2Dsize);
 		}
-		
+
 		public LayerCreatorType WithSgdAndMomentum(float momentum)
 		{
 			_optimizer = new SGDOptmizerFunctionWithMomentum();
-			_momentum = momentum;
+			_momentum  = momentum;
 			return new LayerCreatorType(_learningRate, _dropout, _momentum, _supervised, _unsupervised,
 				_activation, _optimizer, _error, _nodesToSynapsys, _weight, _size, _connections, _2Dsize);
 		}

@@ -2,20 +2,19 @@
 
 namespace VI.NumSharp.Drivers.Data.CPU
 {
-	public class CPU_ByteData: IByteData
+	public class CPU_ByteData : IByteData
 	{
-		private byte[] _view;
+		private readonly byte[] _view;
 
 		public CPU_ByteData()
 		{
-			
 		}
-		
+
 		public CPU_ByteData(int size)
 		{
 			_view = new byte[size];
 		}
-		
+
 		public CPU_ByteData(byte[] data)
 		{
 			_view = data;
@@ -37,7 +36,7 @@ namespace VI.NumSharp.Drivers.Data.CPU
 		}
 
 		public int Length => _view.Length;
-		
+
 		public byte[] Clone()
 		{
 			return _view.Clone() as byte[];

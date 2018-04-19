@@ -14,7 +14,7 @@ namespace VI.NumSharp.Drivers.Executor.GPU
 		{
 			return new GPU_FloatData(data);
 		}
-		
+
 		public IFloatData2D New(int w, int h)
 		{
 			return new GPU_FloatData2D(w, h);

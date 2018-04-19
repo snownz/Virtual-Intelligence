@@ -1,46 +1,44 @@
 ﻿namespace VI.NumSharp.Arrays
 {
 	public class Array<T>
-		where T : class 
+		where T : class
 	{
-		private readonly T[] _view;
-
 		public Array(T[] data)
 		{
-			_view = data;
+			AsArray = data;
 		}
 
 		public Array(int size)
 		{
-			_view = new T[size];
+			AsArray = new T[size];
 		}
 
-		public int Length => _view.Length;
+		public int Length => AsArray.Length;
 
 		public T this[int x]
 		{
 			get
 			{
 				if (x < 0) x = Length + x;
-				return _view[x];
+				return AsArray[x];
 			}
 			set
 			{
 				if (x < 0) x = Length + x;
 
-				_view[x] = value;
+				AsArray[x] = value;
 			}
 		}
 
-		public T[] AsArray => _view;
-		
-		
+		public T[] AsArray { get; }
+
+
 		public override string ToString()
 		{
-			var str                                    = "[";
-			for (var i = 0; i < _view.Length; i++) str += $"{_view[i]},\n ";
-			str                                        =  str.Remove(str.Length - 2);
-			str                                        += "]";
+			var str                                      = "[";
+			for (var i = 0; i < AsArray.Length; i++) str += $"{AsArray[i]},\n ";
+			str                                          =  str.Remove(str.Length - 2);
+			str                                          += "]";
 			return str;
 		}
 	}

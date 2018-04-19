@@ -1,21 +1,21 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace VI.NumSharp.Drivers.Data.CPU
 {
-	public class CPU_ByteData2D: IByteData2D
+	public class CPU_ByteData2D : IByteData2D
 	{
-		private byte[,] _view;
+		private readonly byte[,] _view;
 
 		public CPU_ByteData2D()
 		{
-			
 		}
-		
+
 		public CPU_ByteData2D(int w, int h)
 		{
 			_view = new byte[w, h];
 		}
-		
+
 		public CPU_ByteData2D(byte[,] data)
 		{
 			_view = data;
@@ -32,22 +32,22 @@ namespace VI.NumSharp.Drivers.Data.CPU
 		public IEnumerable<int> AxesX { get; }
 		public IEnumerable<int> AxesY { get; }
 
-		public byte[,] AsArray2D()
-		{
-			return _view;
-		}
-
 		public byte[,] AsArray()
 		{
-			throw new System.NotImplementedException();
+			throw new NotImplementedException();
 		}
 
 		public int W => _view.GetLength(0);
 		public int H => _view.GetLength(1);
-		
+
 		public byte[,] Clone()
 		{
 			return _view.Clone() as byte[,];
+		}
+
+		public byte[,] AsArray2D()
+		{
+			return _view;
 		}
 	}
 }

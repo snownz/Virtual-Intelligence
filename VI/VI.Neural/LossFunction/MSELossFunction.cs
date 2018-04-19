@@ -2,7 +2,7 @@
 
 namespace VI.Neural.LossFunction
 {
-    public class MSELossFunction : ILossFunction
+	public class MSELossFunction : ILossFunction
 	{
 		public float Loss(FloatArray targets, FloatArray prediction)
 		{

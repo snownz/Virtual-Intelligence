@@ -4,27 +4,26 @@ using ILGPU.Runtime;
 
 namespace VI.NumSharp.Drivers.Data.GPU
 {
-	public class GPU_ByteData: IByteData
+	public class GPU_ByteData : IByteData
 	{
-		private MemoryBuffer<byte> _view;
+		private readonly MemoryBuffer<byte> _view;
 
 		public GPU_ByteData()
 		{
-			
 		}
-		
+
 		public GPU_ByteData(int size)
 		{
 			_view = ILGPUMethods.Allocate<byte>(size);
 			AxesX = Enumerable.Range(0, size);
 		}
-		
+
 		public GPU_ByteData(MemoryBuffer<byte> data)
 		{
 			_view = data;
 			AxesX = Enumerable.Range(0, data.Length);
 		}
-		
+
 		public GPU_ByteData(byte[] data)
 		{
 			_view = ILGPUMethods.Allocate(data);
@@ -47,7 +46,7 @@ namespace VI.NumSharp.Drivers.Data.GPU
 		}
 
 		public int Length => _view.Length;
-		
+
 		public byte[] Clone()
 		{
 			return ILGPUMethods.Clone(_view).GetAsArray();

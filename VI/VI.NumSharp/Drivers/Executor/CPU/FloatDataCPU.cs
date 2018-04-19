@@ -14,7 +14,7 @@ namespace VI.NumSharp.Drivers.Executor.CPU
 		{
 			return new CPU_FloatData(data);
 		}
-		
+
 		public IFloatData2D New(int w, int h)
 		{
 			return new CPU_FloatData2D(w, h);

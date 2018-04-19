@@ -12,7 +12,7 @@ namespace VI.Neural.ActivationFunction
 		public FloatArray Derivate(FloatArray v)
 		{
 			var y = Activate(v);
-			return (1 - y * y);
+			return 1 - y * y;
 		}
 	}
 }

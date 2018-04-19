@@ -1,7 +1,18 @@
 ﻿namespace VI.NumSharp.Arrays
 {
-	public static class ArrayExtension
+	public static class FloatArrayExtension
 	{
+		public static FloatArray Cleanup(this FloatArray arr)
+		{
+			return arr.Cleanup();
+		}
+		
+		public static FloatArray2D Cleanup(this FloatArray2D arr)
+		{
+			return arr.Cleanup();
+		}
+		
+		
 		public static FloatArray ApplyMask(this FloatArray arr, ByteArray mask)
 		{
 			return new FloatArray(ProcessingDevice.FloatExecutor.ApplyMask(arr.View, mask.View));
@@ -9,7 +20,6 @@
 
 		public static FloatArray2D ApplyMask(this FloatArray2D arr, ByteArray2D mask)
 		{
-			
 			return new FloatArray2D(ProcessingDevice.FloatExecutor.ApplyMask(arr.View, mask.View));
 		}
 
@@ -17,17 +27,17 @@
 		{
 			return new FloatArray(ProcessingDevice.FloatExecutor.Tanh(arr.Cache, arr.View));
 		}
-		
+
 		public static FloatArray Sin(this FloatArray arr)
 		{
 			return new FloatArray(ProcessingDevice.FloatExecutor.Sin(arr.Cache, arr.View));
 		}
-		
+
 		public static FloatArray Cos(this FloatArray arr)
 		{
 			return new FloatArray(ProcessingDevice.FloatExecutor.Cos(arr.Cache, arr.View));
 		}
-		
+
 		public static FloatArray Pow(this FloatArray arr, float exp)
 		{
 			return new FloatArray(ProcessingDevice.FloatExecutor.Pow(arr.Cache, arr.View, exp));
@@ -62,7 +72,7 @@
 		{
 			return new FloatArray(ProcessingDevice.FloatExecutor.SumColumn(arr.View));
 		}
-		
+
 		public static float Sum(this FloatArray arr)
 		{
 			var sum                                  = 0f;

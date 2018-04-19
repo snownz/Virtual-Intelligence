@@ -1,57 +1,56 @@
 ﻿using System;
-using ILGPU.Runtime;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using ILGPU.Runtime;
 
 namespace VI.ParallelComputing.Drivers
 {
-    public class CpuAnnInterface<T> : IAnnParallelInterface
-    {
-        private readonly Accelerator _accelerator;
-        private readonly ParalleExecutorlInterface _interface;
+	public class CpuAnnInterface<T> : IAnnParallelInterface
+	{
+		private readonly Accelerator _accelerator;
 
-        public ParalleExecutorlInterface Executor => _interface;
+		public CpuAnnInterface()
+		{
+			try
+			{
+				_accelerator = Device.CPU;
+			}
+			catch (Exception)
+			{
+				Console.WriteLine("\n-----------\nCPU is not supported\n-----------\n");
+				return;
+			}
 
-        public CpuAnnInterface()
-        {
-            try
-            {
-                _accelerator = Device.CPU;
-            }
-            catch (Exception)
-            {
-                Console.WriteLine("\n-----------\nCPU is not supported\n-----------\n");
-                return;
-            }
-            
-            using (var translator = new ParallelTranslator(_accelerator))
-            {
-                var kernels = ComputeKernels(translator);
-                _interface = new ParalleExecutorlInterface(_accelerator, kernels);
-            }
-        }
+			using (var translator = new ParallelTranslator(_accelerator))
+			{
+				var kernels = ComputeKernels(translator);
+				Executor    = new ParalleExecutorlInterface(_accelerator, kernels);
+			}
+		}
 
-        private Dictionary<string, Kernel> ComputeKernels(ParallelTranslator translator)
-        {
-            var result = new Dictionary<string, Kernel>();
+		public ParalleExecutorlInterface Executor { get; }
 
-            var methods = typeof(T)
-                .GetMethods(BindingFlags.Static | BindingFlags.Public)
-                .Select(x => x.Name)
-                .ToList();
+		private Dictionary<string, Kernel> ComputeKernels(ParallelTranslator translator)
+		{
+			var result = new Dictionary<string, Kernel>();
 
-            var compileds = translator
-                .TranslateMethod(typeof(T), methods)
-                .ToList();
+			var methods = typeof(T)
+				.GetMethods(BindingFlags.Static | BindingFlags.Public)
+				.Select(x => x.Name)
+				.ToList();
 
-            for (int i = 0; i < methods.Count(); i++)
-            {
-                var kernel = _accelerator.LoadAutoGroupedKernel(compileds[i]);
-                result.Add(methods[i], kernel);
-            }
+			var compileds = translator
+				.TranslateMethod(typeof(T), methods)
+				.ToList();
 
-            return result;
-        }
-    }
+			for (var i = 0; i < methods.Count(); i++)
+			{
+				var kernel = _accelerator.LoadAutoGroupedKernel(compileds[i]);
+				result.Add(methods[i], kernel);
+			}
+
+			return result;
+		}
+	}
 }

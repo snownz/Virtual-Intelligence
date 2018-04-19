@@ -6,25 +6,24 @@ using ILGPU.Runtime;
 
 namespace VI.NumSharp.Drivers.Data.GPU
 {
-	public class GPU_ByteData2D: IByteData2D
+	public class GPU_ByteData2D : IByteData2D
 	{
-		private MemoryBuffer2D<byte> _view;
+		private readonly MemoryBuffer2D<byte> _view;
 
 		public GPU_ByteData2D()
 		{
-			
 		}
-		
+
 		public GPU_ByteData2D(int w, int h)
 		{
 			_view = ILGPUMethods.Allocate<byte>(new Index2(w, h));
 			AxesX = Enumerable.Range(0, w);
 			AxesY = Enumerable.Range(0, h);
 		}
-		
+
 		public GPU_ByteData2D(byte[,] data)
 		{
-            if (data == null) return;
+			if (data == null) return;
 			_view = ILGPUMethods.Allocate(data);
 			AxesX = Enumerable.Range(0, data.GetLength(0));
 			AxesY = Enumerable.Range(0, data.GetLength(1));
@@ -43,14 +42,14 @@ namespace VI.NumSharp.Drivers.Data.GPU
 
 		public byte[,] AsArray()
 		{
-			var arr                                                                     = new byte[W, H];
-			Parallel.ForEach(AxesX, (x) => { Parallel.ForEach(AxesY, (y) => { arr[y, x] = this[x, y]; }); });
+			var arr                                                                 = new byte[W, H];
+			Parallel.ForEach(AxesX, x => { Parallel.ForEach(AxesY, y => { arr[y, x] = this[x, y]; }); });
 			return arr;
 		}
 
 		public int W => _view.Width;
 		public int H => _view.Height;
-		
+
 		public byte[,] Clone()
 		{
 			return AsArray();

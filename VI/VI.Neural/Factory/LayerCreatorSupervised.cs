@@ -8,11 +8,11 @@ namespace VI.Neural.Factory
 {
 	public class LayerCreatorSupervised : LayerCreator
 	{
-		public LayerCreatorSupervised(float learningRate, float                 dropout, float                    momentum,
-			ISupervisedOperations              supervised, IUnsupervisedOperations unsupervised, IActivationFunction activation,
-			IOptimizerFunction                 optimizer, IErrorFunction           error,
-			IList<(int x, int y)>              nodesToSynapsys, float              weight,
-			int                                size, int                           connections, (int w, int h) size2D) :
+		public LayerCreatorSupervised(float learningRate, float dropout, float momentum,
+			ISupervisedOperations supervised, IUnsupervisedOperations unsupervised, IActivationFunction activation,
+			IOptimizerFunction optimizer, IErrorFunction error,
+			IList<(int x, int y)> nodesToSynapsys, float weight,
+			int size, int connections, (int w, int h) size2D) :
 			base(learningRate, dropout, momentum, supervised, unsupervised,
 				activation,
 				optimizer, error, nodesToSynapsys, weight, size, connections, size2D)

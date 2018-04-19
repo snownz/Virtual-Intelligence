@@ -1,31 +1,30 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using ILGPU.Runtime;
 using ILGPU;
+using ILGPU.Runtime;
 
 namespace VI.NumSharp.Drivers.Data.GPU
 {
 	public class GPU_FloatData : IFloatData
 	{
-		private MemoryBuffer<float> _view;
+		private readonly MemoryBuffer<float> _view;
 
 		public GPU_FloatData()
 		{
-			
 		}
-		
+
 		public GPU_FloatData(int size)
 		{
 			_view = ILGPUMethods.Allocate<float>(size);
 			AxesX = Enumerable.Range(0, size);
 		}
-		
+
 		public GPU_FloatData(MemoryBuffer<float> data)
 		{
 			_view = data;
 			AxesX = Enumerable.Range(0, data.Length);
 		}
-		
+
 		public GPU_FloatData(float[] data)
 		{
 			_view = ILGPUMethods.Allocate(data);
@@ -46,9 +45,9 @@ namespace VI.NumSharp.Drivers.Data.GPU
 		{
 			return _view.GetAsArray();
 		}
-        
-        public int Length => _view.Length;
-		
+
+		public int Length => _view.Length;
+
 		public float[] Clone()
 		{
 			return ILGPUMethods.Clone(_view).GetAsArray();

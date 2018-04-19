@@ -9,31 +9,31 @@ namespace VI.Neural.Factory
 {
 	public class LayerCreator : IDisposable
 	{
-		protected (int w, int h)      _2Dsize;
+		protected (int w, int h) _2Dsize;
 		protected IActivationFunction _activation;
-		protected int                 _connections;
-		protected float               _degradation;
-		protected float               _dropout;
-		protected IErrorFunction      _error;
-		protected float               _learningRate;
-		protected float               _maxDist;
-		protected float               _momentum;
+		protected int _connections;
+		protected float _degradation;
+		protected float _dropout;
+		protected IErrorFunction _error;
+		protected float _learningRate;
+		protected float _maxDist;
+		protected float _momentum;
 
 		protected IList<(int x, int y)> _nodesToSynapsys;
-		protected IOptimizerFunction    _optimizer;
+		protected IOptimizerFunction _optimizer;
 
 		protected int _size;
 
-		protected ISupervisedOperations   _supervised;
+		protected ISupervisedOperations _supervised;
 		protected IUnsupervisedOperations _unsupervised;
-		protected float                   _weight;
+		protected float _weight;
 
 		public LayerCreator(float learningRate, float dropout, float momentum,
-			ISupervisedOperations    supervised,
-			IUnsupervisedOperations  unsupervised, IActivationFunction activation, IOptimizerFunction optimizer,
-			IErrorFunction           error, IList<(int x, int y)>      nodesToSynapsys, float         weight, int size,
-			int                      connections,
-			(int w, int h)           size2D) : this(size, connections)
+			ISupervisedOperations supervised,
+			IUnsupervisedOperations unsupervised, IActivationFunction activation, IOptimizerFunction optimizer,
+			IErrorFunction error, IList<(int x, int y)> nodesToSynapsys, float weight, int size,
+			int connections,
+			(int w, int h) size2D) : this(size, connections)
 		{
 			_learningRate    = learningRate;
 			_dropout         = dropout;
