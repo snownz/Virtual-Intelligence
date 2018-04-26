@@ -2,16 +2,16 @@
 
 namespace VI.Neural.ActivationFunction
 {
-	public class BinaryStepFunction : IActivationFunction
-	{
-		public FloatArray Activate(FloatArray v)
-		{
-			return v >= 0;
-		}
+    public class BinaryStepFunction : IActivationFunction
+    {
+        public FloatArray Activate(FloatArray sum)
+        {
+            return sum >= 0;
+        }
 
-		public FloatArray Derivate(FloatArray v)
-		{
-			return v >= 0;
-		}
-	}
+        public FloatArray Derivate(FloatArray sum, FloatArray act)
+        {
+            return sum >= 0;
+        }
+    }
 }
