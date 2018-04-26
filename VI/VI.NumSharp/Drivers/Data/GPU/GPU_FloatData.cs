@@ -1,57 +1,57 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using ILGPU;
 using ILGPU.Runtime;
-using ILGPU;
+using System.Linq;
 
 namespace VI.NumSharp.Drivers.Data.GPU
 {
-	public class GPU_FloatData : IFloatData
-	{
-		private MemoryBuffer<float> _view;
+    public class GPU_FloatData : IFloatData
+    {
+        private MemoryBuffer<float> _view;
 
-		public GPU_FloatData()
-		{
-			
-		}
-		
-		public GPU_FloatData(int size)
-		{
-			_view = ILGPUMethods.Allocate<float>(size);
-			AxesX = Enumerable.Range(0, size);
-		}
-		
-		public GPU_FloatData(MemoryBuffer<float> data)
-		{
-			_view = data;
-			AxesX = Enumerable.Range(0, data.Length);
-		}
-		
-		public GPU_FloatData(float[] data)
-		{
-			_view = ILGPUMethods.Allocate(data);
-			AxesX = Enumerable.Range(0, data.Length);
-		}
+        public GPU_FloatData()
+        {
+        }
 
-		public ArrayView<float> View => _view.View;
+        public GPU_FloatData(int size)
+        {
+            _view = ILGPUMethods.Allocate<float>(size);
+            AxesX = Enumerable.Range(0, size).ToArray();
+        }
 
-		public float this[int x]
-		{
-			get => _view[x];
-			set => _view[x] = value;
-		}
+        public GPU_FloatData(MemoryBuffer<float> data)
+        {
+            _view = data;
+            AxesX = Enumerable.Range(0, data.Length).ToArray();
+        }
 
-		public IEnumerable<int> AxesX { get; }
+        public GPU_FloatData(float[] data)
+        {
+            _view = ILGPUMethods.Allocate(data);
+            AxesX = Enumerable.Range(0, data.Length).ToArray();
+        }
 
-		public float[] AsArray()
-		{
-			return _view.GetAsArray();
-		}
-        
+        public ArrayView<float> MemoryView => _view.View;
+
+        public float this[int x]
+        {
+            get => _view[x];
+            set => _view[x] = value;
+        }
+
+        public int[] AxesX { get; }
+
+        public float[] AsArray()
+        {
+            return _view.GetAsArray();
+        }
+
         public int Length => _view.Length;
-		
-		public float[] Clone()
-		{
-			return ILGPUMethods.Clone(_view).GetAsArray();
-		}
-	}
+
+        public float[] View { get => AsArray(); set => _view = ILGPUMethods.Allocate<float>(value); }
+
+        public float[] Clone()
+        {
+            return ILGPUMethods.Clone(_view).GetAsArray();
+        }
+    }
 }

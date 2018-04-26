@@ -4,56 +4,57 @@ using System.Linq;
 
 namespace VI.NumSharp.Drivers.Data.CPU
 {
-	public class CPU_FloatData2D : IFloatData2D
-	{
-		private float[,] _view;
+    public class CPU_FloatData2D : IFloatData2D
+    {
+        private float[,] _view;
 
-		public CPU_FloatData2D()
-		{
-			
-		}
-		
-		public CPU_FloatData2D(int w, int h)
-		{
-			_view = new float[w, h];
-			AxesX = Enumerable.Range(0, w);
-			AxesY = Enumerable.Range(0, h);
-		}
-		
-		public CPU_FloatData2D(float[,] data)
-		{
-			_view = data;
-			AxesX = Enumerable.Range(0, data.GetLength(0));
-			AxesY = Enumerable.Range(0, data.GetLength(1));
-		}
+        public CPU_FloatData2D()
+        {
+        }
 
-		public ArrayView2D<float> View { get; }
+        public CPU_FloatData2D(int w, int h)
+        {
+            _view = new float[w, h];
+            AxesX = Enumerable.Range(0, w);
+            AxesY = Enumerable.Range(0, h);
+        }
 
-		public float this[int x, int y]
-		{
-			get => _view[x, y];
-			set => _view[x, y] = value;
-		}
+        public CPU_FloatData2D(float[,] data)
+        {
+            _view = data;
+            AxesX = Enumerable.Range(0, data.GetLength(0));
+            AxesY = Enumerable.Range(0, data.GetLength(1));
+        }
 
-		public IEnumerable<int> AxesX { get; }
-		public IEnumerable<int> AxesY { get; }
+        public ArrayView2D<float> MemoryView { get; }
 
-		public float[,] AsArray2D()
-		{
-			return _view;
-		}
+        public float this[int x, int y]
+        {
+            get => _view[x, y];
+            set => _view[x, y] = value;
+        }
 
-		public float[] AsArray()
-		{
-			throw new System.NotImplementedException();
-		}
+        public IEnumerable<int> AxesX { get; }
+        public IEnumerable<int> AxesY { get; }
 
-		public int W => _view.GetLength(0);
-		public int H => _view.GetLength(1);
-		
-		public float[,] Clone()
-		{
-			return _view.Clone() as float[,];
-		}
-	}
+        public float[,] AsArray2D()
+        {
+            return _view;
+        }
+
+        public float[] AsArray()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public int W => _view.GetLength(0);
+        public int H => _view.GetLength(1);
+
+        public float[,] View { get => _view; set => _view = value; }
+
+        public float[,] Clone()
+        {
+            return _view.Clone() as float[,];
+        }
+    }
 }

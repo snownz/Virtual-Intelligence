@@ -1,7 +1,7 @@
 ﻿namespace VI.ParallelComputing.Drivers
 {
-	public interface IAnnParallelInterface
-	{
-		ParalleExecutorlInterface Executor { get; }
-	}
+    public interface IGpuInterface
+    {
+        ParalleExecutorlInterface Executor { get; }
+    }
 }

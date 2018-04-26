@@ -2,16 +2,16 @@
 
 namespace VI.Neural.ActivationFunction
 {
-	public class SinusoidFunction : IActivationFunction
-	{
-		public FloatArray Activate(FloatArray v)
-		{
-			return v.Sin();
-		}
+    public class SinusoidFunction : IActivationFunction
+    {
+        public FloatArray Activate(FloatArray sum)
+        {
+            return sum.Sin();
+        }
 
-		public FloatArray Derivate(FloatArray v)
-		{
-			return v.Cos();
-		}
-	}
+        public FloatArray Derivate(FloatArray sum, FloatArray act)
+        {
+            return act.Cos();
+        }
+    }
 }

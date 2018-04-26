@@ -1,109 +1,95 @@
 ﻿using VI.Neural.ANNOperations;
+using VI.Neural.Layer;
 using VI.NumSharp;
 using VI.NumSharp.Arrays;
 
 namespace VI.Neural.Node
 {
-	public class SupervisedNeuron : NeuronBase, INeuron, ISupervisedLearning
-	{
-		protected readonly ISupervisedOperations _operations;
+    public class SupervisedNeuron : INeuron
+    {
+        protected readonly ISupervisedOperations _operations;
+        protected readonly ILayer _layer;
 
-		public SupervisedNeuron(int nodeSize,
-			int                        connectionSize,
-			float                      learningRate,
-			float                      momentum,
-			byte[,] 				   connections,
-			ISupervisedOperations      operations) : base(nodeSize, connectionSize, learningRate, momentum)
-		{
-			_operations = operations;
-			_operations.SetLayer(_layer);
-			SetpArray(nodeSize);
-			_layer.ConnectionMask = new ByteArray2D(connections);
-		}
+        public int NodesSize => _layer.Size;
+        public int Connections => _layer.ConectionsSize;
+        public ILayer Nodes => _layer;
 
-		public SupervisedNeuron(int nodeSize,
-			int                        connectionSize,
-			float                      learningRate,
-			float                      momentum,
-			ISupervisedOperations      operations,
-			byte[]                     biasMask,
-			byte[,]                    connections
-		) : this(nodeSize, connectionSize, learningRate, momentum, connections, operations)
-		{
-			_layer.BiasMask       = new ByteArray(biasMask);
-		}
+        public FloatArray Output { get => _layer.OutputVector; set => _layer.OutputVector = value; }
+        public FloatArray2D WGradients => _layer.GradientMatrix;
+        public FloatArray BGradients => _layer.ErrorVector;
 
-		public FloatArray Output(float[] inputs)
-		{
-			using (var i = new FloatArray(inputs))
-			{
-				return Output(i);
-			}
-		}
+        public FloatArray2D Weights { get => _layer.KnowlodgeMatrix; set => _layer.KnowlodgeMatrix = value; }
+        public FloatArray Bias { get => _layer.BiasVector; set => _layer.BiasVector = value; }
 
-		public FloatArray Output(FloatArray inputs)
-		{
-			_operations.FeedForward(inputs);
-			return _layer.OutputVector;
-		}
+        public SupervisedNeuron(
+            int nodeSize,
+            int connectionSize,
+            float learningRate,
+            float momentum,
+           ISupervisedOperations operations)
+        {
+            _layer = new ActivationLayer(nodeSize, connectionSize)
+            {
+                LearningRate = learningRate,
+                Momentum = momentum
+            };
+            _operations = operations;
+            _operations.SetLayer(_layer);
+            InitializeArrays(nodeSize, connectionSize);
+        }
 
-		public FloatArray ComputeGradient(float[] inputs, FloatArray error)
-		{
-			using (var i = new FloatArray(inputs))
-			{
-				return ComputeGradient(i, error);
-			}
-		}
+        private void InitializeArrays(int nodeSize, int connectionSize)
+        {
+            _layer.GradientMatrix = new FloatArray2D(nodeSize, connectionSize);
+            _layer.OutputVector = new FloatArray(nodeSize);
+            _layer.BiasVector = new FloatArray(nodeSize);
+        }
 
-		public FloatArray ComputeGradient(FloatArray inputs, float[] error)
-		{
-			using (var e = new FloatArray(error))
-			{
-				return ComputeGradient(inputs, e);
-			}
-		}
+        public FloatArray FeedForward(FloatArray x)
+        {
+            _operations.Summarization(x);
+            _operations.Activate();
+            return Output;
+        }
 
-		public FloatArray ComputeGradient(FloatArray inputs, FloatArray error)
-		{
-			_operations.BackWard(error);
-			_operations.ComputeGradient(inputs);
-			return _layer.ErrorWeightVector;
-		}
+        public FloatArray ComputeErrorNBackWard(FloatArray target)
+        {
+            return _operations.ComputeErrorNBackWard(target);
+        }
 
-		public void UpdateParams()
-		{
-			_operations.UpdateParams();
-			_layer.GradientMatrix = new FloatArray2D(NodesSize, Connections);
-		}
+         public FloatArray ComputeErrorNBackWard(FloatArray target, FloatArray compl)
+        {
+            return _operations.ComputeErrorNBackWard(target, compl);
+        }
 
-		public FloatArray Learn(float[] inputs, FloatArray error)
-		{
-			using (var i = new FloatArray(inputs))
-			{
-				return Learn(i, error);
-			}
-		}
+        public FloatArray BackWard(FloatArray dw)
+        {
+            return _operations.BackWard(dw);
+        }
 
-		public FloatArray Learn(FloatArray inputs, float[] error)
-		{
-			using (var e = new FloatArray(error))
-			{
-				return Learn(inputs, e);
-			}
-		}
+        public void ComputeGradient(FloatArray input)
+        {
+            _operations.ComputeGradient(input);
+        }
 
-		public FloatArray Learn(FloatArray inputs, FloatArray error)
-		{
-			_operations.BackWard(error);
-			_operations.ErrorGradient(inputs);
-			_operations.UpdateParams();
-			return _layer.ErrorWeightVector;
-		}
+        public void UpdateParams(FloatArray2D dw, FloatArray db)
+        {
+            _operations.UpdateParams(dw, db);
+        }
 
-		private void SetpArray(int nodeSize)
-		{
-			_layer.BiasVector                                       = new FloatArray(nodeSize);
-			for (var i = 0; i < nodeSize; i++) _layer.BiasVector[i] = 1;
-		}
-	}
+        public void FullSynapsis(int node, int connection, float std)
+        {
+            _layer.KnowlodgeMatrix = NumMath.Random(node, connection, std);
+        }
+
+        public void LoadSynapse(float[,] data)
+        {
+            _layer.KnowlodgeMatrix = new FloatArray2D(data);
+        }
+
+        public override string ToString()
+        {
+            return _layer.KnowlodgeMatrix.ToString();
+        }
+    }
 }

@@ -11,8 +11,9 @@ namespace VI.NumSharp
     public class ProcessingDevice
     {
         private static DeviceType _device;
-        private static IAnnParallelInterface _cudaArrayDevice;
-        private static IAnnParallelInterface CUDAFloatArrayDevice
+        private static IGpuInterface _cudaArrayDevice;
+
+        private static IGpuInterface CUDAFloatArrayDevice
             => _cudaArrayDevice ?? (_cudaArrayDevice = new CudaAnnInterface<FloatArrayOperations>());
 
         public static DeviceType Device
@@ -28,7 +29,14 @@ namespace VI.NumSharp
                         FloatData = new FloatDataGPU();
                         ByteData = new ByteDataGPU();
                         break;
+
                     case DeviceType.CPU:
+                        FloatExecutor = new FloatExecutorCPU();
+                        FloatData = new FloatDataCPU();
+                        ByteData = new ByteDataCPU();
+                        break;
+
+                    case DeviceType.CPU_Parallel:
                         FloatExecutor = new ParallelFloatExecutorCPU();
                         FloatData = new FloatDataCPU();
                         ByteData = new ByteDataCPU();
@@ -39,7 +47,7 @@ namespace VI.NumSharp
             }
         }
 
-        public static IAnnParallelInterface FloatArrayDevice { get; private set; }
+        public static IGpuInterface FloatArrayDevice { get; private set; }
         public static IFloatArrayExecutor FloatExecutor { get; private set; }
         public static IFloatDataProcess FloatData { get; private set; }
         public static IByteDataProcess ByteData { get; private set; }
