@@ -24,9 +24,7 @@ namespace VI.Neural.Models
             w[3] = BuildedModels.DenseSigmoid(inputSize + hiddenSize, hiddenSize, learningRate, std, opt);
         }
 
-        public (FloatArray z, FloatArray fGate, FloatArray iGate, FloatArray cGate, FloatArray cellState, FloatArray oGate,
-           FloatArray hState)
-           FeedForward(FloatArray x, FloatArray hiddenState, FloatArray cellState)
+        public (FloatArray z, FloatArray fGate, FloatArray iGate, FloatArray cGate, FloatArray cellState, FloatArray oGate, FloatArray hState) FeedForward (FloatArray x, FloatArray hiddenState, FloatArray cellState)
         {
             var z = hiddenState.Union(x);
 
@@ -38,9 +36,7 @@ namespace VI.Neural.Models
             return (z, F.Output, I.Output, C.Output, c, O.Output, h);
         }
 
-        public (FloatArray dhprev, FloatArray dcprev)
-            Backward(FloatArray dh, FloatArray dcnext, FloatArray cprev,
-                FloatArray fGate, FloatArray iGate, FloatArray cGate, FloatArray cellState, FloatArray oGate)
+        public (FloatArray dhprev, FloatArray dcprev) Backward(FloatArray dh, FloatArray dcnext, FloatArray cprev, FloatArray fGate, FloatArray iGate, FloatArray cGate, FloatArray cellState, FloatArray oGate)
         {
             // Set outputs
             F.Output = fGate;

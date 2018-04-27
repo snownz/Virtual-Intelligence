@@ -14,11 +14,10 @@ namespace VI.Neural.Network
         private int output_size;
         private float learning_rate;
         private int recurrentUnits;
-
         private RecurrentCellModel encoder;
         private DenseModel decoder;
 
-        public ClassifierRecurrentNeuralNetwork(int input, int output, int hidden, int units, float learningRate, float std)
+        public ClassifierRecurrentNeuralNetwork(int input, int output, int hidden, int units, float learningRate, float std, EnumOptimizerFunction opt)
         {
             encoder = new RecurrentCellModel();
             decoder = new DenseModel();
@@ -26,11 +25,11 @@ namespace VI.Neural.Network
             int x = input;
             for(int i = 0; i < units; i++)
             {
-                encoder.AddLayer( BuildedModels.RecurrentTanh( x, hidden, learningRate, std, EnumOptimizerFunction.Adam ) );
+                encoder.AddLayer( BuildedModels.RecurrentTanh( x, hidden, learningRate, std, opt ) );
                 x = hidden;
             }
             
-            decoder.AddLayer( BuildedModels.DenseSoftMax ( hidden, output, learningRate, std, EnumOptimizerFunction.Adam ) );
+            decoder.AddLayer( BuildedModels.DenseSoftMax ( hidden, output, learningRate, std, opt ) );
             decoder.SetLossFunction( new CrossEntropyLossFunction() );
 
             input_size     = input;
@@ -100,7 +99,7 @@ namespace VI.Neural.Network
             {
                 // Sequencial
                 ( var l, var dy ) = decoder.ComputeErrorNBackward( tg[t], ps[t] );
-                dhnext = encoder.Backward( dy, dhnext, hs[t] );
+                (dhnext, _) = encoder.Backward( dy, dhnext, hs[t] );
 
                 // Parallel
                 ( var wy, var by ) = decoder.ComputeGradient( hs[t][-1] );
