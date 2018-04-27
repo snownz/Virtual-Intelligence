@@ -42,3 +42,8 @@ Mac | ![](https://raw.githubusercontent.com/snownz/Virtual-Intelligence/Git/Info
 - [VI.Neural](https://github.com/snownz/Virtual-Intelligence/tree/master/VI/VI.Neural)
 - [VI.NumSharp](https://github.com/snownz/Virtual-Intelligence/tree/master/VI/VI.NumSharp)
 - [Samples With Dataset](https://github.com/snownz/Virtual-Intelligence.Samples)
+
+## Sanples Projects
+
+- [MNIST](https://github.com/snownz/Virtual-Intelligence/tree/master/VI/VI.Test.MNIST)
+- [TextWriter](https://github.com/snownz/Virtual-Intelligence/tree/master/VI/VI.Test.Recurrent.TextWriter)
