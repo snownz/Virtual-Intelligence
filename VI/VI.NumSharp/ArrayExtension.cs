@@ -112,6 +112,12 @@ namespace VI.NumSharp
             Parallel.For(0, arr.Length, i => result[i] = arr[i] / value);
             return result;
         }
+        
+        public static Array<FloatArray> Fill(this Array<FloatArray> arr, int size)
+        {
+            Parallel.For(0, arr.Length, i => arr[i] = new FloatArray(size));
+            return arr;
+        }
 
         public static Array<FloatArray2D> Sum(this Array<FloatArray2D> arr, Array<FloatArray2D> arr1)
         {

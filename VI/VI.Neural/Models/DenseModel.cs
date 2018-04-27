@@ -20,6 +20,15 @@ namespace VI.Neural.Models
             w = layers;
         }
 
+        public float Learn(FloatArray inputs, FloatArray target)
+        {
+            ( var error, _ ) =  ComputeErrorNBackward( inputs, target );
+            ( var dw, var db ) = ComputeGradient( inputs );
+            UpdateParams( dw, db );
+
+            return error;
+        }
+
         public DenseModel()
         {
             w = new Array<INeuron>(0);

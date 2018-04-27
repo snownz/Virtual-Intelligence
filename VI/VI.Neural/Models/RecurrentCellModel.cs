@@ -13,7 +13,6 @@ namespace VI.Neural.Models
         {
              w = new Array<IMultipleNeuron>(0);
         }
-
         
         /// <summary>
         /// Include a new Layer on the model
@@ -31,7 +30,7 @@ namespace VI.Neural.Models
 
             for (int i = 0; i < w.Length; i++)
             {
-                result[i] = w[i].FeedForward( result[i - 1].Join( hprev[i - 1] ) );
+                result[i] = w[i].FeedForward( result[i - 1].Join( hprev[i] ) );
             }
 
             return result;
@@ -42,18 +41,23 @@ namespace VI.Neural.Models
         /// </summary>
         /// <param name="target"></param>
         /// <returns></returns>
-        public Array<FloatArray> Backward(FloatArray error, Array<FloatArray> hnext, Array<FloatArray> output)
+        public (Array<FloatArray> hprev, FloatArray backward) Backward(FloatArray error, Array<FloatArray> hprev, Array<FloatArray> output)
         {
             w.SetOutputs(output);
-            
-            var dw = new Array<FloatArray>(w.Length) {[-1] = error + hnext[-1] };             
+
+            var bHprev = new Array<FloatArray>(output.Length);
 
             for (int i = w.Length - 1; i >= 0; i--)
             {
-                dw[i - 1] = w[i].BackWard(dw[i])[1] + hnext[i];
+                //TODO error + hprev[i] inside BackWard
+                var backward = w[i].BackWard( error + hprev[i] );                
+                ( error, bHprev[i] ) = ( backward[0], backward[1] );
+                
+                //System.Console.WriteLine($"B1: {backward[0].Length} -- B2: {backward[1].Length}");
+                //throw new System.Exception();      
             }
 
-            return dw;
+            return (bHprev, error);
         }
 
         /// <summary>
@@ -63,7 +67,7 @@ namespace VI.Neural.Models
         /// <param name="hprev"></param>
         /// <returns></returns>
         public (Array<Array<FloatArray2D>> dw, Array<FloatArray> db) ComputeGradient(FloatArray inputs, Array<FloatArray> hprev)
-        {
+        {            
             w[0].ComputeGradient(inputs.Join(hprev[0]));
 
             for (int i = 1; i <  w.Length ; i++)
