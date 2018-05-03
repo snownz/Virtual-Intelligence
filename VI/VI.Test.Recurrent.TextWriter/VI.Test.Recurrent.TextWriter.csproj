@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\VI.Algorithm\VI.Algorithm.csproj" />
     <ProjectReference Include="..\VI.Data\VI.Data.csproj" />
     <ProjectReference Include="..\VI.Neural\VI.Neural.csproj" />
     <ProjectReference Include="..\VI.NumSharp\VI.NumSharp.csproj" />

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using VI.Algorithm.BinaryTree;
-using VI.Roslyn.ConsoleTools.Extensions;
+using RoslynTools.Extensions;
 
 namespace VI.Algorithm.RecurrentScoringStructure
 {
@@ -21,10 +21,10 @@ namespace VI.Algorithm.RecurrentScoringStructure
             while (item.Count > 1)
             {
                 // Create Scores
-                var scores = CreateDesiredScores(item, depth);
+                var scores = CreateDesiredScores( item, depth );
 
                 // Create a new Tree Layer
-                var newLayer = SelectDesiredGroups(scores, item, depth);
+                var newLayer = SelectDesiredGroups( scores, item, depth );
 
                 // Move to next layer
                 item = newLayer;
@@ -37,13 +37,13 @@ namespace VI.Algorithm.RecurrentScoringStructure
         {
             int depth = 0;
 
-            while (item.Count > 1)
-            {
+            while ( item.Count > 1 )
+            {                
                 // Create Scores
-                var scores = CreateScores(item, depth);
+                var scores = CreateScores( item, depth );
 
                 // Create a new Tree Layer
-                var newLayer = SelectGroups(scores, item, depth);
+                var newLayer = SelectGroups( scores, item, depth );
 
                 // Move to next layer
                 item = newLayer;
@@ -67,10 +67,10 @@ namespace VI.Algorithm.RecurrentScoringStructure
                 var itemB = items[j];
 
                 // Get Score
-                (var sc, var obj) = _score.Score(itemA, itemB, items, depth);
+                (var sc, var obj) = _score.Score( itemA, itemB, items, depth );
 
                 // Create Node
-                resultNodes.Add(new Node(itemA, itemB, sc, depth) { Value = obj });
+                resultNodes.Add( new Node( itemA, itemB, sc, depth ) { Value = obj } );
             }
             return resultNodes;
         }
@@ -81,23 +81,23 @@ namespace VI.Algorithm.RecurrentScoringStructure
             var resultNodes = new List<Node>();
 
             // Create Scores foreach combination
-            for (int i = 0; i < items.Count; i++)
+            for ( int i = 0; i < items.Count; i++ )
             {
-                for (int j = 0; j < items.Count; j++)
+                for ( int j = 0; j < items.Count; j++ )
                 {
-                    if (i == j) continue;
+                    if ( i == j ) continue;
 
                     // Get nodes
                     var itemA = items[i];
                     var itemB = items[j];
 
                     // Get Score
-                    (var sc, var obj) = _score.Score(itemA, itemB, items, depth);
+                    ( var sc, var obj ) = _score.Score( itemA, itemB, items, depth );
 
                     // Create Node
-                    resultNodes.Add(new Node(itemA, itemB, sc, depth) { Value = obj });
+                    resultNodes.Add( new Node( itemA, itemB, sc, depth ) { Value = obj } );
                 }
-            }
+            }            
             return resultNodes;
         }
 
@@ -107,13 +107,13 @@ namespace VI.Algorithm.RecurrentScoringStructure
             var winner = resultNodes.First();
 
             // Delete all from prior
-            var include = prior.Where(x => x.Id != winner.NodeA.Id && x.Id != winner.NodeB.Id)
+            var include = prior.Where( x => x.Id != winner.NodeA.Id && x.Id != winner.NodeB.Id )
                 .ToList()
                 .Clone();
 
             var result = new List<Node>();
-            result.Add(winner);
-            result.AddRange(include);
+            result.Add( winner );
+            result.AddRange( include );
 
             return result;
         }
@@ -121,16 +121,19 @@ namespace VI.Algorithm.RecurrentScoringStructure
         private List<Node> SelectGroups(List<Node> resultNodes, List<Node> prior, int depth)
         {
             // Get Winner
-            var winner = resultNodes.OrderByDescending(x => x.Score).First();
+            var winner = resultNodes
+            .OrderByDescending(x => x.Score)
+            //.ThenBy(x=>x.Name.Split(";").Count())
+            .First();
 
             // Delete all from prior
-            var include = prior.Where(x => x.Id != winner.NodeA.Id && x.Id != winner.NodeB.Id)
+            var include = prior.Where( x => x.Id != winner.NodeA.Id && x.Id != winner.NodeB.Id )
                 .ToList()
                 .Clone();
 
             var result = new List<Node>();
-            result.Add(winner);
-            result.AddRange(include);
+            result.AddRange( include );     
+            result.Add( winner );         
 
             return result;
         }

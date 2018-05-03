@@ -10,6 +10,19 @@ namespace VI.Algorithm.BinaryTree
         public Node(string name, float sc, int depth, bool isBase = false, bool isMain = true)
         {
             Name = name;
+            GroupName = $"[{name}]";
+            Score = sc;
+            Depth = depth;
+            IsMain = isMain;
+            IsBase = isBase;
+            Id = Guid.NewGuid();
+            nodes = new List<Node>();
+        }
+
+        public Node(string name, string gname, float sc, int depth, bool isBase = false, bool isMain = true)
+        {
+            Name = name;
+            GroupName = gname;
             Score = sc;
             Depth = depth;
             IsMain = isMain;
@@ -21,6 +34,7 @@ namespace VI.Algorithm.BinaryTree
         public Node(Node nodeA, Node nodeB, float sc, int depth, bool isBase = false, bool isMain = true)
         {
             Name = nodeA.Name + ";" + nodeB.Name;
+            GroupName = $"[{nodeA.GroupName + nodeB.GroupName}]";
             NodeA = nodeA;
             NodeB = nodeB;
             Score = sc;
@@ -32,13 +46,13 @@ namespace VI.Algorithm.BinaryTree
             Value = NodeA.Value.Join(NodeB.Value);
         }
 
+        public string GroupName { get; set; }
         public string Name { get; }
         public Guid Id { get; protected set; }
         public float Score { get; }
         public int Depth { get; }
         public bool IsMain { get; }
         public bool IsBase { get; }
-
         public Node NodeA { get; set; }
         public Node NodeB { get; set; }
 
@@ -53,7 +67,7 @@ namespace VI.Algorithm.BinaryTree
 
         public object Clone()
         {
-            return new Node(Name, Score, Depth, IsBase, IsMain)
+            return new Node(Name, GroupName, Score, Depth, IsBase, IsMain)
             {
                 Id = Id,
                 Value = Value,

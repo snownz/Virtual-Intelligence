@@ -9,7 +9,7 @@ using VI.Neural.OptimizerFunction;
 using VI.NumSharp;
 using VI.NumSharp.Arrays;
 using VI.ParallelComputing;
-using Roslyn.ConsoleTools;
+using RoslynTools.Console;
 
 namespace MNIST
 {
@@ -67,9 +67,9 @@ namespace MNIST
                     // Sample
                     if ( ct % 1000 == 0 )
                     {
-                        Print( trainingValues[index].ToString() );
-                        Print( ArrayMethods.PrintArray( model.Output(inputs), 10 ) );
-                        Print( "\n" );
+                        Write( trainingValues[index].ToString() );
+                        Write( ArrayMethods.PrintArray( model.Output(inputs), 10 ) );
+                        Write( "\n" );
                     }       
 
                     ct++;                    

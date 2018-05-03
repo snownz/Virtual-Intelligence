@@ -26,51 +26,51 @@ namespace VI.NumSharp.Prototypes.ANN
 
         public RecursiveNeuralNetworkWithContext (int inputSize, float learningRate, float std)
         {
-            int hSize = 5;
+            int hSize = 20;
 
-            wpl = NumMath.Random(inputSize, inputSize, std);
-            wpr = NumMath.Random(inputSize, inputSize, std);
-            wC  = NumMath.Random(inputSize, inputSize, std);
-            wHP = NumMath.Random(hSize,     inputSize, std);
-            wHC = NumMath.Random(hSize,     inputSize, std);
-            wS  = NumMath.Random(1,         hSize,     1e-10f);
+            wpl = NumMath.Random( inputSize, inputSize, std    );
+            wpr = NumMath.Random( inputSize, inputSize, std    );
+            wC  = NumMath.Random( inputSize, inputSize, std    );
+            wHP = NumMath.Random( hSize,     inputSize, std    );
+            wHC = NumMath.Random( hSize,     inputSize, std    );
+            wS  = NumMath.Random( 1,         hSize,     1e-10f );
            
-            bC = NumMath.Repeat(inputSize, 1f / (float)inputSize);
-            bH = NumMath.Repeat(hSize, 1f / (float)hSize);
-            bP = NumMath.Repeat(inputSize, 1f / (float)inputSize);
+            bC = NumMath.Repeat( inputSize, 1f / (float)inputSize );
+            bH = NumMath.Repeat( hSize,     1f / (float)hSize     );
+            bP = NumMath.Repeat( inputSize, 1f / (float)inputSize );
             
-            mwpl = NumMath.Array(inputSize, inputSize);
-            mwpr = NumMath.Array(inputSize, inputSize);
-            mwC  = NumMath.Array(inputSize, inputSize);
-            mwHP = NumMath.Array(hSize,     inputSize);
-            mwHC = NumMath.Array(hSize,     inputSize);
-            mwS  = NumMath.Array(1,         hSize    );
+            mwpl = NumMath.Array( inputSize, inputSize );
+            mwpr = NumMath.Array( inputSize, inputSize );
+            mwC  = NumMath.Array( inputSize, inputSize );
+            mwHP = NumMath.Array( hSize,     inputSize );
+            mwHC = NumMath.Array( hSize,     inputSize );
+            mwS  = NumMath.Array( 1,         hSize     );
                       
-            mbC = NumMath.Array(inputSize);
-            mbH = NumMath.Array(hSize);
-            mbP = NumMath.Array(inputSize);
+            mbC = NumMath.Array( inputSize );
+            mbH = NumMath.Array( hSize     );
+            mbP = NumMath.Array( inputSize );
 
-            Adam_m_wpl = NumMath.Array(inputSize, inputSize);
-            Adam_m_wpr = NumMath.Array(inputSize, inputSize);
-            Adam_m_wC  = NumMath.Array(inputSize, inputSize);
-            Adam_m_wHP = NumMath.Array(hSize,     inputSize);
-            Adam_m_wHC = NumMath.Array(hSize,     inputSize);
-            Adam_m_ws  = NumMath.Array(1,         hSize    );
+            Adam_m_wpl = NumMath.Array( inputSize, inputSize );
+            Adam_m_wpr = NumMath.Array( inputSize, inputSize );
+            Adam_m_wC  = NumMath.Array( inputSize, inputSize );
+            Adam_m_wHP = NumMath.Array( hSize,     inputSize );
+            Adam_m_wHC = NumMath.Array( hSize,     inputSize );
+            Adam_m_ws  = NumMath.Array( 1,         hSize     );
                       
-            Adam_m_bC = NumMath.Array(inputSize);
-            Adam_m_bH = NumMath.Array(hSize);
-            Adam_m_bP = NumMath.Array(inputSize);
+            Adam_m_bC = NumMath.Array( inputSize );
+            Adam_m_bH = NumMath.Array( hSize     );
+            Adam_m_bP = NumMath.Array( inputSize );
 
-            Adam_v_wpl = NumMath.Array(inputSize, inputSize);
-            Adam_v_wpr = NumMath.Array(inputSize, inputSize);
-            Adam_v_wC  = NumMath.Array(inputSize, inputSize);
-            Adam_v_wHP = NumMath.Array(hSize,     inputSize);
-            Adam_v_wHC = NumMath.Array(hSize,     inputSize);
-            Adam_v_ws  = NumMath.Array(1,         hSize    );
+            Adam_v_wpl = NumMath.Array( inputSize, inputSize );
+            Adam_v_wpr = NumMath.Array( inputSize, inputSize );
+            Adam_v_wC  = NumMath.Array( inputSize, inputSize );
+            Adam_v_wHP = NumMath.Array( hSize,     inputSize );
+            Adam_v_wHC = NumMath.Array( hSize,     inputSize );
+            Adam_v_ws  = NumMath.Array( 1,         hSize     );
                      
-            Adam_v_bC = NumMath.Array(inputSize);
-            Adam_v_bH = NumMath.Array(hSize);
-            Adam_v_bP = NumMath.Array(inputSize);
+            Adam_v_bC = NumMath.Array( inputSize );
+            Adam_v_bH = NumMath.Array( hSize     );
+            Adam_v_bP = NumMath.Array( inputSize );
 
             _learningRate = learningRate;
         }
@@ -131,11 +131,11 @@ namespace VI.NumSharp.Prototypes.ANN
             var bkpHp = (deh * wHP).SumColumn();
             var bkpHc = (deh * wHC).SumColumn();
 
-            var dep   = ActivationFunctions.Dtanh(p) * (bkpHp + ep);
+            var dep   = ActivationFunctions.Dtanh(p) * ( bkpHp + ep );
             var bkpPl = (dep * wpl).SumColumn();
             var bkpPr = (dep * wpr).SumColumn();
 
-            var dec  = ActivationFunctions.Dtanh(c) * (bkpHc);
+            var dec  = ActivationFunctions.Dtanh(c) * ( bkpHc + ec );
             var bkpC = (dec * wC).SumColumn();
 
             var dws  = (h.T  * des);
@@ -268,10 +268,10 @@ namespace VI.NumSharp.Prototypes.ANN
             bH  -= ( _learningRate / (mbH  + 1e-8f ).Sqrt()) * dbh;
         }
 
-        public (FloatArray2D wpl, FloatArray2D wpr, FloatArray2D wSP, FloatArray2D wSC, FloatArray2D wC, FloatArray bC, FloatArray b) Params
+        public (FloatArray2D ws, FloatArray2D whp, FloatArray2D whc, FloatArray2D wpl, FloatArray2D wpr, FloatArray2D wc, FloatArray bp, FloatArray bc, FloatArray bh) Params
         {
-            get => (wpl, wpr, wHP, wHC, wC, bC, bP);
-            set => (wpl, wpr, wHP, wHC, wC, bC, bP) = (value.wpl, value.wpr, value.wSP, value.wSC, value.wC, value.bC, value.b);
+            get => ( wS, wHP, wHC, wpl, wpr, wC, bP, bC, bH );
+            set => ( wS, wHP, wHC, wpl, wpr, wC, bP, bC, bH ) = ( value.ws, value.whp, value.whc, value.wpl, value.wpr, value.wc, value.bp, value.bc, value.bh );
         }
     }
 }

@@ -2,15 +2,17 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using RoslynTools.Console;
 using VI.Neural.Network;
 using VI.Neural.OptimizerFunction;
 using VI.NumSharp;
 using VI.NumSharp.Arrays;
 using VI.ParallelComputing;
+using RoslynTools.Extensions;
 
 namespace VI.Test.Recurrent.TextWriter
 {
-    internal class Program
+    internal class Program : Cw
     {
 #if DEBUG
         private static string path = "../VI.Test.Recurrent.TextWriter/Data/text.txt";
@@ -40,7 +42,7 @@ namespace VI.Test.Recurrent.TextWriter
             vocab_size = chars.Length;
             data_size = txt.Length;
 
-            Console.WriteLine( $"data has {data_size} chars, {vocab_size} unique" );
+            Write( $"data has {data_size} chars, {vocab_size} unique" );
 
             char_to_ix = new Dictionary<char, int>();
             ix_to_char = new Dictionary<int, char>();
@@ -56,17 +58,17 @@ namespace VI.Test.Recurrent.TextWriter
         {
             Console.Clear();
 
-            ProcessingDevice.Device = DeviceType.CPU_Parallel;
+            ProcessingDevice.Device = DeviceType.CPU;
 
             OpenText();
 
-            hidden_size    = 50;
+            hidden_size    = 100;
             seq_length     = 25;
             recurrentUnits = 1; 
             learning_rate  = 1e-1f;
             std            = 1e-1f;
 
-            net = new ClassifierRecurrentNeuralNetwork( vocab_size, vocab_size, hidden_size, recurrentUnits, learning_rate, std, EnumOptimizerFunction.SGD );
+            net = new ClassifierRecurrentNeuralNetwork( vocab_size, vocab_size, hidden_size, recurrentUnits, learning_rate, std, EnumOptimizerFunction.Adagrad );
 
             var hprev = new Array<FloatArray>( recurrentUnits ).Fill( hidden_size );
             var smooth_loss = -Math.Log( 1.0 / vocab_size ) * seq_length;
@@ -76,28 +78,30 @@ namespace VI.Test.Recurrent.TextWriter
 
             while ( 1 == 1 )
             {
+                // Reset timing state
                 if ( p + seq_length + 1 >= data_size || n == 0 )
                 {
                     hprev = new Array<FloatArray>( recurrentUnits ).Fill( hidden_size );
                     p = 0;
                 }
 
-                var inputs = new int[seq_length];
+                var inputs  = new int[seq_length];
                 var targets = new int[seq_length];
 
-                for ( int i = 0; i < seq_length; i++ ) inputs[i]  = char_to_ix[txt[p + i    ]];
-                for ( int i = 0; i < seq_length; i++ ) targets[i] = char_to_ix[txt[p + 1 + i]];
+                // Set inputs N Targets
+                for ( int i = 0; i < seq_length; i++ ) inputs[i]  = char_to_ix[ txt[ p + i     ] ];
+                for ( int i = 0; i < seq_length; i++ ) targets[i] = char_to_ix[ txt[ p + 1 + i ] ];
 
-                ( var loss, var dwy, var dby, var dwh, var dbh, var hs ) = net.BPTT( inputs, targets, hprev );
+                // Learn
+                ( var loss, var hs ) = net.Learn( inputs, targets, hprev );
 
-                net.UpdateParams( dwy, dby, dwh, dbh );
-
+                // Smooth error
                 smooth_loss = smooth_loss * 0.999 + loss * 0.001;
                 
                 if ( n % 100 == 0 )
                 {
                     Sample( hprev, inputs[0], 200 );
-                    Console.WriteLine( $"iter {n}, loss: {smooth_loss}" );
+                    Write( $"iter {n}, loss: {smooth_loss}" );
                 }                
 
                 hprev = hs;
@@ -126,8 +130,7 @@ namespace VI.Test.Recurrent.TextWriter
                 hprev = data.hs;
             }
 
-            var str = string.Join( "", ixes.Select(c => ix_to_char[c]) );
-            Console.WriteLine( $"----\n {str} \n----" );
+            Write( $"----\n { ixes.Select( c => ix_to_char[c] ).Join("") } \n----" );
         }
     }
 }
