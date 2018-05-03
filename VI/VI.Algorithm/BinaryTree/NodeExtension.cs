@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using VI.Roslyn.ConsoleTools.Extensions;
+using RoslynTools.Extensions;
 
 namespace VI.Algorithm.BinaryTree
 {

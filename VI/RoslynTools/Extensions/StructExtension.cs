@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 
-namespace VI.Roslyn.ConsoleTools.Extensions
+namespace RoslynTools.Extensions
 {
     public static class StructExtension
     {

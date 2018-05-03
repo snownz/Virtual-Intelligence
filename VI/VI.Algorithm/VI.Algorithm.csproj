@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Roslyn.ConsoleTools\Roslyn.ConsoleTools.csproj" />
+    <ProjectReference Include="..\RoslynTools\RoslynTools.csproj" />
   </ItemGroup>
 
 </Project>

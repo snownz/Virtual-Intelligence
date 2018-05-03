@@ -123,6 +123,14 @@ namespace VI.Neural.Network
             return (loss, dwy, dby, dwh, dbh, hs[-1]);
         }
 
+        public (float loss, Array<FloatArray> hnext) Learn(int[] inputs, int[] targets, Array<FloatArray> hprev)
+        {
+            ( var loss, var dwy, var dby, var dwh, var dbh, var hs ) = BPTT( inputs, targets, hprev );
+            UpdateParams( dwy, dby, dwh, dbh );
+
+            return (loss, hprev);
+        }
+
         /// <summary>
         /// Update Params from network
         /// </summary>
