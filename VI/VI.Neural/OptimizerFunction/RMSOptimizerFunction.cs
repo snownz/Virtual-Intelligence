@@ -34,14 +34,16 @@ namespace VI.Neural.OptimizerFunction
 
         public void UpdateWeight(ILayer target, FloatArray2D dW)
         {           
-            gW = ( ( v * gW ) + ( m * ( dW * dW ) ) );
-            target.KnowlodgeMatrix -= ( ( target.LearningRate / ( gW + e ).Sqrt() ) * dW ); 
+            //gW = ( ( v * gW ) + ( m * ( dW * dW ) ) );
+            //target.KnowlodgeMatrix -= ( ( target.LearningRate / ( gW + e ).Sqrt() ) * dW ); 
+            VI.Neural.Drivers.Executors.ProcessingDevice.Optimization.RMSProp(target.KnowlodgeMatrix, dW, gW, target.LearningRate);
         }
 
         public void UpdateBias(ILayer target, FloatArray dB)
         {
-            bW = ( ( v * bW ) + ( m * ( dB * dB ) ) );
-            target.BiasVector -= ( ( target.LearningRate / (bW + e ).Sqrt() ) * dB );
+            //bW = ( ( v * bW ) + ( m * ( dB * dB ) ) );
+            //target.BiasVector -= ( ( target.LearningRate / (bW + e ).Sqrt() ) * dB );
+            VI.Neural.Drivers.Executors.ProcessingDevice.Optimization.RMSProp(target.BiasVector, dB, bW, target.LearningRate);
         }
     }
 }

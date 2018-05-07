@@ -38,20 +38,22 @@ namespace VI.Neural.OptimizerFunction
 
         public void UpdateBias(ILayer target, FloatArray dB)
         {
-            mB  = ( b1 * mB )  + ( ( 1f - b1 ) *  dB );
-            vB  = ( b2 * vB )  + ( ( 1f - b2 ) * ( dB * dB ) );
-            var Adam_m_b_hat  = mB / ( 1f - b1 );
-            var Adam_v_b_hat  = vB / ( 1f - b2 );
-            target.BiasVector -= ( target.LearningRate / ( ( Adam_v_b_hat  ).Sqrt() + e ) ) * Adam_m_b_hat;
+            //mB  = ( b1 * mB )  + ( ( 1f - b1 ) *  dB );
+            //vB  = ( b2 * vB )  + ( ( 1f - b2 ) * ( dB * dB ) );
+            //var Adam_m_b_hat  = mB / ( 1f - b1 );
+            //var Adam_v_b_hat  = vB / ( 1f - b2 );
+            //target.BiasVector -= ( target.LearningRate / ( ( Adam_v_b_hat  ).Sqrt() + e ) ) * Adam_m_b_hat;
+            VI.Neural.Drivers.Executors.ProcessingDevice.Optimization.Adam(target.BiasVector, dB, mB, vB, target.LearningRate);
         }
 
         public void UpdateWeight(ILayer target, FloatArray2D dW)
         {
-            mW  = ( b1 * mW )  + ( ( 1f - b1 ) * dW );
-            vW  = ( b2 * vW )  + ( ( 1f - b2 ) * ( dW * dW ) );
-            var Adam_m_ws_hat  = mW  / ( 1f - b1 );
-            var Adam_v_ws_hat  = vW  / ( 1f - b2 );
-            target.KnowlodgeMatrix -= ( target.LearningRate / ( ( Adam_v_ws_hat ).Sqrt() + e ) ) * Adam_m_ws_hat;
+            //mW  = ( b1 * mW )  + ( ( 1f - b1 ) * dW );
+            //vW  = ( b2 * vW )  + ( ( 1f - b2 ) * ( dW * dW ) );
+            //var Adam_m_ws_hat  = mW  / ( 1f - b1 );
+            //var Adam_v_ws_hat  = vW  / ( 1f - b2 );
+            //target.KnowlodgeMatrix -= ( target.LearningRate / ( ( Adam_v_ws_hat ).Sqrt() + e ) ) * Adam_m_ws_hat;
+            VI.Neural.Drivers.Executors.ProcessingDevice.Optimization.Adam(target.KnowlodgeMatrix, dW, mW, vW, target.LearningRate);
         }
     }
 }

@@ -6,10 +6,10 @@ using VI.Neural.Factory;
 using VI.Neural.LossFunction;
 using VI.Neural.Models;
 using VI.Neural.OptimizerFunction;
-using VI.NumSharp;
 using VI.NumSharp.Arrays;
 using VI.ParallelComputing;
 using RoslynTools.Console;
+using VI.Neural.Drivers.Executors;
 
 namespace MNIST
 {
@@ -32,9 +32,9 @@ namespace MNIST
             Console.WriteLine($"Device Time: {watch.ElapsedMilliseconds}ms");
 
             var model = new DenseModel();
-            model.AddLayer( BuildedModels.DenseLeakRelu ( 784, 100, 1e-4f, 2e-1f, EnumOptimizerFunction.RmsProp ) );
-            model.AddLayer( BuildedModels.DenseLeakRelu ( 100, 30,  1e-4f, 2e-1f, EnumOptimizerFunction.RmsProp ) );
-            model.AddLayer( BuildedModels.DenseSoftMax  ( 30,  10,  1e-4f, 2e-1f, EnumOptimizerFunction.RmsProp ) );
+            model.AddLayer( BuildedModels.DenseLeakRelu ( 784, 100, 1e-4f, 2e-1f, EnumOptimizerFunction.Adadelta ) );
+            model.AddLayer( BuildedModels.DenseLeakRelu ( 100, 30,  1e-4f, 2e-1f, EnumOptimizerFunction.Adadelta ) );
+            model.AddLayer( BuildedModels.DenseSoftMax  ( 30,  10,  1e-4f, 2e-1f, EnumOptimizerFunction.Adadelta ) );
             model.SetLossFunction( new CrossEntropyLossFunction() );
 
             watch = Stopwatch.StartNew();
@@ -47,7 +47,6 @@ namespace MNIST
             int cont = 0;
             int sizeTrain = trainingValues.Count;
 
-            var err = 100f;
             var e = 0f;
             while ( true )
             {
@@ -74,14 +73,11 @@ namespace MNIST
 
                     ct++;                    
                 }
-
-                err = 0.999f * err + 0.001f * e;
-
                 cont++;
                 watch.Stop();
                 var time = watch.ElapsedMilliseconds;               
                 Console.Title =
-                    $"Error: {err} --- TSPS (Training Sample per Second): {Math.Ceiling(1000d / ((double)time / (double)sizeTrain))}";
+                    $"Error: {e} --- TSPS (Training Sample per Second): {Math.Ceiling(1000d / ((double)time / (double)sizeTrain))}";
             }
         }
     }

@@ -8,7 +8,7 @@ using VI.ParallelComputing.Drivers;
 
 namespace VI.NumSharp
 {
-    public class ProcessingDevice
+    public static class ProcessingDevice
     {
         private static DeviceType _device;
         private static IGpuInterface _cudaArrayDevice;

@@ -38,18 +38,20 @@ namespace VI.Neural.OptimizerFunction
 
         public void UpdateBias(ILayer target, FloatArray dB)
         {
-            AdaDeltaB   = ( v * AdaDeltaB ) + ( m * ( dB * dB ) );
-            var mid     = -1 * ( ( ( AdaDeltaB_v + e ).Sqrt() / ( AdaDeltaB + e ).Sqrt() ) * dB );
-            AdaDeltaB_v = ( v * AdaDeltaB_v ) + ( m * ( mid * mid ) );
-            target.BiasVector -= mid;
+            //AdaDeltaB   = ( v * AdaDeltaB ) + ( m * ( dB * dB ) );
+            //var mid     = -1 * ( ( ( AdaDeltaB_v + e ).Sqrt() / ( AdaDeltaB + e ).Sqrt() ) * dB );
+            //AdaDeltaB_v = ( v * AdaDeltaB_v ) + ( m * ( mid * mid ) );
+            //target.BiasVector -= mid;
+            VI.Neural.Drivers.Executors.ProcessingDevice.Optimization.Adadelta(target.BiasVector, dB, AdaDeltaB, AdaDeltaB_v, target.LearningRate);
         }
 
         public void UpdateWeight(ILayer target, FloatArray2D dW)
         {
-            AdaDeltaW   = ( v * AdaDeltaW ) + ( m * ( dW * dW ) );
-            var mid     = -1 * ( ( ( AdaDeltaW_v + e ).Sqrt() / ( AdaDeltaW + e ).Sqrt() ) * dW );
-            AdaDeltaW_v = ( v * AdaDeltaW_v ) + ( m * ( mid * mid ) );
-            target.KnowlodgeMatrix -= mid;
+            //AdaDeltaW   = ( v * AdaDeltaW ) + ( m * ( dW * dW ) );
+            //var mid     = -1 * ( ( ( AdaDeltaW_v + e ).Sqrt() / ( AdaDeltaW + e ).Sqrt() ) * dW );
+            //AdaDeltaW_v = ( v * AdaDeltaW_v ) + ( m * ( mid * mid ) );
+            //target.KnowlodgeMatrix -= mid;
+            VI.Neural.Drivers.Executors.ProcessingDevice.Optimization.Adadelta(target.KnowlodgeMatrix, dW, AdaDeltaW, AdaDeltaW_v, target.LearningRate);
         }
     }
 }

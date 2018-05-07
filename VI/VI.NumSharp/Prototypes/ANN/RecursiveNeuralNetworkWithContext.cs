@@ -26,7 +26,7 @@ namespace VI.NumSharp.Prototypes.ANN
 
         public RecursiveNeuralNetworkWithContext (int inputSize, float learningRate, float std)
         {
-            int hSize = 20;
+            int hSize = 100;
 
             wpl = NumMath.Random( inputSize, inputSize, std    );
             wpr = NumMath.Random( inputSize, inputSize, std    );
@@ -84,7 +84,7 @@ namespace VI.NumSharp.Prototypes.ANN
             var c = ActivationFunctions.Tanh((ctx.T * wC).SumLine() + bC);
            
             // Hidden Layer
-            var h = ActivationFunctions.Tanh((p.T * wHP).SumLine() + (c.T * wHC).SumLine() + bH);
+            var h = ActivationFunctions.Relu((p.T * wHP).SumLine() + (c.T * wHC).SumLine() + bH);
 
             // Scoring value
             var s = ActivationFunctions.Sigmoid((h.T * wS).SumLine());
@@ -99,7 +99,7 @@ namespace VI.NumSharp.Prototypes.ANN
             var des = ActivationFunctions.Dsigmoid(s) * ce;
             var bkpS = (des * wS).SumColumn();
 
-            var deh = ActivationFunctions.Dtanh(h) * bkpS;
+            var deh = ActivationFunctions.Drelu(h) * bkpS;
             var bkpHp = (deh * wHP).SumColumn();
             var bkpHc = (deh * wHC).SumColumn();
 
@@ -127,7 +127,7 @@ namespace VI.NumSharp.Prototypes.ANN
             var des  = ActivationFunctions.Dsigmoid(s) * scoreError;
             var bkpS = (des * wS).SumColumn();
 
-            var deh   = ActivationFunctions.Dtanh(h) * bkpS;
+            var deh   = ActivationFunctions.Drelu(h) * bkpS;
             var bkpHp = (deh * wHP).SumColumn();
             var bkpHc = (deh * wHC).SumColumn();
 

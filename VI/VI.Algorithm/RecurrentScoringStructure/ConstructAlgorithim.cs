@@ -2,6 +2,8 @@
 using System.Linq;
 using VI.Algorithm.BinaryTree;
 using RoslynTools.Extensions;
+using VI.NumSharp.Arrays;
+using VI.NumSharp;
 
 namespace VI.Algorithm.RecurrentScoringStructure
 {
@@ -25,6 +27,25 @@ namespace VI.Algorithm.RecurrentScoringStructure
 
                 // Create a new Tree Layer
                 var newLayer = SelectDesiredGroups( scores, item, depth );
+
+                // Move to next layer
+                item = newLayer;
+                depth++;
+            }
+            return item[0];
+        }
+
+        public Node ConstructTrain(List<Node> item)
+        {
+            int depth = 0;
+
+            while ( item.Count > 1 )
+            {                
+                // Create Scores
+                var scores = CreateScores( item, depth );
+
+                // Create a new Tree Layer
+                var newLayer = SelectTrainGroups( scores, item, depth );
 
                 // Move to next layer
                 item = newLayer;
@@ -123,9 +144,30 @@ namespace VI.Algorithm.RecurrentScoringStructure
             // Get Winner
             var winner = resultNodes
             .OrderByDescending(x => x.Score)
-            //.ThenBy(x=>x.Name.Split(";").Count())
+            .ThenBy(x=>x.Name.Split(";").Count())
             .First();
 
+            // Delete all from prior
+            var include = prior.Where( x => x.Id != winner.NodeA.Id && x.Id != winner.NodeB.Id )
+                .ToList()
+                .Clone();
+
+            var result = new List<Node>();
+            result.AddRange( include );     
+            result.Add( winner );         
+
+            return result;
+        }
+
+        private List<Node> SelectTrainGroups(List<Node> resultNodes, List<Node> prior, int depth)
+        {
+            // Get Winner
+            var values = new FloatArray( resultNodes.Select( x => x.Score ).ToArray( ) ).Exp( );
+            var sum = values.Sum();
+            values = values / sum;
+            var pos = NumMath.Choice( Enumerable.Range( 0, values.Length ).ToArray(), 1, values.ToArray( ) ).First( );
+            var winner = resultNodes[ pos ];          
+            
             // Delete all from prior
             var include = prior.Where( x => x.Id != winner.NodeA.Id && x.Id != winner.NodeB.Id )
                 .ToList()
