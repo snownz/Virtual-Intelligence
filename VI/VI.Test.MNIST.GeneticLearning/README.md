@@ -28,10 +28,10 @@
         >
         > To define the size of each layer we use a logistic regession with:
         >
-        >| X | Y |
-        >|---|---|
-        >|784| 0 |
-        >| 10|256|
+        | X | Y |
+        |---|---|
+        |784| 0 |
+        | 10|256|
         >256 because the last layer have 10 units classifiers
         >        
         > With this, we can compute values for layer1, layer2, layer3, layerN
