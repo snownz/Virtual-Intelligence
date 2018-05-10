@@ -35,9 +35,9 @@ namespace VI.Neural.ANNOperations
             return back;
         }
 
-        public virtual Array<FloatArray> ComputeErrorNBackWard(FloatArray values)
+        public virtual Array<FloatArray> ComputeErrorNBackWard(FloatArray target)
         {
-            var DE = _optimizerFunction.Error(_target.OutputVector, values);
+            var DE = _target.OutputVector - target;
             var DO = _activationFunction.Derivate(_target.Sum, _target.OutputVector);
             _target.ErrorVector = DO * DE;
             var back = new Array<FloatArray>(_target.ConectionsSize.Length);

@@ -1,4 +1,5 @@
-﻿using VI.NumSharp;
+﻿using VI.Neural.Drivers.Executors;
+using VI.NumSharp;
 using VI.NumSharp.Arrays;
 
 namespace VI.Neural.ActivationFunction
@@ -8,11 +9,13 @@ namespace VI.Neural.ActivationFunction
         public FloatArray Activate(FloatArray sum)
         {
             return NumMath.Max(.001f * sum, sum);
+            //return ProcessingDriver.Activation.LeakRelu(sum);
         }
 
         public FloatArray Derivate(FloatArray sum, FloatArray act)
         {
             return (sum >= .001f) + .001f;
+            //return ProcessingDriver.Activation.DLeakRelu(sum);
         }
     }
 }

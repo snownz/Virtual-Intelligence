@@ -9,11 +9,6 @@ namespace VI.Neural.OptimizerFunction
         {
         }
 
-        public FloatArray Error(FloatArray target, FloatArray output)
-        {
-            return output - target;
-        }
-
         public void UpdateWeight(ILayer target, FloatArray2D dW)
         {
             target.KnowlodgeMatrix -= (target.LearningRate * dW);

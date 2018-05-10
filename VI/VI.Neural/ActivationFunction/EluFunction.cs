@@ -1,4 +1,5 @@
-﻿using VI.NumSharp;
+﻿using VI.Neural.Drivers.Executors;
+using VI.NumSharp;
 using VI.NumSharp.Arrays;
 
 namespace VI.Neural.ActivationFunction
@@ -13,6 +14,7 @@ namespace VI.Neural.ActivationFunction
             var greater_zero = sum * safe;
             var final = 3f * ( less_zero.Exp() - 1f ) * less_zero;
             return greater_zero + final;
+            //return ProcessingDriver.Activation.Elu(sum);
         }
 
         public FloatArray Derivate(FloatArray sum, FloatArray act)
@@ -22,6 +24,7 @@ namespace VI.Neural.ActivationFunction
             var temp  = sum * mask2;
             var final = ( 3f * temp.Exp() ) * mask2;
             return ( sum * safe ) + final;
+            //return ProcessingDriver.Activation.DElu(sum);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using VI.Neural.Consts;
+﻿using VI.Neural.Drivers.Executors;
 using VI.Neural.Layer;
 using VI.NumSharp;
 using VI.NumSharp.Arrays;
@@ -18,7 +18,7 @@ namespace VI.Neural.OptimizerFunction
 
         public NadamOptimizerFunction()
         {
-            e = OptimizationFunctionsConsts.Epsilon;
+            e = 1e-8f;
             b1 = 0.9f;
             b2 = 0.999f;
         }
@@ -31,11 +31,6 @@ namespace VI.Neural.OptimizerFunction
             vB = NumMath.Array(target.Size);
         }
 
-        public FloatArray Error(FloatArray targetOutputVector, FloatArray values)
-        {
-            return values - targetOutputVector;
-        }
-
         public void UpdateBias(ILayer target, FloatArray dB)
         {
             //mB  = ( b1 * mB )  + ( ( 1f - b1 ) *  dB );
@@ -43,7 +38,7 @@ namespace VI.Neural.OptimizerFunction
             //var Adam_m_b_hat  = mB / ( 1f - b1 );
             //var Adam_v_b_hat  = vB / ( 1f - b2 );
             //target.BiasVector -= ( target.LearningRate / ( Adam_v_b_hat.Sqrt() + e ) ) * ( b1 * Adam_m_b_hat + ( ( ( 1 - b1 ) * dB ) / ( 1 - b1 ) ) );
-            VI.Neural.Drivers.Executors.ProcessingDevice.Optimization.Nadam(target.BiasVector, dB, mB, vB, target.LearningRate);
+            ProcessingDriver.Optimization.Nadam(target.BiasVector, dB, mB, vB, target.LearningRate);
         }
 
         public void UpdateWeight(ILayer target, FloatArray2D dW)
@@ -53,7 +48,7 @@ namespace VI.Neural.OptimizerFunction
             //var Adam_m_ws_hat  = mW  / ( 1f - b1 );
             //var Adam_v_ws_hat  = vW  / ( 1f - b2 );
             //target.KnowlodgeMatrix -= ( target.LearningRate / ( Adam_v_ws_hat.Sqrt() + e ) ) * ( b1 * Adam_m_ws_hat + ( ( ( 1 - b1 ) * dW ) / ( 1 - b1 ) ) );
-            VI.Neural.Drivers.Executors.ProcessingDevice.Optimization.Nadam(target.KnowlodgeMatrix, dW, mW, vW, target.LearningRate);
+            ProcessingDriver.Optimization.Nadam(target.KnowlodgeMatrix, dW, mW, vW, target.LearningRate);
         }
     }
 }

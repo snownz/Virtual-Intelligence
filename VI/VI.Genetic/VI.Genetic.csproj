@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\VI.Maths\VI.Maths.csproj" />
+    <ProjectReference Include="..\VI.NumSharp\VI.NumSharp.csproj" />
+    <ProjectReference Include="..\VI.ParallelComputing\VI.ParallelComputing.csproj" />
+  </ItemGroup>
+
+</Project>

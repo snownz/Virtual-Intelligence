@@ -1,5 +1,4 @@
-﻿using VI.Neural.Consts;
-using VI.Neural.Layer;
+﻿using VI.Neural.Layer;
 using VI.Neural.OptimizerFunction.MultipleLayer;
 using VI.NumSharp;
 using VI.NumSharp.Arrays;
@@ -19,7 +18,7 @@ namespace VI.Neural.OptimizerFunction
 
         public AdadeltaOptimizerFunction_M()
         {
-            e = OptimizationFunctionsConsts.Epsilon;
+            e =  1e-8f;
             v = 0.001f;
             m = 0.999f;
         }

@@ -1,5 +1,4 @@
-﻿using VI.Neural.Consts;
-using VI.Neural.Layer;
+﻿using VI.Neural.Layer;
 using VI.Neural.OptimizerFunction.MultipleLayer;
 using VI.NumSharp;
 using VI.NumSharp.Arrays;
@@ -19,7 +18,7 @@ namespace VI.Neural.OptimizerFunction
 
         public NadamOptimizerFunction_M()
         {
-            e = OptimizationFunctionsConsts.Epsilon;
+            e =  1e-8f;
             b1 = 0.9f;
             b2 = 0.999f;
         }

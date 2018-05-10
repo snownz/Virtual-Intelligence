@@ -30,7 +30,7 @@ namespace VI.Neural.ANNOperations
 
         public virtual FloatArray ComputeErrorNBackWard(FloatArray target)
         {
-            var DE = _optimizerFunction.Error(target, _target.OutputVector);
+            var DE = _target.OutputVector - target;
             var DO = _activationFunction.Derivate(_target.SumVector, _target.OutputVector);
             _target.ErrorVector = DO * DE;
             return (_target.ErrorVector * _target.KnowlodgeMatrix).SumColumn();
@@ -38,7 +38,7 @@ namespace VI.Neural.ANNOperations
 
         public FloatArray ComputeErrorNBackWard(FloatArray target, FloatArray compl)
         {
-            var DE = _optimizerFunction.Error(target, _target.OutputVector) + compl;
+            var DE = _target.OutputVector - target + compl;
             var DO = _activationFunction.Derivate(_target.SumVector, _target.OutputVector);
             _target.ErrorVector = DO * DE;
             return (_target.ErrorVector * _target.KnowlodgeMatrix).SumColumn();

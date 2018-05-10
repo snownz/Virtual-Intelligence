@@ -43,6 +43,12 @@ namespace VI.NumSharp.Arrays
             set => _view[x, y] = value;
         }
 
+        //TODO finish
+        //public FloatArray this[int x]
+        //{
+        //    get => new FloatArray(_view[x]);
+        //}
+
         public (int w, int h) Size => (W, H);
 
         public FloatArray2DT T => new FloatArray2DT(_view);
@@ -158,9 +164,15 @@ namespace VI.NumSharp.Arrays
 
         public float this[int x, int y]
         {
-            get => _view[x, y];
-            set => _view[x, y] = value;
+            get => _view[y, x];
+            set => _view[y, x] = value;
         }
+
+        //TODO finish
+        //public FloatArray this[int x]
+        //{
+        //    get => new FloatArray(_view[x]);
+        //}
 
         public (int w, int h) Size => (W, H);
 

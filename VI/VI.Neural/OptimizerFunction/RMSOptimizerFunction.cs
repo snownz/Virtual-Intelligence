@@ -1,4 +1,4 @@
-﻿using VI.Neural.Consts;
+﻿using VI.Neural.Drivers.Executors;
 using VI.Neural.Layer;
 using VI.NumSharp;
 using VI.NumSharp.Arrays;
@@ -16,7 +16,7 @@ namespace VI.Neural.OptimizerFunction
 
         public RMSOptimizerFunction()
         {
-            e = OptimizationFunctionsConsts.Epsilon;
+            e =  1e-8f;
             v = 0.999f;
             m = 0.001f;
         }
@@ -27,23 +27,18 @@ namespace VI.Neural.OptimizerFunction
             bW = NumMath.Array(target.Size);
         }
 
-        public FloatArray Error(FloatArray target, FloatArray output)
-        {
-            return output - target;
-        }
-
         public void UpdateWeight(ILayer target, FloatArray2D dW)
         {           
             //gW = ( ( v * gW ) + ( m * ( dW * dW ) ) );
             //target.KnowlodgeMatrix -= ( ( target.LearningRate / ( gW + e ).Sqrt() ) * dW ); 
-            VI.Neural.Drivers.Executors.ProcessingDevice.Optimization.RMSProp(target.KnowlodgeMatrix, dW, gW, target.LearningRate);
+            ProcessingDriver.Optimization.RMSProp(target.KnowlodgeMatrix, dW, gW, target.LearningRate);
         }
 
         public void UpdateBias(ILayer target, FloatArray dB)
         {
             //bW = ( ( v * bW ) + ( m * ( dB * dB ) ) );
             //target.BiasVector -= ( ( target.LearningRate / (bW + e ).Sqrt() ) * dB );
-            VI.Neural.Drivers.Executors.ProcessingDevice.Optimization.RMSProp(target.BiasVector, dB, bW, target.LearningRate);
+            ProcessingDriver.Optimization.RMSProp(target.BiasVector, dB, bW, target.LearningRate);
         }
     }
 }

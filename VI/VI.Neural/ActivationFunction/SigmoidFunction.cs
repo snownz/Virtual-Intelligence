@@ -1,4 +1,5 @@
-﻿using VI.NumSharp.Arrays;
+﻿using VI.Neural.Drivers.Executors;
+using VI.NumSharp.Arrays;
 
 namespace VI.Neural.ActivationFunction
 {
@@ -8,12 +9,14 @@ namespace VI.Neural.ActivationFunction
 
         public FloatArray Activate(FloatArray sum)
         {
-            return 1f / (1 + (-Alpha * sum).Exp());
+            return 1f / (1f + (-Alpha * sum).Exp());
+            //return ProcessingDriver.Activation.Sigmoid(sum);
         }
 
         public FloatArray Derivate(FloatArray sum, FloatArray act)
         {
-            return Alpha * act * (1 - act);
+            return Alpha * act * (1f - act);
+            //return ProcessingDriver.Activation.DSigmoid(act);
         }
     }
 }

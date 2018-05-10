@@ -20,10 +20,9 @@ namespace VI.NumSharp
         public static Array<T> Join<T>(this Array<T> arr0, T arr1) where T : class
         {
             var result = new Array<T>(arr0.Length + 1);
-            var jump = 0;
             if (arr0.Length > 0)
             {
-                Parallel.For(0, arr0.Length, i => result[i + jump] = arr0[i]);
+                Parallel.For(0, arr0.Length, i => result[i] = arr0[i]);
             }
             result[arr0.Length] = arr1;
             return result;

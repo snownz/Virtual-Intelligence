@@ -26,15 +26,15 @@ namespace MNIST
 
             var watch = Stopwatch.StartNew();
 
-            ProcessingDevice.Device = DeviceType.CPU_Parallel;
+            ProcessingDriver.Device = DeviceType.CPU_Parallel;
 
             watch.Stop();
             Console.WriteLine($"Device Time: {watch.ElapsedMilliseconds}ms");
 
             var model = new DenseModel();
-            model.AddLayer( BuildedModels.DenseLeakRelu ( 784, 100, 1e-4f, 2e-1f, EnumOptimizerFunction.Adadelta ) );
-            model.AddLayer( BuildedModels.DenseLeakRelu ( 100, 30,  1e-4f, 2e-1f, EnumOptimizerFunction.Adadelta ) );
-            model.AddLayer( BuildedModels.DenseSoftMax  ( 30,  10,  1e-4f, 2e-1f, EnumOptimizerFunction.Adadelta ) );
+            model.AddLayer( BuildedModels.DenseLeakRelu ( 784, 100, 1e-1f, 1e-1f, EnumOptimizerFunction.SGD ) );
+            model.AddLayer( BuildedModels.DenseLeakRelu ( 100, 30,  1e-1f, 1e-1f, EnumOptimizerFunction.SGD ) );
+            model.AddLayer( BuildedModels.DenseSoftMax  ( 30,  10,  1e-1f, 1e-1f, EnumOptimizerFunction.SGD ) );
             model.SetLossFunction( new CrossEntropyLossFunction() );
 
             watch = Stopwatch.StartNew();
