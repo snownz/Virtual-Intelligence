@@ -1,18 +1,18 @@
 # Simple implementation of Ann Framework
 ## Genetic search a Best Ann Achitecture 
 
-#### I'd like to use Artificial Neural Networks to solve MNIST Dataset
+#### I want to solve the MNIST Dataset with Artificial Neural Networks
 
 ### Problem:
 > I do not know the best number of hidden layers
 >
-> How to find out the best?
+> How can I find it?
 
 ### Artificial Neural Network Framework
 ```csharp
     AnnModelFramework();
 ```
-> AnnModelFramework ia ns Abstraction os methods that search the best solution for a problem. Based on Genetic algorithims and search heuristics.
+> AnnModelFramework is an Abstraction of methods that search the best solution for a problem. Based on Genetic algorithims and search heuristics.
 
 ### How to Use?
 1. Data
@@ -36,14 +36,14 @@
         >        
         > With this, we can compute values for layer1, layer2, layer3, layerN
     + [Define a Fitness Function that will compute our model loss from  ``` IFitnessFunctionGeneric<DigitImage> ``` Interface]()
-        > We just train the network model and comput teh loss with CrossEntropy
-    + [Define an Best Chromossome selector method from  ``` ISelectionBest<DigitImage> ``` Interface]()
+        > We just train the network model and compute the loss with CrossEntropy
+    + [Define a Best Chromossome selector method from  ``` ISelectionBest<DigitImage> ``` Interface]()
         > In this step we define the method to find a best chromossome
 
 ### Steps
 > After defining all of the methods, we can implement the framework.
 
-1. [Initialize teh framework with a DataType]()
+1. [Initialize the framework with a DataType]()
     > ``` var framework = new AnnModelFramework<DigitImage>( 100, dtSelect, dtSelect, ancestral, ff, selectionGenes, selectionBest );  ```
 
 2. [Create dataset]()
@@ -55,4 +55,4 @@
 4. [Get Best model from Framework]()
     > ``` var model = framework.GetModel() as DenseModel;  ```
 
-5. Done!!! Now we have the best model to train and use
+5. Done!!! Now we have the best model for training and using!
